@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1700" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="2400" height="1700" fill="#FAFAFA"/>
+
+  <!-- Title -->
+  <text x="1200" y="55" font-size="36" font-weight="700" text-anchor="middle" fill="#111827">Merged School Portal — Information Architecture</text>
+  <text x="1200" y="85" font-size="16" font-weight="400" text-anchor="middle" fill="#6B7280">TimelyCare + Alongside — proposed top-level structure</text>
+
+  <!-- Legend -->
+  <g transform="translate(40, 110)">
+    <rect x="0" y="0" width="20" height="20" rx="4" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="28" y="15" font-size="14" fill="#1E3A8A" font-weight="600">TimelyCare</text>
+
+    <rect x="140" y="0" width="20" height="20" rx="4" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="168" y="15" font-size="14" fill="#064E3B" font-weight="600">Alongside</text>
+
+    <rect x="270" y="0" width="20" height="20" rx="4" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="298" y="15" font-size="14" fill="#78350F" font-weight="600">Merged / shared</text>
+
+    <rect x="440" y="0" width="20" height="20" rx="4" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+    <text x="468" y="15" font-size="14" fill="#4C1D95" font-weight="600">Net-new</text>
+
+    <rect x="580" y="0" width="20" height="20" rx="4" fill="#FFE4E6" stroke="#E11D48" stroke-width="2" stroke-dasharray="3 3"/>
+    <text x="608" y="15" font-size="14" fill="#881337" font-weight="600">Upsell / gated</text>
+  </g>
+
+  <!-- Root node -->
+  <g filter="url(#shadow)">
+    <rect x="1080" y="170" width="240" height="64" rx="12" fill="#111827"/>
+    <text x="1200" y="200" font-size="18" font-weight="700" text-anchor="middle" fill="#FFFFFF">School Portal</text>
+    <text x="1200" y="222" font-size="13" font-weight="400" text-anchor="middle" fill="#D1D5DB">(merged product root)</text>
+  </g>
+
+  <!-- Connector lines from root to section headers -->
+  <g stroke="#9CA3AF" stroke-width="2" fill="none">
+    <path d="M1200 234 L1200 270 L185 270 L185 300"/>
+    <path d="M1200 270 L516 270 L516 300"/>
+    <path d="M1200 270 L847 270 L847 300"/>
+    <path d="M1200 234 L1200 300"/>
+    <path d="M1200 270 L1509 270 L1509 300"/>
+    <path d="M1200 270 L1840 270 L1840 300"/>
+    <path d="M1200 270 L2171 270 L2171 300"/>
+  </g>
+
+  <!-- ============ COLUMN 1: HOME / DASHBOARD ============ -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="300" width="290" height="64" rx="10" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+    <text x="185" y="328" font-size="18" font-weight="700" text-anchor="middle" fill="#4C1D95">🏠 Home / Dashboard</text>
+    <text x="185" y="350" font-size="11" text-anchor="middle" fill="#6B21A8">Unified landing experience</text>
+  </g>
+  <line x1="185" y1="364" x2="185" y2="390" stroke="#9CA3AF" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <rect x="55" y="390" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="185" y="414" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Today's on-site / campus visits</text>
+    <text x="185" y="432" font-size="11" text-anchor="middle" fill="#1D4ED8">from TC home page</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="55" y="460" width="260" height="56" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="185" y="484" font-size="13" font-weight="600" text-anchor="middle" fill="#064E3B">Active crisis alerts</text>
+    <text x="185" y="502" font-size="11" text-anchor="middle" fill="#047857">from Alongside crisis triggers</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="55" y="530" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="185" y="554" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Utilization snapshot</text>
+    <text x="185" y="572" font-size="11" text-anchor="middle" fill="#1D4ED8">from TC insights</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="55" y="600" width="260" height="56" rx="8" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+    <text x="185" y="624" font-size="13" font-weight="600" text-anchor="middle" fill="#4C1D95">Quick actions</text>
+    <text x="185" y="642" font-size="11" text-anchor="middle" fill="#6B21A8">invite · start visit · assign skill</text>
+  </g>
+
+  <!-- ============ COLUMN 2: STUDENTS ============ -->
+  <g filter="url(#shadow)">
+    <rect x="371" y="300" width="290" height="64" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="516" y="328" font-size="18" font-weight="700" text-anchor="middle" fill="#78350F">👥 Students</text>
+    <text x="516" y="350" font-size="11" text-anchor="middle" fill="#92400E">Unified roster + profile</text>
+  </g>
+  <line x1="516" y1="364" x2="516" y2="390" stroke="#9CA3AF" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <rect x="386" y="390" width="260" height="56" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="516" y="414" font-size="13" font-weight="600" text-anchor="middle" fill="#064E3B">Eligibility Roster</text>
+    <text x="516" y="432" font-size="11" text-anchor="middle" fill="#047857">Clever-synced (nightly Client Card)</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="386" y="460" width="260" height="56" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="516" y="484" font-size="13" font-weight="600" text-anchor="middle" fill="#78350F">Student Profile</text>
+    <text x="516" y="502" font-size="11" text-anchor="middle" fill="#92400E">unified profile view</text>
+  </g>
+
+  <!-- Profile sub-items -->
+  <g filter="url(#shadow)">
+    <rect x="400" y="530" width="232" height="40" rx="6" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+    <text x="516" y="555" font-size="11" font-weight="500" text-anchor="middle" fill="#1E3A8A">↳ Guardian info (TC)</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="400" y="580" width="232" height="40" rx="6" fill="#D1FAE5" stroke="#059669" stroke-width="1.5"/>
+    <text x="516" y="605" font-size="11" font-weight="500" text-anchor="middle" fill="#064E3B">↳ Crisis status (AS)</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="400" y="630" width="232" height="40" rx="6" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+    <text x="516" y="655" font-size="11" font-weight="500" text-anchor="middle" fill="#1E3A8A">↳ Care history (TC)</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="400" y="680" width="232" height="40" rx="6" fill="#D1FAE5" stroke="#059669" stroke-width="1.5"/>
+    <text x="516" y="705" font-size="11" font-weight="500" text-anchor="middle" fill="#064E3B">↳ Assigned skills + docs (AS)</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="386" y="740" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="516" y="764" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Invite students</text>
+    <text x="516" y="782" font-size="11" text-anchor="middle" fill="#1D4ED8">manual entry (TC pathway)</text>
+  </g>
+
+  <!-- ============ COLUMN 3: CARE ============ -->
+  <g filter="url(#shadow)">
+    <rect x="702" y="300" width="290" height="64" rx="10" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="847" y="328" font-size="18" font-weight="700" text-anchor="middle" fill="#1E3A8A">🩺 Care</text>
+    <text x="847" y="350" font-size="11" text-anchor="middle" fill="#1D4ED8">Reactive: visit-based care</text>
+  </g>
+  <line x1="847" y1="364" x2="847" y2="390" stroke="#9CA3AF" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <rect x="717" y="390" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="847" y="414" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Schedule a visit</text>
+    <text x="847" y="432" font-size="11" text-anchor="middle" fill="#1D4ED8">student-facing flow</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="717" y="460" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="847" y="484" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Start a visit</text>
+    <text x="847" y="502" font-size="11" text-anchor="middle" fill="#1D4ED8">Facilitation Permission</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="717" y="530" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="847" y="554" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Visit + scheduling history</text>
+    <text x="847" y="572" font-size="11" text-anchor="middle" fill="#1D4ED8">per student / school</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="717" y="600" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="847" y="624" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Visit allocation</text>
+    <text x="847" y="642" font-size="11" text-anchor="middle" fill="#1D4ED8">district admin</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="717" y="670" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="847" y="694" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Clinical documents</text>
+    <text x="847" y="712" font-size="11" text-anchor="middle" fill="#1D4ED8">library + access</text>
+  </g>
+
+  <!-- ============ COLUMN 4: SUPPORT & SKILLS ============ -->
+  <g filter="url(#shadow)">
+    <rect x="1033" y="300" width="290" height="64" rx="10" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="1178" y="328" font-size="18" font-weight="700" text-anchor="middle" fill="#064E3B">🧠 Support &amp; Skills</text>
+    <text x="1178" y="350" font-size="11" text-anchor="middle" fill="#047857">Proactive: preventive content</text>
+  </g>
+  <line x1="1178" y1="364" x2="1178" y2="390" stroke="#9CA3AF" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <rect x="1048" y="390" width="260" height="56" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="1178" y="414" font-size="13" font-weight="600" text-anchor="middle" fill="#064E3B">Assign skills</text>
+    <text x="1178" y="432" font-size="11" text-anchor="middle" fill="#047857">by student / cohort</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1048" y="460" width="260" height="56" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="1178" y="484" font-size="13" font-weight="600" text-anchor="middle" fill="#064E3B">Assign documents</text>
+    <text x="1178" y="502" font-size="11" text-anchor="middle" fill="#047857">push to student</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1048" y="530" width="260" height="56" rx="8" fill="#FFE4E6" stroke="#E11D48" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="1178" y="554" font-size="13" font-weight="600" text-anchor="middle" fill="#881337">Universal screening</text>
+    <text x="1178" y="572" font-size="11" text-anchor="middle" fill="#9F1239">upsell · gated</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1048" y="600" width="260" height="56" rx="8" fill="#FFE4E6" stroke="#E11D48" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="1178" y="624" font-size="13" font-weight="600" text-anchor="middle" fill="#881337">Teacher support</text>
+    <text x="1178" y="642" font-size="11" text-anchor="middle" fill="#9F1239">upsell · gated</text>
+  </g>
+
+  <!-- ============ COLUMN 5: CRISIS ============ -->
+  <g filter="url(#shadow)">
+    <rect x="1364" y="300" width="290" height="64" rx="10" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="1509" y="328" font-size="18" font-weight="700" text-anchor="middle" fill="#064E3B">🚨 Crisis</text>
+    <text x="1509" y="350" font-size="11" text-anchor="middle" fill="#047857">Trigger-driven response</text>
+  </g>
+  <line x1="1509" y1="364" x2="1509" y2="390" stroke="#9CA3AF" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <rect x="1379" y="390" width="260" height="56" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="1509" y="414" font-size="13" font-weight="600" text-anchor="middle" fill="#064E3B">Active crises</text>
+    <text x="1509" y="432" font-size="11" text-anchor="middle" fill="#047857">real-time list + status</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1379" y="460" width="260" height="56" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="1509" y="484" font-size="13" font-weight="600" text-anchor="middle" fill="#064E3B">Trigger history</text>
+    <text x="1509" y="502" font-size="11" text-anchor="middle" fill="#047857">audit + analytics</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1379" y="530" width="260" height="56" rx="8" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+    <text x="1509" y="554" font-size="13" font-weight="600" text-anchor="middle" fill="#4C1D95">Crisis → Visit handoff</text>
+    <text x="1509" y="572" font-size="11" text-anchor="middle" fill="#6B21A8">NEW: bridge AS triggers → TC visits</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1379" y="600" width="260" height="56" rx="8" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+    <text x="1509" y="624" font-size="13" font-weight="600" text-anchor="middle" fill="#4C1D95">Response protocols</text>
+    <text x="1509" y="642" font-size="11" text-anchor="middle" fill="#6B21A8">school playbooks</text>
+  </g>
+
+  <!-- ============ COLUMN 6: INSIGHTS ============ -->
+  <g filter="url(#shadow)">
+    <rect x="1695" y="300" width="290" height="64" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="1840" y="328" font-size="18" font-weight="700" text-anchor="middle" fill="#78350F">📊 Insights</text>
+    <text x="1840" y="350" font-size="11" text-anchor="middle" fill="#92400E">Unified analytics layer</text>
+  </g>
+  <line x1="1840" y1="364" x2="1840" y2="390" stroke="#9CA3AF" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <rect x="1710" y="390" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="1840" y="414" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Utilization</text>
+    <text x="1840" y="432" font-size="11" text-anchor="middle" fill="#1D4ED8">visits, sessions, no-shows</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1710" y="460" width="260" height="56" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="1840" y="484" font-size="13" font-weight="600" text-anchor="middle" fill="#064E3B">Engagement</text>
+    <text x="1840" y="502" font-size="11" text-anchor="middle" fill="#047857">skill completion, content reach</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1710" y="530" width="260" height="56" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="1840" y="554" font-size="13" font-weight="600" text-anchor="middle" fill="#064E3B">Crisis trends</text>
+    <text x="1840" y="572" font-size="11" text-anchor="middle" fill="#047857">trigger volume + response time</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1710" y="600" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="1840" y="624" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">Invite + scheduling history</text>
+    <text x="1840" y="642" font-size="11" text-anchor="middle" fill="#1D4ED8">funnel view</text>
+  </g>
+
+  <!-- ============ COLUMN 7: ADMIN ============ -->
+  <g filter="url(#shadow)">
+    <rect x="2026" y="300" width="290" height="64" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="2171" y="328" font-size="18" font-weight="700" text-anchor="middle" fill="#78350F">⚙️ Admin</text>
+    <text x="2171" y="350" font-size="11" text-anchor="middle" fill="#92400E">District + school config</text>
+  </g>
+  <line x1="2171" y1="364" x2="2171" y2="390" stroke="#9CA3AF" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <rect x="2041" y="390" width="260" height="56" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="2171" y="414" font-size="13" font-weight="600" text-anchor="middle" fill="#78350F">Users + permissions</text>
+    <text x="2171" y="432" font-size="11" text-anchor="middle" fill="#92400E">unified RBAC (incl. Facilitation)</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="2041" y="460" width="260" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="2171" y="484" font-size="13" font-weight="600" text-anchor="middle" fill="#1E3A8A">District visit allocation</text>
+    <text x="2171" y="502" font-size="11" text-anchor="middle" fill="#1D4ED8">caps + budgets</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="2041" y="530" width="260" height="56" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+    <text x="2171" y="554" font-size="13" font-weight="600" text-anchor="middle" fill="#064E3B">Roster data set config</text>
+    <text x="2171" y="572" font-size="11" text-anchor="middle" fill="#047857">Clever fields school chooses</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="2041" y="600" width="260" height="56" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="2171" y="624" font-size="13" font-weight="600" text-anchor="middle" fill="#78350F">SSO + credentials</text>
+    <text x="2171" y="642" font-size="11" text-anchor="middle" fill="#92400E">Clever button + own login</text>
+  </g>
+
+  <!-- ============ KEY DECISIONS / OPEN QUESTIONS ============ -->
+  <g transform="translate(40, 880)">
+    <rect x="0" y="0" width="2320" height="40" rx="8" fill="#1F2937"/>
+    <text x="20" y="27" font-size="18" font-weight="700" fill="#FFFFFF">Open questions to resolve before wireframing</text>
+
+    <g filter="url(#shadow)">
+      <rect x="0" y="60" width="560" height="120" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+      <text x="20" y="88" font-size="14" font-weight="700" fill="#111827">1. Roster identity model</text>
+      <text x="20" y="112" font-size="12" fill="#374151">Is Clever sync the sole source of truth,</text>
+      <text x="20" y="130" font-size="12" fill="#374151">or do manual invites create parallel records?</text>
+      <text x="20" y="160" font-size="11" font-style="italic" fill="#6B7280">Impacts: Students → Roster vs. Invite paths</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="580" y="60" width="560" height="120" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+      <text x="600" y="88" font-size="14" font-weight="700" fill="#111827">2. Crisis ↔ Visit handoff</text>
+      <text x="600" y="112" font-size="12" fill="#374151">Should a crisis trigger auto-suggest</text>
+      <text x="600" y="130" font-size="12" fill="#374151">or auto-create a scheduled visit?</text>
+      <text x="600" y="160" font-size="11" font-style="italic" fill="#6B7280">Impacts: Strongest cross-product merger story</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1160" y="60" width="560" height="120" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+      <text x="1180" y="88" font-size="14" font-weight="700" fill="#111827">3. Unified permission model</text>
+      <text x="1180" y="112" font-size="12" fill="#374151">How do TC's Facilitation Permission and</text>
+      <text x="1180" y="130" font-size="12" fill="#374151">AS's assignment roles collapse into one RBAC?</text>
+      <text x="1180" y="160" font-size="11" font-style="italic" fill="#6B7280">Impacts: Admin → Users + permissions</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1740" y="60" width="580" height="120" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+      <text x="1760" y="88" font-size="14" font-weight="700" fill="#111827">4. Upsell gating strategy</text>
+      <text x="1760" y="112" font-size="12" fill="#374151">Do screening / teacher support stay as</text>
+      <text x="1760" y="130" font-size="12" fill="#374151">nav items (locked) or live in a marketplace?</text>
+      <text x="1760" y="160" font-size="11" font-style="italic" fill="#6B7280">Impacts: Support &amp; Skills section structure</text>
+    </g>
+  </g>
+
+  <!-- ============ FLOW INSIGHT ============ -->
+  <g transform="translate(40, 1110)">
+    <rect x="0" y="0" width="2320" height="40" rx="8" fill="#1F2937"/>
+    <text x="20" y="27" font-size="18" font-weight="700" fill="#FFFFFF">Core insight: two complementary care models</text>
+
+    <g filter="url(#shadow)">
+      <rect x="0" y="60" width="1140" height="260" rx="12" fill="#DBEAFE" stroke="#2563EB" stroke-width="3"/>
+      <text x="20" y="95" font-size="20" font-weight="700" fill="#1E3A8A">TimelyCare — Reactive care spine</text>
+      <text x="20" y="125" font-size="14" fill="#1E40AF">Trigger: student or staff initiates a need</text>
+      <text x="20" y="160" font-size="13" fill="#1E3A8A" font-weight="600">Flow:</text>
+      <text x="20" y="183" font-size="13" fill="#1E40AF">Invite → Schedule → Visit → Document → Insight</text>
+      <text x="20" y="220" font-size="13" fill="#1E3A8A" font-weight="600">Strengths to preserve:</text>
+      <text x="20" y="243" font-size="12" fill="#1E40AF">· Facilitation Permission model</text>
+      <text x="20" y="263" font-size="12" fill="#1E40AF">· District allocation + budgets</text>
+      <text x="20" y="283" font-size="12" fill="#1E40AF">· Clinical document handling</text>
+      <text x="20" y="303" font-size="12" fill="#1E40AF">· Visit history depth</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1180" y="60" width="1140" height="260" rx="12" fill="#D1FAE5" stroke="#059669" stroke-width="3"/>
+      <text x="1200" y="95" font-size="20" font-weight="700" fill="#064E3B">Alongside — Proactive care spine</text>
+      <text x="1200" y="125" font-size="14" fill="#065F46">Trigger: data signal (roster, trigger, screening)</text>
+      <text x="1200" y="160" font-size="13" fill="#064E3B" font-weight="600">Flow:</text>
+      <text x="1200" y="183" font-size="13" fill="#065F46">Roster → Signal → Assign skill/doc → Track → Escalate</text>
+      <text x="1200" y="220" font-size="13" fill="#064E3B" font-weight="600">Strengths to preserve:</text>
+      <text x="1200" y="243" font-size="12" fill="#065F46">· Clever-synced eligibility roster</text>
+      <text x="1200" y="263" font-size="12" fill="#065F46">· Crisis trigger detection</text>
+      <text x="1200" y="283" font-size="12" fill="#065F46">· Skill + document assignment model</text>
+      <text x="1200" y="303" font-size="12" fill="#065F46">· Universal screening (gateway upsell)</text>
+    </g>
+
+    <!-- Bridge arrow -->
+    <g>
+      <path d="M1130 190 L1190 190" stroke="#7C3AED" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+      <path d="M1190 190 L1130 190" stroke="#7C3AED" stroke-width="4" fill="none" marker-end="url(#arrowhead2)"/>
+    </g>
+  </g>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#7C3AED"/>
+    </marker>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#7C3AED"/>
+    </marker>
+  </defs>
+
+  <!-- Footer -->
+  <text x="1200" y="1670" font-size="11" text-anchor="middle" fill="#9CA3AF">Drag this SVG into FigJam → every node imports as an editable shape. Convert to native stickies or sections as you iterate.</text>
+</svg>
