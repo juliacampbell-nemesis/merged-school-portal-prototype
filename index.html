@@ -312,21 +312,17 @@
 
       <!-- Account dropdown menu -->
       <div id="account-menu" role="menu" aria-labelledby="account-button" class="hidden absolute bottom-full left-3 right-3 mb-2 bg-card border border-border rounded-md shadow-md py-1 z-50">
-        <div class="px-3 py-2 border-b border-border">
-          <div class="text-sm font-semibold">Julia Campbell</div>
-          <div class="text-xs text-muted-foreground mono truncate">julia.campbell@lincolnusd.edu</div>
+        <!-- Identity card: avatar + name + email + role · org -->
+        <div class="px-3 py-3 border-b border-border flex items-start gap-3">
+          <span class="size-9 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs font-semibold border border-accent-border shrink-0">JC</span>
+          <div class="min-w-0 flex-1">
+            <div class="text-sm font-semibold truncate">Julia Campbell</div>
+            <div class="text-xs text-muted-foreground truncate">julia.campbell@lincolnusd.edu</div>
+            <div class="text-xs text-muted-foreground truncate mt-0.5">Counselor Lead · Lincoln USD</div>
+          </div>
         </div>
         <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu(); navigate('settings')">
-          <i data-lucide="user" class="size-4"></i>My profile
-        </a>
-        <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu(); navigate('settings')">
           <i data-lucide="settings" class="size-4"></i>Settings
-        </a>
-        <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu()">
-          <i data-lucide="life-buoy" class="size-4"></i>Help &amp; support
-        </a>
-        <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu()">
-          <i data-lucide="keyboard" class="size-4"></i>Keyboard shortcuts
         </a>
         <!--
           Switch district: render ONLY when user.districts.length > 1
