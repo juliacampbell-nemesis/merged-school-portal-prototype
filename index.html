@@ -1008,9 +1008,6 @@ Julia Campbell</textarea>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
         <i data-lucide="download" class="size-4"></i>Export
       </button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
-        <i data-lucide="user-plus" class="size-4"></i>Invite student
-      </button>
     </div>
   </div>
 
@@ -1042,11 +1039,20 @@ Julia Campbell</textarea>
     <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="bookmark-plus" class="size-4"></i>Save as cohort</button>
   </div>
 
+  <!-- Table toolbar (bulk actions) — per Helix Table spec -->
+  <div class="flex items-center justify-between mb-3 px-1">
+    <p class="text-sm text-muted-foreground"><span id="student-selection-count">0</span> of <span id="student-selection-total">8</span> selected</p>
+    <button type="button" id="student-invite-btn" disabled class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"><i data-lucide="user-plus" class="size-4"></i>Create invite</button>
+  </div>
+
   <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
     <table class="w-full text-sm">
       <thead class="bg-muted">
         <tr class="border-b border-border">
-          <th scope="col" class="text-left px-6 py-3 text-base font-bold">Name</th>
+          <th scope="col" class="text-left pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-muted">
+            <input type="checkbox" id="students-select-all" onclick="toggleAllStudents(this)" class="size-4 rounded border-input accent-primary cursor-pointer align-middle" aria-label="Select all students on this page">
+          </th>
+          <th scope="col" class="text-left py-3 text-base font-bold">Name</th>
           <th scope="col" class="text-left py-3 text-base font-bold">Grade</th>
           <th scope="col" class="text-left py-3 text-base font-bold">Status</th>
           <th scope="col" class="text-left py-3 text-base font-bold">Wellness</th>
@@ -1056,51 +1062,59 @@ Julia Campbell</textarea>
           <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Actions</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-border">
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
-          <td class="px-6 py-3 font-semibold">Kevin Martinez</td><td class="py-3">11</td><td class="py-3">Active</td>
+      <tbody id="students-table-body" class="divide-y divide-border">
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Kevin Martinez"></td>
+          <td class="py-3 font-semibold">Kevin Martinez</td><td class="py-3">11</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Urgent</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">1 / 8</td><td class="py-3 mono">12</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
-          <td class="px-6 py-3 font-semibold">Emma Sullivan</td><td class="py-3">9</td><td class="py-3">Active</td>
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Emma Sullivan"></td>
+          <td class="py-3 font-semibold">Emma Sullivan</td><td class="py-3">9</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Monitoring</span></td>
           <td class="py-3">1 week ago</td><td class="py-3 mono">5 / 5</td><td class="py-3 mono">2</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
-          <td class="px-6 py-3 font-semibold">Marcus Thompson</td><td class="py-3">10</td><td class="py-3">Active</td>
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Marcus Thompson"></td>
+          <td class="py-3 font-semibold">Marcus Thompson</td><td class="py-3">10</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">2 / 4</td><td class="py-3 mono">7</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
-          <td class="px-6 py-3 font-semibold">Aisha Khan</td><td class="py-3">9</td><td class="py-3">Active</td>
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Aisha Khan"></td>
+          <td class="py-3 font-semibold">Aisha Khan</td><td class="py-3">9</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Monitoring</span></td>
           <td class="py-3">2 days ago</td><td class="py-3 mono">4 / 6</td><td class="py-3 mono">3</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
-          <td class="px-6 py-3 font-semibold">Diego Reyes</td><td class="py-3">11</td><td class="py-3">Active</td>
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Diego Reyes"></td>
+          <td class="py-3 font-semibold">Diego Reyes</td><td class="py-3">11</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">3 / 3</td><td class="py-3 mono">4</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
-          <td class="px-6 py-3 font-semibold">Tyler Jensen</td><td class="py-3">10</td><td class="py-3">Active</td>
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Tyler Jensen"></td>
+          <td class="py-3 font-semibold">Tyler Jensen</td><td class="py-3">10</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Monitoring</span></td>
           <td class="py-3">4 days ago</td><td class="py-3 mono">0 / 4</td><td class="py-3 mono">1</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
-          <td class="px-6 py-3 font-semibold">Sara Lin</td><td class="py-3">12</td><td class="py-3">Active</td>
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Sara Lin"></td>
+          <td class="py-3 font-semibold">Sara Lin</td><td class="py-3">12</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">6 / 6</td><td class="py-3 mono">8</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
-          <td class="px-6 py-3 font-semibold text-muted-foreground">Jordan Pierce</td><td class="py-3 text-muted-foreground">11</td><td class="py-3 text-muted-foreground">Inactive</td>
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Jordan Pierce"></td>
+          <td class="py-3 font-semibold text-muted-foreground">Jordan Pierce</td><td class="py-3 text-muted-foreground">11</td><td class="py-3 text-muted-foreground">Inactive</td>
           <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">—</span></td>
           <td class="py-3 text-muted-foreground">3 mo ago</td><td class="py-3 mono text-muted-foreground">0 / 0</td><td class="py-3 mono text-muted-foreground">0</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
@@ -1317,7 +1331,7 @@ Julia Campbell</textarea>
         </tr>
       </thead>
       <tbody class="divide-y divide-border">
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="px-4 py-3"><input type="checkbox" checked class="rounded border-input" aria-label="Select Kevin Martinez"></td>
           <td class="py-3 font-semibold">Kevin Martinez</td>
           <td class="py-3">11</td>
@@ -1327,7 +1341,7 @@ Julia Campbell</textarea>
           <td class="py-3">Today</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="px-4 py-3"><input type="checkbox" checked class="rounded border-input" aria-label="Select Heyes, Clarke"></td>
           <td class="py-3 font-semibold">Heyes, Clarke</td>
           <td class="py-3">9</td>
@@ -1337,7 +1351,7 @@ Julia Campbell</textarea>
           <td class="py-3">2 weeks ago</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="px-4 py-3"><input type="checkbox" checked class="rounded border-input" aria-label="Select Friis, Elsa"></td>
           <td class="py-3 font-semibold">Friis, Elsa</td>
           <td class="py-3">7</td>
@@ -1347,7 +1361,7 @@ Julia Campbell</textarea>
           <td class="py-3">1 week ago</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="px-4 py-3"><input type="checkbox" class="rounded border-input" aria-label="Select Emma Sullivan"></td>
           <td class="py-3 font-semibold">Emma Sullivan</td>
           <td class="py-3">9</td>
@@ -1357,7 +1371,7 @@ Julia Campbell</textarea>
           <td class="py-3">1 week ago</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="px-4 py-3"><input type="checkbox" class="rounded border-input" aria-label="Select Tyler Jensen"></td>
           <td class="py-3 font-semibold">Tyler Jensen</td>
           <td class="py-3">10</td>
@@ -1367,7 +1381,7 @@ Julia Campbell</textarea>
           <td class="py-3">4 days ago</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
+        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="px-4 py-3"><input type="checkbox" class="rounded border-input" aria-label="Select Aisha Khan"></td>
           <td class="py-3 font-semibold">Aisha Khan</td>
           <td class="py-3">9</td>
@@ -4775,6 +4789,66 @@ Julia Campbell</textarea>
       a.classList.toggle('is-active', a.dataset.scSurface === topLevel);
     });
   }
+  // === Students table multi-select (Helix Table spec) ===
+  function toggleStudentSelection(checkbox) {
+    // Row checkbox toggled — sync row visual state, then recompute totals
+    const row = checkbox.closest('tr');
+    if (row) {
+      // Selected row uses the same accent token as hover (per spec)
+      row.classList.toggle('bg-accent', checkbox.checked);
+      row.classList.toggle('bg-card', !checkbox.checked);
+    }
+    updateStudentBulkActions();
+  }
+  function toggleAllStudents(headerCheckbox) {
+    document.querySelectorAll('#students-table-body input[data-student-checkbox]').forEach(cb => {
+      cb.checked = headerCheckbox.checked;
+      const row = cb.closest('tr');
+      if (row) {
+        row.classList.toggle('bg-accent', headerCheckbox.checked);
+        row.classList.toggle('bg-card', !headerCheckbox.checked);
+      }
+    });
+    updateStudentBulkActions();
+  }
+  function updateStudentBulkActions() {
+    const rowCheckboxes = document.querySelectorAll('#students-table-body input[data-student-checkbox]');
+    const checked = Array.from(rowCheckboxes).filter(cb => cb.checked);
+    const count = checked.length;
+    const total = rowCheckboxes.length;
+
+    // Header select-all: tri-state (checked | unchecked | indeterminate)
+    const headerCheckbox = document.getElementById('students-select-all');
+    if (headerCheckbox) {
+      headerCheckbox.checked = count === total && total > 0;
+      headerCheckbox.indeterminate = count > 0 && count < total;
+    }
+
+    // Toolbar copy: "N of total selected"
+    const countEl = document.getElementById('student-selection-count');
+    const totalEl = document.getElementById('student-selection-total');
+    if (countEl) countEl.textContent = String(count);
+    if (totalEl) totalEl.textContent = String(total);
+
+    // Create invite button: disabled when 0 (spec pattern)
+    const inviteBtn = document.getElementById('student-invite-btn');
+    if (inviteBtn) {
+      inviteBtn.disabled = count === 0;
+      // Surface count on the label when > 0
+      const labelText = count > 0 ? `Create invite (${count})` : 'Create invite';
+      const textNode = Array.from(inviteBtn.childNodes).find(n => n.nodeType === 3 && n.textContent.trim());
+      if (textNode) textNode.textContent = labelText;
+    }
+  }
+  // Keyboard support for clickable rows (per spec: Enter or Space triggers row click).
+  // Ignores keypresses on focusable descendants (checkbox, buttons) so those keep their native behavior.
+  function handleStudentRowKey(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+    e.preventDefault();
+    e.currentTarget.click();
+  }
+
   function setStudentsTab(tab) {
     document.querySelectorAll('.students-panel').forEach(p => p.classList.add('hidden'));
     const panel = document.getElementById('studentspanel-' + tab);
