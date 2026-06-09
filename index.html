@@ -234,7 +234,8 @@
   .dropdown-item:hover {
     background-color: hsl(var(--muted));
   }
-  /* Self-Care standalone mode — hides school portal sidebar when opened in new tab */
+  /* Self-Care standalone mode — hides school portal chrome (top bar + sidebar) when opened in new tab */
+  body.is-self-care #topbar,
   body.is-self-care #main-sidebar { display: none; }
   /* Self-Care sidebar nav active state (mint sidebar → navy pill with cream text) */
   .sc-nav-link.is-active {
@@ -251,19 +252,69 @@
 <div class="border-b border-border bg-card">
   <div class="px-6 py-2 text-xs text-muted-foreground flex items-center gap-2">
     <i data-lucide="info" class="size-3.5"></i>
-    <span>Wireframe prototype  ·  Path A IA  ·  Helix sidebar pattern, monochrome</span>
+    <span>Wireframe prototype  ·  Path A IA  ·  Helix top bar + sidebar pattern</span>
   </div>
 </div>
 
-<div class="flex min-h-[calc(100vh-33px)]">
-  <aside id="main-sidebar" class="w-64 shrink-0 border-r border-sidebar-border bg-sidebar flex flex-col sticky top-0 self-start max-h-screen">
-    <div class="px-4 py-5 border-b border-sidebar-border">
-      <a href="#home" class="flex items-center gap-2 mb-4" aria-label="School Portal home">
-        <span class="size-8 rounded-md border border-border flex items-center justify-center">
-          <i data-lucide="graduation-cap" class="size-5"></i>
+<!-- ===================== TOP BAR (Helix pattern) ===================== -->
+<header id="topbar" class="border-b border-border bg-card sticky top-0 z-40">
+  <div class="flex items-center justify-between h-14 px-4">
+    <!-- Brand (left) -->
+    <a href="#home" class="flex items-center gap-2" aria-label="School Portal home">
+      <span class="size-8 rounded-md border border-border flex items-center justify-center">
+        <i data-lucide="graduation-cap" class="size-5"></i>
+      </span>
+      <span class="font-bold text-base tracking-tight">School Portal</span>
+    </a>
+
+    <!-- Avatar + account dropdown (right) -->
+    <div class="relative">
+      <button id="account-button" type="button" onclick="toggleAccountMenu()" class="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-muted transition-colors" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
+        <span class="size-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs font-semibold border border-accent-border shrink-0">JC</span>
+        <span class="hidden md:block text-left min-w-0">
+          <span class="block text-sm font-semibold leading-tight truncate">Julia C.</span>
+          <span class="block text-xs text-muted-foreground leading-tight truncate">Counselor Lead</span>
         </span>
-        <span class="font-bold text-base tracking-tight">School Portal</span>
-      </a>
+        <i id="account-chevron" data-lucide="chevron-down" class="size-4 text-muted-foreground shrink-0 transition-transform"></i>
+      </button>
+
+      <!-- Account dropdown menu (drops DOWN from top bar) -->
+      <div id="account-menu" role="menu" aria-labelledby="account-button" class="hidden absolute top-full right-0 mt-2 w-72 bg-card border border-border rounded-md shadow-md py-1 z-50">
+        <!-- Identity card: avatar + name + email + role · org -->
+        <div class="px-3 py-3 border-b border-border flex items-start gap-3">
+          <span class="size-9 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs font-semibold border border-accent-border shrink-0">JC</span>
+          <div class="min-w-0 flex-1">
+            <div class="text-sm font-semibold truncate">Julia Campbell</div>
+            <div class="text-xs text-muted-foreground truncate">julia.campbell@lincolnusd.edu</div>
+            <div class="text-xs text-muted-foreground truncate mt-0.5">Counselor Lead · Lincoln USD</div>
+          </div>
+        </div>
+        <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu(); navigate('settings')">
+          <i data-lucide="settings" class="size-4"></i>Settings
+        </a>
+        <!--
+          Switch district: render ONLY when user.districts.length > 1
+          (itinerant clinicians, regional admins, charter network leaders).
+          Hidden here because Julia is single-district. Markup kept below
+          for design reference; remove the `hidden` class to preview.
+        -->
+        <div class="border-t border-border my-1 hidden" data-multi-district></div>
+        <a class="dropdown-item hidden" role="menuitem" onclick="closeAccountMenu()" data-multi-district>
+          <i data-lucide="building-2" class="size-4"></i>Switch district
+          <span class="ml-auto text-xs text-muted-foreground">Lincoln USD</span>
+        </a>
+        <div class="border-t border-border my-1"></div>
+        <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu()">
+          <i data-lucide="log-out" class="size-4"></i>Log out
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="flex min-h-[calc(100vh-33px-3.5rem)]">
+  <aside id="main-sidebar" class="w-64 shrink-0 border-r border-sidebar-border bg-sidebar flex flex-col sticky top-14 self-start max-h-[calc(100vh-3.5rem)]">
+    <div class="px-4 py-5 border-b border-sidebar-border">
       <!-- Switch to Self-Care (opens in new tab) -->
       <a href="#my-wellness" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 w-full h-9 px-3 rounded-full border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
         <i data-lucide="heart-pulse" class="size-4"></i>
@@ -300,47 +351,6 @@
       </div>
     </nav>
 
-    <div class="p-3 border-t border-sidebar-border relative">
-      <button id="account-button" type="button" onclick="toggleAccountMenu()" class="flex items-center gap-2 w-full px-3 py-2 rounded-md hover:bg-muted transition-colors text-left" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
-        <span class="size-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs font-semibold border border-accent-border shrink-0">JC</span>
-        <span class="flex-1 min-w-0">
-          <span class="block text-sm font-semibold truncate">Julia C.</span>
-          <span class="block text-xs text-muted-foreground truncate">Counselor Lead</span>
-        </span>
-        <i id="account-chevron" data-lucide="chevron-down" class="size-4 text-muted-foreground shrink-0 transition-transform"></i>
-      </button>
-
-      <!-- Account dropdown menu -->
-      <div id="account-menu" role="menu" aria-labelledby="account-button" class="hidden absolute bottom-full left-3 right-3 mb-2 bg-card border border-border rounded-md shadow-md py-1 z-50">
-        <!-- Identity card: avatar + name + email + role · org -->
-        <div class="px-3 py-3 border-b border-border flex items-start gap-3">
-          <span class="size-9 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs font-semibold border border-accent-border shrink-0">JC</span>
-          <div class="min-w-0 flex-1">
-            <div class="text-sm font-semibold truncate">Julia Campbell</div>
-            <div class="text-xs text-muted-foreground truncate">julia.campbell@lincolnusd.edu</div>
-            <div class="text-xs text-muted-foreground truncate mt-0.5">Counselor Lead · Lincoln USD</div>
-          </div>
-        </div>
-        <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu(); navigate('settings')">
-          <i data-lucide="settings" class="size-4"></i>Settings
-        </a>
-        <!--
-          Switch district: render ONLY when user.districts.length > 1
-          (itinerant clinicians, regional admins, charter network leaders).
-          Hidden here because Julia is single-district. Markup kept below
-          for design reference; remove the `hidden` class to preview.
-        -->
-        <div class="border-t border-border my-1 hidden" data-multi-district></div>
-        <a class="dropdown-item hidden" role="menuitem" onclick="closeAccountMenu()" data-multi-district>
-          <i data-lucide="building-2" class="size-4"></i>Switch district
-          <span class="ml-auto text-xs text-muted-foreground">Lincoln USD</span>
-        </a>
-        <div class="border-t border-border my-1"></div>
-        <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu()">
-          <i data-lucide="log-out" class="size-4"></i>Log out
-        </a>
-      </div>
-    </div>
   </aside>
 
   <div class="flex-1 min-w-0">
