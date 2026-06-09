@@ -89,6 +89,20 @@
             50: '#F9F6F3', 100: '#F0EBE4', 200: '#E6DDD3', 300: '#CCB9A5', 400: '#B69981',
             500: '#A78168', 600: '#9A705C', 700: '#815C4D', 800: '#694C43', 900: '#564038', 950: '#2D201D',
           },
+          /* Alongside brand approximation (used only within #student-demo for 1:1 fidelity) */
+          'al-bg':         '#F5EAD3',
+          'al-bg-light':   '#FBF5EB',
+          'al-card':       '#FFFFFF',
+          'al-text':       '#1B2545',
+          'al-text-muted': '#6B6256',
+          'al-orange':     '#FF6B35',
+          'al-orange-bg':  '#FFE3D6',
+          'al-border':     '#E5DCC8',
+          'al-blue':       '#2D9CDB',
+          'al-green':      '#7DC58A',
+          'al-pink':       '#FFC1C8',
+          'al-purple':     '#D4BCFF',
+          'al-yellow':     '#FFE08A',
         },
         borderRadius: {
           lg: 'var(--radius)',
@@ -263,13 +277,13 @@
           <i id="student-demo-chevron" data-lucide="chevron-down" class="size-4 transition-transform" style="transform: rotate(180deg)"></i>
         </button>
         <ul id="student-demo-subnav" role="list" class="space-y-0.5 mt-0.5 ml-2 pl-2 border-l border-sidebar-border">
-          <li><a href="#student-demo" class="nav-link" data-route="student-demo-home"><i data-lucide="home" class="size-4"></i>Home</a></li>
-          <li><a href="#student-demo" class="nav-link"><i data-lucide="smile" class="size-4"></i>Mood</a></li>
-          <li><a href="#student-demo" class="nav-link"><i data-lucide="message-square" class="size-4"></i>Chat</a></li>
-          <li><a href="#student-demo" class="nav-link"><i data-lucide="target" class="size-4"></i>Goals</a></li>
-          <li><a href="#student-demo" class="nav-link"><i data-lucide="play-circle" class="size-4"></i>Videos</a></li>
-          <li><a href="#student-demo" class="nav-link"><i data-lucide="book-open" class="size-4"></i>Journal</a></li>
-          <li><a href="#student-demo" class="nav-link"><i data-lucide="ellipsis" class="size-4"></i>More</a></li>
+          <li><a href="#student-demo" class="nav-link" data-demo-surface="home"><i data-lucide="home" class="size-4"></i>Home</a></li>
+          <li><a href="#student-demo-habits" class="nav-link" data-demo-surface="habits"><i data-lucide="clock-3" class="size-4"></i>Habits</a></li>
+          <li><a href="#student-demo-chat" class="nav-link" data-demo-surface="chat"><i data-lucide="message-circle" class="size-4"></i>Chat</a></li>
+          <li><a href="#student-demo-goals" class="nav-link" data-demo-surface="goals"><i data-lucide="trophy" class="size-4"></i>Goals</a></li>
+          <li><a href="#student-demo-videos" class="nav-link" data-demo-surface="videos"><i data-lucide="play-circle" class="size-4"></i>Videos</a></li>
+          <li><a href="#student-demo-journal" class="nav-link" data-demo-surface="journal"><i data-lucide="pencil" class="size-4"></i>Journal</a></li>
+          <li><a href="#student-demo-more" class="nav-link" data-demo-surface="more"><i data-lucide="ellipsis" class="size-4"></i>More</a></li>
         </ul>
       </div>
     </nav>
@@ -3127,117 +3141,449 @@ Julia Campbell</textarea>
 </main>
 
 <!-- ===================== STUDENT DEMO ===================== -->
-<main id="student-demo" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li class="flex items-center gap-1.5"><i data-lucide="user" class="size-3.5"></i>My account</li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Student demo</li>
-    </ol>
-  </nav>
-
-  <!-- Preview banner -->
-  <div class="rounded-lg bg-tc-orange-50 border border-tc-orange-200 px-4 py-3 mb-6 flex items-center gap-3">
-    <i data-lucide="eye" class="size-4 text-tc-orange-900 shrink-0"></i>
-    <span class="text-sm text-tc-orange-900"><strong class="font-semibold">You're previewing the student app.</strong> Actions here are sandboxed — nothing saves, no alerts fire, no email goes out.</span>
+<main id="student-demo" class="page">
+  <!-- Slim preview ribbon -->
+  <div class="bg-tc-orange-50 border-b border-tc-orange-200 px-6 py-2 text-xs text-tc-orange-900 flex items-center gap-2">
+    <i data-lucide="eye" class="size-3.5 shrink-0"></i>
+    <span><strong class="font-semibold">Student Demo (preview)</strong> — sandboxed view of what students see. Nothing saves, no alerts fire.</span>
+    <span class="ml-auto inline-flex items-center gap-2">
+      <span class="font-semibold">Preview as:</span>
+      <select class="h-7 px-2 rounded border border-tc-orange-200 bg-card text-xs text-foreground"><option>Grade 11</option><option>Grade 8</option><option>Grade 5</option></select>
+    </span>
   </div>
 
-  <div class="mb-6">
-    <h1 class="text-2xl font-bold tracking-tight">Student demo</h1>
-    <p class="text-base text-muted-foreground mt-1">Walk through what students see and do. Great for parent conversations, staff onboarding, or just understanding the experience.</p>
-  </div>
+  <!-- Alongside student app shell (1:1 reproduction with approximated brand palette) -->
+  <div class="bg-al-bg text-al-text min-h-[calc(100vh-12rem)]">
 
-  <!-- Role switcher (top toolbar — surfaces are in the sidebar now) -->
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-3 flex-wrap">
-    <span class="text-sm font-semibold inline-flex items-center gap-2"><i data-lucide="user" class="size-4"></i>Preview as:</span>
-    <div role="radiogroup" class="inline-flex items-center rounded-md bg-muted p-1 text-muted-foreground" aria-label="Grade level">
-      <button role="radio" aria-checked="true" class="inline-flex items-center justify-center rounded-sm px-3 py-1 text-sm font-semibold bg-card text-foreground shadow-sm">Grade 11</button>
-      <button role="radio" aria-checked="false" class="inline-flex items-center justify-center rounded-sm px-3 py-1 text-sm font-medium hover:text-foreground">Grade 8</button>
-      <button role="radio" aria-checked="false" class="inline-flex items-center justify-center rounded-sm px-3 py-1 text-sm font-medium hover:text-foreground">Grade 5</button>
+    <!-- ============ HOME ============ -->
+    <div id="demo-surface-home" class="demo-surface px-10 py-8">
+      <!-- Mascot greeting row -->
+      <div class="flex items-center gap-3 mb-6 flex-wrap">
+        <div class="flex -space-x-2">
+          <div class="size-14 rounded-full bg-al-purple flex items-center justify-center text-2xl border-2 border-al-bg" aria-hidden="true">🦙</div>
+          <div class="size-14 rounded-full bg-al-yellow flex items-center justify-center text-2xl border-2 border-al-bg" aria-hidden="true">🦊</div>
+          <div class="size-14 rounded-full bg-al-pink flex items-center justify-center text-2xl border-2 border-al-bg" aria-hidden="true">🐢</div>
+        </div>
+        <h2 class="text-xl font-bold text-al-text">What do you want to explore today?</h2>
+      </div>
+
+      <!-- 2-col main + side -->
+      <div class="grid grid-cols-[1fr_300px] gap-6">
+        <div class="space-y-4">
+          <!-- Chat input -->
+          <div class="bg-al-card border border-al-border rounded-2xl p-4">
+            <textarea placeholder="Talk about anything..." class="w-full text-base text-al-text bg-transparent outline-none resize-none placeholder:text-al-text-muted" rows="3"></textarea>
+            <div class="flex items-center justify-end gap-3 mt-2">
+              <button type="button" class="text-al-text-muted hover:text-al-text" aria-label="Voice input"><i data-lucide="mic" class="size-5"></i></button>
+              <button type="button" class="text-al-text-muted hover:text-al-text" aria-label="Send"><i data-lucide="send" class="size-5"></i></button>
+            </div>
+          </div>
+
+          <!-- Topic pills -->
+          <div class="flex flex-wrap gap-2">
+            <button type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-al-border bg-al-card text-sm hover:bg-al-bg-light"><span aria-hidden="true">😴</span>Sleep issues</button>
+            <button type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-al-border bg-al-card text-sm hover:bg-al-bg-light"><span aria-hidden="true">💪</span>Need motivation</button>
+            <button type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-al-border bg-al-card text-sm hover:bg-al-bg-light"><span aria-hidden="true">😩</span>Too much going on</button>
+            <button type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-al-border bg-al-card text-sm hover:bg-al-bg-light"><span aria-hidden="true">❤️</span>Relationship issues</button>
+          </div>
+        </div>
+
+        <!-- Right rail -->
+        <div class="space-y-6">
+          <!-- This week's habits -->
+          <section>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-al-text">This week's habits</h3>
+              <span class="inline-flex items-center gap-1 text-sm font-semibold"><span aria-hidden="true">🔥</span>0</span>
+            </div>
+            <div class="flex justify-between gap-1 mb-3">
+              <div class="flex flex-col items-center gap-1 text-xs text-al-text-muted"><div class="size-8 rounded-full bg-al-card border border-al-border"></div>Sun</div>
+              <div class="flex flex-col items-center gap-1 text-xs text-al-text-muted"><div class="size-8 rounded-full bg-al-card border border-al-border"></div>Mon</div>
+              <div class="flex flex-col items-center gap-1 text-xs text-al-text-muted"><div class="size-8 rounded-full bg-al-card border border-al-border"></div>Tue</div>
+              <div class="flex flex-col items-center gap-1 text-xs text-al-text-muted"><div class="size-8 rounded-full bg-al-card border border-al-border"></div>Wed</div>
+              <div class="flex flex-col items-center gap-1 text-xs text-al-text-muted"><div class="size-8 rounded-full bg-al-card border border-al-border"></div>Thu</div>
+              <div class="flex flex-col items-center gap-1 text-xs text-al-text-muted"><div class="size-8 rounded-full bg-al-card border border-al-border"></div>Fri</div>
+              <div class="flex flex-col items-center gap-1 text-xs text-al-text-muted"><div class="size-8 rounded-full bg-al-card border border-al-border"></div>Sat</div>
+            </div>
+            <button type="button" class="w-full inline-flex items-center justify-center px-4 py-2 rounded-full bg-al-orange text-white font-semibold text-sm hover:opacity-90 transition-opacity">Track your habits</button>
+          </section>
+
+          <!-- Recommended skills -->
+          <section>
+            <h3 class="font-bold text-al-text mb-3">Recommended skills</h3>
+            <div class="space-y-2">
+              <button type="button" class="w-full flex items-center gap-3 p-2.5 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light transition-colors text-left">
+                <div class="size-9 rounded-full bg-al-orange-bg flex items-center justify-center text-base shrink-0" aria-hidden="true">🎯</div>
+                <div class="flex-1 text-sm">Learn simple ways to stop a panic attack when it starts</div>
+                <i data-lucide="chevron-right" class="size-4 text-al-text-muted shrink-0"></i>
+              </button>
+              <button type="button" class="w-full flex items-center gap-3 p-2.5 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light transition-colors text-left">
+                <div class="size-9 rounded-full bg-al-yellow flex items-center justify-center text-base shrink-0" aria-hidden="true">✋</div>
+                <div class="flex-1 text-sm">Ditch the comparisons and embrace your awesome self</div>
+                <i data-lucide="chevron-right" class="size-4 text-al-text-muted shrink-0"></i>
+              </button>
+              <button type="button" class="w-full flex items-center gap-3 p-2.5 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light transition-colors text-left">
+                <div class="size-9 rounded-full bg-al-purple flex items-center justify-center text-base shrink-0" aria-hidden="true">🧠</div>
+                <div class="flex-1 text-sm">Try to see things from others' views to build better relationships</div>
+                <i data-lucide="chevron-right" class="size-4 text-al-text-muted shrink-0"></i>
+              </button>
+            </div>
+            <div class="flex gap-2 mt-3">
+              <button type="button" class="px-4 py-1.5 rounded-full border border-al-text text-al-text text-sm font-semibold hover:bg-al-bg-light">See all</button>
+              <button type="button" class="px-4 py-1.5 rounded-full bg-al-orange text-white text-sm font-semibold hover:opacity-90">Create a goal</button>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
-    <span class="ml-auto text-xs text-muted-foreground">Viewing  <strong class="font-semibold text-foreground">Home</strong>  ·  pick a surface from the sidebar to change</span>
-  </div>
 
-  <div>
-    <!-- Demo content area: shows mock student Home -->
-    <div>
-      <!-- Phone-like frame -->
-      <div class="bg-card border border-border rounded-2xl shadow-md mx-auto max-w-md p-6">
-        <div class="flex items-center justify-between mb-6">
-          <div class="size-10 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-sm font-semibold">SD</div>
-          <button type="button" class="inline-flex items-center justify-center size-9 rounded-full hover:bg-muted transition-colors" aria-label="Settings"><i data-lucide="settings" class="size-5"></i></button>
+    <!-- ============ HABITS ============ -->
+    <div id="demo-surface-habits" class="demo-surface hidden px-10 py-8">
+      <!-- Tabs -->
+      <div class="flex items-center gap-2 mb-6">
+        <button type="button" class="px-4 py-1.5 rounded-full bg-al-text text-white text-sm font-semibold">Calendar</button>
+        <button type="button" class="px-4 py-1.5 rounded-full border border-al-border bg-al-card text-al-text text-sm font-semibold">Insights</button>
+      </div>
+
+      <div class="grid grid-cols-[1fr_280px] gap-6">
+        <!-- Calendar -->
+        <section>
+          <div class="flex items-center justify-between mb-4">
+            <button type="button" class="size-9 inline-flex items-center justify-center text-al-text-muted hover:text-al-text" aria-label="Previous month"><i data-lucide="chevron-left" class="size-5"></i></button>
+            <h3 class="text-lg font-bold">June 2026</h3>
+            <button type="button" class="size-9 inline-flex items-center justify-center text-al-text-muted hover:text-al-text" aria-label="Next month"><i data-lucide="chevron-right" class="size-5"></i></button>
+          </div>
+          <div class="grid grid-cols-7 gap-2 text-center text-xs text-al-text-muted font-semibold mb-2">
+            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+          </div>
+          <div class="grid grid-cols-7 gap-2 text-center text-sm">
+            <div class="aspect-square flex flex-col items-center justify-center text-al-text-muted">31</div>
+            <div class="aspect-square flex flex-col items-center justify-center text-al-text-muted">1</div>
+            <div class="aspect-square flex flex-col items-center justify-center"><span class="text-base" aria-hidden="true">🌱</span><span class="text-xs">2</span></div>
+            <div class="aspect-square flex flex-col items-center justify-center">3</div>
+            <div class="aspect-square flex flex-col items-center justify-center">4</div>
+            <div class="aspect-square flex flex-col items-center justify-center">5</div>
+            <div class="aspect-square flex flex-col items-center justify-center">6</div>
+            <div class="aspect-square flex flex-col items-center justify-center">7</div>
+            <div class="aspect-square flex flex-col items-center justify-center">8</div>
+            <div class="aspect-square flex flex-col items-center justify-center ring-2 ring-al-orange rounded-full">9</div>
+            <div class="aspect-square flex flex-col items-center justify-center">10</div>
+            <div class="aspect-square flex flex-col items-center justify-center">11</div>
+            <div class="aspect-square flex flex-col items-center justify-center">12</div>
+            <div class="aspect-square flex flex-col items-center justify-center">13</div>
+            <div class="aspect-square flex flex-col items-center justify-center">14</div>
+            <div class="aspect-square flex flex-col items-center justify-center">15</div>
+            <div class="aspect-square flex flex-col items-center justify-center">16</div>
+            <div class="aspect-square flex flex-col items-center justify-center">17</div>
+            <div class="aspect-square flex flex-col items-center justify-center">18</div>
+            <div class="aspect-square flex flex-col items-center justify-center">19</div>
+            <div class="aspect-square flex flex-col items-center justify-center">20</div>
+            <div class="aspect-square flex flex-col items-center justify-center">21</div>
+            <div class="aspect-square flex flex-col items-center justify-center">22</div>
+            <div class="aspect-square flex flex-col items-center justify-center">23</div>
+            <div class="aspect-square flex flex-col items-center justify-center">24</div>
+            <div class="aspect-square flex flex-col items-center justify-center">25</div>
+            <div class="aspect-square flex flex-col items-center justify-center">26</div>
+            <div class="aspect-square flex flex-col items-center justify-center">27</div>
+            <div class="aspect-square flex flex-col items-center justify-center">28</div>
+            <div class="aspect-square flex flex-col items-center justify-center">29</div>
+            <div class="aspect-square flex flex-col items-center justify-center">30</div>
+            <div class="aspect-square flex flex-col items-center justify-center text-al-text-muted">1</div>
+            <div class="aspect-square flex flex-col items-center justify-center text-al-text-muted">2</div>
+            <div class="aspect-square flex flex-col items-center justify-center text-al-text-muted">3</div>
+            <div class="aspect-square flex flex-col items-center justify-center text-al-text-muted">4</div>
+          </div>
+        </section>
+
+        <!-- Hint card -->
+        <aside class="bg-al-bg-light border border-al-border rounded-lg p-4 h-fit">
+          <p class="text-sm flex items-start gap-2"><i data-lucide="mouse-pointer-click" class="size-4 shrink-0 mt-0.5"></i><span>Click on any of the icons to see more info</span></p>
+        </aside>
+      </div>
+
+      <!-- Habit-tracker modal mock (collapsed, just for visual reference) -->
+      <details class="mt-8 bg-al-card border border-al-border rounded-lg p-4">
+        <summary class="cursor-pointer font-semibold text-sm">Show today's check-in (tap a day in the calendar)</summary>
+        <div class="mt-4 space-y-5">
+          <div>
+            <p class="font-bold text-al-text mb-3">How much did you sleep?</p>
+            <div class="flex gap-3">
+              <button type="button" class="flex-1 flex flex-col items-center gap-1 p-3 rounded-lg border border-al-border bg-al-card hover:bg-al-bg-light"><span class="text-2xl" aria-hidden="true">🌑</span><span class="text-xs font-semibold">7 hours or less</span></button>
+              <button type="button" class="flex-1 flex flex-col items-center gap-1 p-3 rounded-lg border border-al-border bg-al-card hover:bg-al-bg-light"><span class="text-2xl" aria-hidden="true">🌗</span><span class="text-xs font-semibold">8-10 hours</span></button>
+              <button type="button" class="flex-1 flex flex-col items-center gap-1 p-3 rounded-lg border border-al-border bg-al-card hover:bg-al-bg-light"><span class="text-2xl" aria-hidden="true">🌕</span><span class="text-xs font-semibold">11 hours or more</span></button>
+            </div>
+          </div>
+          <div>
+            <p class="font-bold text-al-text mb-3">How much did you exercise?</p>
+            <div class="flex gap-3">
+              <button type="button" class="flex-1 flex flex-col items-center gap-1 p-3 rounded-lg border border-al-border bg-al-card hover:bg-al-bg-light"><span class="text-2xl" aria-hidden="true">🚶</span><span class="text-xs font-semibold">Less than 30 min</span></button>
+              <button type="button" class="flex-1 flex flex-col items-center gap-1 p-3 rounded-lg border border-al-border bg-al-card hover:bg-al-bg-light"><span class="text-2xl" aria-hidden="true">🏃</span><span class="text-xs font-semibold">30-60 min</span></button>
+              <button type="button" class="flex-1 flex flex-col items-center gap-1 p-3 rounded-lg border border-al-border bg-al-card hover:bg-al-bg-light"><span class="text-2xl" aria-hidden="true">💪</span><span class="text-xs font-semibold">More than 60 min</span></button>
+            </div>
+          </div>
+          <div>
+            <p class="font-bold text-al-text mb-3">How was your eating?</p>
+            <div class="flex gap-3">
+              <button type="button" class="flex-1 flex flex-col items-center gap-1 p-3 rounded-lg border border-al-border bg-al-card hover:bg-al-bg-light"><span class="text-2xl" aria-hidden="true">🍔</span><span class="text-xs font-semibold">Not great</span></button>
+              <button type="button" class="flex-1 flex flex-col items-center gap-1 p-3 rounded-lg border border-al-border bg-al-card hover:bg-al-bg-light"><span class="text-2xl" aria-hidden="true">🥪</span><span class="text-xs font-semibold">Okay</span></button>
+              <button type="button" class="flex-1 flex flex-col items-center gap-1 p-3 rounded-lg border border-al-border bg-al-card hover:bg-al-bg-light"><span class="text-2xl" aria-hidden="true">🥗</span><span class="text-xs font-semibold">Healthy</span></button>
+            </div>
+          </div>
+          <div class="flex justify-end gap-2">
+            <button type="button" class="px-4 py-2 rounded-full border border-al-text text-sm font-semibold">Cancel</button>
+            <button type="button" class="px-4 py-2 rounded-full bg-al-green text-white text-sm font-semibold">Submit</button>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- ============ CHAT ============ -->
+    <div id="demo-surface-chat" class="demo-surface hidden">
+      <!-- Chat header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-al-border">
+        <button type="button" class="text-al-text-muted hover:text-al-text" aria-label="Back"><i data-lucide="chevron-left" class="size-5"></i></button>
+        <div class="inline-flex items-center gap-2 font-semibold">
+          <div class="size-7 rounded-full bg-al-orange-bg flex items-center justify-center text-base" aria-hidden="true">🦙</div>
+          Nova
+          <i data-lucide="chevron-down" class="size-4 text-al-text-muted"></i>
+        </div>
+        <div class="flex items-center gap-4">
+          <button type="button" class="flex flex-col items-center gap-0.5 text-xs hover:text-al-text"><i data-lucide="zap" class="size-5"></i>Skills</button>
+          <button type="button" class="flex flex-col items-center gap-0.5 text-xs hover:text-al-text"><i data-lucide="history" class="size-5"></i>History</button>
+          <button type="button" class="flex flex-col items-center gap-0.5 text-xs hover:text-al-text"><i data-lucide="settings" class="size-5"></i>Settings</button>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="px-10 py-6">
+        <p class="text-xs text-center text-al-text-muted mb-12 max-w-2xl mx-auto"><strong class="font-semibold">Private:</strong> This is an AI chatbot. Chats are private, but we'll contact your school counselor if safety concerns come up (like self-harm, harming others, or abuse).</p>
+
+        <div class="max-w-2xl mx-auto">
+          <h2 class="text-center font-bold text-al-blue mb-4">How can I help you today?</h2>
+          <div class="bg-al-card border border-al-border rounded-2xl p-4 mb-4">
+            <textarea placeholder="Talk about anything..." class="w-full text-base text-al-text bg-transparent outline-none resize-none placeholder:text-al-text-muted" rows="2"></textarea>
+            <div class="flex items-center justify-end gap-3 mt-2">
+              <button type="button" class="text-al-text-muted hover:text-al-text" aria-label="Voice"><i data-lucide="mic" class="size-5"></i></button>
+              <button type="button" class="text-al-text-muted hover:text-al-text" aria-label="Send"><i data-lucide="send" class="size-5"></i></button>
+            </div>
+          </div>
+          <div class="flex flex-wrap justify-center gap-2">
+            <button type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-al-border bg-al-card text-sm hover:bg-al-bg-light"><span aria-hidden="true">😴</span>Sleep issues</button>
+            <button type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-al-border bg-al-card text-sm hover:bg-al-bg-light"><span aria-hidden="true">❤️</span>Relationship issues</button>
+            <button type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-al-border bg-al-card text-sm hover:bg-al-bg-light"><span aria-hidden="true">😩</span>Too much going on</button>
+            <button type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-al-border bg-al-card text-sm hover:bg-al-bg-light"><span aria-hidden="true">💪</span>Need motivation</button>
+            <button type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-al-border bg-al-card text-sm hover:bg-al-bg-light">More...</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ GOALS ============ -->
+    <div id="demo-surface-goals" class="demo-surface hidden px-10 py-16">
+      <div class="flex flex-col items-center text-center max-w-md mx-auto">
+        <div class="size-32 mb-6 flex items-center justify-center text-7xl" aria-hidden="true">🦙</div>
+        <h2 class="text-xl font-bold text-al-text mb-2">Create your first goal!</h2>
+        <p class="text-sm text-al-text-muted mb-6">Start a chat from Skills to get started.</p>
+        <button type="button" class="px-6 py-2 rounded-full bg-al-blue text-white font-semibold text-sm hover:opacity-90">Show Skills</button>
+      </div>
+    </div>
+
+    <!-- ============ VIDEOS ============ -->
+    <div id="demo-surface-videos" class="demo-surface hidden px-10 py-8">
+      <div class="relative mb-6 max-w-xl">
+        <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-al-text-muted"></i>
+        <input type="text" placeholder="Start typing a search" class="w-full h-10 pl-9 pr-3 rounded-full border border-al-border bg-al-card text-sm placeholder:text-al-text-muted">
+      </div>
+
+      <!-- Get Motivated -->
+      <section class="mb-8">
+        <h3 class="font-bold text-al-text mb-3">Get Motivated <span class="text-al-text-muted text-sm font-normal">8</span></h3>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-yellow flex items-center justify-center text-3xl" aria-hidden="true">🚧</div>
+            <p class="px-3 py-2 text-sm font-semibold">Setting Boundaries</p>
+          </div>
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-orange-bg flex items-center justify-center text-3xl" aria-hidden="true">🗣️</div>
+            <p class="px-3 py-2 text-sm font-semibold">Get Better at Talking</p>
+          </div>
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-purple flex items-center justify-center text-3xl" aria-hidden="true">🎭</div>
+            <p class="px-3 py-2 text-sm font-semibold">The Uses of Envy</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Celebrities Tell All -->
+      <section class="mb-8">
+        <h3 class="font-bold text-al-text mb-3">Celebrities Tell All</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-pink flex items-center justify-center text-3xl" aria-hidden="true">⏸️</div>
+            <p class="px-3 py-2 text-sm font-semibold">Press Pause: The Athlete's Right to Balance Media and Mental Health</p>
+          </div>
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-blue flex items-center justify-center text-3xl text-white" aria-hidden="true">🏆</div>
+            <p class="px-3 py-2 text-sm font-semibold">Beyond the Game: Athletes Championing Mental Health</p>
+          </div>
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-orange flex items-center justify-center text-3xl text-white" aria-hidden="true">🎤</div>
+            <p class="px-3 py-2 text-sm font-semibold">Billie Eilish Interview — Are You Actually Good?</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Boost Your Mood -->
+      <section class="mb-8">
+        <h3 class="font-bold text-al-text mb-3">Boost Your Mood</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-green flex items-center justify-center text-3xl" aria-hidden="true">🐶</div>
+            <p class="px-3 py-2 text-sm font-semibold">3 Minutes Of The Cutest Animals</p>
+          </div>
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-yellow flex items-center justify-center text-3xl" aria-hidden="true">🐐</div>
+            <p class="px-3 py-2 text-sm font-semibold">Mood Boost: Fainting Goats</p>
+          </div>
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-pink flex items-center justify-center text-3xl" aria-hidden="true">🧱</div>
+            <p class="px-3 py-2 text-sm font-semibold">Lego Sundae — Yum!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Calm and Focus -->
+      <section>
+        <h3 class="font-bold text-al-text mb-3">Calm and Focus</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-blue flex items-center justify-center text-3xl text-white" aria-hidden="true">🌊</div>
+            <p class="px-3 py-2 text-sm font-semibold">Ocean Sounds — 30 Minutes</p>
+          </div>
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-purple flex items-center justify-center text-3xl" aria-hidden="true">🌲</div>
+            <p class="px-3 py-2 text-sm font-semibold">Forest Fly-Through</p>
+          </div>
+          <div class="bg-al-card border border-al-border rounded-lg overflow-hidden">
+            <div class="aspect-video bg-al-orange-bg flex items-center justify-center text-3xl" aria-hidden="true">🫁</div>
+            <p class="px-3 py-2 text-sm font-semibold">Box Breathing Follow-Along</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ JOURNAL ============ -->
+    <div id="demo-surface-journal" class="demo-surface hidden">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-al-border">
+        <h2 class="inline-flex items-center gap-2 font-semibold"><span aria-hidden="true">📓</span>Today's entry</h2>
+        <div class="flex items-center gap-4">
+          <button type="button" class="flex flex-col items-center gap-0.5 text-xs hover:text-al-text"><i data-lucide="compass" class="size-5"></i>Discover</button>
+          <button type="button" class="flex flex-col items-center gap-0.5 text-xs hover:text-al-text"><i data-lucide="history" class="size-5"></i>History</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-[1fr_220px] gap-0">
+        <!-- Editor -->
+        <div class="px-6 py-4">
+          <textarea placeholder="Write down your thoughts here..." class="w-full h-[420px] bg-al-card border border-al-border rounded-lg p-4 text-sm text-al-text outline-none resize-none placeholder:text-al-text-muted"></textarea>
+          <div class="flex items-center justify-between mt-3">
+            <button type="button" class="text-al-text-muted hover:text-al-text" aria-label="Voice"><i data-lucide="mic" class="size-5"></i></button>
+            <button type="button" class="px-6 py-1.5 rounded-full bg-al-green text-white font-semibold text-sm hover:opacity-90">Save</button>
+          </div>
         </div>
 
-        <h2 class="text-xl font-bold tracking-tight">Hi Sam 👋</h2>
-        <p class="text-base text-muted-foreground mt-1">How are you today?</p>
+        <!-- Discover prompts -->
+        <aside class="border-l border-al-border bg-al-bg-light p-4">
+          <div class="flex items-start justify-between mb-3">
+            <p class="text-sm font-semibold">Not sure what to write about? Here are some ideas</p>
+            <button type="button" class="text-al-text-muted" aria-label="Close"><i data-lucide="x" class="size-4"></i></button>
+          </div>
+          <div class="space-y-2">
+            <button type="button" class="w-full text-left p-3 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light">
+              <div class="text-2xl mb-1" aria-hidden="true">🙏</div>
+              <div class="text-xs font-semibold">I feel grateful for…</div>
+            </button>
+            <button type="button" class="w-full text-left p-3 rounded-lg bg-al-purple/30 border border-al-border hover:bg-al-bg-light">
+              <div class="text-2xl mb-1" aria-hidden="true">🔮</div>
+              <div class="text-xs font-semibold">I look forward to…</div>
+            </button>
+            <button type="button" class="w-full text-left p-3 rounded-lg bg-al-yellow/40 border border-al-border hover:bg-al-bg-light">
+              <div class="text-2xl mb-1" aria-hidden="true">💡</div>
+              <div class="text-xs font-semibold">Something I learned was…</div>
+            </button>
+            <button type="button" class="w-full text-left p-3 rounded-lg bg-al-pink/50 border border-al-border hover:bg-al-bg-light">
+              <div class="text-2xl mb-1" aria-hidden="true">🤩</div>
+              <div class="text-xs font-semibold">I felt happy when…</div>
+            </button>
+            <button type="button" class="w-full text-left p-3 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light">
+              <div class="text-2xl mb-1" aria-hidden="true">👨‍👩‍👧</div>
+              <div class="text-xs font-semibold">What family members are you most grateful for? Why?</div>
+            </button>
+            <button type="button" class="w-full text-left p-3 rounded-lg bg-al-green/30 border border-al-border hover:bg-al-bg-light">
+              <div class="text-2xl mb-1" aria-hidden="true">🎯</div>
+              <div class="text-xs font-semibold">I want to focus on…</div>
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
 
-        <!-- Mood quick-track -->
-        <div class="flex justify-between gap-1 mt-5 mb-6">
-          <button type="button" class="flex-1 inline-flex flex-col items-center gap-1 p-2 rounded-md hover:bg-muted transition-colors"><span class="text-xl">😄</span><span class="text-xs">Great</span></button>
-          <button type="button" class="flex-1 inline-flex flex-col items-center gap-1 p-2 rounded-md hover:bg-muted transition-colors"><span class="text-xl">🙂</span><span class="text-xs">Good</span></button>
-          <button type="button" class="flex-1 inline-flex flex-col items-center gap-1 p-2 rounded-md bg-accent transition-colors"><span class="text-xl">😐</span><span class="text-xs font-semibold">Okay</span></button>
-          <button type="button" class="flex-1 inline-flex flex-col items-center gap-1 p-2 rounded-md hover:bg-muted transition-colors"><span class="text-xl">😟</span><span class="text-xs">Down</span></button>
-          <button type="button" class="flex-1 inline-flex flex-col items-center gap-1 p-2 rounded-md hover:bg-muted transition-colors"><span class="text-xl">😣</span><span class="text-xs">Bad</span></button>
-        </div>
-
-        <!-- Suggested actions -->
-        <div class="space-y-3">
-          <button type="button" class="w-full text-left flex items-center gap-3 p-4 rounded-lg border border-border bg-card hover:bg-accent transition-colors">
-            <div class="size-10 rounded-md bg-accent text-accent-foreground border border-accent-border flex items-center justify-center shrink-0"><i data-lucide="brain" class="size-5"></i></div>
-            <div class="flex-1">
-              <div class="font-semibold text-sm">Try a quick skill</div>
-              <div class="text-xs text-muted-foreground">Box breathing — 5 min</div>
-            </div>
-            <i data-lucide="chevron-right" class="size-4 text-muted-foreground"></i>
-          </button>
-          <button type="button" class="w-full text-left flex items-center gap-3 p-4 rounded-lg border border-border bg-card hover:bg-accent transition-colors">
-            <div class="size-10 rounded-md bg-accent text-accent-foreground border border-accent-border flex items-center justify-center shrink-0"><i data-lucide="message-square" class="size-5"></i></div>
-            <div class="flex-1">
-              <div class="font-semibold text-sm">Talk it through</div>
-              <div class="text-xs text-muted-foreground">Chat about what's going on</div>
-            </div>
-            <i data-lucide="chevron-right" class="size-4 text-muted-foreground"></i>
-          </button>
-          <button type="button" class="w-full text-left flex items-center gap-3 p-4 rounded-lg border border-border bg-card hover:bg-accent transition-colors">
-            <div class="size-10 rounded-md bg-accent text-accent-foreground border border-accent-border flex items-center justify-center shrink-0"><i data-lucide="book-open" class="size-5"></i></div>
-            <div class="flex-1">
-              <div class="font-semibold text-sm">Write it down</div>
-              <div class="text-xs text-muted-foreground">Free write or guided prompt</div>
-            </div>
-            <i data-lucide="chevron-right" class="size-4 text-muted-foreground"></i>
-          </button>
-          <button type="button" class="w-full text-left flex items-center gap-3 p-4 rounded-lg border border-border bg-card hover:bg-accent transition-colors">
-            <div class="size-10 rounded-md bg-accent text-accent-foreground border border-accent-border flex items-center justify-center shrink-0"><i data-lucide="play-circle" class="size-5"></i></div>
-            <div class="flex-1">
-              <div class="font-semibold text-sm">Watch something</div>
-              <div class="text-xs text-muted-foreground">Mood-boost video — 3 min</div>
-            </div>
-            <i data-lucide="chevron-right" class="size-4 text-muted-foreground"></i>
-          </button>
-        </div>
-
-        <!-- Emergency footer -->
-        <button type="button" class="w-full mt-6 text-left flex items-center gap-3 p-3 rounded-lg border border-destructive bg-card hover:bg-muted transition-colors">
-          <i data-lucide="shield-alert" class="size-4 text-destructive shrink-0"></i>
+    <!-- ============ MORE ============ -->
+    <div id="demo-surface-more" class="demo-surface hidden px-10 py-8">
+      <h2 class="text-xl font-bold text-al-text mb-6">More</h2>
+      <div class="grid grid-cols-2 gap-4 max-w-3xl">
+        <button type="button" class="flex items-center gap-3 p-4 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light text-left">
+          <div class="size-10 rounded-full bg-al-orange-bg flex items-center justify-center"><i data-lucide="user" class="size-5"></i></div>
           <div class="flex-1">
-            <div class="text-xs font-semibold text-destructive">Need help right now?</div>
-            <div class="text-xs text-muted-foreground">Reach a crisis counselor 24/7</div>
+            <div class="font-semibold text-sm">Profile</div>
+            <div class="text-xs text-al-text-muted">Name, school, grade</div>
+          </div>
+          <i data-lucide="chevron-right" class="size-4 text-al-text-muted"></i>
+        </button>
+        <button type="button" class="flex items-center gap-3 p-4 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light text-left">
+          <div class="size-10 rounded-full bg-al-purple flex items-center justify-center"><i data-lucide="bell" class="size-5"></i></div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm">Notifications</div>
+            <div class="text-xs text-al-text-muted">Reminders &amp; alerts</div>
+          </div>
+          <i data-lucide="chevron-right" class="size-4 text-al-text-muted"></i>
+        </button>
+        <button type="button" class="flex items-center gap-3 p-4 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light text-left">
+          <div class="size-10 rounded-full bg-al-yellow flex items-center justify-center"><i data-lucide="settings" class="size-5"></i></div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm">Settings</div>
+            <div class="text-xs text-al-text-muted">Language, theme</div>
+          </div>
+          <i data-lucide="chevron-right" class="size-4 text-al-text-muted"></i>
+        </button>
+        <button type="button" class="flex items-center gap-3 p-4 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light text-left">
+          <div class="size-10 rounded-full bg-al-pink flex items-center justify-center"><i data-lucide="lock" class="size-5"></i></div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm">Privacy</div>
+            <div class="text-xs text-al-text-muted">Your data &amp; safety</div>
+          </div>
+          <i data-lucide="chevron-right" class="size-4 text-al-text-muted"></i>
+        </button>
+        <button type="button" class="flex items-center gap-3 p-4 rounded-lg bg-al-card border border-al-border hover:bg-al-bg-light text-left">
+          <div class="size-10 rounded-full bg-al-green flex items-center justify-center"><i data-lucide="life-buoy" class="size-5"></i></div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm">Help &amp; support</div>
+            <div class="text-xs text-al-text-muted">Talk to someone</div>
+          </div>
+          <i data-lucide="chevron-right" class="size-4 text-al-text-muted"></i>
+        </button>
+        <button type="button" class="flex items-center gap-3 p-4 rounded-lg bg-al-card border border-2 border-destructive hover:bg-al-bg-light text-left">
+          <div class="size-10 rounded-full bg-destructive/10 flex items-center justify-center"><i data-lucide="shield-alert" class="size-5 text-destructive"></i></div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-destructive">Get help now</div>
+            <div class="text-xs text-al-text-muted">24/7 crisis support</div>
           </div>
           <i data-lucide="chevron-right" class="size-4 text-destructive"></i>
         </button>
       </div>
-
-      <!-- Notes for staff -->
-      <div class="mt-6 bg-card border border-border rounded-lg shadow-sm p-4 max-w-md mx-auto">
-        <div class="flex items-start gap-3">
-          <i data-lucide="info" class="size-5 text-foreground shrink-0 mt-0.5"></i>
-          <div class="text-sm">
-            <strong class="font-semibold">Notes for staff: </strong>
-            <span class="text-muted-foreground">This is what students see when they open the app. The mood selector saves to their profile; the 4 quick-actions adapt based on recent activity and any active skill assignments.</span>
-          </div>
-        </div>
-      </div>
     </div>
+
   </div>
 </main>
 
@@ -3698,6 +4044,14 @@ Julia Campbell</textarea>
       }
     });
   }
+  function setDemoSurface(surface) {
+    document.querySelectorAll('.demo-surface').forEach(s => s.classList.add('hidden'));
+    const target = document.getElementById('demo-surface-' + surface);
+    if (target) target.classList.remove('hidden');
+    document.querySelectorAll('#student-demo-subnav a[data-demo-surface]').forEach(a => {
+      a.classList.toggle('is-active', a.dataset.demoSurface === surface);
+    });
+  }
   function setStudentsTab(tab) {
     document.querySelectorAll('.students-panel').forEach(p => p.classList.add('hidden'));
     const panel = document.getElementById('studentspanel-' + tab);
@@ -3731,6 +4085,7 @@ Julia Campbell</textarea>
     let inboxTab = null;
     let settingsTab = null;
     let studentsTab = null;
+    let demoSurface = null;
     if (hash === 'library-skills') { hash = 'library'; libTab = 'skills'; navMatch = 'library'; }
     else if (hash === 'library-screeners') { hash = 'library'; libTab = 'screeners'; navMatch = 'library'; }
     else if (hash === 'library-resources') { hash = 'library'; libTab = 'resources'; navMatch = 'library'; }
@@ -3745,7 +4100,12 @@ Julia Campbell</textarea>
     else if (hash === 'students-roster') { hash = 'students'; studentsTab = 'roster'; navMatch = 'students'; }
     else if (hash === 'students') studentsTab = 'roster';
     else if (hash === 'my-wellness') navMatch = null;
-    else if (hash === 'student-demo') navMatch = null;
+    else if (hash === 'student-demo') { navMatch = null; demoSurface = 'home'; }
+    else if (hash.startsWith('student-demo-')) {
+      demoSurface = hash.replace('student-demo-', '');
+      hash = 'student-demo';
+      navMatch = null;
+    }
     else if (hash.startsWith('reports-')) navMatch = 'reports';
 
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -3757,6 +4117,9 @@ Julia Campbell</textarea>
     if (settingsTab) setSettingsTab(settingsTab);
     if (studentsTab) setStudentsTab(studentsTab);
     setNavActive(navMatch);
+    // setDemoSurface runs LAST because setNavActive iterates ALL .nav-link items
+    // (including student-demo sub-items) and would wipe their is-active state otherwise.
+    if (demoSurface) setDemoSurface(demoSurface);
 
     // Self-Care standalone mode: hide school portal sidebar when on the dedicated wellness route
     document.body.classList.toggle('is-self-care', hash === 'my-wellness');
