@@ -4481,8 +4481,8 @@ Julia Campbell</textarea>
             <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
               <i data-lucide="download" class="size-4"></i>Export
             </button>
-            <button type="button" onclick="openInviteUsersSheet()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
-              <i data-lucide="user-plus" class="size-4"></i>Invite user
+            <button type="button" onclick="navigate('settings-users-add')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
+              <i data-lucide="user-plus" class="size-4"></i>Add user
             </button>
           </div>
         </div>
@@ -4720,105 +4720,173 @@ Julia Campbell</textarea>
   </div>
 </main>
 
+<!-- ===================== ADD USER (Step 1: details + role + schools — mirrors TC apps/school-portal/src/app/settings/users/add/page.tsx) ===================== -->
+<main id="settings-users-add" class="page max-w-screen-2xl mx-auto px-6 py-8">
+  <nav aria-label="Breadcrumb" class="mb-4">
+    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
+      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('home')">Home</a></li>
+      <li><i data-lucide="chevron-right" class="size-4"></i></li>
+      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('settings-users')">Users &amp; permissions</a></li>
+      <li><i data-lucide="chevron-right" class="size-4"></i></li>
+      <li class="text-foreground font-semibold" aria-current="page">Add user</li>
+    </ol>
+  </nav>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Add user</h1>
+    <p class="text-base text-muted-foreground mt-1">Enter details, select a role, and choose which schools the user can access.</p>
+  </div>
+  <p class="text-sm text-muted-foreground mb-6"><span class="text-destructive">*</span> indicates a required field</p>
+
+  <div class="max-w-2xl space-y-6">
+    <!-- Card 1: User Details -->
+    <section class="bg-card border border-border rounded-lg shadow-sm">
+      <header class="px-6 py-5 border-b border-border">
+        <h2 class="text-lg font-bold">User Details</h2>
+        <p class="text-sm text-muted-foreground mt-1">Their name and work email.</p>
+      </header>
+      <div class="px-6 py-5 space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="adduser-firstname" class="block text-sm font-semibold mb-1.5">First name <span class="text-destructive">*</span></label>
+            <input id="adduser-firstname" type="text" placeholder="e.g. Maya" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+          </div>
+          <div>
+            <label for="adduser-lastname" class="block text-sm font-semibold mb-1.5">Last name <span class="text-destructive">*</span></label>
+            <input id="adduser-lastname" type="text" placeholder="e.g. Torres" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+          </div>
+        </div>
+        <div>
+          <label for="adduser-email" class="block text-sm font-semibold mb-1.5">Email <span class="text-destructive">*</span></label>
+          <input id="adduser-email" type="email" placeholder="name@lincolnusd.edu" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+        </div>
+      </div>
+    </section>
+
+    <!-- Card 2: Role & Permissions -->
+    <section class="bg-card border border-border rounded-lg shadow-sm">
+      <header class="px-6 py-5 border-b border-border">
+        <h2 class="text-lg font-bold">Role &amp; Permissions</h2>
+        <p class="text-sm text-muted-foreground mt-1">Pick a role to see the permissions that come with it.</p>
+      </header>
+      <div class="px-6 py-5">
+        <label for="adduser-role" class="block text-sm font-semibold mb-1.5">Role <span class="text-destructive">*</span></label>
+        <select id="adduser-role" onchange="updateAddUserPermissionsPreview()" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+          <option value="">Choose a role…</option>
+          <option value="district-administrator">District Administrator</option>
+          <option value="district-staff">District Staff</option>
+          <option value="school-administrator">School Administrator</option>
+          <option value="clinical-staff">Clinical Staff</option>
+          <option value="school-staff">School Staff</option>
+        </select>
+
+        <div id="adduser-permissions-preview" class="hidden mt-6 pt-6 border-t border-border">
+          <p class="text-sm font-semibold mb-3">Permissions for this role</p>
+          <div id="adduser-permissions-list" class="grid grid-cols-2 gap-3"></div>
+          <p class="text-xs text-muted-foreground mt-4">Need to change these permissions for a specific user? Contact your CSM.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card 3: School Access -->
+    <section class="bg-card border border-border rounded-lg shadow-sm">
+      <header class="px-6 py-5 border-b border-border">
+        <h2 class="text-lg font-bold">School Access</h2>
+        <p class="text-sm text-muted-foreground mt-1">Which schools this user can see. District-level roles see everything by default.</p>
+      </header>
+      <div class="px-6 py-5">
+        <div class="space-y-2" id="adduser-schools-list">
+          <label class="flex items-center gap-3 rounded-md border border-border px-3 py-2.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent">
+            <input type="checkbox" class="adduser-school size-4 rounded border-input accent-primary" value="lincoln-high">
+            <span class="text-sm font-medium">Lincoln High School</span>
+          </label>
+          <label class="flex items-center gap-3 rounded-md border border-border px-3 py-2.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent">
+            <input type="checkbox" class="adduser-school size-4 rounded border-input accent-primary" value="kennedy-high">
+            <span class="text-sm font-medium">Kennedy High School</span>
+          </label>
+          <label class="flex items-center gap-3 rounded-md border border-border px-3 py-2.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent">
+            <input type="checkbox" class="adduser-school size-4 rounded border-input accent-primary" value="roosevelt-middle">
+            <span class="text-sm font-medium">Roosevelt Middle School</span>
+          </label>
+          <label class="flex items-center gap-3 rounded-md border border-border px-3 py-2.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent">
+            <input type="checkbox" class="adduser-school size-4 rounded border-input accent-primary" value="jefferson-middle">
+            <span class="text-sm font-medium">Jefferson Middle School</span>
+          </label>
+          <label class="flex items-center gap-3 rounded-md border border-border px-3 py-2.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent">
+            <input type="checkbox" class="adduser-school size-4 rounded border-input accent-primary" value="washington-elementary">
+            <span class="text-sm font-medium">Washington Elementary</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page actions -->
+    <div class="flex justify-end gap-3 pt-2">
+      <button type="button" onclick="navigate('settings-users')" class="inline-flex items-center justify-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
+      <button type="button" onclick="submitAddUserStep1()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Next<i data-lucide="arrow-right" class="size-4"></i></button>
+    </div>
+  </div>
+</main>
+
+<!-- ===================== ADD USER — REVIEW (Step 2 — mirrors TC apps/school-portal/src/app/settings/users/add/review/page.tsx) ===================== -->
+<main id="settings-users-add-review" class="page max-w-screen-2xl mx-auto px-6 py-8">
+  <nav aria-label="Breadcrumb" class="mb-4">
+    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
+      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('home')">Home</a></li>
+      <li><i data-lucide="chevron-right" class="size-4"></i></li>
+      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('settings-users')">Users &amp; permissions</a></li>
+      <li><i data-lucide="chevron-right" class="size-4"></i></li>
+      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('settings-users-add')">Add user</a></li>
+      <li><i data-lucide="chevron-right" class="size-4"></i></li>
+      <li class="text-foreground font-semibold" aria-current="page">Review</li>
+    </ol>
+  </nav>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Review &amp; send invite</h1>
+    <p class="text-base text-muted-foreground mt-1">Confirm details. The user will receive an email to set up their account.</p>
+  </div>
+
+  <div class="max-w-2xl space-y-6">
+    <!-- Summary card -->
+    <section class="bg-card border border-border rounded-lg shadow-sm">
+      <header class="px-6 py-5 border-b border-border">
+        <h2 class="text-lg font-bold">Invite summary</h2>
+      </header>
+      <dl class="px-6 py-5 space-y-3 text-sm">
+        <div class="grid grid-cols-[140px_1fr] gap-3">
+          <dt class="text-muted-foreground">Name</dt>
+          <dd id="addreview-name" class="font-semibold">—</dd>
+        </div>
+        <div class="grid grid-cols-[140px_1fr] gap-3">
+          <dt class="text-muted-foreground">Email</dt>
+          <dd id="addreview-email" class="font-semibold mono">—</dd>
+        </div>
+        <div class="grid grid-cols-[140px_1fr] gap-3">
+          <dt class="text-muted-foreground">Role</dt>
+          <dd id="addreview-role" class="font-semibold">—</dd>
+        </div>
+        <div class="grid grid-cols-[140px_1fr] gap-3">
+          <dt class="text-muted-foreground">School access</dt>
+          <dd id="addreview-schools" class="font-semibold">—</dd>
+        </div>
+      </dl>
+      <div class="px-6 py-5 border-t border-border">
+        <p class="text-sm font-semibold mb-3">Permissions</p>
+        <div id="addreview-permissions-list" class="grid grid-cols-2 gap-3"></div>
+      </div>
+    </section>
+
+    <!-- Page actions -->
+    <div class="flex justify-between gap-3 pt-2">
+      <button type="button" onclick="navigate('settings-users-add')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="arrow-left" class="size-4"></i>Back</button>
+      <button type="button" onclick="sendAddUserInvite()" id="addreview-send-btn" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="send" class="size-4"></i>Send invite</button>
+    </div>
+  </div>
+</main>
+
 <footer class="text-xs text-muted-foreground text-center py-8 px-4 border-t border-border mt-8">
   Merged School Portal  ·  Wireframe Prototype  ·  Path A IA  ·  Helix sidebar, monochrome
 </footer>
   </div>
-</div>
-
-<!-- ===================== INVITE USERS SHEET — Alongside multi-row Add Staff pattern ===================== -->
-<div id="invite-users-sheet" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="invite-users-title">
-  <div onclick="closeInviteUsersSheet()" class="absolute inset-0 bg-foreground/40"></div>
-  <aside class="absolute top-0 right-0 h-full w-full max-w-2xl bg-card shadow-xl flex flex-col">
-    <!-- Header -->
-    <header class="px-6 py-5 border-b border-border">
-      <div class="flex items-start justify-between gap-4">
-        <div>
-          <h2 id="invite-users-title" class="text-lg font-bold">Invite users</h2>
-          <p class="text-sm text-muted-foreground mt-1">Send invites to staff. Each row creates one user.</p>
-        </div>
-        <button type="button" onclick="closeInviteUsersSheet()" class="size-8 inline-flex items-center justify-center rounded-md hover:bg-muted transition-colors shrink-0" aria-label="Close">
-          <i data-lucide="x" class="size-4"></i>
-        </button>
-      </div>
-    </header>
-
-    <!-- FORM state -->
-    <div id="invite-users-form-state" class="flex-1 overflow-y-auto px-6 py-5">
-      <ul id="invite-users-rows" class="space-y-4" role="list">
-        <!-- First row pre-populated; clones happen via JS. Template lives below. -->
-        <li class="invite-user-row bg-card border border-border rounded-lg p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="text-sm font-semibold">Staff member <span class="invite-user-row-num">1</span></div>
-            <button type="button" onclick="removeInviteUserRow(this)" class="text-xs font-semibold text-muted-foreground hover:text-destructive transition-colors hidden">Remove</button>
-          </div>
-          <div class="grid grid-cols-2 gap-3 mb-3">
-            <div>
-              <label class="block text-xs font-semibold mb-1">First name <span class="text-destructive">*</span></label>
-              <input type="text" class="invite-user-firstname w-full h-9 px-3 rounded-md border border-input bg-card text-sm" placeholder="e.g. Maya">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold mb-1">Last name <span class="text-destructive">*</span></label>
-              <input type="text" class="invite-user-lastname w-full h-9 px-3 rounded-md border border-input bg-card text-sm" placeholder="e.g. Torres">
-            </div>
-          </div>
-          <div class="mb-3">
-            <label class="block text-xs font-semibold mb-1">Email <span class="text-destructive">*</span></label>
-            <input type="email" class="invite-user-email w-full h-9 px-3 rounded-md border border-input bg-card text-sm" placeholder="name@lincolnusd.edu">
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold mb-1">Role <span class="text-destructive">*</span></label>
-              <select class="invite-user-role w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
-                <option value="district-administrator">District Administrator</option>
-                <option value="district-staff">District Staff</option>
-                <option value="school-administrator">School Administrator</option>
-                <option value="clinical-staff" selected>Clinical Staff</option>
-                <option value="school-staff">School Staff</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold mb-1">School</label>
-              <select class="invite-user-school w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
-                <option value="lincoln-high" selected>Lincoln High School</option>
-                <option value="kennedy-high">Kennedy High School</option>
-                <option value="roosevelt-middle">Roosevelt Middle School</option>
-                <option value="jefferson-middle">Jefferson Middle School</option>
-                <option value="washington-elementary">Washington Elementary</option>
-                <option value="all">All schools (district scope)</option>
-              </select>
-            </div>
-          </div>
-        </li>
-      </ul>
-
-      <button type="button" onclick="addInviteUserRow()" class="mt-4 inline-flex items-center gap-2 h-9 px-3 rounded-md border border-dashed border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
-        <i data-lucide="plus" class="size-4"></i>Add another staff member
-      </button>
-    </div>
-
-    <!-- SENDING state -->
-    <div id="invite-users-loading-state" class="hidden flex-1 flex flex-col items-center justify-center px-6">
-      <i data-lucide="loader-2" class="size-12 text-primary animate-spin mb-4"></i>
-      <div class="text-base font-semibold">Sending invites…</div>
-    </div>
-
-    <!-- DONE state -->
-    <div id="invite-users-done-state" class="hidden flex-1 flex flex-col items-center justify-center px-6 text-center">
-      <div class="size-16 rounded-full bg-tc-sage-50 border border-tc-sage-200 flex items-center justify-center mb-4">
-        <i data-lucide="check" class="size-8 text-tc-sage-700"></i>
-      </div>
-      <div class="text-lg font-bold mb-2"><span id="invite-users-done-count">0</span> invite<span id="invite-users-done-plural">s</span> sent</div>
-      <p class="text-sm text-muted-foreground max-w-sm">Each staff member will receive an email with a link to set up their account.</p>
-    </div>
-
-    <!-- Footer -->
-    <footer class="px-6 py-4 border-t border-border flex items-center justify-end gap-2">
-      <button type="button" id="invite-users-cancel-btn" onclick="closeInviteUsersSheet()" class="inline-flex items-center justify-center h-9 px-4 rounded-md text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
-      <button type="button" id="invite-users-submit-btn" onclick="submitInviteUsers()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="send" class="size-4"></i>Send invite<span id="invite-users-submit-plural"></span></button>
-      <button type="button" id="invite-users-done-btn" onclick="closeInviteUsersSheet()" class="hidden inline-flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Done</button>
-    </footer>
-  </aside>
 </div>
 
 <!-- ===================== TOAST (lightweight confirmation) ===================== -->
@@ -5151,123 +5219,153 @@ Julia Campbell</textarea>
       if (textNode) textNode.textContent = labelText;
     }
   }
-  // === INVITE USERS SHEET — Alongside multi-row Add Staff pattern ===
-  let inviteUsersTimerId = null;
-  function openInviteUsersSheet() {
-    cancelInviteUsersTimer();
-    resetInviteUsersSheet();
-    // Reset to a single empty row
-    const rows = document.getElementById('invite-users-rows');
-    while (rows.children.length > 1) rows.removeChild(rows.lastChild);
-    const firstRow = rows.firstElementChild;
-    if (firstRow) {
-      firstRow.querySelectorAll('input').forEach(i => { i.value = ''; });
-      firstRow.querySelectorAll('.invite-user-row-num').forEach(n => { n.textContent = '1'; });
-      firstRow.querySelector('button[onclick*="removeInviteUserRow"]').classList.add('hidden');
-    }
-    updateInviteUsersSubmitLabel();
-    document.getElementById('invite-users-sheet').classList.remove('hidden');
-    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-    setTimeout(() => firstRow && firstRow.querySelector('.invite-user-firstname') && firstRow.querySelector('.invite-user-firstname').focus(), 50);
-  }
-  function closeInviteUsersSheet() {
-    cancelInviteUsersTimer();
-    document.getElementById('invite-users-sheet').classList.add('hidden');
-  }
-  function cancelInviteUsersTimer() {
-    if (inviteUsersTimerId !== null) {
-      clearTimeout(inviteUsersTimerId);
-      inviteUsersTimerId = null;
-    }
-  }
-  function addInviteUserRow() {
-    const rows = document.getElementById('invite-users-rows');
-    const template = rows.firstElementChild;
-    if (!template) return;
-    const clone = template.cloneNode(true);
-    // Clear inputs in the clone
-    clone.querySelectorAll('input').forEach(i => { i.value = ''; });
-    // Show remove button on clone
-    const removeBtn = clone.querySelector('button[onclick*="removeInviteUserRow"]');
-    if (removeBtn) removeBtn.classList.remove('hidden');
-    rows.appendChild(clone);
-    // Renumber every row (1-indexed)
-    Array.from(rows.children).forEach((row, i) => {
-      const n = row.querySelector('.invite-user-row-num');
-      if (n) n.textContent = String(i + 1);
-    });
-    updateInviteUsersSubmitLabel();
-    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-  }
-  function removeInviteUserRow(button) {
-    const row = button.closest('.invite-user-row');
-    if (!row) return;
-    row.remove();
-    // Renumber and re-hide remove btn on first row if only one left
-    const rows = document.getElementById('invite-users-rows');
-    Array.from(rows.children).forEach((r, i) => {
-      const n = r.querySelector('.invite-user-row-num');
-      if (n) n.textContent = String(i + 1);
-    });
-    if (rows.children.length === 1) {
-      const firstRemove = rows.firstElementChild.querySelector('button[onclick*="removeInviteUserRow"]');
-      if (firstRemove) firstRemove.classList.add('hidden');
-    }
-    updateInviteUsersSubmitLabel();
-  }
-  function updateInviteUsersSubmitLabel() {
-    const rows = document.getElementById('invite-users-rows');
-    const count = rows ? rows.children.length : 0;
-    const plural = document.getElementById('invite-users-submit-plural');
-    if (plural) plural.textContent = count > 1 ? ` (${count})` : '';
-  }
-  function submitInviteUsers() {
-    cancelInviteUsersTimer();
-    const rows = document.getElementById('invite-users-rows');
-    if (!rows) return;
-    // Validate: every row needs first name, last name, email
-    const invalid = Array.from(rows.children).some(r => {
-      const f = r.querySelector('.invite-user-firstname').value.trim();
-      const l = r.querySelector('.invite-user-lastname').value.trim();
-      const e = r.querySelector('.invite-user-email').value.trim();
-      return !f || !l || !e;
-    });
-    if (invalid) {
-      alert('Please fill in first name, last name, and email for every row.');
+  // === ADD USER FLOW — 2-step page (mirrors TC settings/users/add + add/review pages) ===
+  // Permissions per role: anchored in our merged roles-matrix.html. Each row lists
+  // capabilities the role gets by default; "configurable" attributes (PHI, Org Contact,
+  // alert subscriptions) are noted with a separate badge if needed in a later pass.
+  const ADD_USER_ROLE_LABELS = {
+    'district-administrator': 'District Administrator',
+    'district-staff': 'District Staff',
+    'school-administrator': 'School Administrator',
+    'clinical-staff': 'Clinical Staff',
+    'school-staff': 'School Staff'
+  };
+  const ADD_USER_ROLE_PERMISSIONS = {
+    'district-administrator': [
+      { label: 'Manage district users', desc: 'Add, edit, remove users at the district level.' },
+      { label: 'Manage school users', desc: 'Add, edit, remove users across all schools.' },
+      { label: 'Create & manage schools', desc: 'Add new schools in the district.' },
+      { label: 'Allocate invites to schools', desc: 'Set per-school invite/visit budgets.' },
+      { label: 'View visit data (district-wide)', desc: 'Aggregate visit counts and trends.' },
+      { label: 'View all Reports', desc: 'District-wide insights and exports.' },
+      { label: 'Receive Crisis alerts', desc: 'Email + SMS for high-severity flags.' }
+    ],
+    'district-staff': [
+      { label: 'View visit data (district-wide)', desc: 'Aggregate visit counts and trends.' },
+      { label: 'View all Reports', desc: 'District-wide insights and exports.' },
+      { label: 'View Library', desc: 'Skills, screeners, staff resources.' },
+      { label: 'Receive Crisis alerts', desc: 'Configurable per user.' }
+    ],
+    'school-administrator': [
+      { label: 'Manage school users (assigned schools)', desc: 'Invite and manage staff at your schools.' },
+      { label: 'View visit data', desc: 'Visit history and schedule for your students.' },
+      { label: 'Invite distribution', desc: 'Refer students to TimelyCare for care.' },
+      { label: 'View school Reports', desc: 'Reports scoped to your school(s).' },
+      { label: 'Receive Crisis alerts', desc: 'Email + SMS for high-severity flags.' },
+      { label: 'Assign skills via LMS', desc: 'Push skills through Google Classroom / Canvas / Schoology.' }
+    ],
+    'clinical-staff': [
+      { label: 'View student clinical records (PHI)', desc: 'PHI access ON by default.' },
+      { label: 'View visit schedule + history', desc: 'Per-student PHI-gated detail.' },
+      { label: 'Visit facilitation', desc: 'Start and end on-site visit sessions.' },
+      { label: 'Invite distribution', desc: 'Refer students to TimelyCare for care.' },
+      { label: 'Receive all alert types', desc: 'Chat summary, Crisis email/SMS, Standard, Anonymous.' },
+      { label: 'View screener results', desc: 'PHQ-9, GAD-7, etc. per student.' },
+      { label: 'Assign skills via LMS', desc: 'Push skills through Google Classroom / Canvas / Schoology.' }
+    ],
+    'school-staff': [
+      { label: 'View student roster (read-only)', desc: 'No PHI by default.' },
+      { label: 'View dashboard', desc: 'School-level aggregate metrics.' },
+      { label: 'View Library', desc: 'Skills, screeners, staff resources.' },
+      { label: 'Receive alerts (configurable)', desc: 'Off by default; school admin can opt in.' }
+    ]
+  };
+
+  function updateAddUserPermissionsPreview() {
+    const role = document.getElementById('adduser-role').value;
+    const preview = document.getElementById('adduser-permissions-preview');
+    const list = document.getElementById('adduser-permissions-list');
+    if (!role || !ADD_USER_ROLE_PERMISSIONS[role]) {
+      preview.classList.add('hidden');
+      list.innerHTML = '';
       return;
     }
-    const count = rows.children.length;
-    // Switch to loading state
-    document.getElementById('invite-users-form-state').classList.add('hidden');
-    document.getElementById('invite-users-loading-state').classList.remove('hidden');
-    document.getElementById('invite-users-cancel-btn').classList.add('hidden');
-    document.getElementById('invite-users-submit-btn').classList.add('hidden');
+    list.innerHTML = ADD_USER_ROLE_PERMISSIONS[role].map(p => `
+      <div class="rounded-md border border-border bg-muted/40 px-3 py-2.5">
+        <div class="flex items-start gap-2">
+          <i data-lucide="check" class="size-4 text-tc-sage-600 shrink-0 mt-0.5"></i>
+          <div class="min-w-0">
+            <div class="text-sm font-semibold">${p.label}</div>
+            <div class="text-xs text-muted-foreground mt-0.5">${p.desc}</div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    preview.classList.remove('hidden');
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-    inviteUsersTimerId = setTimeout(() => {
-      inviteUsersTimerId = null;
-      if (document.getElementById('invite-users-sheet').classList.contains('hidden')) return;
-      document.getElementById('invite-users-done-count').textContent = String(count);
-      document.getElementById('invite-users-done-plural').textContent = count === 1 ? '' : 's';
-      document.getElementById('invite-users-loading-state').classList.add('hidden');
-      document.getElementById('invite-users-done-state').classList.remove('hidden');
-      document.getElementById('invite-users-done-btn').classList.remove('hidden');
-      if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-    }, 1000);
   }
-  function resetInviteUsersSheet() {
-    cancelInviteUsersTimer();
-    document.getElementById('invite-users-form-state').classList.remove('hidden');
-    document.getElementById('invite-users-loading-state').classList.add('hidden');
-    document.getElementById('invite-users-done-state').classList.add('hidden');
-    document.getElementById('invite-users-cancel-btn').classList.remove('hidden');
-    document.getElementById('invite-users-submit-btn').classList.remove('hidden');
-    document.getElementById('invite-users-done-btn').classList.add('hidden');
+
+  function submitAddUserStep1() {
+    const firstName = document.getElementById('adduser-firstname').value.trim();
+    const lastName = document.getElementById('adduser-lastname').value.trim();
+    const email = document.getElementById('adduser-email').value.trim();
+    const role = document.getElementById('adduser-role').value;
+    const schools = Array.from(document.querySelectorAll('.adduser-school:checked')).map(cb => cb.value);
+    if (!firstName || !lastName || !email || !role) {
+      alert('Please fill in first name, last name, email, and role.');
+      return;
+    }
+    // Persist for the review page (session-only)
+    try {
+      sessionStorage.setItem('addUserData', JSON.stringify({ firstName, lastName, email, role, schools }));
+    } catch (e) {}
+    navigate('settings-users-add-review');
   }
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    const sheet = document.getElementById('invite-users-sheet');
-    if (sheet && !sheet.classList.contains('hidden')) closeInviteUsersSheet();
-  });
+
+  function loadAddUserReview() {
+    let data = null;
+    try { data = JSON.parse(sessionStorage.getItem('addUserData')); } catch (e) {}
+    if (!data) {
+      // No data — bounce back to step 1
+      navigate('settings-users-add');
+      return;
+    }
+    const schoolLabels = {
+      'lincoln-high': 'Lincoln High School',
+      'kennedy-high': 'Kennedy High School',
+      'roosevelt-middle': 'Roosevelt Middle School',
+      'jefferson-middle': 'Jefferson Middle School',
+      'washington-elementary': 'Washington Elementary'
+    };
+    document.getElementById('addreview-name').textContent = `${data.firstName} ${data.lastName}`;
+    document.getElementById('addreview-email').textContent = data.email;
+    document.getElementById('addreview-role').textContent = ADD_USER_ROLE_LABELS[data.role] || '—';
+    const schoolNames = (data.schools || []).map(s => schoolLabels[s] || s);
+    document.getElementById('addreview-schools').textContent =
+      data.role === 'district-administrator' || data.role === 'district-staff'
+        ? 'All schools (district scope)'
+        : (schoolNames.length ? schoolNames.join(', ') : 'No schools selected');
+    // Render permissions
+    const permsList = document.getElementById('addreview-permissions-list');
+    const perms = ADD_USER_ROLE_PERMISSIONS[data.role] || [];
+    permsList.innerHTML = perms.map(p => `
+      <div class="rounded-md border border-border bg-muted/40 px-3 py-2.5">
+        <div class="flex items-start gap-2">
+          <i data-lucide="check" class="size-4 text-tc-sage-600 shrink-0 mt-0.5"></i>
+          <div class="min-w-0">
+            <div class="text-sm font-semibold">${p.label}</div>
+            <div class="text-xs text-muted-foreground mt-0.5">${p.desc}</div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+
+  function sendAddUserInvite() {
+    let data = null;
+    try { data = JSON.parse(sessionStorage.getItem('addUserData')); } catch (e) {}
+    if (!data) return;
+    const sendBtn = document.getElementById('addreview-send-btn');
+    sendBtn.disabled = true;
+    sendBtn.innerHTML = '<i data-lucide="loader-2" class="size-4 animate-spin"></i>Sending…';
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    setTimeout(() => {
+      try { sessionStorage.removeItem('addUserData'); } catch (e) {}
+      showToast(`Invite sent to ${data.firstName} ${data.lastName}`, 'check');
+      navigate('settings-users');
+    }, 900);
+  }
 
   // === LIBRARY — Screeners inner Your screeners / Screeners we offer tabs (Alongside pattern) ===
   function setScreenersInnerTab(tab) {
@@ -5565,6 +5663,8 @@ Julia Campbell</textarea>
     else if (hash === 'inbox-alerts') { hash = 'inbox'; inboxTab = 'alerts'; navMatch = 'inbox'; }
     else if (hash === 'inbox-summaries') { hash = 'inbox'; inboxTab = 'summaries'; navMatch = 'inbox'; }
     else if (hash === 'settings-users') { hash = 'settings'; settingsTab = 'users'; navMatch = 'settings'; }
+    else if (hash === 'settings-users-add') { navMatch = null; }
+    else if (hash === 'settings-users-add-review') { navMatch = null; }
     else if (hash === 'settings') { settingsTab = 'profile'; }
     else if (hash === 'student-profile') navMatch = 'students';
     else if (hash === 'school-detail') navMatch = 'schools';
@@ -5594,6 +5694,7 @@ Julia Campbell</textarea>
     // (including student-demo sub-items) and would wipe their is-active state otherwise.
     if (demoSurface) setDemoSurface(demoSurface);
     if (scSurface) setSelfCareSurface(scSurface);
+    if (hash === 'settings-users-add-review') loadAddUserReview();
 
     // Self-Care standalone mode: hide school portal sidebar when on the dedicated wellness route
     document.body.classList.toggle('is-self-care', hash === 'my-wellness');
