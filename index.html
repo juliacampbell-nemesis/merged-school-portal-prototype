@@ -1636,19 +1636,114 @@ Julia Campbell</textarea>
   </div>
 
   <section id="libpanel-skills" class="libpanel" role="tabpanel" aria-labelledby="libtab-skills">
-    <div class="bg-card border border-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-2 flex-wrap">
-      <div class="relative flex-1 max-w-md">
-        <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
-        <label for="skills-search" class="sr-only">Search skills</label>
-        <input id="skills-search" type="text" placeholder="Search skills..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
-      </div>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Category: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Grade: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Sort: Most assigned<i data-lucide="chevron-down" class="size-4"></i></button>
-      <span class="ml-auto text-sm text-muted-foreground">48 skills available</span>
+    <h2 class="text-xl font-bold tracking-tight mb-4">Assign skills for students to work on</h2>
+
+    <!-- Inner Assign / Reporting tab strip (Alongside pattern) -->
+    <div role="tablist" class="mb-6 flex gap-2" aria-label="Skills view">
+      <button id="skills-inner-tab-assign" type="button" role="tab" aria-selected="true" onclick="setSkillsInnerTab('assign')" class="skills-inner-tab inline-flex items-center gap-2 h-9 px-4 rounded-full bg-foreground text-background text-sm font-semibold">Assign</button>
+      <button id="skills-inner-tab-reporting" type="button" role="tab" aria-selected="false" onclick="setSkillsInnerTab('reporting')" class="skills-inner-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors">Reporting</button>
     </div>
 
-    <div class="grid grid-cols-3 gap-4">
+    <!-- ASSIGN inner panel -->
+    <div id="skills-inner-panel-assign">
+
+      <!-- Recommended section (Alongside) — 3 goal-style cards with View + Assign -->
+      <section class="mb-8" aria-labelledby="skills-recommended-heading">
+        <h3 id="skills-recommended-heading" class="text-base font-bold mb-3">Recommended</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+            <h4 class="text-base font-bold">Improve sleep</h4>
+            <p class="text-sm text-muted-foreground mt-2">Level up your sleep to boost your mood and feel energized</p>
+            <div class="flex gap-2 mt-4">
+              <button type="button" class="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">View</button>
+              <div class="relative">
+                <button type="button" onclick="toggleSkillAssignMenu(this)" class="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Assign</button>
+                <div class="skill-assign-menu hidden absolute bottom-11 left-0 w-64 bg-card border border-border rounded-md shadow-md py-1 z-30" role="menu">
+                  <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-b border-border">Push to LMS</div>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('google-classroom', 'Improve sleep')"><i data-lucide="graduation-cap" class="size-4"></i>Google Classroom<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('canvas', 'Improve sleep')"><i data-lucide="book-open" class="size-4"></i>Canvas LMS<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('schoology', 'Improve sleep')"><i data-lucide="school" class="size-4"></i>Schoology<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+                  <div class="border-t border-border my-1"></div>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('copy', 'Improve sleep')"><i data-lucide="link-2" class="size-4"></i>Copy assignment URL</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+            <h4 class="text-base font-bold">Boost self-confidence</h4>
+            <p class="text-sm text-muted-foreground mt-2">Practice self-compassion to boost your self-confidence</p>
+            <div class="flex gap-2 mt-4">
+              <button type="button" class="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">View</button>
+              <div class="relative">
+                <button type="button" onclick="toggleSkillAssignMenu(this)" class="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Assign</button>
+                <div class="skill-assign-menu hidden absolute bottom-11 left-0 w-64 bg-card border border-border rounded-md shadow-md py-1 z-30" role="menu">
+                  <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-b border-border">Push to LMS</div>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('google-classroom', 'Boost self-confidence')"><i data-lucide="graduation-cap" class="size-4"></i>Google Classroom<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('canvas', 'Boost self-confidence')"><i data-lucide="book-open" class="size-4"></i>Canvas LMS<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('schoology', 'Boost self-confidence')"><i data-lucide="school" class="size-4"></i>Schoology<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+                  <div class="border-t border-border my-1"></div>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('copy', 'Boost self-confidence')"><i data-lucide="link-2" class="size-4"></i>Copy assignment URL</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+            <h4 class="text-base font-bold">Increase motivation</h4>
+            <p class="text-sm text-muted-foreground mt-2">Create a reward system to stay motivated and track progress</p>
+            <div class="flex gap-2 mt-4">
+              <button type="button" class="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">View</button>
+              <div class="relative">
+                <button type="button" onclick="toggleSkillAssignMenu(this)" class="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Assign</button>
+                <div class="skill-assign-menu hidden absolute bottom-11 left-0 w-64 bg-card border border-border rounded-md shadow-md py-1 z-30" role="menu">
+                  <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-b border-border">Push to LMS</div>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('google-classroom', 'Increase motivation')"><i data-lucide="graduation-cap" class="size-4"></i>Google Classroom<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('canvas', 'Increase motivation')"><i data-lucide="book-open" class="size-4"></i>Canvas LMS<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('schoology', 'Increase motivation')"><i data-lucide="school" class="size-4"></i>Schoology<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+                  <div class="border-t border-border my-1"></div>
+                  <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('copy', 'Increase motivation')"><i data-lucide="link-2" class="size-4"></i>Copy assignment URL</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- All skills section — 12-category accordion (Alongside structure) -->
+      <section aria-labelledby="skills-all-heading">
+        <h3 id="skills-all-heading" class="text-base font-bold mb-3">All</h3>
+
+        <!-- Search -->
+        <div class="relative mb-3 max-w-lg">
+          <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
+          <label for="skills-search" class="sr-only">Search skills</label>
+          <input id="skills-search" type="text" placeholder="Search skills" class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
+        </div>
+
+        <!-- Category accordion (12 categories from Alongside reference) -->
+        <ul class="space-y-2" role="list">
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Focus &amp; Motivation</span><span class="text-sm text-muted-foreground">3 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Confidence and Self-Worth</span><span class="text-sm text-muted-foreground">3 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Decision-Making &amp; Goals</span><span class="text-sm text-muted-foreground">2 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Grief &amp; Hard Times</span><span class="text-sm text-muted-foreground">3 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Anxiety &amp; Panic</span><span class="text-sm text-muted-foreground">3 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Making &amp; Keeping Friends</span><span class="text-sm text-muted-foreground">4 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <!-- Stress & Coping — pre-expanded to show what's inside; 6 demonstrative cards from prior version -->
+          <li>
+            <details class="bg-card border border-border rounded-lg shadow-sm group" open>
+              <summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none">
+                <span class="flex items-center gap-2"><span class="text-base font-bold">Stress &amp; Coping</span><span class="text-sm text-muted-foreground">8 skills</span></span>
+                <i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i>
+              </summary>
+              <div class="px-6 pb-6 border-t border-border pt-4">
+                <div class="grid grid-cols-3 gap-4">
       <article class="bg-card border border-border rounded-lg shadow-sm p-6">
         <div class="flex items-start justify-between">
           <div>
@@ -1798,6 +1893,32 @@ Julia Campbell</textarea>
           <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="eye" class="size-4"></i>Preview</button>
         </div>
       </article>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Time Management &amp; Studying</span><span class="text-sm text-muted-foreground">5 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Speaking Up &amp; Setting Boundaries</span><span class="text-sm text-muted-foreground">3 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Resolving Conflict</span><span class="text-sm text-muted-foreground">3 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Sports Performance</span><span class="text-sm text-muted-foreground">2 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+
+          <li><details class="bg-card border border-border rounded-lg shadow-sm group"><summary class="flex items-center justify-between px-6 py-3.5 cursor-pointer hover:bg-muted/30 list-none"><span class="flex items-center gap-2"><span class="text-base font-bold">Health and Well-being</span><span class="text-sm text-muted-foreground">2 skills</span></span><i data-lucide="chevron-right" class="size-4 text-muted-foreground group-open:rotate-90 transition-transform"></i></summary><div class="px-6 pb-4 text-sm text-muted-foreground border-t border-border pt-4">Skills load here when opened.</div></details></li>
+        </ul>
+      </section>
+    </div>
+    <!-- /ASSIGN inner panel -->
+
+    <!-- REPORTING inner panel — content TBD from Alongside reference -->
+    <div id="skills-inner-panel-reporting" class="hidden">
+      <div class="bg-card border border-border rounded-lg shadow-sm p-12 text-center">
+        <i data-lucide="bar-chart-3" class="size-10 text-muted-foreground mx-auto mb-3"></i>
+        <h3 class="text-base font-bold mb-2">Skill assignment reporting</h3>
+        <p class="text-sm text-muted-foreground max-w-md mx-auto">Track which skills have been assigned via LMS, completion rates, and student engagement. Content sourced from Alongside Reporting when this tab is wired.</p>
+      </div>
     </div>
   </section>
 
@@ -4854,6 +4975,31 @@ Julia Campbell</textarea>
       if (textNode) textNode.textContent = labelText;
     }
   }
+  // === LIBRARY — Skills inner Assign / Reporting tabs (Alongside pattern) ===
+  function setSkillsInnerTab(tab) {
+    const assignPanel = document.getElementById('skills-inner-panel-assign');
+    const reportingPanel = document.getElementById('skills-inner-panel-reporting');
+    const assignTab = document.getElementById('skills-inner-tab-assign');
+    const reportingTab = document.getElementById('skills-inner-tab-reporting');
+    if (!assignPanel || !reportingPanel) return;
+    const isAssign = tab === 'assign';
+    assignPanel.classList.toggle('hidden', !isAssign);
+    reportingPanel.classList.toggle('hidden', isAssign);
+    // Style: active tab = filled foreground; inactive = outline
+    [assignTab, reportingTab].forEach(t => {
+      if (!t) return;
+      const active = (t === assignTab) === isAssign;
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+      if (active) {
+        t.classList.add('bg-foreground', 'text-background');
+        t.classList.remove('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
+      } else {
+        t.classList.remove('bg-foreground', 'text-background');
+        t.classList.add('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
+      }
+    });
+  }
+
   // === TOAST helper ===
   let toastTimerId = null;
   function showToast(message, icon) {
