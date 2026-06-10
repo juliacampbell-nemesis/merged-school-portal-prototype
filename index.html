@@ -2130,22 +2130,55 @@ Julia Campbell</textarea>
     <button id="helptab-contact" type="button" role="tab" aria-selected="false" onclick="setHelpTab('contact')" class="help-tab px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors inline-flex items-center gap-2"><i data-lucide="life-buoy" class="size-4"></i>Contact support</button>
   </div>
 
-  <!-- ROLLOUT & RESOURCES panel — Alongside 3-step pattern (content TBD, source not yet pulled) -->
+  <!-- ROLLOUT & RESOURCES panel — Alongside 3-step Getting Started (real step names from alongside.care/partner-tips-toolkits) -->
   <section id="helppanel-rollout" class="help-panel hidden" role="tabpanel" aria-labelledby="helptab-rollout">
-    <div class="bg-card border border-dashed border-border rounded-lg p-12 text-center max-w-2xl">
-      <i data-lucide="rocket" class="size-10 text-muted-foreground mx-auto mb-4"></i>
-      <h3 class="text-lg font-bold mb-2">Rollout &amp; Resources</h3>
-      <p class="text-sm text-muted-foreground max-w-md mx-auto">3-step Alongside onboarding flow. Step content (titles, copy, templates) to be sourced from the Alongside Rollout &amp; Resources screenshot in the FigJam — not yet pulled into the prototype.</p>
-    </div>
+    <p class="text-sm text-muted-foreground mb-6 max-w-2xl">Get your district, schools, and students set up. Materials are hosted on the Alongside Partner Resources site.</p>
+    <ol class="space-y-4 max-w-3xl">
+      <li class="bg-card border border-border rounded-lg shadow-sm p-6 flex items-start gap-4">
+        <div class="size-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">1</div>
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold">District Setup</h3>
+          <a href="https://www.alongside.care/partner-tips-toolkits" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-2 text-sm font-semibold text-primary hover:underline">View materials on alongside.care<i data-lucide="external-link" class="size-3.5"></i></a>
+        </div>
+      </li>
+      <li class="bg-card border border-border rounded-lg shadow-sm p-6 flex items-start gap-4">
+        <div class="size-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">2</div>
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold">School Planning</h3>
+          <a href="https://www.alongside.care/partner-tips-toolkits" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-2 text-sm font-semibold text-primary hover:underline">View materials on alongside.care<i data-lucide="external-link" class="size-3.5"></i></a>
+        </div>
+      </li>
+      <li class="bg-card border border-border rounded-lg shadow-sm p-6 flex items-start gap-4">
+        <div class="size-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">3</div>
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold">Introduction to Students</h3>
+          <a href="https://www.alongside.care/partner-tips-toolkits" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-2 text-sm font-semibold text-primary hover:underline">View materials on alongside.care<i data-lucide="external-link" class="size-3.5"></i></a>
+        </div>
+      </li>
+    </ol>
   </section>
 
-  <!-- HELP ARTICLES panel — content TBD; categories and articles need to be sourced -->
+  <!-- HELP ARTICLES panel — Alongside Partner Resources (real 7 resource types from alongside.care/partner-tips-toolkits) -->
   <section id="helppanel-articles" class="help-panel" role="tabpanel" aria-labelledby="helptab-articles">
-    <div class="bg-card border border-dashed border-border rounded-lg p-12 text-center max-w-2xl">
-      <i data-lucide="book-open" class="size-10 text-muted-foreground mx-auto mb-4"></i>
-      <h3 class="text-lg font-bold mb-2">Help articles</h3>
-      <p class="text-sm text-muted-foreground max-w-md mx-auto">Search + categorized help articles. Article categories, titles, and content to be sourced from the team — not yet populated in the prototype.</p>
-    </div>
+    <p class="text-sm text-muted-foreground mb-6 max-w-2xl">Tips, toolkits, and training hosted on the Alongside Partner Resources site.</p>
+    <a href="https://www.alongside.care/partner-tips-toolkits" target="_blank" rel="noopener" class="block bg-card border border-border rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow max-w-3xl">
+      <div class="flex items-start justify-between gap-4">
+        <div class="flex-1">
+          <h3 class="text-lg font-bold mb-1">Alongside Partner Resources</h3>
+          <p class="text-sm text-muted-foreground mono">alongside.care/partner-tips-toolkits</p>
+        </div>
+        <i data-lucide="external-link" class="size-5 text-muted-foreground shrink-0 mt-1"></i>
+      </div>
+      <ul class="grid grid-cols-2 gap-x-4 gap-y-2 mt-5 text-sm" role="list">
+        <li class="flex items-center gap-2"><i data-lucide="file-down" class="size-3.5 text-muted-foreground"></i>Resources &amp; Printables</li>
+        <li class="flex items-center gap-2"><i data-lucide="video" class="size-3.5 text-muted-foreground"></i>Training Videos</li>
+        <li class="flex items-center gap-2"><i data-lucide="layout-grid" class="size-3.5 text-muted-foreground"></i>Partner Vision Board</li>
+        <li class="flex items-center gap-2"><i data-lucide="users" class="size-3.5 text-muted-foreground"></i>Parent Resources</li>
+        <li class="flex items-center gap-2"><i data-lucide="help-circle" class="size-3.5 text-muted-foreground"></i>FAQ &amp; Help</li>
+        <li class="flex items-center gap-2"><i data-lucide="book-open" class="size-3.5 text-muted-foreground"></i>Implementation Guide</li>
+        <li class="flex items-center gap-2"><i data-lucide="shopping-bag" class="size-3.5 text-muted-foreground"></i>Swag Shop</li>
+      </ul>
+    </a>
   </section>
 
   <!-- CONTACT SUPPORT panel -->
