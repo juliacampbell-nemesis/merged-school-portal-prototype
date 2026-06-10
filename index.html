@@ -664,7 +664,6 @@
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All risks<i data-lucide="chevron-down" class="size-4"></i></button>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Status: Active<i data-lucide="chevron-down" class="size-4"></i></button>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All schools<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="users-round" class="size-4"></i>Cohort: Any<i data-lucide="chevron-down" class="size-4"></i></button>
       <span class="ml-auto text-sm text-muted-foreground">11 active  ·  2 high-risk</span>
     </div>
 
@@ -1011,21 +1010,7 @@ Julia Campbell</textarea>
     </div>
   </div>
 
-  <!-- Tab toggle: All students | Cohorts -->
-  <div role="tablist" class="border-b border-border mb-6 flex gap-1" aria-label="Students sections">
-    <button role="tab" aria-selected="true" id="studentstab-roster" onclick="setStudentsTab('roster')" class="students-tab px-4 py-2.5 text-sm font-semibold text-primary border-b-2 border-primary inline-flex items-center gap-2">
-      <i data-lucide="users" class="size-4"></i>All students
-      <span class="inline-flex items-center rounded-full bg-primary text-primary-foreground px-1.5 py-0.5 text-xs font-semibold ml-1 mono">1,247</span>
-    </button>
-    <button role="tab" aria-selected="false" id="studentstab-cohorts" onclick="setStudentsTab('cohorts')" class="students-tab px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors inline-flex items-center gap-2">
-      <i data-lucide="users-round" class="size-4"></i>Cohorts
-      <span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-1.5 py-0.5 text-xs font-semibold ml-1 mono">8</span>
-    </button>
-  </div>
-
-  <!-- ROSTER PANEL -->
-  <div id="studentspanel-roster" class="students-panel">
-  <!-- Header row: search (left) + filter trigger / actions (right) — no container, lives directly above the table -->
+  <!-- Header row: search (left) + filters (right) inline — 3 filters ≤ 3 threshold per spec, no progressive disclosure needed -->
   <div class="flex items-center justify-between gap-3 mb-4">
     <!-- LEFT: Search -->
     <div class="relative max-w-md flex-1">
@@ -1033,39 +1018,11 @@ Julia Campbell</textarea>
       <label for="student-search" class="sr-only">Search students</label>
       <input id="student-search" type="text" placeholder="Search by name, ID, or guardian..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
     </div>
-    <!-- RIGHT: Filters trigger (4 filters > 3 threshold → progressive disclosure) + Save as cohort -->
+    <!-- RIGHT: 3 filters rendered inline -->
     <div class="flex items-center gap-2">
-      <button type="button" id="students-filter-trigger" onclick="toggleStudentsFilters()" aria-expanded="false" aria-controls="students-filter-panel" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
-        <i data-lucide="list-filter" class="size-4"></i>Filters
-        <span id="students-filter-badge" class="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground">1</span>
-      </button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="bookmark-plus" class="size-4"></i>Save as cohort</button>
-    </div>
-  </div>
-
-  <!-- Expandable filter panel — appears below header row when "Filters" is clicked. Pushes content down. -->
-  <div id="students-filter-panel" class="hidden bg-card border border-border rounded-lg shadow-sm p-4 mb-4">
-    <div class="grid grid-cols-4 gap-3">
-      <div>
-        <label class="block text-xs font-semibold text-muted-foreground mb-1.5">Grade</label>
-        <button type="button" class="inline-flex items-center justify-between gap-2 h-9 px-3 w-full rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All grades<i data-lucide="chevron-down" class="size-4"></i></button>
-      </div>
-      <div>
-        <label class="block text-xs font-semibold text-muted-foreground mb-1.5">Status</label>
-        <button type="button" class="inline-flex items-center justify-between gap-2 h-9 px-3 w-full rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors">Active<i data-lucide="chevron-down" class="size-4"></i></button>
-      </div>
-      <div>
-        <label class="block text-xs font-semibold text-muted-foreground mb-1.5">Wellness</label>
-        <button type="button" class="inline-flex items-center justify-between gap-2 h-9 px-3 w-full rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Any<i data-lucide="chevron-down" class="size-4"></i></button>
-      </div>
-      <div>
-        <label class="block text-xs font-semibold text-muted-foreground mb-1.5">Cohort</label>
-        <button type="button" class="inline-flex items-center justify-between gap-2 h-9 px-3 w-full rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Any<i data-lucide="chevron-down" class="size-4"></i></button>
-      </div>
-    </div>
-    <div class="flex items-center justify-end gap-2 mt-3 pt-3 border-t border-border">
-      <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">Reset</button>
-      <button type="button" onclick="toggleStudentsFilters()" class="inline-flex items-center gap-2 h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Done</button>
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All grades<i data-lucide="chevron-down" class="size-4"></i></button>
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors">Status: Active<i data-lucide="chevron-down" class="size-4"></i></button>
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Wellness: Any<i data-lucide="chevron-down" class="size-4"></i></button>
     </div>
   </div>
 
@@ -1159,278 +1116,7 @@ Julia Campbell</textarea>
       </div>
     </footer>
   </div>
-  </div>
-  <!-- /studentspanel-roster -->
-
-  <!-- COHORTS PANEL -->
-  <div id="studentspanel-cohorts" class="students-panel hidden">
-    <div class="bg-card border border-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-2 flex-wrap">
-      <div class="relative flex-1 max-w-md">
-        <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
-        <label for="cohorts-search" class="sr-only">Search cohorts</label>
-        <input id="cohorts-search" type="text" placeholder="Search cohorts..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
-      </div>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Type: All<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Visibility: All<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Create cohort</button>
-    </div>
-
-    <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-      <table class="w-full text-sm">
-        <thead class="bg-muted">
-          <tr class="border-b border-border">
-            <th scope="col" class="text-left px-6 py-3 text-base font-bold">Cohort</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Type</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Members</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Criteria</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Visibility</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Updated</th>
-            <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-border">
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('cohort-detail')">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="alert-octagon" class="size-4 text-muted-foreground"></i>Severe wellness</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Smart</span></td>
-            <td class="py-3 mono">12</td>
-            <td class="py-3 text-muted-foreground text-xs">Wellness status: Severe</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold leading-4">District</span></td>
-            <td class="py-3 mono text-xs">2 hr ago</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('cohort-detail')">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="graduation-cap" class="size-4 text-muted-foreground"></i>9th graders</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Smart</span></td>
-            <td class="py-3 mono">287</td>
-            <td class="py-3 text-muted-foreground text-xs">Grade: 9</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold leading-4">District</span></td>
-            <td class="py-3 mono text-xs">Stable</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('cohort-detail')">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="graduation-cap" class="size-4 text-muted-foreground"></i>10th graders</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Smart</span></td>
-            <td class="py-3 mono">264</td>
-            <td class="py-3 text-muted-foreground text-xs">Grade: 10</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold leading-4">District</span></td>
-            <td class="py-3 mono text-xs">Stable</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('cohort-detail')">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="bookmark" class="size-4 text-muted-foreground"></i>My caseload</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Manual</span></td>
-            <td class="py-3 mono">24</td>
-            <td class="py-3 text-muted-foreground text-xs">Hand-picked by Julia C.</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Personal</span></td>
-            <td class="py-3 mono text-xs">Apr 14</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('cohort-detail')">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="clipboard-check" class="size-4 text-muted-foreground"></i>PHQ-9 follow-up needed</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Smart</span></td>
-            <td class="py-3 mono">8</td>
-            <td class="py-3 text-muted-foreground text-xs">PHQ-9 ≥ 15 in last 30 days</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold leading-4">District</span></td>
-            <td class="py-3 mono text-xs">Today</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('cohort-detail')">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="moon" class="size-4 text-muted-foreground"></i>Inactive 30+ days</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Smart</span></td>
-            <td class="py-3 mono">14</td>
-            <td class="py-3 text-muted-foreground text-xs">No app activity in 30 days</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold leading-4">District</span></td>
-            <td class="py-3 mono text-xs">Today</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('cohort-detail')">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="bookmark" class="size-4 text-muted-foreground"></i>Crisis follow-up Q1</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Manual</span></td>
-            <td class="py-3 mono">18</td>
-            <td class="py-3 text-muted-foreground text-xs">From PHQ-9 severe → now resolved</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Personal</span></td>
-            <td class="py-3 mono text-xs">Apr 1</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('cohort-detail')">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="trophy" class="size-4 text-muted-foreground"></i>Skill engagement leaders</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Smart</span></td>
-            <td class="py-3 mono">32</td>
-            <td class="py-3 text-muted-foreground text-xs">Skills completed ≥ 5</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold leading-4">District</span></td>
-            <td class="py-3 mono text-xs">Today</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Helper note -->
-    <div class="mt-4 bg-card border border-border rounded-lg shadow-sm p-4 flex items-start gap-3">
-      <i data-lucide="info" class="size-5 text-foreground shrink-0 mt-0.5"></i>
-      <div class="text-sm flex-1">
-        <strong class="font-semibold">Smart vs Manual: </strong>
-        <span class="text-muted-foreground"><strong>Smart cohorts</strong> use a saved filter — membership updates automatically as students' data changes. <strong>Manual cohorts</strong> are hand-picked and only change when you edit them.</span>
-      </div>
-    </div>
-  </div>
-  <!-- /studentspanel-cohorts -->
-</main>
-
-<!-- ===================== COHORT DETAIL ===================== -->
-<main id="cohort-detail" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('students')">Students</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('students-cohorts')">Cohorts</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Severe wellness</li>
-    </ol>
-  </nav>
-
-  <!-- Cohort header card -->
-  <div class="bg-card border border-border rounded-lg shadow-sm p-6 mb-4">
-    <div class="flex items-start justify-between gap-4">
-      <div class="flex-1 min-w-0">
-        <div class="flex items-center gap-3">
-          <i data-lucide="alert-octagon" class="size-7"></i>
-          <h1 class="text-2xl font-bold tracking-tight">Severe wellness</h1>
-          <span class="inline-flex items-center gap-1 rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Smart cohort</span>
-        </div>
-        <p class="text-base text-muted-foreground mt-2">12 members  ·  Auto-updating  ·  Owned by district  ·  Created Mar 4, 2026</p>
-        <p class="text-sm text-foreground mt-3"><strong class="font-semibold">Criteria: </strong>Wellness status is Severe</p>
-      </div>
-      <div class="flex items-center gap-2">
-        <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="pencil" class="size-4"></i>Edit criteria</button>
-        <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Export</button>
-        <button type="button" class="inline-flex items-center justify-center size-9 rounded-md border border-input bg-card hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4"></i></button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mini-dashboard stats -->
-  <div class="grid grid-cols-4 gap-4 mb-4">
-    <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-      <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="users" class="size-4"></i>Members</div>
-      <div class="text-3xl font-semibold mt-3">12</div>
-      <div class="text-sm text-muted-foreground mt-1 flex items-center gap-1"><i data-lucide="arrow-up" class="size-3.5"></i>2 new this week</div>
-    </div>
-    <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-      <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="clipboard-list" class="size-4"></i>Avg PHQ-9</div>
-      <div class="text-3xl font-semibold mt-3">14.2</div>
-      <div class="text-sm text-muted-foreground mt-1">Severe range  ·  district avg 7.4</div>
-    </div>
-    <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-      <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="shield-alert" class="size-4"></i>Active alerts</div>
-      <div class="text-3xl font-semibold mt-3">8</div>
-      <div class="text-sm text-muted-foreground mt-1">3 urgent  ·  5 monitoring</div>
-    </div>
-    <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-      <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="check-circle-2" class="size-4"></i>Skill completion</div>
-      <div class="text-3xl font-semibold mt-3">31%</div>
-      <div class="text-sm text-muted-foreground mt-1">Below district avg 68%</div>
-    </div>
-  </div>
-
-  <!-- Bulk action toolbar -->
-  <div class="bg-card border border-primary rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
-    <span class="text-sm font-semibold flex items-center gap-2"><i data-lucide="check-square" class="size-4"></i>3 selected</span>
-    <div class="border-l border-border h-6 mx-1"></div>
-    <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="plus" class="size-4"></i>Assign skill</button>
-    <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="mail" class="size-4"></i>Send email</button>
-    <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar-plus" class="size-4"></i>Schedule check-in</button>
-    <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="clipboard-list" class="size-4"></i>Send screener</button>
-    <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Export selected</button>
-    <button type="button" class="ml-auto inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Clear selection"><i data-lucide="x" class="size-4"></i></button>
-  </div>
-
-  <!-- Members table -->
-  <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-    <table class="w-full text-sm">
-      <thead class="bg-muted">
-        <tr class="border-b border-border">
-          <th scope="col" class="px-4 py-3"><input type="checkbox" class="rounded border-input" aria-label="Select all members"></th>
-          <th scope="col" class="text-left py-3 text-base font-bold">Name</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">Grade</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">School</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">PHQ-9</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">Active alert</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">Last care</th>
-          <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Actions</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-border">
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
-          <td class="px-4 py-3"><input type="checkbox" checked class="rounded border-input" aria-label="Select Kevin Martinez"></td>
-          <td class="py-3 font-semibold">Kevin Martinez</td>
-          <td class="py-3">11</td>
-          <td class="py-3">Lincoln High</td>
-          <td class="py-3 mono">17 / 27</td>
-          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Urgent</span></td>
-          <td class="py-3">Today</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-        </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
-          <td class="px-4 py-3"><input type="checkbox" checked class="rounded border-input" aria-label="Select Heyes, Clarke"></td>
-          <td class="py-3 font-semibold">Heyes, Clarke</td>
-          <td class="py-3">9</td>
-          <td class="py-3">Lincoln High</td>
-          <td class="py-3 mono">15 / 27</td>
-          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Urgent</span></td>
-          <td class="py-3">2 weeks ago</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-        </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
-          <td class="px-4 py-3"><input type="checkbox" checked class="rounded border-input" aria-label="Select Friis, Elsa"></td>
-          <td class="py-3 font-semibold">Friis, Elsa</td>
-          <td class="py-3">7</td>
-          <td class="py-3">Roosevelt Middle</td>
-          <td class="py-3 mono">16 / 27</td>
-          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Watch</span></td>
-          <td class="py-3">1 week ago</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-        </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
-          <td class="px-4 py-3"><input type="checkbox" class="rounded border-input" aria-label="Select Emma Sullivan"></td>
-          <td class="py-3 font-semibold">Emma Sullivan</td>
-          <td class="py-3">9</td>
-          <td class="py-3">Lincoln High</td>
-          <td class="py-3 mono">14 / 27</td>
-          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Watch</span></td>
-          <td class="py-3">1 week ago</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-        </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
-          <td class="px-4 py-3"><input type="checkbox" class="rounded border-input" aria-label="Select Tyler Jensen"></td>
-          <td class="py-3 font-semibold">Tyler Jensen</td>
-          <td class="py-3">10</td>
-          <td class="py-3">Lincoln High</td>
-          <td class="py-3 mono">15 / 27</td>
-          <td class="py-3 text-muted-foreground">—</td>
-          <td class="py-3">4 days ago</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-        </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
-          <td class="px-4 py-3"><input type="checkbox" class="rounded border-input" aria-label="Select Aisha Khan"></td>
-          <td class="py-3 font-semibold">Aisha Khan</td>
-          <td class="py-3">9</td>
-          <td class="py-3">Lincoln High</td>
-          <td class="py-3 mono">15 / 27</td>
-          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Watch</span></td>
-          <td class="py-3">2 days ago</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-        </tr>
-      </tbody>
-    </table>
-    <footer class="flex items-center justify-between px-6 py-3 border-t border-border text-sm text-muted-foreground">
-      <span>Showing 1–6 of 12</span>
-      <div class="flex items-center gap-1">
-        <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="chevron-left" class="size-4"></i>Previous</button>
-        <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Next<i data-lucide="chevron-right" class="size-4"></i></button>
-      </div>
-    </footer>
-  </div>
+  <!-- COHORTS PANEL — REMOVED (out of scope: net-new functionality) -->
 </main>
 
 <!-- ===================== STUDENT PROFILE ===================== -->
@@ -2215,7 +1901,6 @@ Julia Campbell</textarea>
   <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Global filters</button>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="users-round" class="size-4"></i>Cohort: Any<i data-lucide="chevron-down" class="size-4"></i></button>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="bookmark" class="size-4"></i>Presets<i data-lucide="chevron-down" class="size-4"></i></button>
     <div class="ml-auto flex items-center gap-2">
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar-clock" class="size-4"></i>Scheduled emails</button>
@@ -4874,20 +4559,6 @@ Julia Campbell</textarea>
       if (textNode) textNode.textContent = labelText;
     }
   }
-  // Progressive disclosure for the Students filter panel.
-  // >3 filters → hide behind a "Filters" button (Helix table filter spec).
-  // Active filter count badge is shown only when the panel is collapsed.
-  function toggleStudentsFilters() {
-    const panel = document.getElementById('students-filter-panel');
-    const trigger = document.getElementById('students-filter-trigger');
-    const badge = document.getElementById('students-filter-badge');
-    if (!panel || !trigger) return;
-    const willOpen = panel.classList.contains('hidden');
-    panel.classList.toggle('hidden', !willOpen);
-    trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-    // Hide the count badge when panel is open (spec rule)
-    if (badge) badge.classList.toggle('hidden', willOpen);
-  }
   // Keyboard support for clickable rows (per spec: Enter or Space triggers row click).
   // Ignores keypresses on focusable descendants (checkbox, buttons) so those keep their native behavior.
   function handleStudentRowKey(e) {
@@ -4897,24 +4568,6 @@ Julia Campbell</textarea>
     e.currentTarget.click();
   }
 
-  function setStudentsTab(tab) {
-    document.querySelectorAll('.students-panel').forEach(p => p.classList.add('hidden'));
-    const panel = document.getElementById('studentspanel-' + tab);
-    if (panel) panel.classList.remove('hidden');
-    ['roster', 'cohorts'].forEach(t => {
-      const btn = document.getElementById('studentstab-' + t);
-      if (!btn) return;
-      const isActive = t === tab;
-      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      if (isActive) {
-        btn.classList.add('text-primary', 'border-primary');
-        btn.classList.remove('text-muted-foreground', 'border-transparent', 'hover:text-foreground', 'hover:border-border');
-      } else {
-        btn.classList.remove('text-primary', 'border-primary');
-        btn.classList.add('text-muted-foreground', 'border-transparent', 'hover:text-foreground', 'hover:border-border');
-      }
-    });
-  }
   function setSettingsTab(tab) {
     document.querySelectorAll('.settings-panel').forEach(p => p.classList.add('hidden'));
     const panel = document.getElementById('settingspanel-' + tab);
@@ -4929,7 +4582,6 @@ Julia Campbell</textarea>
     let libTab = null;
     let inboxTab = null;
     let settingsTab = null;
-    let studentsTab = null;
     let demoSurface = null;
     let scSurface = null;
     if (hash === 'library-skills') { hash = 'library'; libTab = 'skills'; navMatch = 'library'; }
@@ -4941,10 +4593,6 @@ Julia Campbell</textarea>
     else if (hash === 'settings') { settingsTab = 'profile'; }
     else if (hash === 'student-profile') navMatch = 'students';
     else if (hash === 'school-detail') navMatch = 'schools';
-    else if (hash === 'cohort-detail') navMatch = 'students';
-    else if (hash === 'students-cohorts') { hash = 'students'; studentsTab = 'cohorts'; navMatch = 'students'; }
-    else if (hash === 'students-roster') { hash = 'students'; studentsTab = 'roster'; navMatch = 'students'; }
-    else if (hash === 'students') studentsTab = 'roster';
     else if (hash === 'my-wellness') { navMatch = null; scSurface = 'home'; }
     else if (hash.startsWith('my-wellness-')) {
       scSurface = hash.replace('my-wellness-', '');
@@ -4966,7 +4614,6 @@ Julia Campbell</textarea>
     if (libTab) setLibTab(libTab);
     if (inboxTab) setInboxTab(inboxTab);
     if (settingsTab) setSettingsTab(settingsTab);
-    if (studentsTab) setStudentsTab(studentsTab);
     setNavActive(navMatch);
     // setDemoSurface runs LAST because setNavActive iterates ALL .nav-link items
     // (including student-demo sub-items) and would wipe their is-active state otherwise.
