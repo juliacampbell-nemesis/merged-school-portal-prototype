@@ -1025,18 +1025,48 @@ Julia Campbell</textarea>
 
   <!-- ROSTER PANEL -->
   <div id="studentspanel-roster" class="students-panel">
-  <div class="bg-card border border-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-2 flex-wrap">
-    <div class="relative flex-1 max-w-md">
+  <!-- Header row: search (left) + filter trigger / actions (right) — no container, lives directly above the table -->
+  <div class="flex items-center justify-between gap-3 mb-4">
+    <!-- LEFT: Search -->
+    <div class="relative max-w-md flex-1">
       <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
       <label for="student-search" class="sr-only">Search students</label>
       <input id="student-search" type="text" placeholder="Search by name, ID, or guardian..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
     </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All grades<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Status: Active<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Wellness: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cohort: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="plus" class="size-4"></i>Filter</button>
-    <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="bookmark-plus" class="size-4"></i>Save as cohort</button>
+    <!-- RIGHT: Filters trigger (4 filters > 3 threshold → progressive disclosure) + Save as cohort -->
+    <div class="flex items-center gap-2">
+      <button type="button" id="students-filter-trigger" onclick="toggleStudentsFilters()" aria-expanded="false" aria-controls="students-filter-panel" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
+        <i data-lucide="list-filter" class="size-4"></i>Filters
+        <span id="students-filter-badge" class="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground">1</span>
+      </button>
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="bookmark-plus" class="size-4"></i>Save as cohort</button>
+    </div>
+  </div>
+
+  <!-- Expandable filter panel — appears below header row when "Filters" is clicked. Pushes content down. -->
+  <div id="students-filter-panel" class="hidden bg-card border border-border rounded-lg shadow-sm p-4 mb-4">
+    <div class="grid grid-cols-4 gap-3">
+      <div>
+        <label class="block text-xs font-semibold text-muted-foreground mb-1.5">Grade</label>
+        <button type="button" class="inline-flex items-center justify-between gap-2 h-9 px-3 w-full rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All grades<i data-lucide="chevron-down" class="size-4"></i></button>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-muted-foreground mb-1.5">Status</label>
+        <button type="button" class="inline-flex items-center justify-between gap-2 h-9 px-3 w-full rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors">Active<i data-lucide="chevron-down" class="size-4"></i></button>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-muted-foreground mb-1.5">Wellness</label>
+        <button type="button" class="inline-flex items-center justify-between gap-2 h-9 px-3 w-full rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Any<i data-lucide="chevron-down" class="size-4"></i></button>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-muted-foreground mb-1.5">Cohort</label>
+        <button type="button" class="inline-flex items-center justify-between gap-2 h-9 px-3 w-full rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Any<i data-lucide="chevron-down" class="size-4"></i></button>
+      </div>
+    </div>
+    <div class="flex items-center justify-end gap-2 mt-3 pt-3 border-t border-border">
+      <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">Reset</button>
+      <button type="button" onclick="toggleStudentsFilters()" class="inline-flex items-center gap-2 h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Done</button>
+    </div>
   </div>
 
   <!-- Table toolbar (bulk actions) — per Helix Table spec -->
@@ -4843,6 +4873,20 @@ Julia Campbell</textarea>
       const textNode = Array.from(inviteBtn.childNodes).find(n => n.nodeType === 3 && n.textContent.trim());
       if (textNode) textNode.textContent = labelText;
     }
+  }
+  // Progressive disclosure for the Students filter panel.
+  // >3 filters → hide behind a "Filters" button (Helix table filter spec).
+  // Active filter count badge is shown only when the panel is collapsed.
+  function toggleStudentsFilters() {
+    const panel = document.getElementById('students-filter-panel');
+    const trigger = document.getElementById('students-filter-trigger');
+    const badge = document.getElementById('students-filter-badge');
+    if (!panel || !trigger) return;
+    const willOpen = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !willOpen);
+    trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    // Hide the count badge when panel is open (spec rule)
+    if (badge) badge.classList.toggle('hidden', willOpen);
   }
   // Keyboard support for clickable rows (per spec: Enter or Space triggers row click).
   // Ignores keypresses on focusable descendants (checkbox, buttons) so those keep their native behavior.
