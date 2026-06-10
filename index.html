@@ -4721,6 +4721,7 @@ Julia Campbell</textarea>
     setTimeout(() => document.getElementById('bulk-invite-cancel-btn').focus(), 0);
   }
   function closeBulkInviteSheet() {
+    cancelBulkInviteSendTimer(); // kill any in-flight send simulation
     document.getElementById('bulk-invite-sheet').classList.add('hidden');
   }
   function populateBulkInviteSheet(rows) {
@@ -4777,7 +4778,18 @@ Julia Campbell</textarea>
       headerCb.indeterminate = checked > 0 && checked < total;
     }
   }
+  // Re-entry guard: cancel any in-flight simulation timers before starting a new one.
+  // Without this, opening/closing the sheet mid-send accumulates parallel timeout chains
+  // that all keep firing — felt like a freeze on slower machines.
+  let bulkInviteSendTimerId = null;
+  function cancelBulkInviteSendTimer() {
+    if (bulkInviteSendTimerId !== null) {
+      clearTimeout(bulkInviteSendTimerId);
+      bulkInviteSendTimerId = null;
+    }
+  }
   function simulateSendInvites() {
+    cancelBulkInviteSendTimer(); // defuse any stale chain
     const total = document.querySelectorAll('input[data-bulk-invite-checkbox]:checked').length;
     if (total === 0) return;
     // Switch to sending state
@@ -4790,6 +4802,9 @@ Julia Campbell</textarea>
     // Simulate progress (≈300ms per record — matches TC's CONCURRENCY=3 perception)
     let current = 0;
     const tick = () => {
+      bulkInviteSendTimerId = null;
+      // Bail if the sheet was closed mid-send
+      if (document.getElementById('bulk-invite-sheet').classList.contains('hidden')) return;
       if (current >= total) {
         document.getElementById('bulk-invite-sending-state').classList.add('hidden');
         document.getElementById('bulk-invite-done-state').classList.remove('hidden');
@@ -4801,11 +4816,12 @@ Julia Campbell</textarea>
       current++;
       document.getElementById('bulk-invite-progress-current').textContent = String(current);
       document.getElementById('bulk-invite-progress-bar').style.width = (current / total * 100) + '%';
-      setTimeout(tick, 280);
+      bulkInviteSendTimerId = setTimeout(tick, 280);
     };
-    setTimeout(tick, 200);
+    bulkInviteSendTimerId = setTimeout(tick, 200);
   }
   function resetBulkInviteSheet() {
+    cancelBulkInviteSendTimer(); // ensure any sim is dead before resetting visual state
     document.getElementById('bulk-invite-review-state').classList.remove('hidden');
     document.getElementById('bulk-invite-sending-state').classList.add('hidden');
     document.getElementById('bulk-invite-done-state').classList.add('hidden');
