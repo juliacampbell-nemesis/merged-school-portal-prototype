@@ -1041,7 +1041,7 @@ Julia Campbell</textarea>
 
   <!-- Table toolbar (bulk actions) — per Helix Table spec -->
   <div class="flex items-center justify-between mb-3 px-1">
-    <p class="text-sm text-muted-foreground"><span id="student-selection-count">0</span> of <span id="student-selection-total">8</span> selected</p>
+    <p class="text-sm text-muted-foreground"><span id="student-selection-count">0</span> of <span id="student-selection-total">7</span> selected</p>
     <button type="button" id="student-invite-btn" disabled class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"><i data-lucide="user-plus" class="size-4"></i>Create invite</button>
   </div>
 
@@ -1106,17 +1106,17 @@ Julia Campbell</textarea>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
-          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Sara Lin"></td>
-          <td class="py-3 font-semibold">Sara Lin</td><td class="py-3">12</td><td class="py-3">Active</td>
+          <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox disabled class="size-4 rounded border-input accent-primary opacity-40 cursor-not-allowed align-middle" aria-label="Sara Lin — cannot invite (18+)" title="Students 18+ must self-enroll — guardian invite flow doesn't apply"></td>
+          <td class="py-3 font-semibold">Sara Lin<span class="ml-2 inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4" title="18+ — not eligible for guardian invite">Adult</span></td><td class="py-3">12</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">6 / 6</td><td class="py-3 mono">8</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Jordan Pierce"></td>
-          <td class="py-3 font-semibold text-muted-foreground">Jordan Pierce</td><td class="py-3 text-muted-foreground">11</td><td class="py-3 text-muted-foreground">Inactive</td>
+          <td class="py-3 font-semibold">Jordan Pierce</td><td class="py-3">11</td><td class="py-3">Inactive</td>
           <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">—</span></td>
-          <td class="py-3 text-muted-foreground">3 mo ago</td><td class="py-3 mono text-muted-foreground">0 / 0</td><td class="py-3 mono text-muted-foreground">0</td>
+          <td class="py-3">3 mo ago</td><td class="py-3 mono">0 / 0</td><td class="py-3 mono">0</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
       </tbody>
@@ -4801,7 +4801,8 @@ Julia Campbell</textarea>
     updateStudentBulkActions();
   }
   function toggleAllStudents(headerCheckbox) {
-    document.querySelectorAll('#students-table-body input[data-student-checkbox]').forEach(cb => {
+    // Skip disabled checkboxes (ineligible students: 18+, missing guardian email, has active referral)
+    document.querySelectorAll('#students-table-body input[data-student-checkbox]:not([disabled])').forEach(cb => {
       cb.checked = headerCheckbox.checked;
       const row = cb.closest('tr');
       if (row) {
@@ -4813,22 +4814,25 @@ Julia Campbell</textarea>
   }
   function updateStudentBulkActions() {
     const rowCheckboxes = document.querySelectorAll('#students-table-body input[data-student-checkbox]');
-    const checked = Array.from(rowCheckboxes).filter(cb => cb.checked);
+    // Eligible = checkboxes that aren't disabled. Total denominator excludes ineligible students
+    // so "N of total" math stays consistent through select-all (matches TC's BulkInviteSheet semantics).
+    const eligible = Array.from(rowCheckboxes).filter(cb => !cb.disabled);
+    const checked = eligible.filter(cb => cb.checked);
     const count = checked.length;
-    const total = rowCheckboxes.length;
+    const eligibleTotal = eligible.length;
 
-    // Header select-all: tri-state (checked | unchecked | indeterminate)
+    // Header select-all: tri-state — based on eligible total only
     const headerCheckbox = document.getElementById('students-select-all');
     if (headerCheckbox) {
-      headerCheckbox.checked = count === total && total > 0;
-      headerCheckbox.indeterminate = count > 0 && count < total;
+      headerCheckbox.checked = count === eligibleTotal && eligibleTotal > 0;
+      headerCheckbox.indeterminate = count > 0 && count < eligibleTotal;
     }
 
-    // Toolbar copy: "N of total selected"
+    // Toolbar copy: "N of {eligible total} selected"
     const countEl = document.getElementById('student-selection-count');
     const totalEl = document.getElementById('student-selection-total');
     if (countEl) countEl.textContent = String(count);
-    if (totalEl) totalEl.textContent = String(total);
+    if (totalEl) totalEl.textContent = String(eligibleTotal);
 
     // Create invite button: disabled when 0 (spec pattern)
     const inviteBtn = document.getElementById('student-invite-btn');
