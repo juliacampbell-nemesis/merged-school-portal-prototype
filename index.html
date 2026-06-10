@@ -676,6 +676,33 @@
     </aside>
   </div>
 
+  <!-- Assign Skills CTA — per Elsa: assigning skills is the #1 driver of return engagement -->
+  <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden mb-4">
+    <div class="grid grid-cols-[1fr_240px] items-stretch">
+      <div class="p-6">
+        <div class="flex items-center gap-2 mb-2">
+          <i data-lucide="zap" class="size-5 text-primary"></i>
+          <h2 class="text-lg font-bold">Assign skills to drive engagement</h2>
+        </div>
+        <p class="text-sm text-muted-foreground mb-4 max-w-2xl">When staff assign skills, students return to the app more often and spend more time engaging with support. Push curated skills to students via your LMS in a click.</p>
+        <div class="flex flex-wrap gap-2">
+          <a onclick="navigate('library-skills')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors cursor-pointer">
+            <i data-lucide="plus" class="size-4"></i>Assign a skill
+          </a>
+          <a onclick="navigate('library-skills'); setTimeout(() => setSkillsInnerTab('reporting'), 50)" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer">
+            View assignment reporting<i data-lucide="arrow-right" class="size-4"></i>
+          </a>
+        </div>
+      </div>
+      <div class="bg-primary/5 border-l border-border p-6 flex flex-col justify-center">
+        <div class="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">This week</div>
+        <div class="text-3xl font-bold">14</div>
+        <div class="text-sm text-muted-foreground mt-0.5">skills assigned across 3 schools</div>
+        <a onclick="navigate('library-skills')" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer mt-3">Browse the catalog<i data-lucide="arrow-right" class="size-3.5"></i></a>
+      </div>
+    </div>
+  </section>
+
   <div>
     <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="screener-insights-heading">
       <header class="px-6 py-4 border-b border-border flex items-center justify-between">
@@ -2353,6 +2380,10 @@ Julia Campbell</textarea>
         <div class="flex items-center gap-3"><i data-lucide="bar-chart-3" class="size-4 text-muted-foreground"></i><span class="font-semibold">Schools comparison</span></div>
         <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
       </a>
+      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-staff')">
+        <div class="flex items-center gap-3"><i data-lucide="users-round" class="size-4 text-muted-foreground"></i><span class="font-semibold">Staff engagement</span></div>
+        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
+      </a>
     </div>
   </section>
 
@@ -3091,6 +3122,129 @@ Julia Campbell</textarea>
     </div>
   </section>
   <!-- /SCHOOLS COMPARISON section -->
+</main>
+
+<!-- ===================== REPORTS — STAFF ENGAGEMENT (per Elsa: admins need to hold staff accountable for rollout + skill assignments) ===================== -->
+<main id="reports-staff" class="page max-w-screen-2xl mx-auto px-6 py-8">
+  <nav aria-label="Breadcrumb" class="mb-4">
+    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
+      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('reports')">Reports</a></li>
+      <li><i data-lucide="chevron-right" class="size-4"></i></li>
+      <li class="text-foreground font-semibold" aria-current="page">Staff engagement</li>
+    </ol>
+  </nav>
+  <div class="flex items-end justify-between mb-6 gap-4">
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight">Staff engagement</h1>
+      <p class="text-base text-muted-foreground mt-1">Who's completed rollout and who's assigning skills, by staff member.</p>
+    </div>
+    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
+  </div>
+  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
+    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All schools<i data-lucide="chevron-down" class="size-4"></i></button>
+    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>This semester<i data-lucide="chevron-down" class="size-4"></i></button>
+    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Role: Any<i data-lucide="chevron-down" class="size-4"></i></button>
+  </div>
+
+  <!-- KPI row -->
+  <div class="grid grid-cols-3 gap-4 mb-6">
+    <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+      <div class="text-sm font-semibold text-muted-foreground">Rollout completed</div>
+      <div class="text-3xl font-bold mt-2">38 / 52</div>
+      <div class="text-sm text-muted-foreground mt-1 mono">73% of staff</div>
+    </article>
+    <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+      <div class="text-sm font-semibold text-muted-foreground">Staff assigning skills</div>
+      <div class="text-3xl font-bold mt-2">22 / 52</div>
+      <div class="text-sm text-muted-foreground mt-1 mono">42% — last 30 days</div>
+    </article>
+    <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+      <div class="text-sm font-semibold text-muted-foreground">Avg skills per staff</div>
+      <div class="text-3xl font-bold mt-2">4.6</div>
+      <div class="text-sm text-muted-foreground mt-1 mono">over 30 days</div>
+    </article>
+  </div>
+
+  <!-- Per-staff table -->
+  <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-muted">
+        <tr class="border-b border-border">
+          <th scope="col" class="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Staff</th>
+          <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Role</th>
+          <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">School</th>
+          <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Rollout</th>
+          <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Skills assigned</th>
+          <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Last activity</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <td class="px-6 py-3 font-semibold">Julia Campbell</td><td class="py-3">Counselor Lead</td><td class="py-3">Lincoln High</td>
+          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Complete</span></td>
+          <td class="py-3 mono">14</td>
+          <td class="py-3 mono text-xs">Today, 9:42 AM</td>
+        </tr>
+        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <td class="px-6 py-3 font-semibold">Marcus Rivera</td><td class="py-3">Social Worker</td><td class="py-3">Lincoln High</td>
+          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Complete</span></td>
+          <td class="py-3 mono">8</td>
+          <td class="py-3 mono text-xs">Yesterday</td>
+        </tr>
+        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <td class="px-6 py-3 font-semibold">Sarah Park</td><td class="py-3">Teacher</td><td class="py-3">Lincoln High</td>
+          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Complete</span></td>
+          <td class="py-3 mono">12</td>
+          <td class="py-3 mono text-xs">2 days ago</td>
+        </tr>
+        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <td class="px-6 py-3 font-semibold">Dr. Janet Rivera</td><td class="py-3">School Psychologist</td><td class="py-3">Kennedy High</td>
+          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Complete</span></td>
+          <td class="py-3 mono">3</td>
+          <td class="py-3 mono text-xs">Last week</td>
+        </tr>
+        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <td class="px-6 py-3 font-semibold">Tom Bryant</td><td class="py-3">Principal</td><td class="py-3">Roosevelt Middle</td>
+          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="clock" class="size-3"></i>In progress</span></td>
+          <td class="py-3 mono">0</td>
+          <td class="py-3 mono text-xs">Last week</td>
+        </tr>
+        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <td class="px-6 py-3 font-semibold">Pat Liu</td><td class="py-3">Counselor</td><td class="py-3">Roosevelt Middle</td>
+          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Complete</span></td>
+          <td class="py-3 mono">6</td>
+          <td class="py-3 mono text-xs">Today</td>
+        </tr>
+        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <td class="px-6 py-3 font-semibold">Dana Walker</td><td class="py-3">Teacher</td><td class="py-3">Jefferson Middle</td>
+          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not started</span></td>
+          <td class="py-3 mono text-muted-foreground">—</td>
+          <td class="py-3 mono text-xs text-muted-foreground">Never signed in</td>
+        </tr>
+        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <td class="px-6 py-3 font-semibold">Ana Lopez</td><td class="py-3">Counselor</td><td class="py-3">Washington Elem.</td>
+          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Complete</span></td>
+          <td class="py-3 mono">2</td>
+          <td class="py-3 mono text-xs">3 weeks ago</td>
+        </tr>
+        <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <td class="px-6 py-3 font-semibold">Robert Kim</td><td class="py-3">Teacher</td><td class="py-3">Washington Elem.</td>
+          <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not started</span></td>
+          <td class="py-3 mono text-muted-foreground">—</td>
+          <td class="py-3 mono text-xs text-muted-foreground">Never signed in</td>
+        </tr>
+      </tbody>
+    </table>
+    <footer class="flex items-center justify-between px-6 py-3 border-t border-border text-sm text-muted-foreground">
+      <span>Showing 1–9 of 52</span>
+      <div class="flex items-center gap-1">
+        <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="chevron-left" class="size-4"></i>Previous</button>
+        <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Next<i data-lucide="chevron-right" class="size-4"></i></button>
+      </div>
+    </footer>
+  </div>
+
+  <p class="text-xs text-muted-foreground mt-4 max-w-2xl">"Skills assigned" counts pushes via Google Classroom / Canvas / Schoology / Copy URL during the selected period. Rollout = whether the staff member completed the in-app onboarding checklist.</p>
 </main>
 
 <!-- ===================== REPORTS — RECENT DOWNLOADS ===================== -->
