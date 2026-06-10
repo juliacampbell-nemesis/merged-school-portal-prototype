@@ -1923,67 +1923,148 @@ Julia Campbell</textarea>
   </section>
 
   <section id="libpanel-screeners" class="libpanel hidden" role="tabpanel" aria-labelledby="libtab-screeners">
-    <div class="bg-card border border-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-2 flex-wrap">
-      <div class="relative flex-1 max-w-md">
-        <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
-        <label for="screener-search" class="sr-only">Search screeners</label>
-        <input id="screener-search" type="text" placeholder="Search screeners..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
-      </div>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Domain: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Sort: Follow-up needed<i data-lucide="chevron-down" class="size-4"></i></button>
-      <span class="ml-auto text-sm text-muted-foreground">12 screeners in your district plan</span>
+    <!-- Inner Your screeners / Screeners we offer tab strip (Alongside pattern) -->
+    <div role="tablist" class="mb-6 flex gap-2" aria-label="Screeners view">
+      <button id="screeners-inner-tab-yours" type="button" role="tab" aria-selected="true" onclick="setScreenersInnerTab('yours')" class="screeners-inner-tab inline-flex items-center gap-2 h-9 px-4 rounded-full bg-foreground text-background text-sm font-semibold">Your screeners</button>
+      <button id="screeners-inner-tab-catalog" type="button" role="tab" aria-selected="false" onclick="setScreenersInnerTab('catalog')" class="screeners-inner-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors">Screeners we offer</button>
     </div>
 
+    <!-- YOUR SCREENERS panel -->
+    <div id="screeners-inner-panel-yours">
+
+    <!-- Window / Updated pills + filters (Alongside pattern) -->
+    <div class="flex items-center gap-3 mb-4 flex-wrap">
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Screener: PHQ-9<i data-lucide="chevron-down" class="size-4"></i></button>
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Window: Fall 2026<i data-lucide="chevron-down" class="size-4"></i></button>
+      <span class="text-sm text-muted-foreground">Updated yesterday</span>
+      <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download CSV</button>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="grid grid-cols-2 gap-4 mb-4 max-w-2xl">
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">Completion Rate</div>
+        <div class="text-3xl font-bold mt-2">89%</div>
+      </article>
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">Students for Follow-up</div>
+        <div class="text-3xl font-bold mt-2">8</div>
+      </article>
+    </div>
+
+    <!-- Status filter chips (Alongside) -->
+    <div class="flex items-center gap-2 mb-3">
+      <button type="button" class="inline-flex items-center h-8 px-3 rounded-full bg-foreground text-background text-xs font-semibold">All</button>
+      <button type="button" class="inline-flex items-center h-8 px-3 rounded-full border border-input bg-card text-foreground text-xs font-semibold hover:bg-muted transition-colors">Non-completed</button>
+      <button type="button" class="inline-flex items-center h-8 px-3 rounded-full border border-input bg-card text-foreground text-xs font-semibold hover:bg-muted transition-colors">Completed</button>
+      <button type="button" class="inline-flex items-center h-8 px-3 rounded-full border border-input bg-card text-foreground text-xs font-semibold hover:bg-muted transition-colors">Needs follow-up</button>
+    </div>
+
+    <!-- Student scoring results table (Alongside columns include Emotional score) -->
     <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
       <table class="w-full text-sm">
         <thead class="bg-muted">
           <tr class="border-b border-border">
-            <th scope="col" class="text-left px-6 py-3 text-base font-bold">Screener</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Domain</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Administered</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Completion</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Needs follow-up</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Last admin</th>
-            <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Actions</th>
+            <th scope="col" class="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Student</th>
+            <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Grade</th>
+            <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Emotional score</th>
+            <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status</th>
+            <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Completed</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-border">
-          <tr class="hover:bg-accent cursor-pointer transition-colors">
-            <td class="px-6 py-3 font-semibold">PHQ-9</td><td class="py-3">Depression</td><td class="py-3 mono">412</td><td class="py-3 mono">89%</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">8 students</span></td>
-            <td class="py-3 mono">Yesterday</td><td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
+            <td class="px-6 py-3 font-semibold">Kevin Martinez</td><td class="py-3">11</td>
+            <td class="py-3 mono">17 / 27</td>
+            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Needs follow-up</span></td>
+            <td class="py-3 mono">May 12</td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
-            <td class="px-6 py-3 font-semibold">GAD-7</td><td class="py-3">Anxiety</td><td class="py-3 mono">387</td><td class="py-3 mono">85%</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">3 students</span></td>
-            <td class="py-3 mono">2 days ago</td><td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="px-6 py-3 font-semibold">Emma Sullivan</td><td class="py-3">9</td>
+            <td class="py-3 mono">11 / 27</td>
+            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Moderate</span></td>
+            <td class="py-3 mono">May 10</td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
-            <td class="px-6 py-3 font-semibold">PSC-17</td><td class="py-3">Pediatric symptoms</td><td class="py-3 mono">298</td><td class="py-3 mono">92%</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">5 students</span></td>
-            <td class="py-3 mono">Last week</td><td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="px-6 py-3 font-semibold">Marcus Thompson</td><td class="py-3">10</td>
+            <td class="py-3 mono">6 / 27</td>
+            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Mild</span></td>
+            <td class="py-3 mono">May 8</td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
-            <td class="px-6 py-3 font-semibold">SDQ</td><td class="py-3">Behavioral</td><td class="py-3 mono">187</td><td class="py-3 mono">76%</td>
-            <td class="py-3">2 students</td>
-            <td class="py-3 mono">2 weeks ago</td><td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="px-6 py-3 font-semibold">Aisha Khan</td><td class="py-3">9</td>
+            <td class="py-3 mono">14 / 27</td>
+            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Moderate</span></td>
+            <td class="py-3 mono">May 12</td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
-            <td class="px-6 py-3 font-semibold">C-SSRS</td><td class="py-3">Suicide risk</td><td class="py-3 mono">42</td><td class="py-3 mono">100%</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">1 student</span></td>
-            <td class="py-3 mono">Yesterday</td><td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="px-6 py-3 font-semibold">Diego Reyes</td><td class="py-3">11</td>
+            <td class="py-3 mono">4 / 27</td>
+            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Minimal</span></td>
+            <td class="py-3 mono">May 9</td>
+          </tr>
+          <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <td class="px-6 py-3 font-semibold">Tyler Jensen</td><td class="py-3">10</td>
+            <td class="py-3 mono text-muted-foreground">—</td>
+            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not completed</span></td>
+            <td class="py-3 mono text-muted-foreground">—</td>
+          </tr>
+          <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <td class="px-6 py-3 font-semibold">Sara Lin</td><td class="py-3">12</td>
+            <td class="py-3 mono">3 / 27</td>
+            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Minimal</span></td>
+            <td class="py-3 mono">May 7</td>
+          </tr>
+          <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <td class="px-6 py-3 font-semibold">Jordan Pierce</td><td class="py-3">11</td>
+            <td class="py-3 mono text-muted-foreground">—</td>
+            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not completed</span></td>
+            <td class="py-3 mono text-muted-foreground">—</td>
           </tr>
         </tbody>
       </table>
     </div>
+    </div>
+    <!-- /YOUR SCREENERS panel -->
 
-    <div class="mt-4 bg-card border border-border rounded-lg shadow-sm p-4 flex items-start gap-3">
-      <i data-lucide="info" class="size-5 text-primary shrink-0 mt-0.5"></i>
-      <div class="text-sm">
-        <strong class="font-semibold">Note: </strong>
-        <span class="text-muted-foreground">Screener assignment happens automatically based on district plan and skill triggers. This page is read-only — use it to monitor completion and follow-up need.</span>
+    <!-- SCREENERS WE OFFER panel — Alongside catalog -->
+    <div id="screeners-inner-panel-catalog" class="hidden">
+      <p class="text-sm text-muted-foreground mb-4">Contact <a href="mailto:support@alongside.care" class="font-semibold text-primary hover:underline">support@alongside.care</a> to enable additional screeners for your district.</p>
+      <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-muted">
+            <tr class="border-b border-border">
+              <th scope="col" class="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Domain</th>
+              <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Screener</th>
+              <th scope="col" class="text-right pr-6 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="hover:bg-accent transition-colors">
+              <td class="px-6 py-4 font-semibold">SEL</td>
+              <td class="py-4">WCSD-SECAs</td>
+              <td class="text-right pr-6 py-4"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Contact support</span></td>
+            </tr>
+            <tr class="hover:bg-accent transition-colors">
+              <td class="px-6 py-4 font-semibold">Anxiety</td>
+              <td class="py-4">GAD-7</td>
+              <td class="text-right pr-6 py-4"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Enabled</span></td>
+            </tr>
+            <tr class="hover:bg-accent transition-colors">
+              <td class="px-6 py-4 font-semibold">Depression</td>
+              <td class="py-4">PHQ-9</td>
+              <td class="text-right pr-6 py-4"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Enabled</span></td>
+            </tr>
+            <tr class="hover:bg-accent transition-colors">
+              <td class="px-6 py-4 font-semibold">ADHD</td>
+              <td class="py-4">ASRS</td>
+              <td class="text-right pr-6 py-4"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Contact support</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+    <!-- /SCREENERS WE OFFER panel -->
   </section>
 
   <section id="libpanel-resources" class="libpanel hidden" role="tabpanel" aria-labelledby="libtab-resources">
@@ -4975,6 +5056,30 @@ Julia Campbell</textarea>
       if (textNode) textNode.textContent = labelText;
     }
   }
+  // === LIBRARY — Screeners inner Your screeners / Screeners we offer tabs (Alongside pattern) ===
+  function setScreenersInnerTab(tab) {
+    const yoursPanel = document.getElementById('screeners-inner-panel-yours');
+    const catalogPanel = document.getElementById('screeners-inner-panel-catalog');
+    const yoursTab = document.getElementById('screeners-inner-tab-yours');
+    const catalogTab = document.getElementById('screeners-inner-tab-catalog');
+    if (!yoursPanel || !catalogPanel) return;
+    const isYours = tab === 'yours';
+    yoursPanel.classList.toggle('hidden', !isYours);
+    catalogPanel.classList.toggle('hidden', isYours);
+    [yoursTab, catalogTab].forEach(t => {
+      if (!t) return;
+      const active = (t === yoursTab) === isYours;
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+      if (active) {
+        t.classList.add('bg-foreground', 'text-background');
+        t.classList.remove('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
+      } else {
+        t.classList.remove('bg-foreground', 'text-background');
+        t.classList.add('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
+      }
+    });
+  }
+
   // === LIBRARY — Skills inner Assign / Reporting tabs (Alongside pattern) ===
   function setSkillsInnerTab(tab) {
     const assignPanel = document.getElementById('skills-inner-panel-assign');
