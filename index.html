@@ -1226,6 +1226,65 @@ Julia Campbell</textarea>
         </table>
       </section>
 
+      <!-- Visit History — TimelyCare student detail page; PHI-gated -->
+      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="student-visits-heading">
+        <header class="flex items-center justify-between px-6 py-4 border-b border-border">
+          <div>
+            <h2 id="student-visits-heading" class="text-lg font-semibold">Visit history</h2>
+            <p class="text-sm text-muted-foreground mt-0.5">Past and upcoming TimelyCare visits</p>
+          </div>
+          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer">All visits<i data-lucide="arrow-right" class="size-4"></i></a>
+        </header>
+        <table class="w-full text-sm">
+          <thead class="bg-muted">
+            <tr class="border-b border-border">
+              <th scope="col" class="text-left px-6 py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Date</th>
+              <th scope="col" class="text-left py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Type</th>
+              <th scope="col" class="text-left py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Provider</th>
+              <th scope="col" class="text-left py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Modality</th>
+              <th scope="col" class="text-left py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="hover:bg-accent cursor-pointer transition-colors">
+              <td class="px-6 py-3 font-semibold">Jun 12, 10:00 AM</td>
+              <td class="py-3">Scheduled counseling</td>
+              <td class="py-3">Dr. Chen</td>
+              <td class="py-3">At school</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Upcoming</span></td>
+            </tr>
+            <tr class="hover:bg-accent cursor-pointer transition-colors">
+              <td class="px-6 py-3 font-semibold">May 22, 11:30 AM</td>
+              <td class="py-3">Scheduled counseling</td>
+              <td class="py-3">Dr. Chen</td>
+              <td class="py-3">At school</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></td>
+            </tr>
+            <tr class="hover:bg-accent cursor-pointer transition-colors">
+              <td class="px-6 py-3 font-semibold">May 8, 2:00 PM</td>
+              <td class="py-3">Scheduled counseling</td>
+              <td class="py-3">Dr. Chen</td>
+              <td class="py-3">At school</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></td>
+            </tr>
+            <tr class="hover:bg-accent cursor-pointer transition-colors">
+              <td class="px-6 py-3 font-semibold">Apr 24, 11:30 AM</td>
+              <td class="py-3">On-demand visit</td>
+              <td class="py-3">Dr. Patel</td>
+              <td class="py-3">Telehealth</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></td>
+            </tr>
+            <tr class="hover:bg-accent cursor-pointer transition-colors">
+              <td class="px-6 py-3 font-semibold text-muted-foreground">Apr 10, 9:00 AM</td>
+              <td class="py-3 text-muted-foreground">Scheduled counseling</td>
+              <td class="py-3 text-muted-foreground">Dr. Chen</td>
+              <td class="py-3 text-muted-foreground">At school</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">No-show</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
       <!-- Chat summaries from Kevin — Alongside's student-initiated summaries -->
       <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="student-summaries-heading">
         <header class="flex items-center justify-between px-6 py-4 border-b border-border">
