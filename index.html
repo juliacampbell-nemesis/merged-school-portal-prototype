@@ -1345,6 +1345,51 @@ Julia Campbell</textarea>
         </table>
       </section>
 
+      <!-- Documents — TC clinical records (Care Plan, Safety Plan, etc.) gated by view_student_clinical_records / PHI -->
+      <section class="phi-only bg-card border border-border rounded-lg shadow-sm" aria-labelledby="student-documents-heading">
+        <header class="flex items-center justify-between px-6 py-4 border-b border-border">
+          <div>
+            <h2 id="student-documents-heading" class="text-lg font-semibold flex items-center gap-2">Documents <span class="inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-[10px] font-semibold leading-4"><i data-lucide="lock" class="size-3"></i>PHI</span></h2>
+            <p class="text-sm text-muted-foreground mt-0.5">Care plans, safety plans, and clinical notes pushed from TimelyCare</p>
+          </div>
+          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer">All documents<i data-lucide="arrow-right" class="size-4"></i></a>
+        </header>
+        <table class="w-full text-sm">
+          <thead class="bg-muted">
+            <tr class="border-b border-border">
+              <th scope="col" class="text-left px-6 py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Type</th>
+              <th scope="col" class="text-left py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Title</th>
+              <th scope="col" class="text-left py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Date</th>
+              <th scope="col" class="text-left py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Versions</th>
+              <th scope="col" class="text-right pr-6 py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="hover:bg-accent cursor-pointer transition-colors">
+              <td class="px-6 py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-berry-50 text-tc-berry-700 border border-tc-berry-100 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="shield" class="size-3"></i>Safety Plan</span></td>
+              <td class="py-3 font-semibold">Safety plan — May 22, 2026</td>
+              <td class="py-3 mono">May 22, 2026</td>
+              <td class="py-3 text-muted-foreground">v2</td>
+              <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="View document"><i data-lucide="eye" class="size-4"></i></button></td>
+            </tr>
+            <tr class="hover:bg-accent cursor-pointer transition-colors">
+              <td class="px-6 py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="heart" class="size-3"></i>Care Plan</span></td>
+              <td class="py-3 font-semibold">Care plan — Apr 2026 update</td>
+              <td class="py-3 mono">Apr 14, 2026</td>
+              <td class="py-3 text-muted-foreground">v3</td>
+              <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="View document"><i data-lucide="eye" class="size-4"></i></button></td>
+            </tr>
+            <tr class="hover:bg-accent cursor-pointer transition-colors">
+              <td class="px-6 py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="file-text" class="size-3"></i>Session note</span></td>
+              <td class="py-3 font-semibold">Intake summary — Mar 11, 2026</td>
+              <td class="py-3 mono">Mar 11, 2026</td>
+              <td class="py-3 text-muted-foreground">—</td>
+              <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="View document"><i data-lucide="eye" class="size-4"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
       <!-- Chat summaries from Kevin — Alongside's student-initiated summaries -->
       <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="student-summaries-heading">
         <header class="flex items-center justify-between px-6 py-4 border-b border-border">
