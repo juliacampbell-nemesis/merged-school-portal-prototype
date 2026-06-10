@@ -1023,7 +1023,7 @@ Julia Campbell</textarea>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All grades<i data-lucide="chevron-down" class="size-4"></i></button>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors">Status: Active<i data-lucide="chevron-down" class="size-4"></i></button>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Wellness: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" id="student-invite-btn" disabled class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"><i data-lucide="user-plus" class="size-4"></i>Create invite</button>
+      <button type="button" id="student-invite-btn" disabled onclick="openBulkInviteSheet()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"><i data-lucide="user-plus" class="size-4"></i>Create invite</button>
     </div>
   </div>
 
@@ -1045,56 +1045,56 @@ Julia Campbell</textarea>
         </tr>
       </thead>
       <tbody id="students-table-body" class="divide-y divide-border">
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+        <tr data-student-name="Kevin Martinez" data-guardian-name="Maria Martinez" data-guardian-email="mmartinez@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Kevin Martinez"></td>
           <td class="py-3 font-semibold">Kevin Martinez</td><td class="py-3">11</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Urgent</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">1 / 8</td><td class="py-3 mono">12</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+        <tr data-student-name="Emma Sullivan" data-guardian-name="David Sullivan" data-guardian-email="dsullivan@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Emma Sullivan"></td>
           <td class="py-3 font-semibold">Emma Sullivan</td><td class="py-3">9</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Monitoring</span></td>
           <td class="py-3">1 week ago</td><td class="py-3 mono">5 / 5</td><td class="py-3 mono">2</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+        <tr data-student-name="Marcus Thompson" data-guardian-name="Janet Thompson" data-guardian-email="jthompson@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Marcus Thompson"></td>
           <td class="py-3 font-semibold">Marcus Thompson</td><td class="py-3">10</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">2 / 4</td><td class="py-3 mono">7</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+        <tr data-student-name="Aisha Khan" data-guardian-name="Aban Khan" data-guardian-email="akhan@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Aisha Khan"></td>
           <td class="py-3 font-semibold">Aisha Khan</td><td class="py-3">9</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Monitoring</span></td>
           <td class="py-3">2 days ago</td><td class="py-3 mono">4 / 6</td><td class="py-3 mono">3</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+        <tr data-student-name="Diego Reyes" data-guardian-name="Sofia Reyes" data-guardian-email="sreyes@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Diego Reyes"></td>
           <td class="py-3 font-semibold">Diego Reyes</td><td class="py-3">11</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">3 / 3</td><td class="py-3 mono">4</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+        <tr data-student-name="Tyler Jensen" data-guardian-name="Mark Jensen" data-guardian-email="" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Tyler Jensen"></td>
           <td class="py-3 font-semibold">Tyler Jensen</td><td class="py-3">10</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Monitoring</span></td>
           <td class="py-3">4 days ago</td><td class="py-3 mono">0 / 4</td><td class="py-3 mono">1</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+        <tr data-student-name="Sara Lin" data-guardian-name="" data-guardian-email="" data-ineligible-reason="adult" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox disabled class="size-4 rounded border-input accent-primary opacity-40 cursor-not-allowed align-middle" aria-label="Sara Lin — cannot invite (18+)" title="Students 18+ must self-enroll — guardian invite flow doesn't apply"></td>
           <td class="py-3 font-semibold">Sara Lin<span class="ml-2 inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4" title="18+ — not eligible for guardian invite">Adult</span></td><td class="py-3">12</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">6 / 6</td><td class="py-3 mono">8</td>
           <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
-        <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
+        <tr data-student-name="Jordan Pierce" data-guardian-name="Lisa Pierce" data-guardian-email="lpierce@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Jordan Pierce"></td>
           <td class="py-3 font-semibold">Jordan Pierce</td><td class="py-3">11</td><td class="py-3">Inactive</td>
           <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">—</span></td>
@@ -4396,6 +4396,82 @@ Julia Campbell</textarea>
   </div>
 </div>
 
+<!-- ===================== BULK INVITE SHEET (Create Invite review) — duplicates TC's BulkInviteSheet flow ===================== -->
+<div id="bulk-invite-sheet" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="bulk-invite-title">
+  <!-- Backdrop -->
+  <div onclick="closeBulkInviteSheet()" class="absolute inset-0 bg-foreground/40"></div>
+
+  <!-- Slide-in panel from right -->
+  <aside class="absolute top-0 right-0 h-full w-full max-w-2xl bg-card shadow-xl flex flex-col">
+    <!-- Header -->
+    <header class="px-6 py-5 border-b border-border">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 id="bulk-invite-title" class="text-lg font-bold">Review &amp; Send Invites</h2>
+          <p class="text-sm text-muted-foreground mt-1">Review the selected students before sending invitations to their guardians.</p>
+        </div>
+        <button type="button" onclick="closeBulkInviteSheet()" class="size-8 inline-flex items-center justify-center rounded-md hover:bg-muted transition-colors shrink-0" aria-label="Close">
+          <i data-lucide="x" class="size-4"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- REVIEW state -->
+    <div id="bulk-invite-review-state" class="flex-1 overflow-y-auto">
+      <!-- Warning banner (shown only if any selected student is ineligible) -->
+      <div id="bulk-invite-warning" class="hidden mx-6 mt-4 rounded-md border border-tc-orange-200 bg-tc-orange-50 p-3 flex items-start gap-3">
+        <i data-lucide="triangle-alert" class="size-4 text-tc-orange-500 mt-0.5 shrink-0"></i>
+        <div class="text-sm">
+          <div class="font-semibold text-tc-orange-900">Some students excluded</div>
+          <p class="text-tc-orange-900/80 mt-0.5">Students with a missing email or age 18+ have been automatically excluded and cannot be invited.</p>
+        </div>
+      </div>
+
+      <!-- Review table -->
+      <div class="px-6 py-4">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-2 w-8"><input type="checkbox" id="bulk-invite-select-all" onclick="toggleAllBulkInvites(this)" class="size-4 rounded border-input accent-primary cursor-pointer align-middle" aria-label="Select all eligible students"></th>
+              <th class="text-left py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Student</th>
+              <th class="text-left py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Grade</th>
+              <th class="text-left py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Guardian</th>
+              <th class="text-left py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Guardian Email</th>
+              <th class="w-8"></th>
+            </tr>
+          </thead>
+          <tbody id="bulk-invite-rows" class="divide-y divide-border"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SENDING state -->
+    <div id="bulk-invite-sending-state" class="hidden flex-1 flex flex-col items-center justify-center px-6">
+      <i data-lucide="loader-2" class="size-12 text-primary animate-spin mb-4"></i>
+      <div class="text-base font-semibold text-center">Sending <span id="bulk-invite-progress-current">0</span> of <span id="bulk-invite-progress-total">0</span>…</div>
+      <div class="w-64 h-2 bg-muted rounded-full mt-3 overflow-hidden">
+        <div id="bulk-invite-progress-bar" class="h-full bg-primary transition-all duration-200" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- DONE state -->
+    <div id="bulk-invite-done-state" class="hidden flex-1 flex flex-col items-center justify-center px-6 text-center">
+      <div class="size-16 rounded-full bg-tc-sage-50 border border-tc-sage-200 flex items-center justify-center mb-4">
+        <i data-lucide="check" class="size-8 text-tc-sage-700"></i>
+      </div>
+      <div class="text-lg font-bold mb-1"><span id="bulk-invite-done-count">0</span> sent successfully</div>
+      <p class="text-sm text-muted-foreground">Guardians will get an email within a few minutes.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="px-6 py-4 border-t border-border flex items-center justify-end gap-2">
+      <button type="button" id="bulk-invite-cancel-btn" onclick="closeBulkInviteSheet()" class="inline-flex items-center justify-center h-9 px-4 rounded-md text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
+      <button type="button" id="bulk-invite-send-btn" onclick="simulateSendInvites()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"><i data-lucide="send" class="size-4"></i>Send <span id="bulk-invite-send-count">0</span> invite<span id="bulk-invite-send-plural">s</span></button>
+      <button type="button" id="bulk-invite-done-btn" onclick="closeBulkInviteSheet()" class="hidden inline-flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Done</button>
+    </footer>
+  </aside>
+</div>
+
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script>
   function setNavActive(route) {
@@ -4550,6 +4626,120 @@ Julia Campbell</textarea>
       if (textNode) textNode.textContent = labelText;
     }
   }
+  // === BULK INVITE SHEET — duplicates TC's BulkInviteSheet flow (review → sending → done) ===
+  function openBulkInviteSheet() {
+    resetBulkInviteSheet();
+    // Collect selected students from the main roster
+    const selectedRows = Array.from(document.querySelectorAll('#students-table-body input[data-student-checkbox]:checked'))
+      .map(cb => cb.closest('tr'));
+    populateBulkInviteSheet(selectedRows);
+    document.getElementById('bulk-invite-sheet').classList.remove('hidden');
+    // Re-init lucide icons for any newly rendered <i> tags inside the sheet
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    // Focus trap entry point
+    setTimeout(() => document.getElementById('bulk-invite-cancel-btn').focus(), 0);
+  }
+  function closeBulkInviteSheet() {
+    document.getElementById('bulk-invite-sheet').classList.add('hidden');
+  }
+  function populateBulkInviteSheet(rows) {
+    const tbody = document.getElementById('bulk-invite-rows');
+    tbody.innerHTML = '';
+    let ineligibleCount = 0;
+    rows.forEach((row) => {
+      const name = row.dataset.studentName || '';
+      const grade = row.children[2] ? row.children[2].textContent.trim() : '';
+      const guardianName = row.dataset.guardianName || '';
+      const guardianEmail = row.dataset.guardianEmail || '';
+      const ineligibleReason = row.dataset.ineligibleReason || (!guardianEmail.trim() ? 'missing-email' : '');
+      const eligible = !ineligibleReason;
+      if (!eligible) ineligibleCount++;
+      const tr = document.createElement('tr');
+      tr.className = eligible ? '' : 'opacity-50';
+      tr.innerHTML = `
+        <td class="py-3 align-middle">${eligible
+          ? `<input type="checkbox" checked data-bulk-invite-checkbox onclick="updateBulkInviteSendCount()" class="size-4 rounded border-input accent-primary cursor-pointer align-middle" aria-label="Include ${name}">`
+          : `<span class="size-4 inline-block" aria-hidden="true"></span>`}</td>
+        <td class="py-3 font-semibold">${name}</td>
+        <td class="py-3">${grade}</td>
+        <td class="py-3">${guardianName || '—'}</td>
+        <td class="py-3 truncate max-w-40" title="${guardianEmail}">${guardianEmail || '<span class="text-muted-foreground italic">missing</span>'}</td>
+        <td class="py-3">${eligible
+          ? ''
+          : `<i data-lucide="triangle-alert" class="size-4 text-tc-orange-500" title="${ineligibleReason === 'adult' ? 'Student is 18+ — must self-enroll' : 'Missing guardian email'}"></i>`}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+    // Warning banner only if any ineligible (defense-in-depth — main table should already filter)
+    document.getElementById('bulk-invite-warning').classList.toggle('hidden', ineligibleCount === 0);
+    updateBulkInviteSendCount();
+  }
+  function toggleAllBulkInvites(headerCheckbox) {
+    document.querySelectorAll('input[data-bulk-invite-checkbox]').forEach(cb => {
+      cb.checked = headerCheckbox.checked;
+    });
+    updateBulkInviteSendCount();
+  }
+  function updateBulkInviteSendCount() {
+    const all = document.querySelectorAll('input[data-bulk-invite-checkbox]');
+    const checked = Array.from(all).filter(cb => cb.checked).length;
+    const total = all.length;
+    const countEl = document.getElementById('bulk-invite-send-count');
+    const pluralEl = document.getElementById('bulk-invite-send-plural');
+    const sendBtn = document.getElementById('bulk-invite-send-btn');
+    if (countEl) countEl.textContent = String(checked);
+    if (pluralEl) pluralEl.textContent = checked === 1 ? '' : 's';
+    if (sendBtn) sendBtn.disabled = checked === 0;
+    const headerCb = document.getElementById('bulk-invite-select-all');
+    if (headerCb) {
+      headerCb.checked = checked === total && total > 0;
+      headerCb.indeterminate = checked > 0 && checked < total;
+    }
+  }
+  function simulateSendInvites() {
+    const total = document.querySelectorAll('input[data-bulk-invite-checkbox]:checked').length;
+    if (total === 0) return;
+    // Switch to sending state
+    document.getElementById('bulk-invite-review-state').classList.add('hidden');
+    document.getElementById('bulk-invite-sending-state').classList.remove('hidden');
+    document.getElementById('bulk-invite-cancel-btn').classList.add('hidden');
+    document.getElementById('bulk-invite-send-btn').classList.add('hidden');
+    document.getElementById('bulk-invite-progress-total').textContent = String(total);
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    // Simulate progress (≈300ms per record — matches TC's CONCURRENCY=3 perception)
+    let current = 0;
+    const tick = () => {
+      if (current >= total) {
+        document.getElementById('bulk-invite-sending-state').classList.add('hidden');
+        document.getElementById('bulk-invite-done-state').classList.remove('hidden');
+        document.getElementById('bulk-invite-done-count').textContent = String(total);
+        document.getElementById('bulk-invite-done-btn').classList.remove('hidden');
+        if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+        return;
+      }
+      current++;
+      document.getElementById('bulk-invite-progress-current').textContent = String(current);
+      document.getElementById('bulk-invite-progress-bar').style.width = (current / total * 100) + '%';
+      setTimeout(tick, 280);
+    };
+    setTimeout(tick, 200);
+  }
+  function resetBulkInviteSheet() {
+    document.getElementById('bulk-invite-review-state').classList.remove('hidden');
+    document.getElementById('bulk-invite-sending-state').classList.add('hidden');
+    document.getElementById('bulk-invite-done-state').classList.add('hidden');
+    document.getElementById('bulk-invite-cancel-btn').classList.remove('hidden');
+    document.getElementById('bulk-invite-send-btn').classList.remove('hidden');
+    document.getElementById('bulk-invite-done-btn').classList.add('hidden');
+    document.getElementById('bulk-invite-progress-bar').style.width = '0%';
+  }
+  // Escape to close the bulk invite sheet
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const sheet = document.getElementById('bulk-invite-sheet');
+    if (sheet && !sheet.classList.contains('hidden')) closeBulkInviteSheet();
+  });
+
   // Keyboard support for clickable rows (per spec: Enter or Space triggers row click).
   // Ignores keypresses on focusable descendants (checkbox, buttons) so those keep their native behavior.
   function handleStudentRowKey(e) {
