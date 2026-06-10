@@ -1018,18 +1018,13 @@ Julia Campbell</textarea>
       <label for="student-search" class="sr-only">Search students</label>
       <input id="student-search" type="text" placeholder="Search by name, ID, or guardian..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
     </div>
-    <!-- RIGHT: 3 filters rendered inline -->
+    <!-- RIGHT: 3 filters + bulk action inline -->
     <div class="flex items-center gap-2">
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All grades<i data-lucide="chevron-down" class="size-4"></i></button>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors">Status: Active<i data-lucide="chevron-down" class="size-4"></i></button>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Wellness: Any<i data-lucide="chevron-down" class="size-4"></i></button>
+      <button type="button" id="student-invite-btn" disabled class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"><i data-lucide="user-plus" class="size-4"></i>Create invite</button>
     </div>
-  </div>
-
-  <!-- Table toolbar (bulk actions) — per Helix Table spec -->
-  <div class="flex items-center justify-between mb-3 px-1">
-    <p class="text-sm text-muted-foreground"><span id="student-selection-count">0</span> of <span id="student-selection-total">7</span> selected</p>
-    <button type="button" id="student-invite-btn" disabled class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"><i data-lucide="user-plus" class="size-4"></i>Create invite</button>
   </div>
 
   <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
@@ -4543,13 +4538,9 @@ Julia Campbell</textarea>
       headerCheckbox.indeterminate = count > 0 && count < eligibleTotal;
     }
 
-    // Toolbar copy: "N of {eligible total} selected"
-    const countEl = document.getElementById('student-selection-count');
-    const totalEl = document.getElementById('student-selection-total');
-    if (countEl) countEl.textContent = String(count);
-    if (totalEl) totalEl.textContent = String(eligibleTotal);
-
     // Create invite button: disabled when 0 (spec pattern)
+    // Selection count is communicated through the button label only — the separate
+    // "N of total selected" toolbar was retired since the button label says it all.
     const inviteBtn = document.getElementById('student-invite-btn');
     if (inviteBtn) {
       inviteBtn.disabled = count === 0;
