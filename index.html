@@ -4481,7 +4481,7 @@ Julia Campbell</textarea>
             <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
               <i data-lucide="download" class="size-4"></i>Export
             </button>
-            <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
+            <button type="button" onclick="openInviteUsersSheet()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
               <i data-lucide="user-plus" class="size-4"></i>Invite user
             </button>
           </div>
@@ -4724,6 +4724,101 @@ Julia Campbell</textarea>
   Merged School Portal  ·  Wireframe Prototype  ·  Path A IA  ·  Helix sidebar, monochrome
 </footer>
   </div>
+</div>
+
+<!-- ===================== INVITE USERS SHEET — Alongside multi-row Add Staff pattern ===================== -->
+<div id="invite-users-sheet" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="invite-users-title">
+  <div onclick="closeInviteUsersSheet()" class="absolute inset-0 bg-foreground/40"></div>
+  <aside class="absolute top-0 right-0 h-full w-full max-w-2xl bg-card shadow-xl flex flex-col">
+    <!-- Header -->
+    <header class="px-6 py-5 border-b border-border">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 id="invite-users-title" class="text-lg font-bold">Invite users</h2>
+          <p class="text-sm text-muted-foreground mt-1">Send invites to staff. Each row creates one user.</p>
+        </div>
+        <button type="button" onclick="closeInviteUsersSheet()" class="size-8 inline-flex items-center justify-center rounded-md hover:bg-muted transition-colors shrink-0" aria-label="Close">
+          <i data-lucide="x" class="size-4"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- FORM state -->
+    <div id="invite-users-form-state" class="flex-1 overflow-y-auto px-6 py-5">
+      <ul id="invite-users-rows" class="space-y-4" role="list">
+        <!-- First row pre-populated; clones happen via JS. Template lives below. -->
+        <li class="invite-user-row bg-card border border-border rounded-lg p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-sm font-semibold">Staff member <span class="invite-user-row-num">1</span></div>
+            <button type="button" onclick="removeInviteUserRow(this)" class="text-xs font-semibold text-muted-foreground hover:text-destructive transition-colors hidden">Remove</button>
+          </div>
+          <div class="grid grid-cols-2 gap-3 mb-3">
+            <div>
+              <label class="block text-xs font-semibold mb-1">First name <span class="text-destructive">*</span></label>
+              <input type="text" class="invite-user-firstname w-full h-9 px-3 rounded-md border border-input bg-card text-sm" placeholder="e.g. Maya">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold mb-1">Last name <span class="text-destructive">*</span></label>
+              <input type="text" class="invite-user-lastname w-full h-9 px-3 rounded-md border border-input bg-card text-sm" placeholder="e.g. Torres">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="block text-xs font-semibold mb-1">Email <span class="text-destructive">*</span></label>
+            <input type="email" class="invite-user-email w-full h-9 px-3 rounded-md border border-input bg-card text-sm" placeholder="name@lincolnusd.edu">
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold mb-1">Role <span class="text-destructive">*</span></label>
+              <select class="invite-user-role w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+                <option value="district-administrator">District Administrator</option>
+                <option value="district-staff">District Staff</option>
+                <option value="school-administrator">School Administrator</option>
+                <option value="clinical-staff" selected>Clinical Staff</option>
+                <option value="school-staff">School Staff</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold mb-1">School</label>
+              <select class="invite-user-school w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+                <option value="lincoln-high" selected>Lincoln High School</option>
+                <option value="kennedy-high">Kennedy High School</option>
+                <option value="roosevelt-middle">Roosevelt Middle School</option>
+                <option value="jefferson-middle">Jefferson Middle School</option>
+                <option value="washington-elementary">Washington Elementary</option>
+                <option value="all">All schools (district scope)</option>
+              </select>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <button type="button" onclick="addInviteUserRow()" class="mt-4 inline-flex items-center gap-2 h-9 px-3 rounded-md border border-dashed border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
+        <i data-lucide="plus" class="size-4"></i>Add another staff member
+      </button>
+    </div>
+
+    <!-- SENDING state -->
+    <div id="invite-users-loading-state" class="hidden flex-1 flex flex-col items-center justify-center px-6">
+      <i data-lucide="loader-2" class="size-12 text-primary animate-spin mb-4"></i>
+      <div class="text-base font-semibold">Sending invites…</div>
+    </div>
+
+    <!-- DONE state -->
+    <div id="invite-users-done-state" class="hidden flex-1 flex flex-col items-center justify-center px-6 text-center">
+      <div class="size-16 rounded-full bg-tc-sage-50 border border-tc-sage-200 flex items-center justify-center mb-4">
+        <i data-lucide="check" class="size-8 text-tc-sage-700"></i>
+      </div>
+      <div class="text-lg font-bold mb-2"><span id="invite-users-done-count">0</span> invite<span id="invite-users-done-plural">s</span> sent</div>
+      <p class="text-sm text-muted-foreground max-w-sm">Each staff member will receive an email with a link to set up their account.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="px-6 py-4 border-t border-border flex items-center justify-end gap-2">
+      <button type="button" id="invite-users-cancel-btn" onclick="closeInviteUsersSheet()" class="inline-flex items-center justify-center h-9 px-4 rounded-md text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
+      <button type="button" id="invite-users-submit-btn" onclick="submitInviteUsers()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="send" class="size-4"></i>Send invite<span id="invite-users-submit-plural"></span></button>
+      <button type="button" id="invite-users-done-btn" onclick="closeInviteUsersSheet()" class="hidden inline-flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Done</button>
+    </footer>
+  </aside>
 </div>
 
 <!-- ===================== TOAST (lightweight confirmation) ===================== -->
@@ -5056,6 +5151,124 @@ Julia Campbell</textarea>
       if (textNode) textNode.textContent = labelText;
     }
   }
+  // === INVITE USERS SHEET — Alongside multi-row Add Staff pattern ===
+  let inviteUsersTimerId = null;
+  function openInviteUsersSheet() {
+    cancelInviteUsersTimer();
+    resetInviteUsersSheet();
+    // Reset to a single empty row
+    const rows = document.getElementById('invite-users-rows');
+    while (rows.children.length > 1) rows.removeChild(rows.lastChild);
+    const firstRow = rows.firstElementChild;
+    if (firstRow) {
+      firstRow.querySelectorAll('input').forEach(i => { i.value = ''; });
+      firstRow.querySelectorAll('.invite-user-row-num').forEach(n => { n.textContent = '1'; });
+      firstRow.querySelector('button[onclick*="removeInviteUserRow"]').classList.add('hidden');
+    }
+    updateInviteUsersSubmitLabel();
+    document.getElementById('invite-users-sheet').classList.remove('hidden');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    setTimeout(() => firstRow && firstRow.querySelector('.invite-user-firstname') && firstRow.querySelector('.invite-user-firstname').focus(), 50);
+  }
+  function closeInviteUsersSheet() {
+    cancelInviteUsersTimer();
+    document.getElementById('invite-users-sheet').classList.add('hidden');
+  }
+  function cancelInviteUsersTimer() {
+    if (inviteUsersTimerId !== null) {
+      clearTimeout(inviteUsersTimerId);
+      inviteUsersTimerId = null;
+    }
+  }
+  function addInviteUserRow() {
+    const rows = document.getElementById('invite-users-rows');
+    const template = rows.firstElementChild;
+    if (!template) return;
+    const clone = template.cloneNode(true);
+    // Clear inputs in the clone
+    clone.querySelectorAll('input').forEach(i => { i.value = ''; });
+    // Show remove button on clone
+    const removeBtn = clone.querySelector('button[onclick*="removeInviteUserRow"]');
+    if (removeBtn) removeBtn.classList.remove('hidden');
+    rows.appendChild(clone);
+    // Renumber every row (1-indexed)
+    Array.from(rows.children).forEach((row, i) => {
+      const n = row.querySelector('.invite-user-row-num');
+      if (n) n.textContent = String(i + 1);
+    });
+    updateInviteUsersSubmitLabel();
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  function removeInviteUserRow(button) {
+    const row = button.closest('.invite-user-row');
+    if (!row) return;
+    row.remove();
+    // Renumber and re-hide remove btn on first row if only one left
+    const rows = document.getElementById('invite-users-rows');
+    Array.from(rows.children).forEach((r, i) => {
+      const n = r.querySelector('.invite-user-row-num');
+      if (n) n.textContent = String(i + 1);
+    });
+    if (rows.children.length === 1) {
+      const firstRemove = rows.firstElementChild.querySelector('button[onclick*="removeInviteUserRow"]');
+      if (firstRemove) firstRemove.classList.add('hidden');
+    }
+    updateInviteUsersSubmitLabel();
+  }
+  function updateInviteUsersSubmitLabel() {
+    const rows = document.getElementById('invite-users-rows');
+    const count = rows ? rows.children.length : 0;
+    const plural = document.getElementById('invite-users-submit-plural');
+    if (plural) plural.textContent = count > 1 ? ` (${count})` : '';
+  }
+  function submitInviteUsers() {
+    cancelInviteUsersTimer();
+    const rows = document.getElementById('invite-users-rows');
+    if (!rows) return;
+    // Validate: every row needs first name, last name, email
+    const invalid = Array.from(rows.children).some(r => {
+      const f = r.querySelector('.invite-user-firstname').value.trim();
+      const l = r.querySelector('.invite-user-lastname').value.trim();
+      const e = r.querySelector('.invite-user-email').value.trim();
+      return !f || !l || !e;
+    });
+    if (invalid) {
+      alert('Please fill in first name, last name, and email for every row.');
+      return;
+    }
+    const count = rows.children.length;
+    // Switch to loading state
+    document.getElementById('invite-users-form-state').classList.add('hidden');
+    document.getElementById('invite-users-loading-state').classList.remove('hidden');
+    document.getElementById('invite-users-cancel-btn').classList.add('hidden');
+    document.getElementById('invite-users-submit-btn').classList.add('hidden');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    inviteUsersTimerId = setTimeout(() => {
+      inviteUsersTimerId = null;
+      if (document.getElementById('invite-users-sheet').classList.contains('hidden')) return;
+      document.getElementById('invite-users-done-count').textContent = String(count);
+      document.getElementById('invite-users-done-plural').textContent = count === 1 ? '' : 's';
+      document.getElementById('invite-users-loading-state').classList.add('hidden');
+      document.getElementById('invite-users-done-state').classList.remove('hidden');
+      document.getElementById('invite-users-done-btn').classList.remove('hidden');
+      if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    }, 1000);
+  }
+  function resetInviteUsersSheet() {
+    cancelInviteUsersTimer();
+    document.getElementById('invite-users-form-state').classList.remove('hidden');
+    document.getElementById('invite-users-loading-state').classList.add('hidden');
+    document.getElementById('invite-users-done-state').classList.add('hidden');
+    document.getElementById('invite-users-cancel-btn').classList.remove('hidden');
+    document.getElementById('invite-users-submit-btn').classList.remove('hidden');
+    document.getElementById('invite-users-done-btn').classList.add('hidden');
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const sheet = document.getElementById('invite-users-sheet');
+    if (sheet && !sheet.classList.contains('hidden')) closeInviteUsersSheet();
+  });
+
   // === LIBRARY — Screeners inner Your screeners / Screeners we offer tabs (Alongside pattern) ===
   function setScreenersInnerTab(tab) {
     const yoursPanel = document.getElementById('screeners-inner-panel-yours');
