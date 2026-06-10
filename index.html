@@ -1231,7 +1231,6 @@ Julia Campbell</textarea>
             <i data-lucide="more-horizontal" class="size-4"></i>
           </button>
           <div id="student-actions-menu" role="menu" class="hidden absolute top-full right-0 mt-1 w-56 bg-card border border-border rounded-md shadow-md py-1 z-30">
-            <a class="dropdown-item" role="menuitem" onclick="toggleStudentActions(); openAssignSkillSheet({student:'Kevin Martinez'})"><i data-lucide="plus" class="size-4"></i>Assign skill</a>
             <a class="dropdown-item" role="menuitem"><i data-lucide="send" class="size-4"></i>Send screener</a>
             <a class="dropdown-item" role="menuitem"><i data-lucide="phone" class="size-4"></i>Contact guardian</a>
             <a class="dropdown-item" role="menuitem"><i data-lucide="file-text" class="size-4"></i>View care plan</a>
@@ -1691,7 +1690,17 @@ Julia Campbell</textarea>
           <div><dd class="text-lg font-semibold flex items-center justify-center gap-0.5">4.6<i data-lucide="star" class="size-3.5 fill-current"></i></dd><dt class="text-xs text-muted-foreground">Rating</dt></div>
         </dl>
         <div class="flex gap-2 mt-4">
-          <button type="button" onclick="openAssignSkillSheet({skill:'Box Breathing'})" class="flex-1 inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="relative flex-1">
+          <button type="button" onclick="toggleSkillAssignMenu(this)" class="w-full inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="skill-assign-menu hidden absolute bottom-11 left-0 w-64 bg-card border border-border rounded-md shadow-md py-1 z-30" role="menu">
+            <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-b border-border">Push to LMS</div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('google-classroom', 'Box Breathing')"><i data-lucide="graduation-cap" class="size-4"></i>Google Classroom<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('canvas', 'Box Breathing')"><i data-lucide="book-open" class="size-4"></i>Canvas LMS<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('schoology', 'Box Breathing')"><i data-lucide="school" class="size-4"></i>Schoology<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <div class="border-t border-border my-1"></div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('copy', 'Box Breathing')"><i data-lucide="link-2" class="size-4"></i>Copy assignment URL</a>
+          </div>
+          </div>
           <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="eye" class="size-4"></i>Preview</button>
         </div>
       </article>
@@ -1711,7 +1720,17 @@ Julia Campbell</textarea>
           <div><dd class="text-lg font-semibold flex items-center justify-center gap-0.5">4.3<i data-lucide="star" class="size-3.5 fill-current"></i></dd><dt class="text-xs text-muted-foreground">Rating</dt></div>
         </dl>
         <div class="flex gap-2 mt-4">
-          <button type="button" onclick="openAssignSkillSheet({skill:'Thought Reframing'})" class="flex-1 inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="relative flex-1">
+          <button type="button" onclick="toggleSkillAssignMenu(this)" class="w-full inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="skill-assign-menu hidden absolute bottom-11 left-0 w-64 bg-card border border-border rounded-md shadow-md py-1 z-30" role="menu">
+            <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-b border-border">Push to LMS</div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('google-classroom', 'Thought Reframing')"><i data-lucide="graduation-cap" class="size-4"></i>Google Classroom<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('canvas', 'Thought Reframing')"><i data-lucide="book-open" class="size-4"></i>Canvas LMS<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('schoology', 'Thought Reframing')"><i data-lucide="school" class="size-4"></i>Schoology<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <div class="border-t border-border my-1"></div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('copy', 'Thought Reframing')"><i data-lucide="link-2" class="size-4"></i>Copy assignment URL</a>
+          </div>
+          </div>
           <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="eye" class="size-4"></i>Preview</button>
         </div>
       </article>
@@ -1731,7 +1750,17 @@ Julia Campbell</textarea>
           <div><dd class="text-lg font-semibold flex items-center justify-center gap-0.5">4.1<i data-lucide="star" class="size-3.5 fill-current"></i></dd><dt class="text-xs text-muted-foreground">Rating</dt></div>
         </dl>
         <div class="flex gap-2 mt-4">
-          <button type="button" onclick="openAssignSkillSheet({skill:'Body Scan'})" class="flex-1 inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="relative flex-1">
+          <button type="button" onclick="toggleSkillAssignMenu(this)" class="w-full inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="skill-assign-menu hidden absolute bottom-11 left-0 w-64 bg-card border border-border rounded-md shadow-md py-1 z-30" role="menu">
+            <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-b border-border">Push to LMS</div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('google-classroom', 'Body Scan')"><i data-lucide="graduation-cap" class="size-4"></i>Google Classroom<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('canvas', 'Body Scan')"><i data-lucide="book-open" class="size-4"></i>Canvas LMS<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('schoology', 'Body Scan')"><i data-lucide="school" class="size-4"></i>Schoology<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <div class="border-t border-border my-1"></div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('copy', 'Body Scan')"><i data-lucide="link-2" class="size-4"></i>Copy assignment URL</a>
+          </div>
+          </div>
           <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="eye" class="size-4"></i>Preview</button>
         </div>
       </article>
@@ -1751,7 +1780,17 @@ Julia Campbell</textarea>
           <div><dd class="text-lg font-semibold flex items-center justify-center gap-0.5">4.4<i data-lucide="star" class="size-3.5 fill-current"></i></dd><dt class="text-xs text-muted-foreground">Rating</dt></div>
         </dl>
         <div class="flex gap-2 mt-4">
-          <button type="button" onclick="openAssignSkillSheet({skill:'Conflict Resolution'})" class="flex-1 inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="relative flex-1">
+          <button type="button" onclick="toggleSkillAssignMenu(this)" class="w-full inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="skill-assign-menu hidden absolute bottom-11 left-0 w-64 bg-card border border-border rounded-md shadow-md py-1 z-30" role="menu">
+            <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-b border-border">Push to LMS</div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('google-classroom', 'Conflict Resolution')"><i data-lucide="graduation-cap" class="size-4"></i>Google Classroom<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('canvas', 'Conflict Resolution')"><i data-lucide="book-open" class="size-4"></i>Canvas LMS<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('schoology', 'Conflict Resolution')"><i data-lucide="school" class="size-4"></i>Schoology<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <div class="border-t border-border my-1"></div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('copy', 'Conflict Resolution')"><i data-lucide="link-2" class="size-4"></i>Copy assignment URL</a>
+          </div>
+          </div>
           <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="eye" class="size-4"></i>Preview</button>
         </div>
       </article>
@@ -1771,7 +1810,17 @@ Julia Campbell</textarea>
           <div><dd class="text-lg font-semibold flex items-center justify-center gap-0.5">4.5<i data-lucide="star" class="size-3.5 fill-current"></i></dd><dt class="text-xs text-muted-foreground">Rating</dt></div>
         </dl>
         <div class="flex gap-2 mt-4">
-          <button type="button" onclick="openAssignSkillSheet({skill:'Sleep Hygiene Habits'})" class="flex-1 inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="relative flex-1">
+          <button type="button" onclick="toggleSkillAssignMenu(this)" class="w-full inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="skill-assign-menu hidden absolute bottom-11 left-0 w-64 bg-card border border-border rounded-md shadow-md py-1 z-30" role="menu">
+            <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-b border-border">Push to LMS</div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('google-classroom', 'Sleep Hygiene Habits')"><i data-lucide="graduation-cap" class="size-4"></i>Google Classroom<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('canvas', 'Sleep Hygiene Habits')"><i data-lucide="book-open" class="size-4"></i>Canvas LMS<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('schoology', 'Sleep Hygiene Habits')"><i data-lucide="school" class="size-4"></i>Schoology<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <div class="border-t border-border my-1"></div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('copy', 'Sleep Hygiene Habits')"><i data-lucide="link-2" class="size-4"></i>Copy assignment URL</a>
+          </div>
+          </div>
           <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="eye" class="size-4"></i>Preview</button>
         </div>
       </article>
@@ -1791,7 +1840,17 @@ Julia Campbell</textarea>
           <div><dd class="text-lg font-semibold">—</dd><dt class="text-xs text-muted-foreground">Rating</dt></div>
         </dl>
         <div class="flex gap-2 mt-4">
-          <button type="button" onclick="openAssignSkillSheet({skill:'Safety Planning'})" class="flex-1 inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="relative flex-1">
+          <button type="button" onclick="toggleSkillAssignMenu(this)" class="w-full inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign</button>
+          <div class="skill-assign-menu hidden absolute bottom-11 left-0 w-64 bg-card border border-border rounded-md shadow-md py-1 z-30" role="menu">
+            <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-b border-border">Push to LMS</div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('google-classroom', 'Safety Planning')"><i data-lucide="graduation-cap" class="size-4"></i>Google Classroom<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('canvas', 'Safety Planning')"><i data-lucide="book-open" class="size-4"></i>Canvas LMS<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('schoology', 'Safety Planning')"><i data-lucide="school" class="size-4"></i>Schoology<i data-lucide="chevron-right" class="size-3.5 ml-auto text-muted-foreground"></i></a>
+            <div class="border-t border-border my-1"></div>
+            <a class="dropdown-item" role="menuitem" onclick="dispatchAssignTo('copy', 'Safety Planning')"><i data-lucide="link-2" class="size-4"></i>Copy assignment URL</a>
+          </div>
+          </div>
           <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="eye" class="size-4"></i>Preview</button>
         </div>
       </article>
@@ -4563,83 +4622,9 @@ Julia Campbell</textarea>
 </footer>
   </div>
 </div>
-<!-- ===================== ASSIGN SKILL SHEET — Alongside "Assign Skills" workflow ===================== -->
-<div id="assign-skill-sheet" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="assign-skill-title">
-  <div onclick="closeAssignSkillSheet()" class="absolute inset-0 bg-foreground/40"></div>
-  <aside class="absolute top-0 right-0 h-full w-full max-w-md bg-card shadow-xl flex flex-col">
-    <!-- Header -->
-    <header class="px-6 py-5 border-b border-border">
-      <div class="flex items-start justify-between gap-4">
-        <div>
-          <h2 id="assign-skill-title" class="text-lg font-bold">Assign skill</h2>
-          <p class="text-sm text-muted-foreground mt-1">The student will see this in their Self-Care space as a recommended skill.</p>
-        </div>
-        <button type="button" onclick="closeAssignSkillSheet()" class="size-8 inline-flex items-center justify-center rounded-md hover:bg-muted transition-colors shrink-0" aria-label="Close">
-          <i data-lucide="x" class="size-4"></i>
-        </button>
-      </div>
-    </header>
 
-    <!-- FORM state -->
-    <div id="assign-skill-form-state" class="flex-1 overflow-y-auto px-6 py-5">
-      <div class="mb-5">
-        <label for="assign-skill-select" class="block text-sm font-semibold mb-2"><span class="text-destructive">*</span> Skill</label>
-        <select id="assign-skill-select" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
-          <option value="Box Breathing">Box Breathing · Coping · 5 min</option>
-          <option value="Thought Reframing">Thought Reframing · Cognitive · 8 min</option>
-          <option value="Body Scan">Body Scan · Mindfulness · 6 min</option>
-          <option value="Conflict Resolution">Conflict Resolution · Relationships · 7 min</option>
-          <option value="Sleep Hygiene Habits">Sleep Hygiene Habits · Sleep · 10 min</option>
-          <option value="Safety Planning">Safety Planning · Crisis · 12 min</option>
-        </select>
-      </div>
-
-      <div class="mb-5">
-        <label for="assign-student-select" class="block text-sm font-semibold mb-2"><span class="text-destructive">*</span> Student</label>
-        <select id="assign-student-select" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
-          <option value="Kevin Martinez" data-grade="11">Kevin Martinez · Grade 11 · Lincoln HS</option>
-          <option value="Emma Sullivan" data-grade="9">Emma Sullivan · Grade 9 · Lincoln HS</option>
-          <option value="Marcus Thompson" data-grade="10">Marcus Thompson · Grade 10 · Lincoln HS</option>
-          <option value="Aisha Khan" data-grade="9">Aisha Khan · Grade 9 · Lincoln HS</option>
-          <option value="Diego Reyes" data-grade="11">Diego Reyes · Grade 11 · Lincoln HS</option>
-          <option value="Tyler Jensen" data-grade="10">Tyler Jensen · Grade 10 · Lincoln HS</option>
-          <option value="Sara Lin" data-grade="12">Sara Lin · Grade 12 · Lincoln HS</option>
-          <option value="Jordan Pierce" data-grade="11">Jordan Pierce · Grade 11 · Lincoln HS</option>
-        </select>
-      </div>
-
-      <div class="mb-2">
-        <label for="assign-skill-note" class="block text-sm font-semibold mb-2">Note for your records <span class="text-muted-foreground font-normal">(optional)</span></label>
-        <textarea id="assign-skill-note" rows="3" placeholder="Why are you assigning this? (visible to staff only)" class="w-full rounded-md border border-input bg-card text-sm p-3 outline-none focus:ring-2 focus:ring-primary resize-none"></textarea>
-      </div>
-    </div>
-
-    <!-- SUBMITTING state -->
-    <div id="assign-skill-loading-state" class="hidden flex-1 flex flex-col items-center justify-center px-6">
-      <i data-lucide="loader-2" class="size-12 text-primary animate-spin mb-4"></i>
-      <div class="text-base font-semibold">Assigning skill…</div>
-    </div>
-
-    <!-- DONE state -->
-    <div id="assign-skill-done-state" class="hidden flex-1 flex flex-col items-center justify-center px-6 text-center">
-      <div class="size-16 rounded-full bg-tc-sage-50 border border-tc-sage-200 flex items-center justify-center mb-4">
-        <i data-lucide="check" class="size-8 text-tc-sage-700"></i>
-      </div>
-      <div class="text-lg font-bold mb-2">Skill assigned</div>
-      <p class="text-sm text-muted-foreground max-w-sm">
-        <span id="assign-skill-done-skill" class="font-semibold text-foreground">—</span> assigned to <span id="assign-skill-done-student" class="font-semibold text-foreground">—</span>.
-      </p>
-      <p class="text-xs text-muted-foreground mt-3 max-w-sm">It will appear in their Self-Care skills next time they open the app.</p>
-    </div>
-
-    <!-- Footer -->
-    <footer class="px-6 py-4 border-t border-border flex items-center justify-end gap-2">
-      <button type="button" id="assign-skill-cancel-btn" onclick="closeAssignSkillSheet()" class="inline-flex items-center justify-center h-9 px-4 rounded-md text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
-      <button type="button" id="assign-skill-submit-btn" onclick="submitAssignSkill()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Assign Skill</button>
-      <button type="button" id="assign-skill-done-btn" onclick="closeAssignSkillSheet()" class="hidden inline-flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Done</button>
-    </footer>
-  </aside>
-</div>
+<!-- ===================== TOAST (lightweight confirmation) ===================== -->
+<div id="toast" role="status" aria-live="polite" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] bg-foreground text-background px-4 py-2.5 rounded-md shadow-lg text-sm font-semibold inline-flex items-center gap-2 max-w-md"></div>
 
 <!-- ===================== BULK INVITE SHEET (Create Invite review) — duplicates TC's BulkInviteSheet flow ===================== -->
 <div id="bulk-invite-sheet" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="bulk-invite-title">
@@ -4968,74 +4953,63 @@ Julia Campbell</textarea>
       if (textNode) textNode.textContent = labelText;
     }
   }
-  // === ASSIGN SKILL SHEET — Alongside "Assign Skills" workflow ===
-  // Opens from Library skill card "Assign" and from student profile kebab "Assign skill".
-  // Single-student per scope decision (cohort assignment is later scope).
-  let assignSkillTimerId = null;
-  function openAssignSkillSheet(opts) {
-    opts = opts || {};
-    cancelAssignSkillTimer();
-    resetAssignSkillSheet();
-    // Pre-fill selects based on entry point. Both stay user-editable.
-    const skillSelect = document.getElementById('assign-skill-select');
-    const studentSelect = document.getElementById('assign-student-select');
-    if (opts.skill) {
-      const opt = Array.from(skillSelect.options).find(o => o.value === opts.skill);
-      if (opt) skillSelect.value = opts.skill;
-    }
-    if (opts.student) {
-      const opt = Array.from(studentSelect.options).find(o => o.value === opts.student);
-      if (opt) studentSelect.value = opts.student;
-    }
-    document.getElementById('assign-skill-sheet').classList.remove('hidden');
+  // === TOAST helper ===
+  let toastTimerId = null;
+  function showToast(message, icon) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    const iconHtml = icon ? `<i data-lucide="${icon}" class="size-4"></i>` : '';
+    toast.innerHTML = iconHtml + '<span>' + message + '</span>';
+    toast.classList.remove('hidden');
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-    setTimeout(() => document.getElementById('assign-skill-cancel-btn').focus(), 50);
+    if (toastTimerId) clearTimeout(toastTimerId);
+    toastTimerId = setTimeout(() => {
+      toast.classList.add('hidden');
+      toastTimerId = null;
+    }, 2800);
   }
-  function closeAssignSkillSheet() {
-    cancelAssignSkillTimer();
-    document.getElementById('assign-skill-sheet').classList.add('hidden');
+
+  // === ASSIGN SKILL POPOVER — Alongside pushes assignments through the school's LMS ===
+  // Click an Assign button on a Library skill card → popover with 4 options:
+  //   Google Classroom · Canvas LMS · Schoology · Copy assignment URL
+  // No in-app per-student assignment — that's not how Alongside works.
+  function toggleSkillAssignMenu(triggerBtn) {
+    const menu = triggerBtn.parentElement.querySelector('.skill-assign-menu');
+    if (!menu) return;
+    const willOpen = menu.classList.contains('hidden');
+    // Close any other open menus first
+    document.querySelectorAll('.skill-assign-menu').forEach(m => { if (m !== menu) m.classList.add('hidden'); });
+    menu.classList.toggle('hidden', !willOpen);
+    if (willOpen && window.lucide && window.lucide.createIcons) window.lucide.createIcons();
   }
-  function cancelAssignSkillTimer() {
-    if (assignSkillTimerId !== null) {
-      clearTimeout(assignSkillTimerId);
-      assignSkillTimerId = null;
+  function closeAllSkillAssignMenus() {
+    document.querySelectorAll('.skill-assign-menu').forEach(m => m.classList.add('hidden'));
+  }
+  function dispatchAssignTo(integration, skillName) {
+    closeAllSkillAssignMenus();
+    const labels = {
+      'google-classroom': 'Google Classroom',
+      'canvas': 'Canvas LMS',
+      'schoology': 'Schoology'
+    };
+    if (integration === 'copy') {
+      showToast('Assignment URL copied to clipboard', 'check');
+    } else {
+      showToast(`Opening ${labels[integration]} to assign "${skillName}"…`, 'external-link');
     }
   }
-  function submitAssignSkill() {
-    cancelAssignSkillTimer();
-    const skill = document.getElementById('assign-skill-select').value;
-    const student = document.getElementById('assign-student-select').value;
-    if (!skill || !student) return;
-    // Switch to submitting state
-    document.getElementById('assign-skill-form-state').classList.add('hidden');
-    document.getElementById('assign-skill-loading-state').classList.remove('hidden');
-    document.getElementById('assign-skill-cancel-btn').classList.add('hidden');
-    document.getElementById('assign-skill-submit-btn').classList.add('hidden');
-    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-    assignSkillTimerId = setTimeout(() => {
-      assignSkillTimerId = null;
-      if (document.getElementById('assign-skill-sheet').classList.contains('hidden')) return;
-      document.getElementById('assign-skill-done-skill').textContent = skill;
-      document.getElementById('assign-skill-done-student').textContent = student;
-      document.getElementById('assign-skill-loading-state').classList.add('hidden');
-      document.getElementById('assign-skill-done-state').classList.remove('hidden');
-      document.getElementById('assign-skill-done-btn').classList.remove('hidden');
-      if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-    }, 800);
-  }
-  function resetAssignSkillSheet() {
-    cancelAssignSkillTimer();
-    document.getElementById('assign-skill-form-state').classList.remove('hidden');
-    document.getElementById('assign-skill-loading-state').classList.add('hidden');
-    document.getElementById('assign-skill-done-state').classList.add('hidden');
-    document.getElementById('assign-skill-cancel-btn').classList.remove('hidden');
-    document.getElementById('assign-skill-submit-btn').classList.remove('hidden');
-    document.getElementById('assign-skill-done-btn').classList.add('hidden');
-  }
+  // Outside-click dismisses any open assign menu
+  document.addEventListener('click', (e) => {
+    const openMenu = document.querySelector('.skill-assign-menu:not(.hidden)');
+    if (!openMenu) return;
+    // If the click landed on the trigger button or inside the open menu, leave it alone.
+    if (openMenu.contains(e.target)) return;
+    const trigger = openMenu.parentElement.querySelector('button');
+    if (trigger && trigger.contains(e.target)) return;
+    closeAllSkillAssignMenus();
+  });
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    const sheet = document.getElementById('assign-skill-sheet');
-    if (sheet && !sheet.classList.contains('hidden')) closeAssignSkillSheet();
+    if (e.key === 'Escape') closeAllSkillAssignMenus();
   });
 
   // === BULK INVITE SHEET — duplicates TC's BulkInviteSheet flow (review → sending → done) ===
