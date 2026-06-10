@@ -237,6 +237,39 @@
   /* Self-Care standalone mode — hides school portal chrome (top bar + sidebar) when opened in new tab */
   body.is-self-care #topbar,
   body.is-self-care #main-sidebar { display: none; }
+
+  /* ============ DEMO STATE GATES ============ */
+  /* These attributes are written to <body> by applyDemoState() and drive visibility.
+     They're CSS-only so a developer can grep them out at handoff time. */
+
+  /* Roster sync = Clever (default) → hide non-Clever-only controls (e.g., Create invite, per-row Send Invite, manual roster controls) */
+  body[data-roster="clever"] .roster-non-clever { display: none !important; }
+  /* Roster sync = Manual → hide Clever-sourced UI cues */
+  body[data-roster="manual"] .roster-clever-only { display: none !important; }
+
+  /* Insurance model = Free → no insurance UI anywhere */
+  body[data-insurance="free"] .insurance-only { display: none !important; }
+  /* Insurance model = Hybrid → insurance UI is present, possibly optional */
+
+  /* Persona gates — each persona hides what they shouldn't see */
+  /* District Admin/Staff see all; persona-scoped classes only apply to the others */
+  body[data-persona="school-administrator"] .district-only,
+  body[data-persona="clinical-staff"] .district-only,
+  body[data-persona="school-staff"] .district-only { display: none !important; }
+
+  body[data-persona="school-staff"] .admin-only,
+  body[data-persona="clinical-staff"] .admin-only { display: none !important; }
+
+  body[data-persona="school-staff"] .phi-only { display: none !important; }
+
+  body[data-persona="district-staff"] .user-mgmt-only,
+  body[data-persona="clinical-staff"] .user-mgmt-only,
+  body[data-persona="school-staff"] .user-mgmt-only { display: none !important; }
+
+  /* Demo toolbar styling */
+  #demo-toolbar { font-feature-settings: "tnum"; }
+  #demo-toolbar select { font-feature-settings: "tnum"; }
+
   /* Self-Care sidebar nav active state (mint sidebar → navy pill with cream text) */
   .sc-nav-link.is-active {
     background-color: #1B2545; /* al-text */
@@ -247,12 +280,68 @@
   }
 </style>
 </head>
-<body class="bg-background text-foreground antialiased min-h-screen">
+<body class="bg-background text-foreground antialiased min-h-screen" data-persona="clinical-staff" data-insurance="hybrid" data-roster="clever">
 
 <div class="border-b border-border bg-card">
   <div class="px-6 py-2 text-xs text-muted-foreground flex items-center gap-2">
     <i data-lucide="info" class="size-3.5"></i>
     <span>Wireframe prototype  ·  Path A IA  ·  Helix top bar + sidebar pattern</span>
+  </div>
+</div>
+
+<!-- ===================== DEMO CONTROLS (developer/reviewer toolbar — remove on handoff) ===================== -->
+<div id="demo-toolbar" class="fixed bottom-4 right-4 z-50">
+  <!-- Collapsed trigger -->
+  <button id="demo-toolbar-trigger" type="button" onclick="toggleDemoToolbar()" class="inline-flex items-center gap-2 h-10 px-3 rounded-full border-2 border-dashed border-tc-orange-400 bg-card text-tc-orange-900 text-xs font-bold uppercase tracking-wide shadow-lg hover:bg-tc-orange-50 transition-colors" aria-haspopup="dialog" aria-expanded="false" aria-controls="demo-toolbar-panel">
+    <i data-lucide="settings-2" class="size-4"></i>
+    <span>Demo</span>
+    <span id="demo-toolbar-summary" class="hidden md:inline text-[10px] font-normal normal-case tracking-normal text-tc-orange-700"></span>
+  </button>
+
+  <!-- Expanded panel -->
+  <div id="demo-toolbar-panel" class="hidden absolute bottom-12 right-0 w-72 rounded-lg border-2 border-dashed border-tc-orange-400 bg-card shadow-xl p-4" role="dialog" aria-labelledby="demo-toolbar-heading">
+    <div class="flex items-center justify-between mb-3">
+      <h3 id="demo-toolbar-heading" class="text-xs font-bold uppercase tracking-wide text-tc-orange-900 inline-flex items-center gap-1.5">
+        <i data-lucide="settings-2" class="size-3.5"></i>
+        Demo controls
+      </h3>
+      <button type="button" onclick="toggleDemoToolbar()" class="size-6 inline-flex items-center justify-center rounded hover:bg-muted transition-colors" aria-label="Close demo controls">
+        <i data-lucide="x" class="size-3.5"></i>
+      </button>
+    </div>
+    <p class="text-[11px] text-muted-foreground mb-3 leading-snug">Flip these to demo the prototype as different users / school configurations. Persists across reloads.</p>
+
+    <div class="space-y-3">
+      <div>
+        <label for="demo-persona" class="block text-xs font-semibold text-foreground mb-1">Persona</label>
+        <select id="demo-persona" onchange="setDemoPersona(this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="district-administrator">District Administrator</option>
+          <option value="district-staff">District Staff</option>
+          <option value="school-administrator">School Administrator</option>
+          <option value="clinical-staff" selected>Clinical Staff (Counselor)</option>
+          <option value="school-staff">School Staff (Teacher)</option>
+        </select>
+      </div>
+      <div>
+        <label for="demo-insurance" class="block text-xs font-semibold text-foreground mb-1">Insurance model</label>
+        <select id="demo-insurance" onchange="setDemoInsurance(this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="free">Free (no insurance UI)</option>
+          <option value="hybrid" selected>Hybrid (insurance optional)</option>
+        </select>
+      </div>
+      <div>
+        <label for="demo-roster" class="block text-xs font-semibold text-foreground mb-1">Roster sync</label>
+        <select id="demo-roster" onchange="setDemoRoster(this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="clever" selected>Clever (default — invites auto-managed)</option>
+          <option value="manual">Manual (invites needed for activation)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+      <button type="button" onclick="resetDemoState()" class="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors">Reset</button>
+      <span class="text-[10px] text-muted-foreground">Persisted to localStorage</span>
+    </div>
   </div>
 </div>
 
@@ -267,26 +356,26 @@
       <span class="font-bold text-base tracking-tight">School Portal</span>
     </a>
 
-    <!-- Avatar + account dropdown (right) -->
+    <!-- Avatar + account dropdown (right) — content is rewritten by applyPersona() from DEMO_PERSONAS -->
     <div class="relative">
       <button id="account-button" type="button" onclick="toggleAccountMenu()" class="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-muted transition-colors" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
-        <span class="size-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs font-semibold border border-accent-border shrink-0">JC</span>
+        <span id="persona-initials" class="size-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs font-semibold border border-accent-border shrink-0">JC</span>
         <span class="hidden md:block text-left min-w-0">
-          <span class="block text-sm font-semibold leading-tight truncate">Julia C.</span>
-          <span class="block text-xs text-muted-foreground leading-tight truncate">Counselor Lead</span>
+          <span id="persona-display-name" class="block text-sm font-semibold leading-tight truncate">Julia C.</span>
+          <span id="persona-role-short" class="block text-xs text-muted-foreground leading-tight truncate">Counselor Lead</span>
         </span>
         <i id="account-chevron" data-lucide="chevron-down" class="size-4 text-muted-foreground shrink-0 transition-transform"></i>
       </button>
 
       <!-- Account dropdown menu (drops DOWN from top bar) -->
       <div id="account-menu" role="menu" aria-labelledby="account-button" class="hidden absolute top-full right-0 mt-2 w-72 bg-card border border-border rounded-md shadow-md py-1 z-50">
-        <!-- Identity card: avatar + name + email + role · org -->
+        <!-- Identity card: avatar + name + email + role · org (filled by applyPersona) -->
         <div class="px-3 py-3 border-b border-border flex items-start gap-3">
-          <span class="size-9 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs font-semibold border border-accent-border shrink-0">JC</span>
+          <span id="persona-initials-large" class="size-9 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs font-semibold border border-accent-border shrink-0">JC</span>
           <div class="min-w-0 flex-1">
-            <div class="text-sm font-semibold truncate">Julia Campbell</div>
-            <div class="text-xs text-muted-foreground truncate">julia.campbell@lincolnusd.edu</div>
-            <div class="text-xs text-muted-foreground truncate mt-0.5">Counselor Lead · Lincoln USD</div>
+            <div id="persona-full-name" class="text-sm font-semibold truncate">Julia Campbell</div>
+            <div id="persona-email" class="text-xs text-muted-foreground truncate">julia.campbell@lincolnusd.edu</div>
+            <div id="persona-role-org" class="text-xs text-muted-foreground truncate mt-0.5">Counselor Lead · Lincoln USD</div>
           </div>
         </div>
         <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu(); navigate('settings')">
@@ -328,9 +417,9 @@
         <li><a href="#home" class="nav-link" data-route="home"><i data-lucide="layout-dashboard" class="size-4"></i>Home</a></li>
         <li><a href="#inbox" class="nav-link" data-route="inbox"><i data-lucide="inbox" class="size-4"></i>Inbox<span class="ml-auto inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground">3</span></a></li>
         <li><a href="#students" class="nav-link" data-route="students"><i data-lucide="users" class="size-4"></i>Students</a></li>
-        <li><a href="#schools" class="nav-link" data-route="schools"><i data-lucide="school" class="size-4"></i>Schools</a></li>
+        <li class="district-only"><a href="#schools" class="nav-link" data-route="schools"><i data-lucide="school" class="size-4"></i>Schools</a></li>
         <li><a href="#library" class="nav-link" data-route="library"><i data-lucide="book-open" class="size-4"></i>Library</a></li>
-        <li><a href="#reports" class="nav-link" data-route="reports"><i data-lucide="file-text" class="size-4"></i>Reports</a></li>
+        <li class="admin-only"><a href="#reports" class="nav-link" data-route="reports"><i data-lucide="file-text" class="size-4"></i>Reports</a></li>
       </ul>
 
       <!-- Student Demo (collapsible group) -->
@@ -1023,7 +1112,7 @@ Julia Campbell</textarea>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All grades<i data-lucide="chevron-down" class="size-4"></i></button>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors">Status: Active<i data-lucide="chevron-down" class="size-4"></i></button>
       <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Wellness: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" id="student-invite-btn" disabled onclick="openBulkInviteSheet()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"><i data-lucide="user-plus" class="size-4"></i>Create invite</button>
+      <button type="button" id="student-invite-btn" disabled onclick="openBulkInviteSheet()" class="roster-non-clever inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"><i data-lucide="user-plus" class="size-4"></i>Create invite</button>
     </div>
   </div>
 
@@ -4555,6 +4644,103 @@ Julia Campbell</textarea>
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script>
+  // === DEMO CONTROLS — persona / insurance / roster state ===
+  // Source of truth for what each persona looks like in the topbar / dropdown.
+  // Real product would derive this from auth + DB; here it's a static lookup so
+  // the wireframe can demo every role without a backend.
+  const DEMO_PERSONAS = {
+    'district-administrator': {
+      initials: 'JA', displayName: 'Julia A.', fullName: 'Julia Adams',
+      email: 'julia.adams@lincolnusd.edu',
+      roleShort: 'District Admin', roleOrg: 'District Administrator · Lincoln USD'
+    },
+    'district-staff': {
+      initials: 'SD', displayName: 'Sam D.', fullName: 'Sam Davis',
+      email: 'sam.davis@lincolnusd.edu',
+      roleShort: 'District Staff', roleOrg: 'District Analyst · Lincoln USD'
+    },
+    'school-administrator': {
+      initials: 'PS', displayName: 'Pat S.', fullName: 'Pat Sullivan',
+      email: 'pat.sullivan@lincolnusd.edu',
+      roleShort: 'Principal', roleOrg: 'Principal · Lincoln High School'
+    },
+    'clinical-staff': {
+      initials: 'JC', displayName: 'Julia C.', fullName: 'Julia Campbell',
+      email: 'julia.campbell@lincolnusd.edu',
+      roleShort: 'Counselor Lead', roleOrg: 'Counselor Lead · Lincoln High School'
+    },
+    'school-staff': {
+      initials: 'MT', displayName: 'Maya T.', fullName: 'Maya Torres',
+      email: 'maya.torres@lincolnusd.edu',
+      roleShort: 'Teacher', roleOrg: 'Teacher · Lincoln High School'
+    }
+  };
+  const DEMO_DEFAULTS = { persona: 'clinical-staff', insurance: 'hybrid', roster: 'clever' };
+  let DEMO_STATE = Object.assign({}, DEMO_DEFAULTS);
+
+  function loadDemoState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('demoState'));
+      if (saved && typeof saved === 'object') Object.assign(DEMO_STATE, saved);
+    } catch (e) { /* ignore */ }
+    syncDemoControls();
+    applyDemoState();
+  }
+  function saveDemoState() {
+    try { localStorage.setItem('demoState', JSON.stringify(DEMO_STATE)); } catch (e) {}
+  }
+  function syncDemoControls() {
+    const p = document.getElementById('demo-persona');
+    const i = document.getElementById('demo-insurance');
+    const r = document.getElementById('demo-roster');
+    if (p) p.value = DEMO_STATE.persona;
+    if (i) i.value = DEMO_STATE.insurance;
+    if (r) r.value = DEMO_STATE.roster;
+  }
+  function applyDemoState() {
+    document.body.dataset.persona = DEMO_STATE.persona;
+    document.body.dataset.insurance = DEMO_STATE.insurance;
+    document.body.dataset.roster = DEMO_STATE.roster;
+    applyPersona(DEMO_STATE.persona);
+    updateDemoToolbarSummary();
+  }
+  function applyPersona(key) {
+    const p = DEMO_PERSONAS[key] || DEMO_PERSONAS['clinical-staff'];
+    const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+    setText('persona-initials', p.initials);
+    setText('persona-initials-large', p.initials);
+    setText('persona-display-name', p.displayName);
+    setText('persona-role-short', p.roleShort);
+    setText('persona-full-name', p.fullName);
+    setText('persona-email', p.email);
+    setText('persona-role-org', p.roleOrg);
+  }
+  function updateDemoToolbarSummary() {
+    const summary = document.getElementById('demo-toolbar-summary');
+    if (!summary) return;
+    const p = DEMO_PERSONAS[DEMO_STATE.persona];
+    const insurance = DEMO_STATE.insurance === 'hybrid' ? 'Hybrid' : 'Free';
+    const roster = DEMO_STATE.roster === 'clever' ? 'Clever' : 'Manual';
+    summary.textContent = `· ${p.roleShort} · ${insurance} · ${roster}`;
+  }
+  function setDemoPersona(value) { DEMO_STATE.persona = value; saveDemoState(); applyDemoState(); }
+  function setDemoInsurance(value) { DEMO_STATE.insurance = value; saveDemoState(); applyDemoState(); }
+  function setDemoRoster(value) { DEMO_STATE.roster = value; saveDemoState(); applyDemoState(); }
+  function resetDemoState() {
+    DEMO_STATE = Object.assign({}, DEMO_DEFAULTS);
+    saveDemoState();
+    syncDemoControls();
+    applyDemoState();
+  }
+  function toggleDemoToolbar() {
+    const panel = document.getElementById('demo-toolbar-panel');
+    const trigger = document.getElementById('demo-toolbar-trigger');
+    if (!panel || !trigger) return;
+    const willOpen = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !willOpen);
+    trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  }
+
   function setNavActive(route) {
     document.querySelectorAll('.nav-link').forEach(a => {
       a.classList.toggle('is-active', a.dataset.route === route);
@@ -4933,6 +5119,7 @@ Julia Campbell</textarea>
   }
   window.addEventListener('hashchange', route);
   document.addEventListener('DOMContentLoaded', () => {
+    loadDemoState();
     route();
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
   });
