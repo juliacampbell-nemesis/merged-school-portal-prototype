@@ -474,19 +474,17 @@
     </div>
     <div class="bg-card border border-border rounded-lg shadow-sm p-6">
       <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium">
-        <i data-lucide="calendar-check" class="size-4"></i>Today's visits
+        <i data-lucide="calendar-check" class="size-4"></i>Upcoming Visits
       </div>
       <div class="text-3xl font-semibold mt-3">12</div>
       <div class="text-sm text-muted-foreground mt-1">3 on-site  ·  9 telehealth</div>
     </div>
     <div class="bg-card border border-border rounded-lg shadow-sm p-6">
       <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium">
-        <i data-lucide="trending-up" class="size-4"></i>Utilization
+        <i data-lucide="trending-up" class="size-4"></i>Visit Utilization
       </div>
       <div class="text-3xl font-semibold mt-3">78%</div>
-      <div class="text-sm text-muted-foreground mt-1 flex items-center gap-1">
-        <i data-lucide="arrow-up" class="size-3.5"></i>12% vs last month
-      </div>
+      <div class="text-sm text-muted-foreground mt-1">of visits used</div>
     </div>
   </div>
 
@@ -656,7 +654,7 @@
     </aside>
   </div>
 
-  <div class="grid grid-cols-2 gap-4">
+  <div>
     <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="screener-insights-heading">
       <header class="px-6 py-4 border-b border-border flex items-center justify-between">
         <div>
@@ -668,10 +666,7 @@
         </a>
       </header>
       <div class="p-6">
-        <div class="bg-muted rounded-md h-32 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-          <i data-lucide="bar-chart-3" class="size-4"></i>Follow-up volume over time
-        </div>
-        <ul class="mt-4 space-y-3 text-sm" role="list">
+        <ul class="space-y-3 text-sm" role="list">
           <li class="flex items-center justify-between">
             <span><strong class="font-semibold">8 students</strong>  ·  PHQ-9 severe / moderate</span>
             <a class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer">Review<i data-lucide="arrow-right" class="size-3.5"></i></a>
@@ -685,27 +680,6 @@
             <a class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer">Review<i data-lucide="arrow-right" class="size-3.5"></i></a>
           </li>
         </ul>
-      </div>
-    </section>
-    <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="skill-engagement-heading">
-      <header class="px-6 py-4 border-b border-border flex items-center justify-between">
-        <div>
-          <h2 id="skill-engagement-heading" class="text-lg font-semibold">Skill engagement</h2>
-          <p class="text-sm text-muted-foreground mt-0.5">Assignment activity across all students</p>
-        </div>
-        <a class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer" onclick="navigate('library-skills')">
-          View in Library<i data-lucide="arrow-right" class="size-4"></i>
-        </a>
-      </header>
-      <div class="p-6">
-        <div class="bg-muted rounded-md h-32 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-          <i data-lucide="line-chart" class="size-4"></i>Skill completion over time
-        </div>
-        <div class="mt-4 grid grid-cols-3 gap-3 text-center">
-          <div><div class="text-2xl font-semibold">245</div><div class="text-sm text-muted-foreground">Assigned</div></div>
-          <div><div class="text-2xl font-semibold">68%</div><div class="text-sm text-muted-foreground">Completed</div></div>
-          <div><div class="text-2xl font-semibold">18</div><div class="text-sm text-muted-foreground">Abandoned</div></div>
-        </div>
       </div>
     </section>
   </div>
@@ -2301,65 +2275,56 @@ Julia Campbell</textarea>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
       <h1 class="text-2xl font-bold tracking-tight">Wellness</h1>
-      <p class="text-base text-muted-foreground mt-1">Alert trends, severe issues, and response patterns</p>
+      <p class="text-base text-muted-foreground mt-1">Student mood and health habits</p>
     </div>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
   </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
+  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
     <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
   </div>
 
-  <div class="mb-8">
+  <!-- Section: Student Mood & Health Habits (Alongside Dashboard, Section 4) -->
+  <section aria-labelledby="mood-habits-section-heading">
+    <h2 id="mood-habits-section-heading" class="text-lg font-bold tracking-tight mb-3">Student Mood &amp; Health Habits</h2>
 
-    <!-- Severe Issues KPIs -->
-    <div class="grid grid-cols-2 gap-4 mb-4">
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="alert-octagon" class="size-4"></i>Students with severe issue</div>
-        <div class="text-3xl font-semibold mt-3">12</div>
-        <div class="text-sm text-muted-foreground mt-1">Lincoln High: 5  ·  Kennedy: 4  ·  Roosevelt: 3</div>
-      </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="shield-check" class="size-4"></i>Safety plans created</div>
-        <div class="text-3xl font-semibold mt-3">6</div>
-        <div class="text-sm text-muted-foreground mt-1 flex items-center gap-1"><i data-lucide="arrow-up" class="size-3.5"></i>2 vs prior period</div>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-3 gap-4">
-      <section class="col-span-2 bg-card border border-border rounded-lg shadow-sm" aria-labelledby="alerts-over-time-heading">
-        <header class="px-6 py-4 border-b border-border flex items-center justify-between">
-          <div>
-            <h3 id="alerts-over-time-heading" class="text-base font-semibold">Alerts over time</h3>
-            <p class="text-xs text-muted-foreground mt-0.5">By severity, daily</p>
-          </div>
-          <button type="button" class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline">Details<i data-lucide="arrow-right" class="size-4"></i></button>
-        </header>
-        <div class="p-6">
-          <div class="bg-muted rounded-md h-56 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <i data-lucide="line-chart" class="size-4"></i>Stacked line: High · Moderate · Unknown, 30 days
-          </div>
-        </div>
-      </section>
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="alert-types-heading">
-        <header class="px-6 py-4 border-b border-border">
-          <h3 id="alert-types-heading" class="text-base font-semibold">Alert types</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Past 30 days</p>
-        </header>
-        <ul class="divide-y divide-border" role="list">
-          <li class="px-6 py-2.5 text-sm flex items-center justify-between"><span>Mental health concern</span><span class="font-semibold mono">58</span></li>
-          <li class="px-6 py-2.5 text-sm flex items-center justify-between"><span>Suicidal ideation</span><span class="font-semibold mono">31</span></li>
-          <li class="px-6 py-2.5 text-sm flex items-center justify-between"><span>Someone else needs help</span><span class="font-semibold mono">22</span></li>
-          <li class="px-6 py-2.5 text-sm flex items-center justify-between"><span>Risk of harm to others</span><span class="font-semibold mono">14</span></li>
-          <li class="px-6 py-2.5 text-sm flex items-center justify-between"><span>Abuse by an adult</span><span class="font-semibold mono">12</span></li>
-          <li class="px-6 py-2.5 text-sm flex items-center justify-between"><span>Insufficient information</span><span class="font-semibold mono">10</span></li>
+    <!-- Mood Tracked card — horizontal bar chart matching Alongside reference -->
+    <div class="bg-card border border-border rounded-lg shadow-sm max-w-2xl">
+      <header class="px-6 py-4 border-b border-border">
+        <h3 class="text-base font-bold">Mood Tracked</h3>
+      </header>
+      <div class="px-6 py-5">
+        <ul class="space-y-3" role="list">
+          <li class="grid grid-cols-[80px_1fr_56px] items-center gap-3">
+            <span class="text-sm text-right">okay</span>
+            <div class="h-6 bg-muted rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 39.4%"></div></div>
+            <span class="text-sm font-semibold mono text-right">39.4%</span>
+          </li>
+          <li class="grid grid-cols-[80px_1fr_56px] items-center gap-3">
+            <span class="text-sm text-right">great</span>
+            <div class="h-6 bg-muted rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 28.0%"></div></div>
+            <span class="text-sm font-semibold mono text-right">28.0%</span>
+          </li>
+          <li class="grid grid-cols-[80px_1fr_56px] items-center gap-3">
+            <span class="text-sm text-right">good</span>
+            <div class="h-6 bg-muted rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 22.0%"></div></div>
+            <span class="text-sm font-semibold mono text-right">22.0%</span>
+          </li>
+          <li class="grid grid-cols-[80px_1fr_56px] items-center gap-3">
+            <span class="text-sm text-right">not good</span>
+            <div class="h-6 bg-muted rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 6.4%"></div></div>
+            <span class="text-sm font-semibold mono text-right">6.4%</span>
+          </li>
+          <li class="grid grid-cols-[80px_1fr_56px] items-center gap-3">
+            <span class="text-sm text-right">awful</span>
+            <div class="h-6 bg-muted rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 4.2%"></div></div>
+            <span class="text-sm font-semibold mono text-right">4.2%</span>
+          </li>
         </ul>
-      </section>
+      </div>
     </div>
-  </div>
-
-  <!-- /WELLNESS section -->
+  </section>
 </main>
 
 <!-- ===================== REPORTS — APP USAGE ===================== -->
@@ -2449,48 +2414,48 @@ Julia Campbell</textarea>
     <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
   </div>
 
-  <div class="mb-8">
+  <!-- Section: Chat metrics (Alongside Dashboard, Section 3) -->
+  <section aria-labelledby="chat-metrics-section-heading">
+    <h2 id="chat-metrics-section-heading" class="text-lg font-bold tracking-tight mb-3">Chat metrics</h2>
     <div class="grid grid-cols-3 gap-4">
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="problems-heading">
+      <article class="bg-card border border-border rounded-lg shadow-sm">
         <header class="px-6 py-4 border-b border-border">
-          <h3 id="problems-heading" class="text-base font-semibold">Problems found</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Top topics raised in student chats</p>
+          <h3 class="text-base font-bold">Problems Found</h3>
         </header>
         <ul class="p-6 space-y-3 text-sm" role="list">
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">a challenge</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">13.8%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">balancing activities / s…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 75%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">10.3%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">interpersonal conflict</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 57%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.8%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">test anxiety</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 57%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.8%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">sleep struggles</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 53%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.3%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">reaching out for supp…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 31%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.3%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">comprehension</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 31%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.3%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">finding a relationship</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 31%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.3%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">identity</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 31%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.3%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">a challenge</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">13.8%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">balancing activities/s…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 75%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">10.3%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">interpersonal conflict</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 57%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.8%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">test anxiety</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 57%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.8%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">sleep struggles</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 53%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.3%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">reaching out for supp…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 31%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.3%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">comprehension</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 31%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.3%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">finding a relationship</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 31%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.3%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">identity</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 31%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.3%</span></li>
         </ul>
-      </section>
+      </article>
 
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="goals-heading">
+      <article class="bg-card border border-border rounded-lg shadow-sm">
         <header class="px-6 py-4 border-b border-border">
-          <h3 id="goals-heading" class="text-base font-semibold">Goals created for skills</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Student-chosen goals from skill flows</p>
+          <h3 class="text-base font-bold">Goals Created for Skills</h3>
         </header>
         <ul class="p-6 space-y-3 text-sm" role="list">
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Improve sleep</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">34.9%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Boost self-confidence</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 23%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">8.1%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Reach out for help</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 20%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.0%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Clear and reset your …</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 20%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.0%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Increase focus</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 20%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.0%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Develop a growth mi…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 13.5%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.7%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Increase motivation</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 10%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.5%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Tackle anxious thoug…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 10%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.5%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Boost your mood</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 10%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.5%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Improve sleep</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">34.9%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Boost self-confidence</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 23%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">8.1%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Reach out for help</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 20%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.0%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Clear and reset your …</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 20%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.0%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Increase focus</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 20%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.0%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Develop a growth mi…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 13.5%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.7%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Increase motivation</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 10%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.5%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Tackle anxious thoug…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 10%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.5%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[150px] truncate">Boost your mood</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 10%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.5%</span></li>
         </ul>
-      </section>
+      </article>
 
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="languages-heading">
-        <header class="px-6 py-4 border-b border-border">
-          <h3 id="languages-heading" class="text-base font-semibold">Non-English languages used</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Total students: <span class="font-semibold mono">6</span></p>
+      <article class="bg-card border border-border rounded-lg shadow-sm">
+        <header class="px-6 py-4 border-b border-border flex items-center justify-between">
+          <h3 class="text-base font-bold">Non-English Languages Used</h3>
+          <span class="text-2xl font-bold mono">6</span>
         </header>
         <ul class="divide-y divide-border" role="list">
           <li class="px-6 py-3 text-sm flex items-center justify-between"><span>Arabic</span><span class="font-semibold mono">2</span></li>
@@ -2498,10 +2463,9 @@ Julia Campbell</textarea>
           <li class="px-6 py-3 text-sm flex items-center justify-between"><span>Bulgarian</span><span class="font-semibold mono">1</span></li>
           <li class="px-6 py-3 text-sm flex items-center justify-between"><span>Korean</span><span class="font-semibold mono">1</span></li>
         </ul>
-      </section>
+      </article>
     </div>
-  </div>
-
+  </section>
   <!-- /CHAT & TOPICS section -->
 </main>
 
@@ -2585,46 +2549,45 @@ Julia Campbell</textarea>
     <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
   </div>
 
-  <div class="mb-8">
+  <!-- Section: Top Journal Prompts and Videos (Alongside Dashboard, Section 5) -->
+  <section aria-labelledby="top-content-section-heading">
+    <h2 id="top-content-section-heading" class="text-lg font-bold tracking-tight mb-3">Top Journal Prompts and Videos</h2>
     <div class="grid grid-cols-2 gap-4">
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="videos-heading">
+      <article class="bg-card border border-border rounded-lg shadow-sm">
         <header class="px-6 py-4 border-b border-border">
-          <h3 id="videos-heading" class="text-base font-semibold">Videos watched</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">% of total video views</p>
+          <h3 class="text-base font-bold">Videos Watched</h3>
         </header>
         <ul class="p-6 space-y-3 text-sm" role="list">
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Losing a Parent</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">10.5%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Breaking the Chains: Recogni…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 96%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">10.1%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Billie Eilish On Mental Health…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 77%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">8.1%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Lego Sundae – Yum!</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 75%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.9%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Mood Boost: Fainting Goats</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 59%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">6.2%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Meditation for Sleep (Male v…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 50%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">5.3%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Box Breathing</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 49%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">5.1%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">4-7-8 Breathing (Unguided)</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 35%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.7%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Urge Surfing Meditation</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 28%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">2.9%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Losing a Parent</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">10.5%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Breaking the Chains: Recogni…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 96%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">10.1%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Billie Eilish On Mental Health…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 77%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">8.1%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Lego Sundae - Yum!</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 75%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.9%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Mood Boost: Fainting Goats</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 59%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">6.2%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Meditation for Sleep (Male v…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 50%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">5.3%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Box Breathing</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 49%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">5.1%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">4-7-8 Breathing (Unguided)</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 35%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.7%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Urge Surfing Meditation</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 28%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">2.9%</span></li>
         </ul>
-      </section>
+      </article>
 
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="journals-heading">
+      <article class="bg-card border border-border rounded-lg shadow-sm">
         <header class="px-6 py-4 border-b border-border">
-          <h3 id="journals-heading" class="text-base font-semibold">Journal entries</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">% of total journal sessions</p>
+          <h3 class="text-base font-bold">Journal Entries</h3>
         </header>
         <ul class="p-6 space-y-3 text-sm" role="list">
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Free write</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">12.2%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">What are five things that put…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 96%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">11.7%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">What is your favorite locatio…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 58%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.1%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">I feel grateful for…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 38%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.6%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">What family members are y…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 34%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.1%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">I want to get better at…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 30%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.6%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Where is the coolest place y…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 30%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.6%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">I am proud of…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 30%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.6%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">I feel excited about…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 30%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.6%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Free write</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">12.2%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">What are five things that put…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 96%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">11.7%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">What is your favorite locatio…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 58%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">7.1%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">I feel grateful for…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 38%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.6%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">What family members are y…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 34%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.1%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">I want to get better at…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 30%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.6%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">Where is the coolest place y…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 30%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.6%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">I am proud of…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 30%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.6%</span></li>
+          <li class="flex items-center gap-3"><span class="min-w-[200px] truncate">I feel excited about…</span><div class="flex-1 bg-muted rounded-full h-2 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 30%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.6%</span></li>
         </ul>
-      </section>
+      </article>
     </div>
-  </div>
-
+  </section>
   <!-- /TOP CONTENT section -->
 </main>
 
@@ -2650,42 +2613,25 @@ Julia Campbell</textarea>
     <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
   </div>
 
-  <div class="mb-8">
-    <div class="grid grid-cols-3 gap-4">
-      <section class="col-span-2 bg-card border border-border rounded-lg shadow-sm" aria-labelledby="engagement-type-heading">
-        <header class="px-6 py-4 border-b border-border">
-          <h3 id="engagement-type-heading" class="text-base font-semibold">Engagement by type</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Share of student activity across all interactions</p>
-        </header>
-        <ul class="p-6 space-y-3 text-sm" role="list">
-          <li class="flex items-center gap-3"><span class="min-w-[180px]">Moods tracked</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">61.2%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[180px]">Chats</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 29%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">17.6%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[180px]">Videos watched</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 17%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">10.2%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[180px]">Journal entries</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 7%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.4%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[180px]">Superpowers started</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 6%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.7%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[180px]">Goals created</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 3%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">1.9%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[180px]">Prompted to share c…</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 1%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">0.8%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[180px]">Sending messages to…</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 0%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">0.0%</span></li>
-        </ul>
-      </section>
-
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="merged-engagement-heading">
-        <header class="px-6 py-4 border-b border-border">
-          <h3 id="merged-engagement-heading" class="text-base font-semibold">Merged portal activity</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Skills, screeners, chat summaries, visits</p>
-        </header>
-        <dl class="divide-y divide-border text-sm">
-          <div class="px-6 py-3 flex items-center justify-between"><dt class="text-muted-foreground">Skills assigned</dt><dd class="font-semibold mono">1,124</dd></div>
-          <div class="px-6 py-3 flex items-center justify-between"><dt class="text-muted-foreground">Skills completed</dt><dd class="font-semibold mono">764  (68%)</dd></div>
-          <div class="px-6 py-3 flex items-center justify-between"><dt class="text-muted-foreground">Screeners administered</dt><dd class="font-semibold mono">1,326</dd></div>
-          <div class="px-6 py-3 flex items-center justify-between"><dt class="text-muted-foreground">Chat summaries received</dt><dd class="font-semibold mono">412</dd></div>
-          <div class="px-6 py-3 flex items-center justify-between"><dt class="text-muted-foreground">Visits delivered</dt><dd class="font-semibold mono">234</dd></div>
-          <div class="px-6 py-3 flex items-center justify-between"><dt class="text-muted-foreground">Avg reply time</dt><dd class="font-semibold mono">11 hr</dd></div>
-        </dl>
-      </section>
-    </div>
-  </div>
-
+  <!-- Section: Engagement by Type (Alongside Dashboard, sub-card of Top Journal Prompts and Videos section) -->
+  <section aria-labelledby="engagement-section-heading">
+    <h2 id="engagement-section-heading" class="text-lg font-bold tracking-tight mb-3">Engagement</h2>
+    <article class="bg-card border border-border rounded-lg shadow-sm max-w-2xl">
+      <header class="px-6 py-4 border-b border-border">
+        <h3 class="text-base font-bold">Engagement by Type</h3>
+      </header>
+      <ul class="p-6 space-y-3 text-sm" role="list">
+        <li class="flex items-center gap-3"><span class="min-w-[180px]">Moods tracked</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">61.2%</span></li>
+        <li class="flex items-center gap-3"><span class="min-w-[180px]">Chats</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 29%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">17.6%</span></li>
+        <li class="flex items-center gap-3"><span class="min-w-[180px]">Videos watched</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 17%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">10.2%</span></li>
+        <li class="flex items-center gap-3"><span class="min-w-[180px]">Journal entries</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 7%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.4%</span></li>
+        <li class="flex items-center gap-3"><span class="min-w-[180px]">Superpowers started</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 6%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">3.7%</span></li>
+        <li class="flex items-center gap-3"><span class="min-w-[180px]">Goals created</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 3%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">1.9%</span></li>
+        <li class="flex items-center gap-3"><span class="min-w-[180px]">Prompted to share c…</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 1%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">0.8%</span></li>
+        <li class="flex items-center gap-3"><span class="min-w-[180px]">Sending messages to…</span><div class="flex-1 bg-muted rounded-full h-2.5 overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 0%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">0.0%</span></li>
+      </ul>
+    </article>
+  </section>
   <!-- /ENGAGEMENT MIX section -->
 </main>
 
@@ -2700,19 +2646,20 @@ Julia Campbell</textarea>
   </nav>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
-      <h1 class="text-2xl font-bold tracking-tight">Student feedback</h1>
-      <p class="text-base text-muted-foreground mt-1">Raw qualitative responses, unedited</p>
+      <h1 class="text-2xl font-bold tracking-tight">Student Feedback</h1>
     </div>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
   </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
+  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
     <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
   </div>
 
-  <div class="mb-8">
-    <section class="bg-card border border-border rounded-lg shadow-sm">
+  <!-- Section: Student Feedback (Alongside Dashboard, Section 6) — free-text quotes -->
+  <section aria-labelledby="student-feedback-section-heading">
+    <h2 id="student-feedback-section-heading" class="text-lg font-bold tracking-tight mb-3">Student Feedback</h2>
+    <article class="bg-card border border-border rounded-lg shadow-sm max-w-3xl">
       <ul class="divide-y divide-border" role="list">
         <li class="px-6 py-4 flex items-start gap-3">
           <i data-lucide="quote" class="size-4 text-muted-foreground shrink-0 mt-0.5"></i>
@@ -2734,9 +2681,8 @@ Julia Campbell</textarea>
       <footer class="px-6 py-3 text-center border-t border-border">
         <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer">View all 47 responses<i data-lucide="arrow-right" class="size-4"></i></a>
       </footer>
-    </section>
-  </div>
-
+    </article>
+  </section>
   <!-- /STUDENT FEEDBACK section -->
 </main>
 
@@ -2751,86 +2697,71 @@ Julia Campbell</textarea>
   </nav>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
-      <h1 class="text-2xl font-bold tracking-tight">Schools comparison</h1>
-      <p class="text-base text-muted-foreground mt-1">Side-by-side performance across the district</p>
+      <h1 class="text-2xl font-bold tracking-tight">Schools Comparison</h1>
+      <p class="text-base text-muted-foreground mt-1">Alongside Usage by Campus and Severe Issues by Campus</p>
     </div>
-    <div class="flex items-center gap-2">
-      <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('schools')">All schools<i data-lucide="arrow-right" class="size-4"></i></a>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
-    </div>
+    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
   </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
+  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
     <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
   </div>
 
-  <div class="mb-8">
-    <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-      <table class="w-full text-sm">
-        <thead class="bg-muted">
-          <tr class="border-b border-border">
-            <th scope="col" class="text-left px-6 py-3 text-base font-bold">School</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Students engaged</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Visits utilization</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Active alerts</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Skill completion</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Screener completion</th>
-            <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Avg response</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-border">
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('school-detail')">
-            <td class="px-6 py-3 font-semibold">Lincoln High School</td>
-            <td class="py-3 mono">847 / 1,247</td>
-            <td class="py-3 mono">78%</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold leading-4">3</span></td>
-            <td class="py-3 mono">68%</td>
-            <td class="py-3 mono">89%</td>
-            <td class="text-right pr-6 py-3 mono">3.2 hr</td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors">
-            <td class="px-6 py-3 font-semibold">Kennedy High School</td>
-            <td class="py-3 mono">1,103 / 1,408</td>
-            <td class="py-3 mono">92%</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">2</span></td>
-            <td class="py-3 mono">72%</td>
-            <td class="py-3 mono">91%</td>
-            <td class="text-right pr-6 py-3 mono">2.8 hr</td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors">
-            <td class="px-6 py-3 font-semibold">Roosevelt Middle School</td>
-            <td class="py-3 mono">612 / 892</td>
-            <td class="py-3 mono">56%</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">1</span></td>
-            <td class="py-3 mono">71%</td>
-            <td class="py-3 mono">82%</td>
-            <td class="text-right pr-6 py-3 mono">5.4 hr</td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors">
-            <td class="px-6 py-3 font-semibold">Jefferson Middle School</td>
-            <td class="py-3 mono">488 / 765</td>
-            <td class="py-3 mono">29%</td>
-            <td class="py-3 mono">0</td>
-            <td class="py-3 mono">62%</td>
-            <td class="py-3 mono">78%</td>
-            <td class="text-right pr-6 py-3 mono">8.1 hr</td>
-          </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors">
-            <td class="px-6 py-3 font-semibold">Washington Elementary</td>
-            <td class="py-3 mono">412 / 645</td>
-            <td class="py-3 mono">36%</td>
-            <td class="py-3 mono">0</td>
-            <td class="py-3 mono">74%</td>
-            <td class="py-3 mono">94%</td>
-            <td class="text-right pr-6 py-3 mono">4.1 hr</td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- Section: Alongside Usage by Campus (Alongside Dashboard, Section 1) -->
+  <section aria-labelledby="usage-section-heading" class="mb-8">
+    <h2 id="usage-section-heading" class="text-lg font-bold tracking-tight mb-3">Alongside Usage by Campus</h2>
+    <div class="grid grid-cols-2 gap-4">
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">Active Accounts (Student)</div>
+        <div class="text-3xl font-bold mt-2">91</div>
+        <div class="text-sm text-muted-foreground mt-2">Alongside Middle School <span class="mono font-semibold text-foreground ml-1">91</span></div>
+      </article>
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">In-app Hours of Support (Student)</div>
+        <div class="text-3xl font-bold mt-2">191</div>
+        <div class="text-sm text-muted-foreground mt-2">Alongside Middle School <span class="mono font-semibold text-foreground ml-1">191</span></div>
+      </article>
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">Activities Completed (Student)</div>
+        <div class="text-3xl font-bold mt-2">4,006</div>
+        <div class="text-sm text-muted-foreground mt-2">Alongside Middle School <span class="mono font-semibold text-foreground ml-1">4,006</span></div>
+      </article>
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">App Helpfulness (Student)</div>
+        <div class="text-3xl font-bold mt-2">84%</div>
+        <div class="text-sm text-muted-foreground mt-2">Alongside Middle School <span class="mono font-semibold text-foreground ml-1">84%</span></div>
+      </article>
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">Active Accounts (Educator Self-care)</div>
+        <div class="text-3xl font-bold mt-2">2</div>
+        <div class="text-sm text-muted-foreground mt-2">Alongside Middle School <span class="mono font-semibold text-foreground ml-1">2</span></div>
+      </article>
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">App Helpfulness (Educator Self-care)</div>
+        <div class="text-3xl font-bold mt-2">100%</div>
+        <div class="text-sm text-muted-foreground mt-2">Alongside Middle School <span class="mono font-semibold text-foreground ml-1">100%</span></div>
+      </article>
     </div>
-  </div>
+  </section>
 
-  <!-- /SCHOOLS LEADERBOARD section -->
+  <!-- Section: Severe Issues Reported by Campus (Alongside Dashboard, Section 2) -->
+  <section aria-labelledby="severe-section-heading">
+    <h2 id="severe-section-heading" class="text-lg font-bold tracking-tight mb-3">Severe Issues Reported by Campus</h2>
+    <div class="grid grid-cols-2 gap-4 max-w-3xl">
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">Students with Severe Issue</div>
+        <div class="text-3xl font-bold mt-2">12</div>
+        <div class="text-sm text-muted-foreground mt-2">Alongside Middle School <span class="mono font-semibold text-foreground ml-1">12</span></div>
+      </article>
+      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="text-sm font-semibold text-muted-foreground">Safety Plans Created</div>
+        <div class="text-3xl font-bold mt-2">6</div>
+        <div class="text-sm text-muted-foreground mt-2">Alongside Middle School <span class="mono font-semibold text-foreground ml-1">6</span></div>
+      </article>
+    </div>
+  </section>
+  <!-- /SCHOOLS COMPARISON section -->
 </main>
 
 <!-- ===================== REPORTS — RECENT DOWNLOADS ===================== -->
