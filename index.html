@@ -1124,182 +1124,235 @@ Julia Campbell</textarea>
     </ol>
   </nav>
 
+  <!-- 1. Identity card — single status pill, inline guardian, ONE primary action + kebab -->
   <div class="bg-card border border-border rounded-lg shadow-sm p-6 mb-4">
     <div class="flex items-start gap-5">
-      <div class="size-20 rounded-lg bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-2xl font-semibold shrink-0">KM</div>
+      <div class="size-16 rounded-lg bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xl font-semibold shrink-0">KM</div>
       <div class="flex-1 min-w-0">
-        <h1 class="text-2xl font-bold tracking-tight">Kevin Martinez</h1>
-        <p class="text-base text-muted-foreground mt-1">Grade 11  ·  ID #20847  ·  Lincoln High School</p>
-        <div class="flex items-center gap-2 mt-3 flex-wrap">
-          <span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2.5 py-0.5 text-xs font-semibold leading-4">Urgent</span>
+        <div class="flex items-center gap-3 flex-wrap">
+          <h1 class="text-2xl font-bold tracking-tight">Kevin Martinez</h1>
           <span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2.5 py-0.5 text-xs font-semibold leading-4">In active care</span>
-          <span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2.5 py-0.5 text-xs font-semibold leading-4"><i data-lucide="message-square" class="size-3"></i>3 open chat summaries</span>
         </div>
+        <p class="text-sm text-muted-foreground mt-1.5">Grade 11  ·  ID #20847  ·  Lincoln High School</p>
+        <p class="text-sm text-muted-foreground mt-1"><span class="font-semibold text-foreground">Guardian:</span> Maria Martinez  ·  <span class="mono">(555) 234-1198</span></p>
       </div>
-      <div class="text-right text-sm text-muted-foreground space-y-1">
-        <div><span class="font-semibold text-foreground">Guardian:</span> Maria Martinez</div>
-        <div class="mono">(555) 234-1198</div>
-        <div class="mt-4 flex gap-2 justify-end">
-          <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="plus" class="size-4"></i>Skill</button>
-          <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="calendar-plus" class="size-4"></i>Schedule visit</button>
+      <div class="flex items-center gap-2 shrink-0">
+        <div class="relative">
+          <button id="student-actions-trigger" type="button" onclick="toggleStudentActions()" aria-haspopup="menu" aria-expanded="false" class="size-9 inline-flex items-center justify-center rounded-md border border-input bg-card hover:bg-muted transition-colors" aria-label="More actions">
+            <i data-lucide="more-horizontal" class="size-4"></i>
+          </button>
+          <div id="student-actions-menu" role="menu" class="hidden absolute top-full right-0 mt-1 w-56 bg-card border border-border rounded-md shadow-md py-1 z-30">
+            <a class="dropdown-item" role="menuitem"><i data-lucide="plus" class="size-4"></i>Assign skill</a>
+            <a class="dropdown-item" role="menuitem"><i data-lucide="send" class="size-4"></i>Send screener</a>
+            <a class="dropdown-item" role="menuitem"><i data-lucide="phone" class="size-4"></i>Contact guardian</a>
+            <a class="dropdown-item" role="menuitem"><i data-lucide="file-text" class="size-4"></i>View care plan</a>
+            <div class="border-t border-border my-1"></div>
+            <a class="dropdown-item" role="menuitem"><i data-lucide="pencil" class="size-4"></i>Edit student</a>
+          </div>
+        </div>
+        <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="calendar-plus" class="size-4"></i>Schedule visit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Active crisis (kept; the highest-priority single thing to do) -->
+  <div role="alert" class="bg-card border border-destructive rounded-lg shadow-sm p-6 mb-4">
+    <div class="flex items-start gap-3">
+      <i data-lucide="shield-alert" class="size-5 text-destructive shrink-0 mt-0.5"></i>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Active crisis</span>
+          <span class="text-xs text-muted-foreground mono">Triggered 23 min ago</span>
+        </div>
+        <h3 class="text-lg font-semibold">Self-harm keywords detected in skill chat</h3>
+        <p class="text-sm text-muted-foreground mt-1">Suggested action: Escalate to TimelyCare visit (same-day, on-site facilitated).</p>
+        <div class="flex items-center gap-2 mt-4">
+          <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Escalate to Visit<i data-lucide="arrow-right" class="size-4"></i></button>
+          <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="check" class="size-4"></i>Mark resolved</button>
+          <button type="button" class="ml-auto inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">View chat summary<i data-lucide="arrow-right" class="size-4"></i></button>
         </div>
       </div>
     </div>
   </div>
 
-  <div role="tablist" class="border-b border-border mb-6 flex gap-1" aria-label="Profile sections">
-    <button role="tab" aria-selected="false" class="px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Identity</button>
-    <button role="tab" aria-selected="false" class="px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Care</button>
-    <button role="tab" aria-selected="false" class="px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Skills + Content</button>
-    <button role="tab" aria-selected="true" class="px-4 py-2.5 text-sm font-semibold text-primary border-b-2 border-primary">Wellness</button>
-    <button role="tab" aria-selected="false" class="px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Connections</button>
-    <button role="tab" aria-selected="false" class="px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Activity</button>
-  </div>
-
+  <!-- 3. Two-column body: Activity feed (left, 2 cols) + Screening trajectory (right, 1 col) -->
   <div class="grid grid-cols-3 gap-4">
-    <div class="col-span-2 space-y-4">
-      <div role="alert" class="bg-card border border-destructive rounded-lg shadow-sm p-6">
-        <div class="flex items-start gap-3">
-          <i data-lucide="shield-alert" class="size-5 text-destructive shrink-0 mt-0.5"></i>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Active crisis</span>
-              <span class="text-xs text-muted-foreground mono">Triggered 23 min ago</span>
-            </div>
-            <h3 class="text-lg font-semibold">Self-harm keywords detected in skill chat</h3>
-            <p class="text-sm text-muted-foreground mt-1">Suggested action: Escalate to TimelyCare visit (same-day, on-site facilitated).</p>
-            <div class="flex items-center gap-2 mt-4">
-              <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Escalate to Visit<i data-lucide="arrow-right" class="size-4"></i></button>
-              <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="check" class="size-4"></i>Mark resolved</button>
-              <button type="button" class="ml-auto inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">View chat summary<i data-lucide="arrow-right" class="size-4"></i></button>
-            </div>
-          </div>
+    <!-- Activity feed: merged alerts + chat summaries + triggers + screeners, chronological -->
+    <section class="col-span-2 bg-card border border-border rounded-lg shadow-sm" aria-labelledby="activity-feed-heading">
+      <header class="flex items-center justify-between px-6 py-4 border-b border-border">
+        <div>
+          <h2 id="activity-feed-heading" class="text-lg font-semibold">Activity</h2>
+          <p class="text-sm text-muted-foreground mt-0.5">Alerts, chat summaries, triggers, and screeners — last 90 days</p>
         </div>
-      </div>
-
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="student-alerts-heading">
-        <header class="flex items-center justify-between px-6 py-4 border-b border-border">
-          <div>
-            <h2 id="student-alerts-heading" class="text-lg font-semibold">Alerts for Kevin</h2>
-            <p class="text-sm text-muted-foreground mt-0.5">Automated alerts triggered for this student (last 90 days)</p>
+        <div class="flex items-center gap-2">
+          <button type="button" class="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors h-8 px-2 rounded-md hover:bg-muted">All<i data-lucide="chevron-down" class="size-3.5"></i></button>
+          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('inbox-alerts')">View all in Inbox<i data-lucide="arrow-right" class="size-4"></i></a>
+        </div>
+      </header>
+      <ul class="divide-y divide-border" role="list">
+        <!-- Today, 9:23 AM — chat summary -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3" onclick="navigate('inbox-summaries')">
+          <div class="size-8 rounded-md bg-accent border border-accent-border flex items-center justify-center shrink-0"><i data-lucide="message-square" class="size-4 text-accent-foreground"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap"><span class="text-sm font-semibold">Chat summary</span><span class="text-xs text-muted-foreground mono">Today, 9:23 AM</span></div>
+            <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Practiced box breathing during anxiety. Reflected on a friend disagreement.</div>
           </div>
-          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('inbox-alerts')">All in Inbox<i data-lucide="arrow-right" class="size-4"></i></a>
-        </header>
-        <table class="w-full text-sm">
-          <thead class="bg-muted">
-            <tr class="border-b border-border">
-              <th scope="col" class="text-left px-6 py-2.5 text-base font-bold">Type</th>
-              <th scope="col" class="text-left py-2.5 text-base font-bold">Risk</th>
-              <th scope="col" class="text-left py-2.5 text-base font-bold">Date</th>
-              <th scope="col" class="text-left py-2.5 text-base font-bold">Status</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-border">
-            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('inbox-alerts')">
-              <td class="px-6 py-3 font-semibold">Suicidal ideation</td>
-              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">High</span></td>
-              <td class="py-3 mono text-xs">Today, 7:48 AM</td>
-              <td class="py-3">Active</td>
-            </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('inbox-alerts')">
-              <td class="px-6 py-3 font-semibold">Someone else needs help</td>
-              <td class="py-3 text-muted-foreground">—</td>
-              <td class="py-3 mono text-xs">Today, 7:53 AM</td>
-              <td class="py-3">Active</td>
-            </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('inbox-alerts')">
-              <td class="px-6 py-3 font-semibold text-muted-foreground">Mental health concern</td>
-              <td class="py-3 text-muted-foreground">—</td>
-              <td class="py-3 mono text-xs text-muted-foreground">May 14, 3:31 PM</td>
-              <td class="py-3 text-muted-foreground">Resolved</td>
-            </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('inbox-alerts')">
-              <td class="px-6 py-3 font-semibold text-muted-foreground">Suicidal ideation</td>
-              <td class="py-3"><span class="inline-flex items-center rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Moderate</span></td>
-              <td class="py-3 mono text-xs text-muted-foreground">Apr 22, 11:08 AM</td>
-              <td class="py-3 text-muted-foreground">Dismissed</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="student-summaries-heading">
-        <header class="flex items-center justify-between px-6 py-4 border-b border-border">
-          <div>
-            <h2 id="student-summaries-heading" class="text-lg font-semibold">Chat summaries from Kevin</h2>
-            <p class="text-sm text-muted-foreground mt-0.5">Student-initiated summaries sent to staff</p>
+        </li>
+        <!-- Today, 7:53 AM — alert: someone else needs help -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3" onclick="navigate('inbox-alerts')">
+          <div class="size-8 rounded-md bg-tc-orange-50 border border-tc-orange-200 flex items-center justify-center shrink-0"><i data-lucide="users" class="size-4 text-tc-orange-900"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-sm font-semibold">Alert · Someone else needs help</span>
+              <span class="inline-flex items-center rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-[10px] font-semibold leading-4">Active</span>
+              <span class="text-xs text-muted-foreground mono">Today, 7:53 AM</span>
+            </div>
+            <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Kevin mentioned worry about a friend during a chat exchange.</div>
           </div>
-          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('inbox-summaries')">All in Inbox<i data-lucide="arrow-right" class="size-4"></i></a>
-        </header>
-        <ul class="divide-y divide-border" role="list">
-          <li class="px-6 py-3 hover:bg-accent transition-colors flex items-center justify-between cursor-pointer" onclick="navigate('inbox-summaries')">
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-semibold">Today, 9:23 AM</div>
-              <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Practiced box breathing during anxiety. Reflected on a friend disagreement.</div>
+        </li>
+        <!-- Today, 7:48 AM — alert: suicidal ideation (high, active) — the crisis -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3" onclick="navigate('inbox-alerts')">
+          <div class="size-8 rounded-md bg-destructive/10 border border-destructive/30 flex items-center justify-center shrink-0"><i data-lucide="alert-triangle" class="size-4 text-destructive"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-sm font-semibold">Alert · Suicidal ideation</span>
+              <span class="inline-flex items-center rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-[10px] font-semibold leading-4">High</span>
+              <span class="inline-flex items-center rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-[10px] font-semibold leading-4">Active</span>
+              <span class="text-xs text-muted-foreground mono">Today, 7:48 AM</span>
             </div>
-            <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline shrink-0 ml-3">Open<i data-lucide="arrow-right" class="size-4"></i></a>
-          </li>
-          <li class="px-6 py-3 hover:bg-accent transition-colors flex items-center justify-between cursor-pointer" onclick="navigate('inbox-summaries')">
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-semibold">May 14, 3:24 PM</div>
-              <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Coping skill check-in after a difficult conversation at home.</div>
+            <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Self-harm keywords detected in skill chat — triggered the current crisis above.</div>
+          </div>
+        </li>
+        <!-- May 14, 3:31 PM — alert: mental health concern (resolved) -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3" onclick="navigate('inbox-alerts')">
+          <div class="size-8 rounded-md bg-muted border border-border flex items-center justify-center shrink-0"><i data-lucide="alert-triangle" class="size-4 text-muted-foreground"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-sm font-semibold text-muted-foreground">Alert · Mental health concern</span>
+              <span class="inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-[10px] font-semibold leading-4">Resolved</span>
+              <span class="text-xs text-muted-foreground mono">May 14, 3:31 PM</span>
             </div>
-            <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline shrink-0 ml-3">Open<i data-lucide="arrow-right" class="size-4"></i></a>
-          </li>
-          <li class="px-6 py-3 hover:bg-accent transition-colors flex items-center justify-between cursor-pointer" onclick="navigate('inbox-summaries')">
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-semibold">May 8, 1:02 PM</div>
-              <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Scheduled check-in. Mentioned family stress.</div>
+          </div>
+        </li>
+        <!-- May 14, 3:24 PM — chat summary -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3" onclick="navigate('inbox-summaries')">
+          <div class="size-8 rounded-md bg-accent border border-accent-border flex items-center justify-center shrink-0"><i data-lucide="message-square" class="size-4 text-accent-foreground"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap"><span class="text-sm font-semibold">Chat summary</span><span class="text-xs text-muted-foreground mono">May 14, 3:24 PM</span></div>
+            <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Coping skill check-in after a difficult conversation at home.</div>
+          </div>
+        </li>
+        <!-- May 14 — trigger: skill abandoned 3x -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3">
+          <div class="size-8 rounded-md bg-tc-cream border border-border flex items-center justify-center shrink-0"><i data-lucide="x-circle" class="size-4 text-tc-orange-900"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap"><span class="text-sm font-semibold">Trigger · Skill abandoned 3×</span><span class="text-xs text-muted-foreground mono">May 14</span></div>
+            <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Started "Box breathing" three times — exited within the first minute each time.</div>
+          </div>
+        </li>
+        <!-- May 12 — screener: PHQ-9 severe -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3">
+          <div class="size-8 rounded-md bg-tc-berry-50 border border-tc-berry-100 flex items-center justify-center shrink-0"><i data-lucide="clipboard-check" class="size-4 text-tc-berry-700"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-sm font-semibold">Screener · PHQ-9</span>
+              <span class="inline-flex items-center rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-[10px] font-semibold leading-4">Severe</span>
+              <span class="text-xs text-muted-foreground mono">May 12</span>
             </div>
-            <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline shrink-0 ml-3">Open<i data-lucide="arrow-right" class="size-4"></i></a>
-          </li>
-        </ul>
-      </section>
+            <div class="text-sm text-muted-foreground mt-0.5">Score 17 / 27 — up from 12 in April.</div>
+          </div>
+        </li>
+        <!-- May 8, 1:02 PM — chat summary -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3" onclick="navigate('inbox-summaries')">
+          <div class="size-8 rounded-md bg-accent border border-accent-border flex items-center justify-center shrink-0"><i data-lucide="message-square" class="size-4 text-accent-foreground"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap"><span class="text-sm font-semibold">Chat summary</span><span class="text-xs text-muted-foreground mono">May 8, 1:02 PM</span></div>
+            <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Scheduled check-in. Mentioned family stress.</div>
+          </div>
+        </li>
+        <!-- Apr 28 — trigger: teacher flag -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3">
+          <div class="size-8 rounded-md bg-tc-cream border border-border flex items-center justify-center shrink-0"><i data-lucide="flag" class="size-4 text-tc-orange-900"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap"><span class="text-sm font-semibold">Trigger · Teacher flag</span><span class="text-xs text-muted-foreground mono">Apr 28</span></div>
+            <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Ms. Chen flagged engagement drop during 3rd period.</div>
+          </div>
+        </li>
+        <!-- Apr 22, 11:08 AM — alert: suicidal ideation (moderate, dismissed) -->
+        <li class="px-6 py-3 hover:bg-accent transition-colors cursor-pointer flex items-start gap-3" onclick="navigate('inbox-alerts')">
+          <div class="size-8 rounded-md bg-muted border border-border flex items-center justify-center shrink-0"><i data-lucide="alert-triangle" class="size-4 text-muted-foreground"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-sm font-semibold text-muted-foreground">Alert · Suicidal ideation</span>
+              <span class="inline-flex items-center rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-[10px] font-semibold leading-4">Moderate</span>
+              <span class="inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-[10px] font-semibold leading-4">Dismissed</span>
+              <span class="text-xs text-muted-foreground mono">Apr 22, 11:08 AM</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
 
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="screening-history-heading">
-        <header class="px-6 py-4 border-b border-border">
-          <h2 id="screening-history-heading" class="text-lg font-semibold">Screening history</h2>
-          <p class="text-sm text-muted-foreground mt-0.5">PHQ-9 trending toward severe over last 3 months</p>
-        </header>
-        <table class="w-full text-sm">
-          <thead class="bg-muted">
-            <tr class="border-b border-border">
-              <th scope="col" class="text-left px-6 py-2.5 text-base font-bold">Date</th>
-              <th scope="col" class="text-left py-2.5 text-base font-bold">Screener</th>
-              <th scope="col" class="text-left py-2.5 text-base font-bold">Score</th>
-              <th scope="col" class="text-left py-2.5 text-base font-bold">Severity</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-border">
-            <tr><td class="px-6 py-3 font-semibold">May 12</td><td>PHQ-9</td><td class="mono">17 / 27</td><td><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Severe</span></td></tr>
-            <tr><td class="px-6 py-3 font-semibold">Apr 14</td><td>PHQ-9</td><td class="mono">12 / 27</td><td><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Moderate</span></td></tr>
-            <tr><td class="px-6 py-3 font-semibold">Mar 11</td><td>GAD-7</td><td class="mono">8 / 21</td><td><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Mild</span></td></tr>
-            <tr><td class="px-6 py-3 font-semibold">Mar 11</td><td>PHQ-9</td><td class="mono">6 / 27</td><td><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Mild</span></td></tr>
-          </tbody>
-        </table>
-      </section>
-    </div>
-
+    <!-- Screening trajectory — compact: trend line + last 4 readings -->
     <aside class="space-y-4">
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6" aria-labelledby="quick-actions-heading">
-        <h2 id="quick-actions-heading" class="text-lg font-semibold mb-3">Quick actions</h2>
-        <div class="space-y-2">
-          <button type="button" class="w-full inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar-plus" class="size-4"></i>Schedule a visit</button>
-          <button type="button" class="w-full inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="plus" class="size-4"></i>Assign skill</button>
-          <button type="button" class="w-full inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="send" class="size-4"></i>Send screener</button>
-          <button type="button" class="w-full inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="file-text" class="size-4"></i>View care plan</button>
-          <button type="button" class="w-full inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="phone" class="size-4"></i>Contact guardian</button>
+      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="screening-heading">
+        <header class="px-6 py-4 border-b border-border">
+          <h2 id="screening-heading" class="text-lg font-semibold">Screening trajectory</h2>
+          <p class="text-sm text-muted-foreground mt-0.5">PHQ-9 trending toward severe</p>
+        </header>
+        <div class="p-6">
+          <!-- Inline sparkline: last 4 PHQ-9 readings rising from 6 → 12 → 17. SVG bars scaled to max 27. -->
+          <div class="flex items-end gap-3 h-20 mb-3" aria-hidden="true">
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-t-sm bg-tc-orange-200" style="height: 22%"></div>
+              <span class="text-[10px] text-muted-foreground mono">6</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-t-sm bg-tc-orange-300" style="height: 30%"></div>
+              <span class="text-[10px] text-muted-foreground mono">8</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-t-sm bg-tc-orange-400" style="height: 44%"></div>
+              <span class="text-[10px] text-muted-foreground mono">12</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-t-sm bg-destructive" style="height: 63%"></div>
+              <span class="text-[10px] mono font-semibold">17</span>
+            </div>
+          </div>
+          <div class="text-xs text-muted-foreground text-center mb-4">Mar → Apr → May  ·  scored / 27</div>
+          <ul class="divide-y divide-border text-sm" role="list">
+            <li class="py-2 flex items-center justify-between">
+              <div>
+                <div class="font-semibold">May 12 <span class="text-muted-foreground font-normal ml-1">PHQ-9</span></div>
+                <div class="text-xs text-muted-foreground mono mt-0.5">17 / 27</div>
+              </div>
+              <span class="inline-flex items-center rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-[10px] font-semibold leading-4">Severe</span>
+            </li>
+            <li class="py-2 flex items-center justify-between">
+              <div>
+                <div class="font-semibold">Apr 14 <span class="text-muted-foreground font-normal ml-1">PHQ-9</span></div>
+                <div class="text-xs text-muted-foreground mono mt-0.5">12 / 27</div>
+              </div>
+              <span class="inline-flex items-center rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-[10px] font-semibold leading-4">Moderate</span>
+            </li>
+            <li class="py-2 flex items-center justify-between">
+              <div>
+                <div class="font-semibold">Mar 11 <span class="text-muted-foreground font-normal ml-1">GAD-7</span></div>
+                <div class="text-xs text-muted-foreground mono mt-0.5">8 / 21</div>
+              </div>
+              <span class="inline-flex items-center rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-[10px] font-semibold leading-4">Mild</span>
+            </li>
+            <li class="py-2 flex items-center justify-between">
+              <div>
+                <div class="font-semibold">Mar 11 <span class="text-muted-foreground font-normal ml-1">PHQ-9</span></div>
+                <div class="text-xs text-muted-foreground mono mt-0.5">6 / 27</div>
+              </div>
+              <span class="inline-flex items-center rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-[10px] font-semibold leading-4">Mild</span>
+            </li>
+          </ul>
+          <a class="block text-sm font-semibold text-foreground hover:underline mt-3 text-center cursor-pointer">All screeners →</a>
         </div>
-      </section>
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6" aria-labelledby="trigger-history-heading">
-        <h2 id="trigger-history-heading" class="text-lg font-semibold mb-3">Trigger history (90 days)</h2>
-        <ul class="space-y-3 text-sm" role="list">
-          <li class="flex items-center justify-between"><span>Self-harm keywords</span><span class="text-xs text-muted-foreground mono">Today</span></li>
-          <li class="flex items-center justify-between"><span>Skill abandoned 3×</span><span class="text-xs text-muted-foreground mono">May 14</span></li>
-          <li class="flex items-center justify-between"><span>PHQ-9 severe</span><span class="text-xs text-muted-foreground mono">May 12</span></li>
-          <li class="flex items-center justify-between"><span>Teacher flag</span><span class="text-xs text-muted-foreground mono">Apr 28</span></li>
-          <li class="flex items-center justify-between"><span>Skill abandoned</span><span class="text-xs text-muted-foreground mono">Apr 22</span></li>
-        </ul>
       </section>
     </aside>
   </div>
@@ -4738,6 +4791,33 @@ Julia Campbell</textarea>
     if (e.key !== 'Escape') return;
     const sheet = document.getElementById('bulk-invite-sheet');
     if (sheet && !sheet.classList.contains('hidden')) closeBulkInviteSheet();
+  });
+
+  // Student profile kebab menu (More actions)
+  function toggleStudentActions() {
+    const menu = document.getElementById('student-actions-menu');
+    const trigger = document.getElementById('student-actions-trigger');
+    if (!menu || !trigger) return;
+    const willOpen = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden', !willOpen);
+    trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  }
+  // Dismiss on outside click / Escape
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('student-actions-menu');
+    const trigger = document.getElementById('student-actions-trigger');
+    if (!menu || menu.classList.contains('hidden')) return;
+    if (menu.contains(e.target) || (trigger && trigger.contains(e.target))) return;
+    menu.classList.add('hidden');
+    trigger.setAttribute('aria-expanded', 'false');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const menu = document.getElementById('student-actions-menu');
+    if (menu && !menu.classList.contains('hidden')) {
+      menu.classList.add('hidden');
+      document.getElementById('student-actions-trigger').setAttribute('aria-expanded', 'false');
+    }
   });
 
   // Keyboard support for clickable rows (per spec: Enter or Space triggers row click).
