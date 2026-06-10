@@ -1239,7 +1239,7 @@ Julia Campbell</textarea>
             <a class="dropdown-item" role="menuitem"><i data-lucide="pencil" class="size-4"></i>Edit student</a>
           </div>
         </div>
-        <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="calendar-plus" class="size-4"></i>Schedule visit</button>
+        <button type="button" onclick="openScheduleVisitSheet({studentName:'Kevin Martinez'})" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="calendar-plus" class="size-4"></i>Schedule visit</button>
       </div>
     </div>
   </div>
@@ -1256,7 +1256,7 @@ Julia Campbell</textarea>
         <h3 class="text-lg font-semibold">Self-harm keywords detected in skill chat</h3>
         <p class="text-sm text-muted-foreground mt-1">Suggested action: Escalate to TimelyCare visit (same-day, on-site facilitated).</p>
         <div class="flex items-center gap-2 mt-4">
-          <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Escalate to Visit<i data-lucide="arrow-right" class="size-4"></i></button>
+          <button type="button" onclick="openScheduleVisitSheet({studentName:'Kevin Martinez', reason:'Self-harm keywords detected in skill chat'})" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Escalate to Visit<i data-lucide="arrow-right" class="size-4"></i></button>
           <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="check" class="size-4"></i>Mark resolved</button>
           <button type="button" class="ml-auto inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">View chat summary<i data-lucide="arrow-right" class="size-4"></i></button>
         </div>
@@ -4566,6 +4566,136 @@ Julia Campbell</textarea>
   </div>
 </div>
 
+<!-- ===================== SCHEDULE VISIT SHEET — mirrors TC VisitScheduler.tsx ===================== -->
+<div id="schedule-visit-sheet" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="schedule-visit-title">
+  <div onclick="closeScheduleVisitSheet()" class="absolute inset-0 bg-foreground/40"></div>
+  <aside class="absolute top-0 right-0 h-full w-full max-w-xl bg-card shadow-xl flex flex-col">
+    <!-- Header -->
+    <header class="px-6 py-5 border-b border-border">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 id="schedule-visit-title" class="text-lg font-bold">Schedule Visit</h2>
+          <p class="text-sm text-muted-foreground mt-1">Schedule a mental health visit for <span id="schedule-visit-student-name">Kevin Martinez</span></p>
+        </div>
+        <button type="button" onclick="closeScheduleVisitSheet()" class="size-8 inline-flex items-center justify-center rounded-md hover:bg-muted transition-colors shrink-0" aria-label="Close">
+          <i data-lucide="x" class="size-4"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- REVIEW state (the form) -->
+    <div id="schedule-visit-form-state" class="flex-1 overflow-y-auto px-6 py-5">
+      <!-- Visit context (read-only) -->
+      <div class="bg-muted/40 border border-border rounded-md p-4 mb-5">
+        <div class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Visit context</div>
+        <dl class="grid grid-cols-[120px_1fr] gap-y-1.5 text-sm">
+          <dt class="text-muted-foreground">Student</dt><dd class="font-semibold"><span id="schedule-visit-context-student">Kevin Martinez</span> <span class="text-muted-foreground font-normal">· Grade 11 · Lincoln HS</span></dd>
+          <dt class="text-muted-foreground">Visit type</dt><dd>Therapy</dd>
+          <!-- Insurance badge — only visible in Hybrid model -->
+          <dt class="text-muted-foreground insurance-only">Insurance</dt>
+          <dd class="insurance-only"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Verified · Self-pay</span></dd>
+          <!-- Crisis context (only shown when sheet was opened from Escalate-to-Visit) -->
+          <dt id="schedule-visit-reason-label" class="text-muted-foreground hidden">Reason</dt>
+          <dd id="schedule-visit-reason-value" class="hidden font-semibold text-destructive"></dd>
+        </dl>
+      </div>
+
+      <!-- Visit Location -->
+      <fieldset class="mb-5">
+        <legend class="text-sm font-semibold mb-2"><span class="text-destructive">*</span> Visit Location</legend>
+        <div class="grid grid-cols-2 gap-3">
+          <label class="flex items-start gap-2 p-3 rounded-md border border-input hover:bg-muted/40 cursor-pointer transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+            <input type="radio" name="visit-location" value="at_school" checked class="size-4 mt-0.5 accent-primary">
+            <div class="text-sm">
+              <div class="font-semibold">At School</div>
+              <div class="text-xs text-muted-foreground mt-0.5 leading-snug">Student joins the telehealth visit via Zoom at school.</div>
+            </div>
+          </label>
+          <label class="flex items-start gap-2 p-3 rounded-md border border-input hover:bg-muted/40 cursor-pointer transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+            <input type="radio" name="visit-location" value="at_home" class="size-4 mt-0.5 accent-primary">
+            <div class="text-sm">
+              <div class="font-semibold">At Home</div>
+              <div class="text-xs text-muted-foreground mt-0.5 leading-snug">Student joins the telehealth visit via Zoom from home.</div>
+            </div>
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Date + Time -->
+      <div class="grid grid-cols-2 gap-4 mb-5">
+        <div>
+          <label for="schedule-visit-date" class="block text-sm font-semibold mb-2"><span class="text-destructive">*</span> Date</label>
+          <input id="schedule-visit-date" type="date" value="2026-06-12" min="2026-06-11" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+        </div>
+        <div>
+          <label for="schedule-visit-time" class="block text-sm font-semibold mb-2"><span class="text-destructive">*</span> Time</label>
+          <input id="schedule-visit-time" type="time" value="14:30" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+        </div>
+      </div>
+
+      <!-- Duration -->
+      <div class="mb-5">
+        <label for="schedule-visit-duration" class="block text-sm font-semibold mb-2">Duration</label>
+        <select id="schedule-visit-duration" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+          <option value="30">30 minutes</option>
+          <option value="45" selected>45 minutes</option>
+          <option value="60">60 minutes</option>
+          <option value="90">90 minutes</option>
+          <option value="120">120 minutes</option>
+        </select>
+      </div>
+
+      <!-- Provider -->
+      <div class="mb-5">
+        <label for="schedule-visit-provider" class="block text-sm font-semibold mb-2"><span class="text-destructive">*</span> Healthcare Provider</label>
+        <select id="schedule-visit-provider" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
+          <option value="">Select a provider…</option>
+          <option value="chen" selected>Dr. Chen — Lincoln HS (on-site)</option>
+          <option value="patel">Dr. Patel — On-call telehealth</option>
+          <option value="ramirez">Dr. Ramirez — On-call telehealth</option>
+          <option value="okafor">Dr. Okafor — On-call telehealth</option>
+        </select>
+        <p class="text-xs text-muted-foreground mt-1.5">Providers filtered by your school's care team.</p>
+      </div>
+
+      <!-- Notes -->
+      <div class="mb-2">
+        <label for="schedule-visit-notes" class="block text-sm font-semibold mb-2">Notes <span class="text-muted-foreground font-normal">(optional)</span></label>
+        <textarea id="schedule-visit-notes" rows="3" placeholder="Additional notes or special instructions for the visit..." class="w-full rounded-md border border-input bg-card text-sm p-3 outline-none focus:ring-2 focus:ring-primary resize-none"></textarea>
+      </div>
+    </div>
+
+    <!-- SCHEDULING state -->
+    <div id="schedule-visit-loading-state" class="hidden flex-1 flex flex-col items-center justify-center px-6">
+      <i data-lucide="loader-2" class="size-12 text-primary animate-spin mb-4"></i>
+      <div class="text-base font-semibold">Scheduling visit…</div>
+      <div class="text-sm text-muted-foreground mt-1">Notifying provider and guardian.</div>
+    </div>
+
+    <!-- DONE state -->
+    <div id="schedule-visit-done-state" class="hidden flex-1 flex flex-col items-center justify-center px-6 text-center">
+      <div class="size-16 rounded-full bg-tc-sage-50 border border-tc-sage-200 flex items-center justify-center mb-4">
+        <i data-lucide="check" class="size-8 text-tc-sage-700"></i>
+      </div>
+      <div class="text-lg font-bold mb-2">Visit scheduled successfully</div>
+      <dl class="grid grid-cols-[100px_1fr] gap-y-1.5 text-sm max-w-sm text-left bg-muted/40 border border-border rounded-md p-4 mt-2">
+        <dt class="text-muted-foreground">When</dt><dd id="schedule-visit-done-when" class="font-semibold">—</dd>
+        <dt class="text-muted-foreground">Provider</dt><dd id="schedule-visit-done-provider" class="font-semibold">—</dd>
+        <dt class="text-muted-foreground">Location</dt><dd id="schedule-visit-done-location" class="font-semibold">—</dd>
+        <dt class="text-muted-foreground">Duration</dt><dd id="schedule-visit-done-duration" class="font-semibold">—</dd>
+      </dl>
+      <p class="text-xs text-muted-foreground mt-4 max-w-sm">Guardian and provider have been notified. The visit appears in <span class="font-semibold text-foreground">Visit history</span> on this student's profile.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="px-6 py-4 border-t border-border flex items-center justify-end gap-2">
+      <button type="button" id="schedule-visit-cancel-btn" onclick="closeScheduleVisitSheet()" class="inline-flex items-center justify-center h-9 px-4 rounded-md text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
+      <button type="button" id="schedule-visit-submit-btn" onclick="submitScheduleVisit()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="calendar-plus" class="size-4"></i>Schedule Visit</button>
+      <button type="button" id="schedule-visit-done-btn" onclick="closeScheduleVisitSheet()" class="hidden inline-flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Done</button>
+    </footer>
+  </aside>
+</div>
+
 <!-- ===================== BULK INVITE SHEET (Create Invite review) — duplicates TC's BulkInviteSheet flow ===================== -->
 <div id="bulk-invite-sheet" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="bulk-invite-title">
   <!-- Backdrop -->
@@ -4893,6 +5023,99 @@ Julia Campbell</textarea>
       if (textNode) textNode.textContent = labelText;
     }
   }
+  // === SCHEDULE VISIT SHEET — mirrors TC's VisitScheduler.tsx (form → scheduling → done) ===
+  // Opens from "Schedule visit" on the student profile and "Escalate to Visit" on the crisis card.
+  let scheduleVisitTimerId = null;
+  function openScheduleVisitSheet(opts) {
+    opts = opts || {};
+    cancelScheduleVisitTimer();
+    resetScheduleVisitSheet();
+    // Crisis context: when called from Escalate-to-Visit, populate the reason row
+    const reasonLabel = document.getElementById('schedule-visit-reason-label');
+    const reasonValue = document.getElementById('schedule-visit-reason-value');
+    if (opts.reason) {
+      reasonLabel.classList.remove('hidden');
+      reasonValue.classList.remove('hidden');
+      reasonValue.textContent = opts.reason;
+    } else {
+      reasonLabel.classList.add('hidden');
+      reasonValue.classList.add('hidden');
+    }
+    // Set student name if passed (defaults to Kevin Martinez on the prototype)
+    if (opts.studentName) {
+      document.getElementById('schedule-visit-student-name').textContent = opts.studentName;
+      document.getElementById('schedule-visit-context-student').textContent = opts.studentName;
+    }
+    document.getElementById('schedule-visit-sheet').classList.remove('hidden');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    setTimeout(() => document.getElementById('schedule-visit-date').focus(), 50);
+  }
+  function closeScheduleVisitSheet() {
+    cancelScheduleVisitTimer();
+    document.getElementById('schedule-visit-sheet').classList.add('hidden');
+  }
+  function cancelScheduleVisitTimer() {
+    if (scheduleVisitTimerId !== null) {
+      clearTimeout(scheduleVisitTimerId);
+      scheduleVisitTimerId = null;
+    }
+  }
+  function submitScheduleVisit() {
+    cancelScheduleVisitTimer();
+    // Collect form values
+    const date = document.getElementById('schedule-visit-date').value;
+    const time = document.getElementById('schedule-visit-time').value;
+    const duration = document.getElementById('schedule-visit-duration').value;
+    const providerSelect = document.getElementById('schedule-visit-provider');
+    const providerLabel = providerSelect.options[providerSelect.selectedIndex].text;
+    const locationInput = document.querySelector('input[name="visit-location"]:checked');
+    const locationValue = locationInput ? locationInput.value : 'at_school';
+    const locationLabel = locationValue === 'at_school' ? 'At School (Zoom)' : 'At Home (Zoom)';
+    // Validate required fields
+    if (!date || !time || !providerSelect.value) {
+      alert('Please fill in date, time, and provider.');
+      return;
+    }
+    // Switch to scheduling state
+    document.getElementById('schedule-visit-form-state').classList.add('hidden');
+    document.getElementById('schedule-visit-loading-state').classList.remove('hidden');
+    document.getElementById('schedule-visit-cancel-btn').classList.add('hidden');
+    document.getElementById('schedule-visit-submit-btn').classList.add('hidden');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    // Simulate scheduling (~1.4s)
+    scheduleVisitTimerId = setTimeout(() => {
+      scheduleVisitTimerId = null;
+      if (document.getElementById('schedule-visit-sheet').classList.contains('hidden')) return;
+      // Format the "When" string
+      const dt = new Date(date + 'T' + time);
+      const whenText = dt.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      document.getElementById('schedule-visit-done-when').textContent = whenText;
+      document.getElementById('schedule-visit-done-provider').textContent = providerLabel;
+      document.getElementById('schedule-visit-done-location').textContent = locationLabel;
+      document.getElementById('schedule-visit-done-duration').textContent = duration + ' minutes';
+      // Show done state
+      document.getElementById('schedule-visit-loading-state').classList.add('hidden');
+      document.getElementById('schedule-visit-done-state').classList.remove('hidden');
+      document.getElementById('schedule-visit-done-btn').classList.remove('hidden');
+      if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    }, 1400);
+  }
+  function resetScheduleVisitSheet() {
+    cancelScheduleVisitTimer();
+    document.getElementById('schedule-visit-form-state').classList.remove('hidden');
+    document.getElementById('schedule-visit-loading-state').classList.add('hidden');
+    document.getElementById('schedule-visit-done-state').classList.add('hidden');
+    document.getElementById('schedule-visit-cancel-btn').classList.remove('hidden');
+    document.getElementById('schedule-visit-submit-btn').classList.remove('hidden');
+    document.getElementById('schedule-visit-done-btn').classList.add('hidden');
+  }
+  // Escape closes the schedule sheet too
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const sheet = document.getElementById('schedule-visit-sheet');
+    if (sheet && !sheet.classList.contains('hidden')) closeScheduleVisitSheet();
+  });
+
   // === BULK INVITE SHEET — duplicates TC's BulkInviteSheet flow (review → sending → done) ===
   function openBulkInviteSheet() {
     resetBulkInviteSheet();
