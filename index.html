@@ -262,6 +262,24 @@
 
   body[data-persona="school-staff"] .phi-only { display: none !important; }
 
+  /* Screener results gating — per Elsa: teachers see only who completed, not the data */
+  body[data-persona="school-staff"] .screener-data { display: none !important; }
+  /* Inverse: the simplified "completed/not" indicator only shows for teachers */
+  .screener-completion-only { display: none; }
+  body[data-persona="school-staff"] .screener-completion-only { display: table-cell; }
+
+  /* Inbox alert severity highlight — per Elsa: severe alerts can't get lost when combined with other items */
+  .alert-row-high {
+    background-color: hsl(var(--destructive) / 0.04);
+    box-shadow: inset 4px 0 0 0 hsl(var(--destructive));
+  }
+  .alert-row-high:hover {
+    background-color: hsl(var(--destructive) / 0.08);
+  }
+  .alert-row-high.alert-row-selected {
+    background-color: hsl(var(--destructive) / 0.12);
+  }
+
   body[data-persona="district-staff"] .user-mgmt-only,
   body[data-persona="clinical-staff"] .user-mgmt-only,
   body[data-persona="school-staff"] .user-mgmt-only { display: none !important; }
@@ -734,6 +752,16 @@
       <span class="ml-auto text-sm text-muted-foreground">11 active  ·  2 high-risk</span>
     </div>
 
+    <!-- Severe-alert banner: surfaces immediate-risk count above the grid per Elsa's feedback -->
+    <div class="bg-destructive/5 border border-destructive/30 rounded-lg shadow-sm p-3 mb-4 flex items-center gap-3">
+      <i data-lucide="alert-triangle" class="size-5 text-destructive shrink-0"></i>
+      <div class="flex-1 text-sm">
+        <strong class="font-semibold text-destructive-foreground">2 immediate-risk alerts</strong>
+        <span class="text-muted-foreground"> need follow-up. Highlighted in red at the top of the list.</span>
+      </div>
+      <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-destructive bg-card text-destructive text-xs font-semibold hover:bg-destructive/10 transition-colors">View only high-risk</button>
+    </div>
+
     <!-- Two-column: table + detail panel -->
     <div class="grid grid-cols-[1fr_440px] gap-4 items-start">
       <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
@@ -744,25 +772,35 @@
               <th scope="col" class="text-left py-3 text-base font-bold">Type</th>
               <th scope="col" class="text-left py-3 text-base font-bold">Risk</th>
               <th scope="col" class="text-left py-3 text-base font-bold">Date</th>
-              <th scope="col" class="text-left py-3 text-base font-bold">Status</th>
+              <th scope="col" class="text-left py-3 text-base font-bold">Follow-up</th>
               <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Gr</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-border">
-            <tr class="bg-accent cursor-pointer" aria-selected="true">
+            <!-- HIGH-RISK ACTIVE alerts surface to top with severity highlight -->
+            <tr class="alert-row-high alert-row-selected cursor-pointer" aria-selected="true">
               <td class="px-6 py-3 font-semibold">Heyes, Clarke</td>
               <td class="py-3">Suicidal ideation</td>
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">High</span></td>
               <td class="py-3 mono text-xs">Wed, 5/27/26 8:13 AM</td>
-              <td class="py-3">Active</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive/10 text-destructive border border-destructive/30 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="alert-circle" class="size-3"></i>Needs action</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
+            <tr class="alert-row-high hover:bg-destructive/8 cursor-pointer transition-colors">
+              <td class="px-6 py-3 font-semibold">Martinez, Kevin</td>
+              <td class="py-3">Suicidal ideation</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">High</span></td>
+              <td class="py-3 mono text-xs">Wed, 5/27/26 7:48 AM</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="clock" class="size-3"></i>In progress</span></td>
+              <td class="text-right pr-6 py-3 mono">11</td>
+            </tr>
+            <!-- Other ACTIVE alerts -->
             <tr class="hover:bg-accent cursor-pointer transition-colors">
               <td class="px-6 py-3 font-semibold">Heyes, Clarke</td>
               <td class="py-3">Insufficient information</td>
               <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Unknown</span></td>
               <td class="py-3 mono text-xs">Wed, 5/27/26 8:13 AM</td>
-              <td class="py-3">Active</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Needs action</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
             <tr class="hover:bg-accent cursor-pointer transition-colors">
@@ -770,7 +808,7 @@
               <td class="py-3">Mental health concern</td>
               <td class="py-3 text-muted-foreground">—</td>
               <td class="py-3 mono text-xs">Wed, 5/27/26 8:04 AM</td>
-              <td class="py-3">Active</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Needs action</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
             <tr class="hover:bg-accent cursor-pointer transition-colors">
@@ -778,7 +816,7 @@
               <td class="py-3">Abuse by an adult</td>
               <td class="py-3 text-muted-foreground">—</td>
               <td class="py-3 mono text-xs">Wed, 5/27/26 8:01 AM</td>
-              <td class="py-3">Active</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Acknowledged</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
             <tr class="hover:bg-accent cursor-pointer transition-colors">
@@ -786,7 +824,7 @@
               <td class="py-3">Risk of harm to others</td>
               <td class="py-3 text-muted-foreground">—</td>
               <td class="py-3 mono text-xs">Wed, 5/27/26 7:57 AM</td>
-              <td class="py-3">Active</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Needs action</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
             <tr class="hover:bg-accent cursor-pointer transition-colors">
@@ -794,15 +832,7 @@
               <td class="py-3">Someone else needs help</td>
               <td class="py-3 text-muted-foreground">—</td>
               <td class="py-3 mono text-xs">Wed, 5/27/26 7:53 AM</td>
-              <td class="py-3">Active</td>
-              <td class="text-right pr-6 py-3 mono">11</td>
-            </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
-              <td class="px-6 py-3 font-semibold">Martinez, Kevin</td>
-              <td class="py-3">Suicidal ideation</td>
-              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">High</span></td>
-              <td class="py-3 mono text-xs">Wed, 5/27/26 7:48 AM</td>
-              <td class="py-3">Active</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="clock" class="size-3"></i>In progress</span></td>
               <td class="text-right pr-6 py-3 mono">11</td>
             </tr>
             <tr class="hover:bg-accent cursor-pointer transition-colors">
@@ -810,9 +840,10 @@
               <td class="py-3">Mental health concern</td>
               <td class="py-3 text-muted-foreground">—</td>
               <td class="py-3 mono text-xs">Tue, 5/26/26 7:52 PM</td>
-              <td class="py-3">Active</td>
+              <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Acknowledged</span></td>
               <td class="text-right pr-6 py-3 mono">7</td>
             </tr>
+            <!-- Resolved / Dismissed alerts (muted) -->
             <tr class="hover:bg-accent cursor-pointer transition-colors">
               <td class="px-6 py-3 font-semibold text-muted-foreground">Heyes, Clarke</td>
               <td class="py-3 text-muted-foreground">Someone else needs help</td>
@@ -892,26 +923,55 @@
           </div>
 
           <div>
-            <h3 class="text-sm font-semibold mb-2">Chat context</h3>
-            <p class="text-xs text-muted-foreground mb-2">Messages leading up to when we detected the issue.</p>
-            <div class="border border-border rounded-md p-4 space-y-3 text-sm">
-              <div class="text-center text-muted-foreground text-xs">···</div>
-              <div class="flex flex-col items-end">
-                <span class="text-xs font-semibold text-muted-foreground mb-1">Clarke</span>
-                <span class="inline-block bg-primary text-primary-foreground rounded-lg rounded-br-sm px-3 py-2 max-w-[80%]">I have started cutting again</span>
+            <h3 class="text-sm font-semibold mb-2">Full chat context</h3>
+            <p class="text-xs text-muted-foreground mb-2">Messages from this exchange. The triggering message is highlighted.</p>
+            <div class="border border-border rounded-md p-4 space-y-3 text-sm max-h-80 overflow-y-auto">
+              <div class="text-center text-muted-foreground text-xs">Wed, 5/27/26 — start of exchange</div>
+              <div class="flex flex-col items-start">
+                <span class="text-xs font-semibold text-muted-foreground mb-1">Nova (chatbot) · 8:02 AM</span>
+                <span class="inline-block bg-muted text-foreground rounded-lg rounded-bl-sm px-3 py-2 max-w-[85%]">Hi Clarke. What's on your mind today?</span>
               </div>
-              <div class="text-center text-muted-foreground text-xs">···</div>
+              <div class="flex flex-col items-end">
+                <span class="text-xs font-semibold text-muted-foreground mb-1">Clarke · 8:03 AM</span>
+                <span class="inline-block bg-accent text-accent-foreground rounded-lg rounded-br-sm px-3 py-2 max-w-[85%]">i just feel really alone right now</span>
+              </div>
+              <div class="flex flex-col items-start">
+                <span class="text-xs font-semibold text-muted-foreground mb-1">Nova · 8:03 AM</span>
+                <span class="inline-block bg-muted text-foreground rounded-lg rounded-bl-sm px-3 py-2 max-w-[85%]">That sounds really hard. Can you tell me more about what's making you feel that way?</span>
+              </div>
+              <div class="flex flex-col items-end">
+                <span class="text-xs font-semibold text-muted-foreground mb-1">Clarke · 8:06 AM</span>
+                <span class="inline-block bg-accent text-accent-foreground rounded-lg rounded-br-sm px-3 py-2 max-w-[85%]">my friends have been ignoring me at school and i don't know what i did wrong</span>
+              </div>
+              <div class="flex flex-col items-start">
+                <span class="text-xs font-semibold text-muted-foreground mb-1">Nova · 8:07 AM</span>
+                <span class="inline-block bg-muted text-foreground rounded-lg rounded-bl-sm px-3 py-2 max-w-[85%]">I'm sorry you're going through that. Have you been able to talk to anyone about it?</span>
+              </div>
+              <div class="flex flex-col items-end">
+                <span class="text-xs font-semibold text-muted-foreground mb-1">Clarke · 8:11 AM</span>
+                <span class="inline-block bg-accent text-accent-foreground rounded-lg rounded-br-sm px-3 py-2 max-w-[85%]">no. it just keeps getting worse. i have started cutting again</span>
+              </div>
+              <!-- Triggering message -->
+              <div class="flex flex-col items-end">
+                <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide text-destructive mb-1"><i data-lucide="alert-triangle" class="size-3"></i>Triggered the alert</span>
+                <span class="inline-block bg-destructive/10 text-foreground border border-destructive/30 rounded-lg rounded-br-sm px-3 py-2 max-w-[85%]">i started cutting again last weekend</span>
+              </div>
+              <div class="flex flex-col items-start">
+                <span class="text-xs font-semibold text-muted-foreground mb-1">Nova · 8:13 AM</span>
+                <span class="inline-block bg-muted text-foreground rounded-lg rounded-bl-sm px-3 py-2 max-w-[85%]">Thank you for trusting me with that, Clarke. I want to make sure you have someone safe to talk to. I'm sharing what you said with a staff member at your school so they can check in with you today.</span>
+              </div>
             </div>
+            <a class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline cursor-pointer mt-2">View full conversation history<i data-lucide="arrow-right" class="size-3.5"></i></a>
           </div>
 
           <div class="space-y-2">
             <button type="button" class="w-full inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
-              <i data-lucide="mail" class="size-4"></i>
-              Email Clarke
+              <i data-lucide="check" class="size-4"></i>
+              Mark acknowledged
             </button>
             <button type="button" class="w-full inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
-              <i data-lucide="calendar-plus" class="size-4"></i>
-              Escalate to visit
+              <i data-lucide="phone" class="size-4"></i>
+              Contact guardian
             </button>
             <button type="button" class="w-full inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors" onclick="navigate('student-profile')">
               <i data-lucide="user" class="size-4"></i>
@@ -1994,7 +2054,7 @@ Julia Campbell</textarea>
         <div class="text-sm font-semibold text-muted-foreground">Completion Rate</div>
         <div class="text-3xl font-bold mt-2">89%</div>
       </article>
-      <article class="bg-card border border-border rounded-lg shadow-sm p-5">
+      <article class="screener-data bg-card border border-border rounded-lg shadow-sm p-5">
         <div class="text-sm font-semibold text-muted-foreground">Students for Follow-up</div>
         <div class="text-3xl font-bold mt-2">8</div>
       </article>
@@ -2015,59 +2075,68 @@ Julia Campbell</textarea>
           <tr class="border-b border-border">
             <th scope="col" class="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Student</th>
             <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Grade</th>
-            <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Emotional score</th>
-            <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status</th>
+            <th scope="col" class="screener-data text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Emotional score</th>
+            <th scope="col" class="screener-data text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status</th>
             <th scope="col" class="text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Completed</th>
+            <th scope="col" class="screener-completion-only text-left py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Completed?</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-border">
           <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('student-profile')">
             <td class="px-6 py-3 font-semibold">Kevin Martinez</td><td class="py-3">11</td>
-            <td class="py-3 mono">17 / 27</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Needs follow-up</span></td>
+            <td class="screener-data py-3 mono">17 / 27</td>
+            <td class="screener-data py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Needs follow-up</span></td>
             <td class="py-3 mono">May 12</td>
+            <td class="screener-completion-only py-3"><i data-lucide="check" class="size-4 text-tc-sage-600"></i></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
             <td class="px-6 py-3 font-semibold">Emma Sullivan</td><td class="py-3">9</td>
-            <td class="py-3 mono">11 / 27</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Moderate</span></td>
+            <td class="screener-data py-3 mono">11 / 27</td>
+            <td class="screener-data py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Moderate</span></td>
             <td class="py-3 mono">May 10</td>
+            <td class="screener-completion-only py-3"><i data-lucide="check" class="size-4 text-tc-sage-600"></i></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
             <td class="px-6 py-3 font-semibold">Marcus Thompson</td><td class="py-3">10</td>
-            <td class="py-3 mono">6 / 27</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Mild</span></td>
+            <td class="screener-data py-3 mono">6 / 27</td>
+            <td class="screener-data py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Mild</span></td>
             <td class="py-3 mono">May 8</td>
+            <td class="screener-completion-only py-3"><i data-lucide="check" class="size-4 text-tc-sage-600"></i></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
             <td class="px-6 py-3 font-semibold">Aisha Khan</td><td class="py-3">9</td>
-            <td class="py-3 mono">14 / 27</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Moderate</span></td>
+            <td class="screener-data py-3 mono">14 / 27</td>
+            <td class="screener-data py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Moderate</span></td>
             <td class="py-3 mono">May 12</td>
+            <td class="screener-completion-only py-3"><i data-lucide="check" class="size-4 text-tc-sage-600"></i></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
             <td class="px-6 py-3 font-semibold">Diego Reyes</td><td class="py-3">11</td>
-            <td class="py-3 mono">4 / 27</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Minimal</span></td>
+            <td class="screener-data py-3 mono">4 / 27</td>
+            <td class="screener-data py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Minimal</span></td>
             <td class="py-3 mono">May 9</td>
+            <td class="screener-completion-only py-3"><i data-lucide="check" class="size-4 text-tc-sage-600"></i></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
             <td class="px-6 py-3 font-semibold">Tyler Jensen</td><td class="py-3">10</td>
+            <td class="screener-data py-3 mono text-muted-foreground">—</td>
+            <td class="screener-data py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not completed</span></td>
             <td class="py-3 mono text-muted-foreground">—</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not completed</span></td>
-            <td class="py-3 mono text-muted-foreground">—</td>
+            <td class="screener-completion-only py-3 text-muted-foreground">—</td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
             <td class="px-6 py-3 font-semibold">Sara Lin</td><td class="py-3">12</td>
-            <td class="py-3 mono">3 / 27</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Minimal</span></td>
+            <td class="screener-data py-3 mono">3 / 27</td>
+            <td class="screener-data py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Minimal</span></td>
             <td class="py-3 mono">May 7</td>
+            <td class="screener-completion-only py-3"><i data-lucide="check" class="size-4 text-tc-sage-600"></i></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors">
             <td class="px-6 py-3 font-semibold">Jordan Pierce</td><td class="py-3">11</td>
+            <td class="screener-data py-3 mono text-muted-foreground">—</td>
+            <td class="screener-data py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not completed</span></td>
             <td class="py-3 mono text-muted-foreground">—</td>
-            <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not completed</span></td>
-            <td class="py-3 mono text-muted-foreground">—</td>
+            <td class="screener-completion-only py-3 text-muted-foreground">—</td>
           </tr>
         </tbody>
       </table>
