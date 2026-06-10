@@ -2130,128 +2130,21 @@ Julia Campbell</textarea>
     <button id="helptab-contact" type="button" role="tab" aria-selected="false" onclick="setHelpTab('contact')" class="help-tab px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors inline-flex items-center gap-2"><i data-lucide="life-buoy" class="size-4"></i>Contact support</button>
   </div>
 
-  <!-- ROLLOUT & RESOURCES panel — Alongside 3-step pattern (to be confirmed against the FigJam) -->
+  <!-- ROLLOUT & RESOURCES panel — Alongside 3-step pattern (content TBD, source not yet pulled) -->
   <section id="helppanel-rollout" class="help-panel hidden" role="tabpanel" aria-labelledby="helptab-rollout">
-    <p class="text-sm text-muted-foreground mb-6 max-w-2xl">Get your school set up to use the merged portal. Three steps; complete them in order or jump around.</p>
-    <ol class="space-y-4">
-      <li class="bg-card border border-border rounded-lg shadow-sm p-6 flex items-start gap-4">
-        <div class="size-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">1</div>
-        <div class="flex-1">
-          <h3 class="text-lg font-semibold">Set up your staff</h3>
-          <p class="text-sm text-muted-foreground mt-1">Invite your school's counselors, admins, and clinical staff. Configure who gets which alerts.</p>
-          <div class="flex flex-wrap gap-2 mt-3">
-            <a onclick="navigate('settings-users-add')" class="inline-flex items-center gap-1 h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold cursor-pointer">Add a user<i data-lucide="arrow-right" class="size-3.5"></i></a>
-            <a class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer"><i data-lucide="file-down" class="size-3.5"></i>Staff onboarding template</a>
-          </div>
-        </div>
-      </li>
-      <li class="bg-card border border-border rounded-lg shadow-sm p-6 flex items-start gap-4">
-        <div class="size-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">2</div>
-        <div class="flex-1">
-          <h3 class="text-lg font-semibold">Communicate with families</h3>
-          <p class="text-sm text-muted-foreground mt-1">Send the family announcement so guardians know to expect emails and texts. Templates available in English, Spanish, and other languages.</p>
-          <div class="flex flex-wrap gap-2 mt-3">
-            <a class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer"><i data-lucide="file-down" class="size-3.5"></i>Family letter (PDF)</a>
-            <a class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer"><i data-lucide="file-down" class="size-3.5"></i>Email template</a>
-            <a class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer"><i data-lucide="file-down" class="size-3.5"></i>SMS template</a>
-          </div>
-        </div>
-      </li>
-      <li class="bg-card border border-border rounded-lg shadow-sm p-6 flex items-start gap-4">
-        <div class="size-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">3</div>
-        <div class="flex-1">
-          <h3 class="text-lg font-semibold">Launch with students</h3>
-          <p class="text-sm text-muted-foreground mt-1">Roll out to students with a classroom intro, the welcome assembly slides, and the first-day chat prompt.</p>
-          <div class="flex flex-wrap gap-2 mt-3">
-            <a class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer"><i data-lucide="file-down" class="size-3.5"></i>Assembly slides</a>
-            <a class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer"><i data-lucide="file-down" class="size-3.5"></i>Classroom intro script</a>
-            <a class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer"><i data-lucide="external-link" class="size-3.5"></i>Demo the student app</a>
-          </div>
-        </div>
-      </li>
-    </ol>
-    <p class="text-xs text-muted-foreground mt-6">Layout to verify against the Alongside Rollout &amp; Resources screenshot in the FigJam — agent's read described it as a 3-step page.</p>
+    <div class="bg-card border border-dashed border-border rounded-lg p-12 text-center max-w-2xl">
+      <i data-lucide="rocket" class="size-10 text-muted-foreground mx-auto mb-4"></i>
+      <h3 class="text-lg font-bold mb-2">Rollout &amp; Resources</h3>
+      <p class="text-sm text-muted-foreground max-w-md mx-auto">3-step Alongside onboarding flow. Step content (titles, copy, templates) to be sourced from the Alongside Rollout &amp; Resources screenshot in the FigJam — not yet pulled into the prototype.</p>
+    </div>
   </section>
 
-  <!-- HELP ARTICLES panel — moved from Library → Staff resources -->
+  <!-- HELP ARTICLES panel — content TBD; categories and articles need to be sourced -->
   <section id="helppanel-articles" class="help-panel" role="tabpanel" aria-labelledby="helptab-articles">
-    <div class="bg-card border border-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-2 flex-wrap">
-      <div class="relative flex-1 max-w-md">
-        <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
-        <label for="help-articles-search" class="sr-only">Search help articles</label>
-        <input id="help-articles-search" type="text" placeholder="Search help articles..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
-      </div>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Type: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Source: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-    </div>
-
-    <div class="grid grid-cols-3 gap-4">
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <h4 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground mb-2"><i data-lucide="rocket" class="size-5 text-primary"></i>Getting started</h4>
-        <h3 class="text-lg font-semibold mb-3">Onboarding</h3>
-        <ul class="space-y-2.5 text-sm" role="list">
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Welcome to the merged portal<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Setting up your account<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Your first week checklist<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Quick reference card (PDF)<i data-lucide="external-link" class="size-3.5"></i></a></li>
-        </ul>
-      </section>
-
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <h4 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground mb-2"><i data-lucide="brain" class="size-5 text-primary"></i>Alongside tools</h4>
-        <h3 class="text-lg font-semibold mb-3">Skills + Screeners</h3>
-        <ul class="space-y-2.5 text-sm" role="list">
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">How to assign a skill<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Reading screener results<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Interpreting chat summaries<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">When to escalate a chat<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Skill chatbot best practices<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-        </ul>
-      </section>
-
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <h4 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground mb-2"><i data-lucide="video" class="size-5 text-primary"></i>TimelyCare tools</h4>
-        <h3 class="text-lg font-semibold mb-3">Visits + Facilitation</h3>
-        <ul class="space-y-2.5 text-sm" role="list">
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Facilitating a student visit<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Setting up the visit room<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Telehealth tech checklist<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Visit allocation primer<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-        </ul>
-      </section>
-
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <h4 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground mb-2"><i data-lucide="shield-alert" class="size-5 text-destructive"></i>Crisis response</h4>
-        <h3 class="text-lg font-semibold mb-3">When something feels off</h3>
-        <ul class="space-y-2.5 text-sm" role="list">
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Crisis response protocol<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Reading the wellness signal<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Contacting a guardian<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Documenting a crisis<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-        </ul>
-      </section>
-
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <h4 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground mb-2"><i data-lucide="file-text" class="size-5 text-primary"></i>Reporting</h4>
-        <h3 class="text-lg font-semibold mb-3">Reports + Stakeholders</h3>
-        <ul class="space-y-2.5 text-sm" role="list">
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Building a school-level report<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Sharing data with the principal<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Visit utilization explained<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Year-end summary template<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-        </ul>
-      </section>
-
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <h4 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground mb-2"><i data-lucide="shield-check" class="size-5 text-primary"></i>Compliance</h4>
-        <h3 class="text-lg font-semibold mb-3">HIPAA + FERPA</h3>
-        <ul class="space-y-2.5 text-sm" role="list">
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Student data handling guide<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Guardian consent workflow<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Sharing chat summaries safely<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-          <li><a class="inline-flex items-center gap-1 text-foreground hover:text-primary hover:underline cursor-pointer">Audit trail explainer<i data-lucide="arrow-right" class="size-3.5"></i></a></li>
-        </ul>
-      </section>
+    <div class="bg-card border border-dashed border-border rounded-lg p-12 text-center max-w-2xl">
+      <i data-lucide="book-open" class="size-10 text-muted-foreground mx-auto mb-4"></i>
+      <h3 class="text-lg font-bold mb-2">Help articles</h3>
+      <p class="text-sm text-muted-foreground max-w-md mx-auto">Search + categorized help articles. Article categories, titles, and content to be sourced from the team — not yet populated in the prototype.</p>
     </div>
   </section>
 
@@ -2261,14 +2154,14 @@ Julia Campbell</textarea>
       <article class="bg-card border border-border rounded-lg shadow-sm p-6">
         <i data-lucide="mail" class="size-6 text-primary mb-3"></i>
         <h3 class="text-lg font-semibold mb-1">Email support</h3>
-        <p class="text-sm text-muted-foreground">Response within 1 business day.</p>
-        <a href="mailto:support@timelycare.com" class="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-primary hover:underline cursor-pointer mono">support@timelycare.com<i data-lucide="arrow-right" class="size-3.5"></i></a>
+        <p class="text-sm text-muted-foreground">For account, billing, or how-to questions.</p>
+        <p class="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-muted-foreground mono italic">[ support email — to be supplied ]</p>
       </article>
       <article class="bg-card border border-border rounded-lg shadow-sm p-6">
         <i data-lucide="phone" class="size-6 text-primary mb-3"></i>
         <h3 class="text-lg font-semibold mb-1">Call your CSM</h3>
         <p class="text-sm text-muted-foreground">For urgent setup, billing, or rollout questions.</p>
-        <p class="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-foreground mono">(833) TIMELY-1</p>
+        <p class="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-muted-foreground mono italic">[ CSM phone — to be supplied ]</p>
       </article>
       <article class="bg-card border border-border rounded-lg shadow-sm p-6 col-span-2">
         <i data-lucide="life-buoy" class="size-6 text-destructive mb-3"></i>
