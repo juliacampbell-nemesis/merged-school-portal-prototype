@@ -779,19 +779,8 @@
       <span class="ml-auto text-sm text-muted-foreground">11 active  ·  2 high-risk</span>
     </div>
 
-    <!-- Severe-alert banner: surfaces immediate-risk count above the grid per Elsa's feedback -->
-    <div class="bg-destructive/5 border border-destructive/30 rounded-lg shadow-sm p-3 mb-4 flex items-center gap-3">
-      <i data-lucide="alert-triangle" class="size-5 text-destructive shrink-0"></i>
-      <div class="flex-1 text-sm">
-        <strong class="font-semibold text-destructive-foreground">2 immediate-risk alerts</strong>
-        <span class="text-muted-foreground"> need follow-up. Highlighted in red at the top of the list.</span>
-      </div>
-      <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-destructive bg-card text-destructive text-xs font-semibold hover:bg-destructive/10 transition-colors">View only high-risk</button>
-    </div>
-
-    <!-- Two-column: table + detail panel -->
-    <div class="grid grid-cols-[1fr_440px] gap-4 items-start">
-      <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+    <!-- Alert table (full width); detail opens in a slide-in drawer on row click -->
+    <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
         <table class="w-full text-sm">
           <thead class="bg-muted">
             <tr class="border-b border-border">
@@ -805,7 +794,7 @@
           </thead>
           <tbody class="divide-y divide-border">
             <!-- HIGH-RISK ACTIVE alerts surface to top with severity highlight -->
-            <tr class="alert-row-high alert-row-selected cursor-pointer" aria-selected="true">
+            <tr class="alert-row-high alert-row-selected cursor-pointer" onclick="openAlertDrawer()" aria-selected="true">
               <td class="px-6 py-3 font-semibold">Heyes, Clarke</td>
               <td class="py-3">Suicidal ideation</td>
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">High</span></td>
@@ -813,7 +802,7 @@
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive/10 text-destructive border border-destructive/30 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="alert-circle" class="size-3"></i>Needs action</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
-            <tr class="alert-row-high hover:bg-destructive/8 cursor-pointer transition-colors">
+            <tr class="alert-row-high hover:bg-destructive/8 cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold">Martinez, Kevin</td>
               <td class="py-3">Suicidal ideation</td>
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">High</span></td>
@@ -822,7 +811,7 @@
               <td class="text-right pr-6 py-3 mono">11</td>
             </tr>
             <!-- Other ACTIVE alerts -->
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold">Heyes, Clarke</td>
               <td class="py-3">Insufficient information</td>
               <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Unknown</span></td>
@@ -830,7 +819,7 @@
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Needs action</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold">Heyes, Clarke</td>
               <td class="py-3">Mental health concern</td>
               <td class="py-3 text-muted-foreground">—</td>
@@ -838,7 +827,7 @@
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Needs action</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold">Heyes, Clarke</td>
               <td class="py-3">Abuse by an adult</td>
               <td class="py-3 text-muted-foreground">—</td>
@@ -846,7 +835,7 @@
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="check" class="size-3"></i>Acknowledged</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold">Khan, Aisha</td>
               <td class="py-3">Risk of harm to others</td>
               <td class="py-3 text-muted-foreground">—</td>
@@ -854,7 +843,7 @@
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Needs action</span></td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold">Martinez, Kevin</td>
               <td class="py-3">Someone else needs help</td>
               <td class="py-3 text-muted-foreground">—</td>
@@ -862,7 +851,7 @@
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4"><i data-lucide="clock" class="size-3"></i>In progress</span></td>
               <td class="text-right pr-6 py-3 mono">11</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold">Friis, Elsa</td>
               <td class="py-3">Mental health concern</td>
               <td class="py-3 text-muted-foreground">—</td>
@@ -871,7 +860,7 @@
               <td class="text-right pr-6 py-3 mono">7</td>
             </tr>
             <!-- Resolved / Dismissed alerts (muted) -->
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold text-muted-foreground">Heyes, Clarke</td>
               <td class="py-3 text-muted-foreground">Someone else needs help</td>
               <td class="py-3 text-muted-foreground">—</td>
@@ -879,7 +868,7 @@
               <td class="py-3 text-muted-foreground">Dismissed</td>
               <td class="text-right pr-6 py-3 mono text-muted-foreground">9</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold text-muted-foreground">Friis, Elsa</td>
               <td class="py-3 text-muted-foreground">Abuse by an adult</td>
               <td class="py-3 text-muted-foreground">—</td>
@@ -887,7 +876,7 @@
               <td class="py-3 text-muted-foreground">Resolved</td>
               <td class="text-right pr-6 py-3 mono text-muted-foreground">7</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openAlertDrawer()">
               <td class="px-6 py-3 font-semibold text-muted-foreground">Friis, Elsa</td>
               <td class="py-3 text-muted-foreground">Suicidal ideation</td>
               <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Moderate</span></td>
@@ -906,16 +895,20 @@
         </footer>
       </div>
 
-      <!-- Alert detail panel -->
-      <aside class="bg-card border border-border rounded-lg shadow-sm sticky top-4" aria-label="Alert detail">
-        <header class="flex items-center justify-between px-6 py-4 border-b border-border">
+    </div>
+
+  <!-- Alert detail drawer (Alongside pattern: slide-in from right on row click) -->
+  <div id="alert-detail-drawer" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="alert-detail-title">
+    <div onclick="closeAlertDrawer()" class="absolute inset-0 bg-foreground/40"></div>
+    <aside class="absolute top-0 right-0 h-full w-full max-w-md bg-card shadow-xl flex flex-col" aria-label="Alert detail">
+        <header class="flex items-center justify-between px-6 py-4 border-b border-border shrink-0">
           <div>
-            <h2 class="text-lg font-semibold">Clarke's Alert</h2>
+            <h2 id="alert-detail-title" class="text-lg font-semibold">Clarke's Alert</h2>
             <p class="text-xs text-muted-foreground mt-0.5 mono">Wed, 5/27/26 8:13 AM</p>
           </div>
-          <button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Close panel"><i data-lucide="x" class="size-4"></i></button>
+          <button type="button" onclick="closeAlertDrawer()" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Close drawer"><i data-lucide="x" class="size-4"></i></button>
         </header>
-        <div class="p-6 space-y-6">
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
           <div class="space-y-1.5">
             <label class="text-sm font-semibold" for="alert-status">Status</label>
             <select id="alert-status" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm">
@@ -5995,6 +5988,23 @@ Julia Campbell</textarea>
       }
     });
   }
+
+  // === INBOX ALERT DETAIL DRAWER — slide-in from right per Alongside pattern ===
+  function openAlertDrawer() {
+    const drawer = document.getElementById('alert-detail-drawer');
+    if (!drawer) return;
+    drawer.classList.remove('hidden');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  function closeAlertDrawer() {
+    const drawer = document.getElementById('alert-detail-drawer');
+    if (drawer) drawer.classList.add('hidden');
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const drawer = document.getElementById('alert-detail-drawer');
+    if (drawer && !drawer.classList.contains('hidden')) closeAlertDrawer();
+  });
 
   // === TOAST helper ===
   let toastTimerId = null;
