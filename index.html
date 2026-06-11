@@ -307,6 +307,75 @@
   </div>
 </div>
 
+<!-- ===================== FEEDBACK PORTAL — floating button + drawer; entries stored in localStorage, also mailto'd to Julia ===================== -->
+<button id="feedback-fab" type="button" onclick="openFeedbackDrawer()" class="fixed bottom-16 right-4 z-50 inline-flex items-center gap-2 h-10 px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-lg hover:bg-primary/90 transition-colors" aria-haspopup="dialog">
+  <i data-lucide="message-square-plus" class="size-4"></i>
+  Send feedback
+</button>
+
+<div id="feedback-drawer" class="hidden fixed inset-0 z-[55]" role="dialog" aria-modal="true" aria-labelledby="feedback-drawer-title">
+  <div onclick="closeFeedbackDrawer()" class="absolute inset-0 bg-foreground/40"></div>
+  <aside class="absolute top-0 right-0 h-full w-full max-w-md bg-card shadow-xl flex flex-col" aria-label="Send feedback">
+    <header class="flex items-center justify-between px-6 py-4 border-b border-border shrink-0">
+      <div>
+        <h2 id="feedback-drawer-title" class="text-lg font-semibold">Send feedback</h2>
+        <p class="text-xs text-muted-foreground mt-0.5">Tell us what you think about this prototype.</p>
+      </div>
+      <button type="button" onclick="closeFeedbackDrawer()" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Close feedback drawer"><i data-lucide="x" class="size-4"></i></button>
+    </header>
+    <form id="feedback-form" onsubmit="submitFeedback(event)" class="flex-1 overflow-y-auto px-6 py-5 space-y-4">
+      <div>
+        <label class="block text-sm font-semibold mb-2">Category <span class="text-destructive">*</span></label>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-2 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-category" value="ui" required class="size-4 accent-primary"><span class="text-sm">🎨 UI / visual</span></label>
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-2 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-category" value="experience" class="size-4 accent-primary"><span class="text-sm">🧭 Experience / flow</span></label>
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-2 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-category" value="functionality" class="size-4 accent-primary"><span class="text-sm">⚙️ Functionality</span></label>
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-2 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-category" value="permissions" class="size-4 accent-primary"><span class="text-sm">🔐 Permissions</span></label>
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-2 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-category" value="missing" class="size-4 accent-primary"><span class="text-sm">➕ Missing feature</span></label>
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-2 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-category" value="bug" class="size-4 accent-primary"><span class="text-sm">🐛 Bug</span></label>
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-2 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-category" value="copy" class="size-4 accent-primary"><span class="text-sm">✏️ Copy / wording</span></label>
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-2 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-category" value="other" class="size-4 accent-primary"><span class="text-sm">❓ Other</span></label>
+        </div>
+      </div>
+      <div>
+        <label for="fb-other-detail" class="block text-sm font-semibold mb-1.5">If "Other", briefly describe</label>
+        <input id="fb-other-detail" type="text" placeholder="optional" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm">
+      </div>
+      <div>
+        <label for="fb-title" class="block text-sm font-semibold mb-1.5">Title <span class="text-destructive">*</span></label>
+        <input id="fb-title" type="text" required placeholder="One-line summary" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm">
+      </div>
+      <div>
+        <label for="fb-description" class="block text-sm font-semibold mb-1.5">Description <span class="text-destructive">*</span></label>
+        <textarea id="fb-description" rows="5" required placeholder="What did you see? What did you expect? Steps to reproduce if it's a bug." class="w-full rounded-md border border-input bg-input-bg px-3 py-2 text-sm leading-5"></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-2">Severity</label>
+        <div class="flex gap-2">
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-1.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-severity" value="low" checked class="size-4 accent-primary"><span class="text-sm">Low</span></label>
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-1.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-severity" value="medium" class="size-4 accent-primary"><span class="text-sm">Medium</span></label>
+          <label class="flex items-center gap-2 rounded-md border border-border px-3 py-1.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-severity" value="high" class="size-4 accent-primary"><span class="text-sm">High</span></label>
+        </div>
+      </div>
+      <div>
+        <label for="fb-name" class="block text-sm font-semibold mb-1.5">Your name <span class="text-muted-foreground text-xs">(optional)</span></label>
+        <input id="fb-name" type="text" placeholder="So we can follow up" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm">
+      </div>
+      <div class="text-xs text-muted-foreground bg-muted/40 border border-border rounded-md px-3 py-2 flex items-start gap-2">
+        <i data-lucide="info" class="size-3.5 mt-0.5 shrink-0"></i>
+        <span>Submissions are saved to your browser and opened in your email client addressed to <span class="mono">julia.campbell@timelycare.com</span>. The current URL is included automatically.</span>
+      </div>
+    </form>
+    <footer class="px-6 py-4 border-t border-border shrink-0 flex items-center justify-between gap-2">
+      <a class="text-sm font-semibold text-foreground hover:underline cursor-pointer inline-flex items-center gap-1" onclick="closeFeedbackDrawer(); navigate('feedback')"><i data-lucide="list" class="size-4"></i>View feedback log</a>
+      <div class="flex gap-2">
+        <button type="button" onclick="closeFeedbackDrawer()" class="inline-flex items-center justify-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
+        <button type="submit" form="feedback-form" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="send" class="size-4"></i>Send</button>
+      </div>
+    </footer>
+  </aside>
+</div>
+
 <!-- ===================== DEMO CONTROLS (developer/reviewer toolbar — remove on handoff) ===================== -->
 <div id="demo-toolbar" class="fixed bottom-4 right-4 z-50">
   <!-- Collapsed trigger -->
@@ -5398,6 +5467,41 @@ Julia Campbell</textarea>
   </div>
 </main>
 
+<!-- ===================== FEEDBACK LOG — table of submissions saved in localStorage ===================== -->
+<main id="feedback" class="page max-w-screen-2xl mx-auto px-6 py-8">
+  <div class="flex items-end justify-between mb-6 gap-4">
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight">Feedback log</h1>
+      <p class="text-base text-muted-foreground mt-1">Feedback you've submitted from this browser. Also delivered via email to <span class="mono">julia.campbell@timelycare.com</span>.</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button type="button" onclick="exportFeedbackCsv()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Export CSV</button>
+      <button type="button" onclick="openFeedbackDrawer()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="message-square-plus" class="size-4"></i>New feedback</button>
+    </div>
+  </div>
+
+  <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-muted">
+        <tr class="border-b border-border">
+          <th scope="col" class="text-left px-6 py-3 text-base font-bold">When</th>
+          <th scope="col" class="text-left py-3 text-base font-bold">Category</th>
+          <th scope="col" class="text-left py-3 text-base font-bold">Severity</th>
+          <th scope="col" class="text-left py-3 text-base font-bold">Title</th>
+          <th scope="col" class="text-left py-3 text-base font-bold">Page</th>
+          <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="feedback-log-rows" class="divide-y divide-border"></tbody>
+    </table>
+    <div id="feedback-log-empty" class="hidden p-12 text-center">
+      <i data-lucide="message-square" class="size-10 text-muted-foreground mx-auto mb-3"></i>
+      <h3 class="text-base font-bold mb-1">No feedback yet</h3>
+      <p class="text-sm text-muted-foreground max-w-md mx-auto">Click "Send feedback" anywhere in the prototype to add the first entry. Entries are stored in this browser's localStorage.</p>
+    </div>
+  </div>
+</main>
+
 <!-- ===================== ADD USER (Step 1: details + role + schools — mirrors TC apps/school-portal/src/app/settings/users/add/page.tsx) ===================== -->
 <main id="settings-users-add" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
@@ -6686,6 +6790,131 @@ Julia Campbell</textarea>
     e.currentTarget.click();
   }
 
+  // === FEEDBACK PORTAL — drawer + submission storage ===
+  const FEEDBACK_STORAGE_KEY = 'prototypeFeedback';
+  const FEEDBACK_RECIPIENT = 'julia.campbell@timelycare.com';
+  const FEEDBACK_CATEGORY_LABEL = {
+    ui: '🎨 UI / visual',
+    experience: '🧭 Experience / flow',
+    functionality: '⚙️ Functionality',
+    permissions: '🔐 Permissions',
+    missing: '➕ Missing feature',
+    bug: '🐛 Bug',
+    copy: '✏️ Copy / wording',
+    other: '❓ Other'
+  };
+  function openFeedbackDrawer() {
+    const drawer = document.getElementById('feedback-drawer');
+    if (!drawer) return;
+    drawer.classList.remove('hidden');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+    setTimeout(() => document.getElementById('fb-title')?.focus(), 50);
+  }
+  function closeFeedbackDrawer() {
+    const drawer = document.getElementById('feedback-drawer');
+    if (drawer) drawer.classList.add('hidden');
+  }
+  function loadFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_STORAGE_KEY)) || []; } catch (e) { return []; }
+  }
+  function saveFeedback(list) {
+    try { localStorage.setItem(FEEDBACK_STORAGE_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+  function submitFeedback(event) {
+    event.preventDefault();
+    const form = document.getElementById('feedback-form');
+    const category = form.querySelector('input[name=fb-category]:checked')?.value;
+    if (!category) return;
+    const severity = form.querySelector('input[name=fb-severity]:checked')?.value || 'low';
+    const entry = {
+      id: 'fb-' + (loadFeedback().length + 1) + '-' + Math.floor(performance.now() * 1000),
+      timestamp: new Date().toISOString(),
+      category,
+      severity,
+      title: document.getElementById('fb-title').value.trim(),
+      description: document.getElementById('fb-description').value.trim(),
+      otherDetail: document.getElementById('fb-other-detail').value.trim(),
+      name: document.getElementById('fb-name').value.trim(),
+      url: window.location.href
+    };
+    const list = loadFeedback();
+    list.unshift(entry);
+    saveFeedback(list);
+    // Open user's mail client with the body pre-filled — works without a backend.
+    const subject = encodeURIComponent(`[Prototype feedback] ${entry.title}`);
+    const body = encodeURIComponent(
+      `Category: ${FEEDBACK_CATEGORY_LABEL[category] || category}` +
+      (entry.otherDetail ? ` (${entry.otherDetail})` : '') + `\n` +
+      `Severity: ${severity}\n` +
+      `Submitted by: ${entry.name || '(anonymous)'}\n` +
+      `When: ${entry.timestamp}\n` +
+      `URL: ${entry.url}\n\n` +
+      `Title: ${entry.title}\n\n` +
+      `Description:\n${entry.description}\n`
+    );
+    window.open(`mailto:${FEEDBACK_RECIPIENT}?subject=${subject}&body=${body}`, '_blank');
+    form.reset();
+    closeFeedbackDrawer();
+    showToast('Feedback saved + email opened', 'check');
+    // If the feedback log is currently in view, re-render it.
+    if (document.getElementById('feedback')?.classList.contains('active')) renderFeedbackLog();
+  }
+  function renderFeedbackLog() {
+    const tbody = document.getElementById('feedback-log-rows');
+    const empty = document.getElementById('feedback-log-empty');
+    if (!tbody) return;
+    const list = loadFeedback();
+    if (!list.length) {
+      tbody.innerHTML = '';
+      empty?.classList.remove('hidden');
+      return;
+    }
+    empty?.classList.add('hidden');
+    tbody.innerHTML = list.map(e => {
+      const when = new Date(e.timestamp).toLocaleString();
+      const catLabel = FEEDBACK_CATEGORY_LABEL[e.category] || e.category;
+      const sevClass = e.severity === 'high' ? 'bg-destructive text-destructive-foreground'
+                     : e.severity === 'medium' ? 'bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200'
+                     : 'bg-card text-muted-foreground border border-border';
+      const pageLabel = (() => { try { return new URL(e.url).hash || '/'; } catch (_) { return e.url; } })();
+      const escape = s => (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      return `<tr>
+        <td class="px-6 py-3 mono text-xs">${escape(when)}</td>
+        <td class="py-3">${escape(catLabel)}${e.otherDetail ? ` <span class="text-muted-foreground">(${escape(e.otherDetail)})</span>` : ''}</td>
+        <td class="py-3"><span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold leading-4 ${sevClass}">${escape(e.severity)}</span></td>
+        <td class="py-3 font-semibold">${escape(e.title)}<div class="text-xs text-muted-foreground font-normal mt-0.5 line-clamp-2">${escape(e.description)}</div></td>
+        <td class="py-3 mono text-xs text-muted-foreground">${escape(pageLabel)}</td>
+        <td class="text-right pr-6 py-3"><button type="button" onclick="deleteFeedback('${e.id}')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Delete entry"><i data-lucide="trash-2" class="size-4"></i></button></td>
+      </tr>`;
+    }).join('');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  function deleteFeedback(id) {
+    const list = loadFeedback().filter(e => e.id !== id);
+    saveFeedback(list);
+    renderFeedbackLog();
+  }
+  function exportFeedbackCsv() {
+    const list = loadFeedback();
+    if (!list.length) { showToast('No feedback to export', 'info'); return; }
+    const rows = [['When','Category','Other detail','Severity','Title','Description','URL','Name'].join(',')];
+    list.forEach(e => {
+      const cell = s => `"${(s || '').toString().replace(/"/g, '""')}"`;
+      rows.push([e.timestamp, e.category, e.otherDetail, e.severity, e.title, e.description, e.url, e.name].map(cell).join(','));
+    });
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'prototype-feedback.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const drawer = document.getElementById('feedback-drawer');
+    if (drawer && !drawer.classList.contains('hidden')) closeFeedbackDrawer();
+  });
+
   // Helix Pill/Segment tab states (per spec):
   //   active   → bg-background text-foreground shadow-sm
   //   inactive → bg-transparent text-muted-foreground hover:text-foreground transition-colors
@@ -6748,6 +6977,7 @@ Julia Campbell</textarea>
     else if (hash === 'settings') { settingsTab = 'users'; navMatch = 'settings'; }
     else if (hash === 'account') { accountTab = 'profile'; navMatch = null; }
     else if (hash.startsWith('account-')) { accountTab = hash.replace('account-', ''); hash = 'account'; navMatch = null; }
+    else if (hash === 'feedback') { navMatch = null; }
     else if (hash === 'student-profile') navMatch = 'students';
     else if (hash === 'school-detail') navMatch = 'schools';
     else if (hash === 'my-wellness') { navMatch = null; scSurface = 'home'; }
@@ -6780,6 +7010,7 @@ Julia Campbell</textarea>
     if (scSurface) setSelfCareSurface(scSurface);
     if (hash === 'settings-users-add-review') loadAddUserReview();
     if (hash === 'settings-users-detail') updateUserDetailPermissionsPreview();
+    if (hash === 'feedback') renderFeedbackLog();
     if (window.location.hash === '#help-rollout') setHelpTab('rollout');
     else if (window.location.hash === '#help-contact') setHelpTab('contact');
 
