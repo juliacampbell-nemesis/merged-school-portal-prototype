@@ -766,17 +766,18 @@
       <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors shrink-0" aria-label="Dismiss notice"><i data-lucide="x" class="size-4"></i></button>
     </div>
 
-    <!-- Filters -->
-    <div class="bg-card border border-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-2 flex-wrap">
-      <div class="relative flex-1 max-w-md">
+    <!-- Header row: search (left) + filters (right) — matches Students page pattern -->
+    <div class="flex items-center justify-between gap-3 mb-4">
+      <div class="relative max-w-md flex-1">
         <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
         <label for="alerts-search" class="sr-only">Search alerts</label>
         <input id="alerts-search" type="text" placeholder="Search by student or grade..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
       </div>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All risks<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Status: Active<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All schools<i data-lucide="chevron-down" class="size-4"></i></button>
-      <span class="ml-auto text-sm text-muted-foreground">11 active  ·  2 high-risk</span>
+      <div class="flex items-center gap-2">
+        <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All risks<i data-lucide="chevron-down" class="size-4"></i></button>
+        <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors">Status: Active<i data-lucide="chevron-down" class="size-4"></i></button>
+        <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All schools<i data-lucide="chevron-down" class="size-4"></i></button>
+      </div>
     </div>
 
     <!-- Alert table (full width); detail opens in a slide-in drawer on row click -->
@@ -1003,16 +1004,17 @@
 
   <!-- CHAT SUMMARIES PANEL -->
   <section id="inboxpanel-summaries" class="inbox-panel hidden" role="tabpanel" aria-labelledby="inboxtab-summaries">
-    <!-- Filters -->
-    <div class="bg-card border border-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-2 flex-wrap">
-      <div class="relative flex-1 max-w-md">
+    <!-- Header row: search (left) + filters (right) — matches Students page pattern -->
+    <div class="flex items-center justify-between gap-3 mb-4">
+      <div class="relative max-w-md flex-1">
         <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
         <label for="summaries-search" class="sr-only">Search chat summaries</label>
         <input id="summaries-search" type="text" placeholder="Search by student or grade..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
       </div>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Unread<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All schools<i data-lucide="chevron-down" class="size-4"></i></button>
-      <span class="ml-auto text-sm text-muted-foreground">7 unread  ·  154 all-time</span>
+      <div class="flex items-center gap-2">
+        <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-primary bg-card text-sm font-semibold hover:bg-muted transition-colors">Unread<i data-lucide="chevron-down" class="size-4"></i></button>
+        <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All schools<i data-lucide="chevron-down" class="size-4"></i></button>
+      </div>
     </div>
 
     <!-- Chat summary table (full width); detail opens in a slide-in drawer on row click -->
@@ -1585,14 +1587,17 @@ Julia Campbell</textarea>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Add school</button>
   </div>
 
-  <div class="bg-card border border-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-2">
-    <div class="relative flex-1 max-w-md">
+  <!-- Header row: search (left) + filters (right) — matches Students page pattern -->
+  <div class="flex items-center justify-between gap-3 mb-4">
+    <div class="relative max-w-md flex-1">
       <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
       <label for="school-search" class="sr-only">Search schools</label>
       <input id="school-search" type="text" placeholder="Search schools..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
     </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All levels<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All regions<i data-lucide="chevron-down" class="size-4"></i></button>
+    <div class="flex items-center gap-2">
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All levels<i data-lucide="chevron-down" class="size-4"></i></button>
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All regions<i data-lucide="chevron-down" class="size-4"></i></button>
+    </div>
   </div>
 
   <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
