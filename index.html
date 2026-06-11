@@ -1674,86 +1674,288 @@ Julia Campbell</textarea>
   </div>
 
   <div role="tablist" class="border-b border-border mb-6 flex gap-1" aria-label="School sections">
-    <button role="tab" aria-selected="true" class="px-4 py-2.5 text-sm font-semibold text-primary border-b-2 border-primary">Overview</button>
-    <button role="tab" aria-selected="false" class="px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Staff</button>
-    <button role="tab" aria-selected="false" class="px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Visit allocation</button>
-    <button role="tab" aria-selected="false" class="px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Crisis history</button>
-    <button role="tab" aria-selected="false" class="px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Contact</button>
+    <button role="tab" id="schooltab-overview" aria-selected="true" onclick="setSchoolTab('overview')" class="school-tab px-4 py-2.5 text-sm font-semibold text-primary border-b-2 border-primary">Overview</button>
+    <button role="tab" id="schooltab-staff" aria-selected="false" onclick="setSchoolTab('staff')" class="school-tab px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Staff</button>
+    <button role="tab" id="schooltab-visits" aria-selected="false" onclick="setSchoolTab('visits')" class="school-tab px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors">Visit allocation</button>
   </div>
 
-  <div class="grid grid-cols-4 gap-4 mb-4">
-    <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-      <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="calendar-check" class="size-4"></i>Visits used</div>
-      <div class="text-3xl font-semibold mt-3">78 <span class="text-base text-muted-foreground font-normal">/ 100</span></div>
-      <div class="text-sm text-muted-foreground mt-1">22 remaining this year</div>
-    </div>
-    <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-      <div class="flex items-center gap-2 text-sm text-destructive font-medium"><i data-lucide="shield-alert" class="size-4"></i>Active crises</div>
-      <div class="text-3xl font-semibold text-destructive mt-3">3</div>
-      <div class="text-sm text-muted-foreground mt-1"><a class="text-primary font-semibold hover:underline cursor-pointer">View list →</a></div>
-    </div>
-    <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-      <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="check-circle-2" class="size-4"></i>Skills completed</div>
-      <div class="text-3xl font-semibold mt-3">412</div>
-      <div class="text-sm text-muted-foreground mt-1">68% completion rate</div>
-    </div>
-    <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-      <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="clipboard-check" class="size-4"></i>Screeners administered</div>
-      <div class="text-3xl font-semibold mt-3">523</div>
-      <div class="text-sm text-muted-foreground mt-1">11 need follow-up</div>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-3 gap-4">
-    <section class="col-span-2 bg-card border border-border rounded-lg shadow-sm" aria-labelledby="staff-list-heading">
-      <header class="px-6 py-4 border-b border-border flex items-center justify-between">
-        <h2 id="staff-list-heading" class="text-lg font-semibold">Staff with portal access (42)</h2>
-        <div class="flex items-center gap-2">
-          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('settings-users')">Manage district-wide<i data-lucide="arrow-right" class="size-4"></i></a>
-          <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="user-plus" class="size-4"></i>Add staff</button>
-        </div>
-      </header>
-      <ul class="divide-y divide-border" role="list">
-        <li class="px-6 py-4 flex items-center gap-3">
-          <div class="size-9 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">JC</div>
-          <div class="flex-1"><div class="font-semibold text-sm">Julia Campbell</div><div class="text-sm text-muted-foreground">Counselor Lead  ·  julia.campbell@lincoln.edu</div></div>
-          <span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Facilitator</span>
-        </li>
-        <li class="px-6 py-4 flex items-center gap-3">
-          <div class="size-9 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">MR</div>
-          <div class="flex-1"><div class="font-semibold text-sm">Marcus Rivera</div><div class="text-sm text-muted-foreground">School Counselor</div></div>
-          <span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Facilitator</span>
-        </li>
-        <li class="px-6 py-4 flex items-center gap-3">
-          <div class="size-9 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">SP</div>
-          <div class="flex-1"><div class="font-semibold text-sm">Sarah Park</div><div class="text-sm text-muted-foreground">Social Worker</div></div>
-          <span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Facilitator</span>
-        </li>
-        <li class="px-6 py-4 flex items-center gap-3">
-          <div class="size-9 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">TB</div>
-          <div class="flex-1"><div class="font-semibold text-sm">Tom Bryant</div><div class="text-sm text-muted-foreground">Teacher (10th grade English)</div></div>
-          <span class="inline-flex items-center rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Viewer only</span>
-        </li>
-      </ul>
-    </section>
-    <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="utilization-heading">
-      <header class="px-6 py-4 border-b border-border">
-        <h2 id="utilization-heading" class="text-lg font-semibold">Visit utilization</h2>
-        <p class="text-sm text-muted-foreground mt-0.5">Non-insurance plan  ·  100 visits / yr</p>
-      </header>
-      <div class="p-6">
-        <div class="bg-muted rounded-md h-32 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-          <i data-lucide="pie-chart" class="size-4"></i>Visits used / allocated
-        </div>
-        <dl class="mt-4 text-sm space-y-2">
-          <div class="flex justify-between"><dt class="text-muted-foreground">On-site</dt><dd class="font-semibold mono">31</dd></div>
-          <div class="flex justify-between"><dt class="text-muted-foreground">Telehealth</dt><dd class="font-semibold mono">47</dd></div>
-          <div class="flex justify-between"><dt class="text-muted-foreground">Cancelled</dt><dd class="font-semibold mono">8</dd></div>
-          <div class="border-t border-border pt-2 flex justify-between font-semibold"><dt>Used</dt><dd class="mono">78 / 100</dd></div>
-        </dl>
+  <!-- ===================== OVERVIEW PANEL ===================== -->
+  <section id="schoolpanel-overview" class="school-panel" role="tabpanel" aria-labelledby="schooltab-overview">
+    <div class="grid grid-cols-4 gap-4 mb-4">
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="calendar-check" class="size-4"></i>Visits used</div>
+        <div class="text-3xl font-semibold mt-3">78 <span class="text-base text-muted-foreground font-normal">/ 100</span></div>
+        <div class="text-sm text-muted-foreground mt-1"><a class="text-primary font-semibold hover:underline cursor-pointer" onclick="setSchoolTab('visits')">View allocation →</a></div>
       </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="flex items-center gap-2 text-sm text-destructive font-medium"><i data-lucide="shield-alert" class="size-4"></i>Active crises</div>
+        <div class="text-3xl font-semibold text-destructive mt-3">3</div>
+        <div class="text-sm text-muted-foreground mt-1"><a class="text-primary font-semibold hover:underline cursor-pointer" onclick="navigate('inbox-alerts')">View alerts at this school →</a></div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="check-circle-2" class="size-4"></i>Skills completed</div>
+        <div class="text-3xl font-semibold mt-3">412</div>
+        <div class="text-sm text-muted-foreground mt-1">68% completion rate</div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="clipboard-check" class="size-4"></i>Screeners administered</div>
+        <div class="text-3xl font-semibold mt-3">523</div>
+        <div class="text-sm text-muted-foreground mt-1">11 need follow-up</div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-4">
+      <section class="col-span-2 bg-card border border-border rounded-lg shadow-sm" aria-labelledby="staff-list-heading">
+        <header class="px-6 py-4 border-b border-border flex items-center justify-between">
+          <h2 id="staff-list-heading" class="text-lg font-semibold">Staff with portal access (42)</h2>
+          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="setSchoolTab('staff')">Manage staff<i data-lucide="arrow-right" class="size-4"></i></a>
+        </header>
+        <ul class="divide-y divide-border" role="list">
+          <li class="px-6 py-4 flex items-center gap-3">
+            <div class="size-9 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">JC</div>
+            <div class="flex-1"><div class="font-semibold text-sm">Julia Campbell</div><div class="text-sm text-muted-foreground">Counselor Lead  ·  julia.campbell@lincoln.edu</div></div>
+            <span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Facilitator</span>
+          </li>
+          <li class="px-6 py-4 flex items-center gap-3">
+            <div class="size-9 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">MR</div>
+            <div class="flex-1"><div class="font-semibold text-sm">Marcus Rivera</div><div class="text-sm text-muted-foreground">School Counselor</div></div>
+            <span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Facilitator</span>
+          </li>
+          <li class="px-6 py-4 flex items-center gap-3">
+            <div class="size-9 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">SP</div>
+            <div class="flex-1"><div class="font-semibold text-sm">Sarah Park</div><div class="text-sm text-muted-foreground">Social Worker</div></div>
+            <span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Facilitator</span>
+          </li>
+          <li class="px-6 py-4 flex items-center gap-3">
+            <div class="size-9 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">TB</div>
+            <div class="flex-1"><div class="font-semibold text-sm">Tom Bryant</div><div class="text-sm text-muted-foreground">Teacher (10th grade English)</div></div>
+            <span class="inline-flex items-center rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Viewer only</span>
+          </li>
+        </ul>
+      </section>
+      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="utilization-heading">
+        <header class="px-6 py-4 border-b border-border flex items-center justify-between">
+          <div>
+            <h2 id="utilization-heading" class="text-lg font-semibold">Visit utilization</h2>
+            <p class="text-sm text-muted-foreground mt-0.5">Non-insurance plan  ·  100 visits / yr</p>
+          </div>
+          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="setSchoolTab('visits')"><i data-lucide="arrow-right" class="size-4"></i></a>
+        </header>
+        <div class="p-6">
+          <div class="bg-muted rounded-md h-32 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <i data-lucide="pie-chart" class="size-4"></i>Visits used / allocated
+          </div>
+          <dl class="mt-4 text-sm space-y-2">
+            <div class="flex justify-between"><dt class="text-muted-foreground">On-site</dt><dd class="font-semibold mono">31</dd></div>
+            <div class="flex justify-between"><dt class="text-muted-foreground">Telehealth</dt><dd class="font-semibold mono">47</dd></div>
+            <div class="flex justify-between"><dt class="text-muted-foreground">Cancelled</dt><dd class="font-semibold mono">8</dd></div>
+            <div class="border-t border-border pt-2 flex justify-between font-semibold"><dt>Used</dt><dd class="mono">78 / 100</dd></div>
+          </dl>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ===================== STAFF PANEL ===================== -->
+  <section id="schoolpanel-staff" class="school-panel hidden" role="tabpanel" aria-labelledby="schooltab-staff">
+    <!-- Header row: search left + actions right (matches Students pattern) -->
+    <div class="flex items-center justify-between gap-3 mb-4">
+      <div class="relative max-w-md flex-1">
+        <i data-lucide="search" class="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
+        <label for="school-staff-search" class="sr-only">Search staff at this school</label>
+        <input id="school-staff-search" type="text" placeholder="Search staff by name, email, or role..." class="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-input-bg text-sm placeholder:text-muted-foreground">
+      </div>
+      <div class="flex items-center gap-2">
+        <a class="inline-flex items-center gap-1 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer" onclick="navigate('settings-users')"><i data-lucide="external-link" class="size-4"></i>Manage district-wide</a>
+        <button type="button" onclick="navigate('settings-users-add')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="user-plus" class="size-4"></i>Add staff</button>
+      </div>
+    </div>
+
+    <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-muted">
+          <tr class="border-b border-border">
+            <th scope="col" class="text-left px-6 py-3 text-base font-bold">Name</th>
+            <th scope="col" class="text-left py-3 text-base font-bold">Role at school</th>
+            <th scope="col" class="text-left py-3 text-base font-bold">Portal access</th>
+            <th scope="col" class="text-left py-3 text-base font-bold">Last login</th>
+            <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+            <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">JC</div><div><div class="font-semibold">Julia Campbell</div><div class="text-xs text-muted-foreground">julia.campbell@lincoln.edu</div></div></div></td>
+            <td class="py-3">Counselor Lead</td>
+            <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Counselor Lead</span></td>
+            <td class="py-3 mono text-xs">Today, 8:02 AM</td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          </tr>
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+            <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">MR</div><div><div class="font-semibold">Marcus Rivera</div><div class="text-xs text-muted-foreground">marcus.rivera@lincoln.edu</div></div></div></td>
+            <td class="py-3">School Counselor</td>
+            <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Clinical Staff</span></td>
+            <td class="py-3 mono text-xs">Today, 7:45 AM</td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          </tr>
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+            <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">SP</div><div><div class="font-semibold">Sarah Park</div><div class="text-xs text-muted-foreground">sarah.park@lincoln.edu</div></div></div></td>
+            <td class="py-3">Social Worker</td>
+            <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Clinical Staff</span></td>
+            <td class="py-3 mono text-xs">Yesterday, 3:22 PM</td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          </tr>
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+            <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">TB</div><div><div class="font-semibold">Tom Bryant</div><div class="text-xs text-muted-foreground">tom.bryant@lincoln.edu</div></div></div></td>
+            <td class="py-3">Teacher · 10th grade English</td>
+            <td class="py-3"><span class="inline-flex items-center rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">School Staff</span></td>
+            <td class="py-3 mono text-xs">Mon, 5/25 2:14 PM</td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          </tr>
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+            <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">AH</div><div><div class="font-semibold">Dr. Janet Rivera</div><div class="text-xs text-muted-foreground">janet.rivera@lincoln.edu</div></div></div></td>
+            <td class="py-3">Principal</td>
+            <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">School Admin</span></td>
+            <td class="py-3 mono text-xs">Today, 9:11 AM</td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          </tr>
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+            <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">EF</div><div><div class="font-semibold">Elsa Friis</div><div class="text-xs text-muted-foreground">elsa.friis@lincoln.edu</div></div></div></td>
+            <td class="py-3">Assistant Counselor</td>
+            <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Clinical Staff</span></td>
+            <td class="py-3 mono text-xs">Tue, 5/26 4:38 PM</td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          </tr>
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+            <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-muted text-muted-foreground border border-border flex items-center justify-center text-xs font-semibold">JD</div><div><div class="font-semibold">James Doyle</div><div class="text-xs text-muted-foreground">james.doyle@lincoln.edu</div></div></div></td>
+            <td class="py-3 text-muted-foreground">Teacher · 9th grade Math</td>
+            <td class="py-3"><span class="inline-flex items-center rounded-full bg-card text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Pending invite</span></td>
+            <td class="py-3 mono text-xs text-muted-foreground">—</td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          </tr>
+        </tbody>
+      </table>
+      <footer class="flex items-center justify-between px-6 py-3 border-t border-border text-sm text-muted-foreground">
+        <span>Showing 1–7 of 42</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="chevron-left" class="size-4"></i>Previous</button>
+          <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Next<i data-lucide="chevron-right" class="size-4"></i></button>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ===================== VISIT ALLOCATION PANEL ===================== -->
+  <section id="schoolpanel-visits" class="school-panel hidden" role="tabpanel" aria-labelledby="schooltab-visits">
+    <!-- Allocation summary + edit -->
+    <div class="bg-card border border-border rounded-lg shadow-sm p-6 mb-4 flex items-start justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="calendar-check" class="size-4"></i>Annual visit pool</div>
+        <div class="mt-2 flex items-baseline gap-4">
+          <div class="text-3xl font-semibold">78 <span class="text-base text-muted-foreground font-normal">/ 100 used</span></div>
+          <div class="text-sm text-muted-foreground">22 remaining  ·  School year 2025–26</div>
+        </div>
+        <p class="text-sm text-muted-foreground mt-2">Non-insurance plan. Pool size is set at the district level and applies to all visits booked through TimelyCare.</p>
+      </div>
+      <button type="button" class="admin-only inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="pencil" class="size-4"></i>Edit pool</button>
+    </div>
+
+    <!-- Two-column: utilization chart + breakdown -->
+    <div class="grid grid-cols-3 gap-4 mb-4">
+      <section class="col-span-2 bg-card border border-border rounded-lg shadow-sm" aria-labelledby="visits-trend-heading">
+        <header class="px-6 py-4 border-b border-border">
+          <h2 id="visits-trend-heading" class="text-lg font-semibold">Visits over time</h2>
+          <p class="text-sm text-muted-foreground mt-0.5">Monthly visits booked, current school year</p>
+        </header>
+        <div class="p-6">
+          <div class="bg-muted rounded-md h-48 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <i data-lucide="bar-chart-3" class="size-4"></i>Bar chart by month
+          </div>
+        </div>
+      </section>
+      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="visits-breakdown-heading">
+        <header class="px-6 py-4 border-b border-border">
+          <h2 id="visits-breakdown-heading" class="text-lg font-semibold">By visit type</h2>
+        </header>
+        <div class="p-6">
+          <dl class="text-sm space-y-3">
+            <div>
+              <div class="flex justify-between mb-1"><dt>On-site</dt><dd class="font-semibold mono">31</dd></div>
+              <div class="h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-primary" style="width:31%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1"><dt>Telehealth</dt><dd class="font-semibold mono">47</dd></div>
+              <div class="h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-primary" style="width:47%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1"><dt class="text-muted-foreground">Cancelled</dt><dd class="font-semibold mono">8</dd></div>
+              <div class="h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-muted-foreground/40" style="width:8%"></div></div>
+            </div>
+            <div class="border-t border-border pt-3 flex justify-between font-semibold"><dt>Total used</dt><dd class="mono">78 / 100</dd></div>
+          </dl>
+        </div>
+      </section>
+    </div>
+
+    <!-- Recent visits log -->
+    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden" aria-labelledby="recent-visits-heading">
+      <header class="px-6 py-4 border-b border-border flex items-center justify-between">
+        <h2 id="recent-visits-heading" class="text-lg font-semibold">Recent visits</h2>
+        <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('reports')">Full report<i data-lucide="arrow-right" class="size-4"></i></a>
+      </header>
+      <table class="w-full text-sm">
+        <thead class="bg-muted">
+          <tr class="border-b border-border">
+            <th scope="col" class="text-left px-6 py-3 text-base font-bold">Date</th>
+            <th scope="col" class="text-left py-3 text-base font-bold">Student</th>
+            <th scope="col" class="text-left py-3 text-base font-bold">Type</th>
+            <th scope="col" class="text-left py-3 text-base font-bold">Provider</th>
+            <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Status</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <tr>
+            <td class="px-6 py-3 mono text-xs">Wed, 5/27/26 1:30 PM</td>
+            <td class="py-3 font-semibold">Heyes, Clarke</td>
+            <td class="py-3">Telehealth</td>
+            <td class="py-3">Dr. Patel</td>
+            <td class="py-3 text-right pr-6"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 mono text-xs">Wed, 5/27/26 10:00 AM</td>
+            <td class="py-3 font-semibold">Martinez, Kevin</td>
+            <td class="py-3">On-site</td>
+            <td class="py-3">Sarah Park</td>
+            <td class="py-3 text-right pr-6"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 mono text-xs">Tue, 5/26/26 2:15 PM</td>
+            <td class="py-3 font-semibold">Sullivan, Emma</td>
+            <td class="py-3">Telehealth</td>
+            <td class="py-3">Dr. Ng</td>
+            <td class="py-3 text-right pr-6"><span class="inline-flex items-center rounded-full bg-card text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Cancelled</span></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 mono text-xs">Mon, 5/25/26 3:45 PM</td>
+            <td class="py-3 font-semibold">Khan, Aisha</td>
+            <td class="py-3">On-site</td>
+            <td class="py-3">Marcus Rivera</td>
+            <td class="py-3 text-right pr-6"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 mono text-xs">Mon, 5/25/26 11:00 AM</td>
+            <td class="py-3 font-semibold">Thompson, Marcus</td>
+            <td class="py-3">Telehealth</td>
+            <td class="py-3">Dr. Patel</td>
+            <td class="py-3 text-right pr-6"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <footer class="flex items-center justify-between px-6 py-3 border-t border-border text-sm text-muted-foreground">
+        <span>Showing 5 most recent  ·  78 total this year</span>
+        <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('reports')">View all in Reports<i data-lucide="arrow-right" class="size-4"></i></a>
+      </footer>
     </section>
-  </div>
+  </section>
 </main>
 
 <!-- ===================== LIBRARY ===================== -->
@@ -5649,6 +5851,25 @@ Julia Campbell</textarea>
         btn.classList.add('text-muted-foreground', 'border-transparent', 'hover:text-foreground', 'hover:border-border');
       }
     });
+  }
+  function setSchoolTab(tab) {
+    document.querySelectorAll('.school-panel').forEach(p => p.classList.add('hidden'));
+    const panel = document.getElementById('schoolpanel-' + tab);
+    if (panel) panel.classList.remove('hidden');
+    ['overview', 'staff', 'visits'].forEach(t => {
+      const btn = document.getElementById('schooltab-' + t);
+      if (!btn) return;
+      const isActive = t === tab;
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      if (isActive) {
+        btn.classList.add('text-primary', 'border-primary');
+        btn.classList.remove('text-muted-foreground', 'border-transparent', 'hover:text-foreground', 'hover:border-border');
+      } else {
+        btn.classList.remove('text-primary', 'border-primary');
+        btn.classList.add('text-muted-foreground', 'border-transparent', 'hover:text-foreground', 'hover:border-border');
+      }
+    });
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
   }
   function setDemoSurface(surface) {
     document.querySelectorAll('.demo-surface').forEach(s => s.classList.add('hidden'));
