@@ -1286,18 +1286,8 @@ Julia Campbell</textarea>
         <p class="text-sm text-muted-foreground mt-1"><span class="font-semibold text-foreground">Guardian:</span> Maria Martinez  ·  <span class="mono">(555) 234-1198</span></p>
       </div>
       <div class="flex items-center gap-2 shrink-0">
-        <div class="relative">
-          <button id="student-actions-trigger" type="button" onclick="toggleStudentActions()" aria-haspopup="menu" aria-expanded="false" class="size-9 inline-flex items-center justify-center rounded-md border border-input bg-card hover:bg-muted transition-colors" aria-label="More actions">
-            <i data-lucide="more-horizontal" class="size-4"></i>
-          </button>
-          <div id="student-actions-menu" role="menu" class="hidden absolute top-full right-0 mt-1 w-60 bg-card border border-border rounded-md shadow-md py-1 z-30">
-            <a class="dropdown-item" role="menuitem"><i data-lucide="send" class="size-4"></i>Send screener</a>
-            <a class="dropdown-item" role="menuitem"><i data-lucide="phone" class="size-4"></i>Contact guardian</a>
-            <a class="dropdown-item" role="menuitem"><i data-lucide="file-text" class="size-4"></i>View care plan</a>
-            <div class="border-t border-border my-1"></div>
-            <a class="dropdown-item" role="menuitem"><i data-lucide="mail" class="size-4"></i>Resend guardian invite</a>
-          </div>
-        </div>
+        <!-- Create Invite is the primary action on this card. Disabled once the guardian has accepted (Kevin's case). -->
+        <button type="button" disabled aria-disabled="true" title="Guardian invite has been accepted — no further invite needed." class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"><i data-lucide="user-plus" class="size-4"></i>Create invite</button>
       </div>
     </div>
   </div>
@@ -6526,33 +6516,6 @@ Julia Campbell</textarea>
     if (e.key !== 'Escape') return;
     const sheet = document.getElementById('bulk-invite-sheet');
     if (sheet && !sheet.classList.contains('hidden')) closeBulkInviteSheet();
-  });
-
-  // Student profile kebab menu (More actions)
-  function toggleStudentActions() {
-    const menu = document.getElementById('student-actions-menu');
-    const trigger = document.getElementById('student-actions-trigger');
-    if (!menu || !trigger) return;
-    const willOpen = menu.classList.contains('hidden');
-    menu.classList.toggle('hidden', !willOpen);
-    trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-  }
-  // Dismiss on outside click / Escape
-  document.addEventListener('click', (e) => {
-    const menu = document.getElementById('student-actions-menu');
-    const trigger = document.getElementById('student-actions-trigger');
-    if (!menu || menu.classList.contains('hidden')) return;
-    if (menu.contains(e.target) || (trigger && trigger.contains(e.target))) return;
-    menu.classList.add('hidden');
-    trigger.setAttribute('aria-expanded', 'false');
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    const menu = document.getElementById('student-actions-menu');
-    if (menu && !menu.classList.contains('hidden')) {
-      menu.classList.add('hidden');
-      document.getElementById('student-actions-trigger').setAttribute('aria-expanded', 'false');
-    }
   });
 
   // Keyboard support for clickable rows (per spec: Enter or Space triggers row click).
