@@ -1871,7 +1871,7 @@ Julia Campbell</textarea>
       </div>
       <div class="flex items-center gap-2">
         <a class="inline-flex items-center gap-1 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer" onclick="navigate('settings-users')"><i data-lucide="external-link" class="size-4"></i>Manage district-wide</a>
-        <button type="button" onclick="navigate('settings-users-add')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="user-plus" class="size-4"></i>Add staff</button>
+        <button type="button" onclick="setUserDetailOrigin('school'); navigate('settings-users-add')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="user-plus" class="size-4"></i>Add staff</button>
       </div>
     </div>
 
@@ -1887,49 +1887,49 @@ Julia Campbell</textarea>
           </tr>
         </thead>
         <tbody class="divide-y divide-border">
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">JC</div><div><div class="font-semibold">Julia Campbell</div><div class="text-xs text-muted-foreground">julia.campbell@lincoln.edu</div></div></div></td>
             <td class="py-3">Counselor Lead</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Counselor Lead</span></td>
             <td class="py-3 mono text-xs">Today, 8:02 AM</td>
             <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">MR</div><div><div class="font-semibold">Marcus Rivera</div><div class="text-xs text-muted-foreground">marcus.rivera@lincoln.edu</div></div></div></td>
             <td class="py-3">School Counselor</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Clinical Staff</span></td>
             <td class="py-3 mono text-xs">Today, 7:45 AM</td>
             <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">SP</div><div><div class="font-semibold">Sarah Park</div><div class="text-xs text-muted-foreground">sarah.park@lincoln.edu</div></div></div></td>
             <td class="py-3">Social Worker</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Clinical Staff</span></td>
             <td class="py-3 mono text-xs">Yesterday, 3:22 PM</td>
             <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">TB</div><div><div class="font-semibold">Tom Bryant</div><div class="text-xs text-muted-foreground">tom.bryant@lincoln.edu</div></div></div></td>
             <td class="py-3">Teacher · 10th grade English</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">School Staff</span></td>
             <td class="py-3 mono text-xs">Mon, 5/25 2:14 PM</td>
             <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">AH</div><div><div class="font-semibold">Dr. Janet Rivera</div><div class="text-xs text-muted-foreground">janet.rivera@lincoln.edu</div></div></div></td>
             <td class="py-3">Principal</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">School Admin</span></td>
             <td class="py-3 mono text-xs">Today, 9:11 AM</td>
             <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">EF</div><div><div class="font-semibold">Elsa Friis</div><div class="text-xs text-muted-foreground">elsa.friis@lincoln.edu</div></div></div></td>
             <td class="py-3">Assistant Counselor</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Clinical Staff</span></td>
             <td class="py-3 mono text-xs">Tue, 5/26 4:38 PM</td>
             <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
-          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('settings-users-detail')">
+          <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-muted text-muted-foreground border border-border flex items-center justify-center text-xs font-semibold">JD</div><div><div class="font-semibold">James Doyle</div><div class="text-xs text-muted-foreground">james.doyle@lincoln.edu</div></div></div></td>
             <td class="py-3 text-muted-foreground">Teacher · 9th grade Math</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-card text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Pending invite</span></td>
@@ -5011,7 +5011,7 @@ Julia Campbell</textarea>
               </tr>
             </thead>
             <tbody class="divide-y divide-border">
-              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
+              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Julia Campbell"></td>
                 <td class="py-3">
                   <div class="flex items-center gap-3">
@@ -5035,7 +5035,7 @@ Julia Campbell</textarea>
                 <td class="py-3 mono text-xs">Today, 9:42 AM</td>
                 <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Julia Campbell"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
-              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
+              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Marcus Rivera"></td>
                 <td class="py-3">
                   <div class="flex items-center gap-3">
@@ -5053,7 +5053,7 @@ Julia Campbell</textarea>
                 <td class="py-3 mono text-xs">Today, 8:15 AM</td>
                 <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Marcus Rivera"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
-              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
+              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Sarah Park"></td>
                 <td class="py-3">
                   <div class="flex items-center gap-3">
@@ -5076,7 +5076,7 @@ Julia Campbell</textarea>
                 <td class="py-3 mono text-xs">Yesterday</td>
                 <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Sarah Park"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
-              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
+              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Dr. Janet Rivera"></td>
                 <td class="py-3">
                   <div class="flex items-center gap-3">
@@ -5094,7 +5094,7 @@ Julia Campbell</textarea>
                 <td class="py-3 mono text-xs">May 24</td>
                 <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Dr. Janet Rivera"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
-              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
+              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Tom Bryant"></td>
                 <td class="py-3">
                   <div class="flex items-center gap-3">
@@ -5112,7 +5112,7 @@ Julia Campbell</textarea>
                 <td class="py-3 mono text-xs">3 days ago</td>
                 <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Tom Bryant"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
-              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
+              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Pat Liu"></td>
                 <td class="py-3">
                   <div class="flex items-center gap-3">
@@ -5135,7 +5135,7 @@ Julia Campbell</textarea>
                 <td class="py-3 mono text-xs">Today, 10:03 AM</td>
                 <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Pat Liu"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
-              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
+              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Dana Walker"></td>
                 <td class="py-3">
                   <div class="flex items-center gap-3">
@@ -5153,7 +5153,7 @@ Julia Campbell</textarea>
                 <td class="py-3 mono text-xs">Today, 6:15 AM</td>
                 <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Dana Walker"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
-              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
+              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Ana Lopez"></td>
                 <td class="py-3">
                   <div class="flex items-center gap-3">
@@ -5171,7 +5171,7 @@ Julia Campbell</textarea>
                 <td class="py-3 mono text-xs text-muted-foreground">—</td>
                 <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Ana Lopez"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
-              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
+              <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Robert Kim"></td>
                 <td class="py-3">
                   <div class="flex items-center gap-3">
@@ -5748,13 +5748,10 @@ Julia Campbell</textarea>
 <!-- ===================== USER DETAIL (edit existing staff member — mirrors Alongside Edit Staff Member modal, as a page) ===================== -->
 <main id="settings-users-detail" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('home')">Home</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('settings-users')">Users &amp; permissions</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Anastasia Trueman</li>
-    </ol>
+    <!-- Filled by updateUserDetailBreadcrumb() based on sessionStorage.userDetailOrigin.
+         Default trail is Settings → Users & permissions; entries from Schools → [school]
+         → Staff get a Schools-based trail instead. -->
+    <ol id="user-detail-breadcrumb" class="flex items-center gap-1.5 text-sm text-muted-foreground"></ol>
   </nav>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
@@ -6790,6 +6787,47 @@ Julia Campbell</textarea>
     e.currentTarget.click();
   }
 
+  // === USER DETAIL BREADCRUMB — context-aware based on entry origin ===
+  // School Detail → Staff tab → row click sets origin='school' before navigating.
+  // Settings → Users → row click leaves it unset (default 'settings').
+  function setUserDetailOrigin(origin) {
+    try { sessionStorage.setItem('userDetailOrigin', origin); } catch (e) {}
+  }
+  function getUserDetailOrigin() {
+    try { return sessionStorage.getItem('userDetailOrigin') || 'settings'; } catch (e) { return 'settings'; }
+  }
+  function updateUserDetailBreadcrumb() {
+    const ol = document.getElementById('user-detail-breadcrumb');
+    if (!ol) return;
+    const origin = getUserDetailOrigin();
+    const userName = document.querySelector('#settings-users-detail h1')?.textContent || 'Staff member';
+    let trail;
+    if (origin === 'school') {
+      trail = [
+        { label: 'Schools', target: 'schools' },
+        { label: 'Lincoln High School', target: 'school-detail' },
+        { label: userName, current: true }
+      ];
+    } else {
+      trail = [
+        { label: 'Home', target: 'home' },
+        { label: 'Users & permissions', target: 'settings-users' },
+        { label: userName, current: true }
+      ];
+    }
+    ol.innerHTML = trail.map((item, i) => {
+      const isLast = i === trail.length - 1;
+      const chevron = isLast ? '' : '<li><i data-lucide="chevron-right" class="size-4"></i></li>';
+      if (item.current) {
+        return `<li class="text-foreground font-semibold" aria-current="page">${item.label}</li>`;
+      }
+      return `<li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('${item.target}')">${item.label}</a></li>${chevron}`;
+    }).join('');
+    // Re-add chevrons between non-last items (the simple map above placed them after each
+    // non-current item, so it's already right). Refresh lucide.
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+
   // === FEEDBACK PORTAL — drawer + submission storage ===
   const FEEDBACK_STORAGE_KEY = 'prototypeFeedback';
   const FEEDBACK_RECIPIENT = 'julia.campbell@timelycare.com';
@@ -6971,9 +7009,14 @@ Julia Campbell</textarea>
     else if (hash === 'inbox-alerts') { hash = 'inbox'; inboxTab = 'alerts'; navMatch = 'inbox'; }
     else if (hash === 'inbox-summaries') { hash = 'inbox'; inboxTab = 'summaries'; navMatch = 'inbox'; }
     else if (hash === 'settings-users') { hash = 'settings'; settingsTab = 'users'; navMatch = 'settings'; }
-    else if (hash === 'settings-users-add') { navMatch = null; }
-    else if (hash === 'settings-users-add-review') { navMatch = null; }
-    else if (hash === 'settings-users-detail') { navMatch = null; }
+    else if (hash === 'settings-users-add') { navMatch = 'settings'; }
+    else if (hash === 'settings-users-add-review') { navMatch = 'settings'; }
+    else if (hash === 'settings-users-detail') {
+      // Highlight by origin: if the user got here from Schools → School Detail
+      // → Staff tab, keep Schools highlighted in the sidebar so they don't feel
+      // teleported. Otherwise default to Settings.
+      navMatch = (typeof getUserDetailOrigin === 'function' && getUserDetailOrigin() === 'school') ? 'schools' : 'settings';
+    }
     else if (hash === 'settings') { settingsTab = 'users'; navMatch = 'settings'; }
     else if (hash === 'account') { accountTab = 'profile'; navMatch = null; }
     else if (hash.startsWith('account-')) { accountTab = hash.replace('account-', ''); hash = 'account'; navMatch = null; }
@@ -7009,7 +7052,7 @@ Julia Campbell</textarea>
     if (demoSurface) setDemoSurface(demoSurface);
     if (scSurface) setSelfCareSurface(scSurface);
     if (hash === 'settings-users-add-review') loadAddUserReview();
-    if (hash === 'settings-users-detail') updateUserDetailPermissionsPreview();
+    if (hash === 'settings-users-detail') { updateUserDetailPermissionsPreview(); updateUserDetailBreadcrumb(); }
     if (hash === 'feedback') renderFeedbackLog();
     if (window.location.hash === '#help-rollout') setHelpTab('rollout');
     else if (window.location.hash === '#help-contact') setHelpTab('contact');
