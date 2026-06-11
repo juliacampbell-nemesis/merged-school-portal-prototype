@@ -5458,18 +5458,30 @@ Julia Campbell</textarea>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
       <h1 class="text-2xl font-bold tracking-tight">Anastasia Trueman</h1>
-      <p class="text-base text-muted-foreground mt-1">Edit staff member</p>
+      <p class="text-base text-muted-foreground mt-1">Staff member</p>
     </div>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-destructive bg-card text-destructive text-sm font-semibold hover:bg-destructive/10 transition-colors"><i data-lucide="user-x" class="size-4"></i>Deactivate</button>
   </div>
 
   <div class="max-w-2xl space-y-6">
-    <!-- Card 1: User Details (matches Alongside Edit Staff Member modal) -->
-    <section class="bg-card border border-border rounded-lg shadow-sm">
-      <header class="px-6 py-5 border-b border-border">
+    <!-- ============ Card 1: User Details ============ -->
+    <section id="userdetail-card-details" class="bg-card border border-border rounded-lg shadow-sm" data-mode="view">
+      <header class="px-6 py-5 border-b border-border flex items-center justify-between">
         <h2 class="text-lg font-bold">User Details</h2>
+        <button type="button" onclick="toggleUserCardEdit('details', true)" class="userdetail-edit-btn inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Edit user details"><i data-lucide="pencil" class="size-4"></i></button>
       </header>
-      <div class="px-6 py-5 space-y-4">
+      <!-- VIEW mode -->
+      <div class="userdetail-view px-6 py-5">
+        <dl class="grid grid-cols-2 gap-x-6 gap-y-4 text-sm">
+          <div><dt class="text-muted-foreground font-medium">First name</dt><dd class="font-semibold mt-0.5" id="view-firstname">Anastasia</dd></div>
+          <div><dt class="text-muted-foreground font-medium">Last name</dt><dd class="font-semibold mt-0.5" id="view-lastname">Trueman</dd></div>
+          <div class="col-span-2"><dt class="text-muted-foreground font-medium">Role</dt><dd class="font-semibold mt-0.5" id="view-role">District Administrator</dd></div>
+          <div><dt class="text-muted-foreground font-medium">Email</dt><dd class="font-semibold mt-0.5 break-all" id="view-email">anastasia.trueman@timelycare.com</dd></div>
+          <div><dt class="text-muted-foreground font-medium">Phone for SMS alerts</dt><dd class="font-semibold mt-0.5 text-muted-foreground" id="view-phone">— Not set</dd></div>
+        </dl>
+      </div>
+      <!-- EDIT mode -->
+      <div class="userdetail-edit hidden px-6 py-5 space-y-4">
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label for="userdetail-firstname" class="block text-sm font-semibold mb-1.5">First name</label>
@@ -5500,15 +5512,36 @@ Julia Campbell</textarea>
             <input id="userdetail-phone" type="tel" placeholder="(555) 123-4567" class="w-full h-9 px-3 rounded-md border border-input bg-card text-sm">
           </div>
         </div>
+        <div class="flex justify-end gap-2 pt-2 border-t border-border -mx-6 px-6 mt-5">
+          <button type="button" onclick="toggleUserCardEdit('details', false)" class="inline-flex items-center justify-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
+          <button type="button" onclick="saveUserDetailCard('details')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="check" class="size-4"></i>Save</button>
+        </div>
       </div>
     </section>
 
-    <!-- Card 2: Communications -->
-    <section class="bg-card border border-border rounded-lg shadow-sm">
-      <header class="px-6 py-5 border-b border-border">
+    <!-- ============ Card 2: Communications ============ -->
+    <section id="userdetail-card-communications" class="bg-card border border-border rounded-lg shadow-sm" data-mode="view">
+      <header class="px-6 py-5 border-b border-border flex items-center justify-between">
         <h2 class="text-lg font-bold">Communications</h2>
+        <button type="button" onclick="toggleUserCardEdit('communications', true)" class="userdetail-edit-btn inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Edit communications"><i data-lucide="pencil" class="size-4"></i></button>
       </header>
-      <div class="px-6 py-5 space-y-5">
+      <!-- VIEW mode -->
+      <div class="userdetail-view px-6 py-5 space-y-5 text-sm">
+        <div>
+          <p class="text-muted-foreground font-medium mb-2">Alerts to send</p>
+          <ul id="view-alerts" class="space-y-1.5">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="size-4 text-tc-sage-600"></i>Chat summary</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="size-4 text-tc-sage-600"></i>Message to counselor</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="size-4 text-tc-sage-600"></i>Severe issue email</li>
+          </ul>
+        </div>
+        <dl class="grid grid-cols-2 gap-x-6 gap-y-4">
+          <div><dt class="text-muted-foreground font-medium">Email timing</dt><dd class="font-semibold mt-0.5" id="view-email-timing">Anytime</dd></div>
+          <div><dt class="text-muted-foreground font-medium">SMS timing</dt><dd class="font-semibold mt-0.5" id="view-sms-timing">Anytime</dd></div>
+        </dl>
+      </div>
+      <!-- EDIT mode -->
+      <div class="userdetail-edit hidden px-6 py-5 space-y-5">
         <div>
           <p class="text-sm font-semibold mb-3">Alerts to send</p>
           <div class="grid grid-cols-3 gap-3">
@@ -5552,10 +5585,14 @@ Julia Campbell</textarea>
             </select>
           </div>
         </div>
+        <div class="flex justify-end gap-2 pt-2 border-t border-border -mx-6 px-6 mt-5">
+          <button type="button" onclick="toggleUserCardEdit('communications', false)" class="inline-flex items-center justify-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
+          <button type="button" onclick="saveUserDetailCard('communications')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="check" class="size-4"></i>Save</button>
+        </div>
       </div>
     </section>
 
-    <!-- Card 3: Permissions (read-only summary of what their role grants) -->
+    <!-- ============ Card 3: Permissions (read-only — no edit) ============ -->
     <section class="bg-card border border-border rounded-lg shadow-sm">
       <header class="px-6 py-5 border-b border-border">
         <h2 class="text-lg font-bold">Permissions</h2>
@@ -5566,25 +5603,31 @@ Julia Campbell</textarea>
       </div>
     </section>
 
-    <!-- Card 4: School Access -->
-    <section class="bg-card border border-border rounded-lg shadow-sm">
-      <header class="px-6 py-5 border-b border-border">
+    <!-- ============ Card 4: School Access ============ -->
+    <section id="userdetail-card-schoolaccess" class="bg-card border border-border rounded-lg shadow-sm" data-mode="view">
+      <header class="px-6 py-5 border-b border-border flex items-center justify-between">
         <h2 class="text-lg font-bold">School Access</h2>
+        <button type="button" onclick="toggleUserCardEdit('schoolaccess', true)" class="userdetail-edit-btn inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Edit school access"><i data-lucide="pencil" class="size-4"></i></button>
       </header>
-      <div class="px-6 py-5">
+      <!-- VIEW mode -->
+      <div class="userdetail-view px-6 py-5">
+        <ul class="space-y-1.5 text-sm">
+          <li class="flex items-center gap-2"><i data-lucide="check" class="size-4 text-tc-sage-600"></i>All schools <span class="text-muted-foreground">(district scope)</span></li>
+        </ul>
+      </div>
+      <!-- EDIT mode -->
+      <div class="userdetail-edit hidden px-6 py-5">
         <div class="space-y-2">
           <label class="flex items-center gap-3 rounded-md border border-border px-3 py-2.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent">
             <input type="checkbox" checked class="size-4 rounded border-input accent-primary"><span class="text-sm font-medium">All schools (district scope)</span>
           </label>
         </div>
+        <div class="flex justify-end gap-2 pt-4 border-t border-border -mx-6 px-6 mt-5">
+          <button type="button" onclick="toggleUserCardEdit('schoolaccess', false)" class="inline-flex items-center justify-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
+          <button type="button" onclick="saveUserDetailCard('schoolaccess')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="check" class="size-4"></i>Save</button>
+        </div>
       </div>
     </section>
-
-    <!-- Page actions -->
-    <div class="flex justify-end gap-3 pt-2">
-      <button type="button" onclick="navigate('settings-users')" class="inline-flex items-center justify-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
-      <button type="button" onclick="saveUserDetail()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="check" class="size-4"></i>Save changes</button>
-    </div>
   </div>
 </main>
 
@@ -6126,6 +6169,53 @@ Julia Campbell</textarea>
     const lastName = document.getElementById('userdetail-lastname').value.trim();
     showToast(`Saved changes for ${firstName} ${lastName}`, 'check');
     navigate('settings-users');
+  }
+
+  // === USER DETAIL — per-card view/edit toggle ===
+  // Cards render as read-only by default with a pencil button to enter edit mode.
+  function toggleUserCardEdit(card, enterEdit) {
+    const section = document.getElementById('userdetail-card-' + card);
+    if (!section) return;
+    section.querySelector('.userdetail-view').classList.toggle('hidden', enterEdit);
+    section.querySelector('.userdetail-edit').classList.toggle('hidden', !enterEdit);
+    section.querySelector('.userdetail-edit-btn').classList.toggle('hidden', enterEdit);
+    section.setAttribute('data-mode', enterEdit ? 'edit' : 'view');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  // Save reads form values back into the view-mode display, then collapses to view.
+  function saveUserDetailCard(card) {
+    if (card === 'details') {
+      const fn = document.getElementById('userdetail-firstname').value.trim();
+      const ln = document.getElementById('userdetail-lastname').value.trim();
+      const roleSel = document.getElementById('userdetail-role');
+      const email = document.getElementById('userdetail-email').value.trim();
+      const phone = document.getElementById('userdetail-phone').value.trim();
+      document.getElementById('view-firstname').textContent = fn || '—';
+      document.getElementById('view-lastname').textContent = ln || '—';
+      document.getElementById('view-role').textContent = roleSel.options[roleSel.selectedIndex].text;
+      document.getElementById('view-email').textContent = email || '—';
+      const phoneEl = document.getElementById('view-phone');
+      if (phone) { phoneEl.textContent = phone; phoneEl.classList.remove('text-muted-foreground'); }
+      else { phoneEl.textContent = '— Not set'; phoneEl.classList.add('text-muted-foreground'); }
+      updateUserDetailPermissionsPreview();
+    } else if (card === 'communications') {
+      const checks = document.querySelectorAll('#userdetail-card-communications .userdetail-edit input[type=checkbox]:checked');
+      const list = document.getElementById('view-alerts');
+      list.innerHTML = '';
+      checks.forEach(c => {
+        const li = document.createElement('li');
+        li.className = 'flex items-center gap-2';
+        li.innerHTML = `<i data-lucide="check" class="size-4 text-tc-sage-600"></i>${c.parentElement.querySelector('span').textContent}`;
+        list.appendChild(li);
+      });
+      const emailT = document.getElementById('userdetail-email-timing');
+      const smsT = document.getElementById('userdetail-sms-timing');
+      document.getElementById('view-email-timing').textContent = emailT.options[emailT.selectedIndex].text;
+      document.getElementById('view-sms-timing').textContent = smsT.options[smsT.selectedIndex].text;
+    }
+    // schoolaccess: in this wireframe only "All schools" is shown; nothing to sync back.
+    toggleUserCardEdit(card, false);
+    showToast('Changes saved', 'check');
   }
 
   function sendAddUserInvite() {
