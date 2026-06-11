@@ -396,8 +396,8 @@
             <div id="persona-role-org" class="text-xs text-muted-foreground truncate mt-0.5">Counselor Lead · Lincoln USD</div>
           </div>
         </div>
-        <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu(); navigate('settings')">
-          <i data-lucide="settings" class="size-4"></i>Settings
+        <a class="dropdown-item" role="menuitem" onclick="closeAccountMenu(); navigate('account')">
+          <i data-lucide="user-circle" class="size-4"></i>My account
         </a>
         <!--
           Switch district: render ONLY when user.districts.length > 1
@@ -448,9 +448,10 @@
 
     </nav>
 
-    <!-- Sidebar footer: Help (how-to-use-the-portal content; distinct from Library which is student-facing) -->
-    <div class="px-3 pb-4 pt-3 border-t border-sidebar-border">
+    <!-- Sidebar footer: Help + Settings (organization config; admin-only) -->
+    <div class="px-3 pb-4 pt-3 border-t border-sidebar-border space-y-0.5">
       <a href="#help" class="nav-link" data-route="help"><i data-lucide="life-buoy" class="size-4"></i>Help</a>
+      <a href="#settings" class="nav-link admin-only" data-route="settings"><i data-lucide="settings" class="size-4"></i>Settings</a>
     </div>
   </aside>
 
@@ -4813,126 +4814,39 @@ Julia Campbell</textarea>
 
 <!-- ===================== SETTINGS ===================== -->
 <main id="settings" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <h1 class="text-2xl font-bold tracking-tight mb-1">Settings</h1>
-  <p class="text-base text-muted-foreground mb-6">Personal preferences and organization configuration</p>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Settings</h1>
+    <p class="text-base text-muted-foreground mt-1">Organization configuration for your district</p>
+  </div>
 
-  <div class="grid grid-cols-4 gap-6">
-    <aside class="bg-sidebar border border-sidebar-border rounded-lg shadow-sm p-2 h-fit">
-      <nav aria-label="Settings sections">
-        <div class="px-3 pt-2 pb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Personal</div>
-        <ul role="list" class="space-y-0.5 mb-2">
-          <li><a class="settings-sidebar-link is-active" data-subroute="profile" href="#settings"><i data-lucide="user" class="size-4"></i>My profile</a></li>
-          <li><a class="settings-sidebar-link" data-subroute="appearance" href="#settings"><i data-lucide="palette" class="size-4"></i>Look &amp; feel</a></li>
-          <li><a class="settings-sidebar-link" data-subroute="notifications" href="#settings"><i data-lucide="bell" class="size-4"></i>Notifications</a></li>
-          <li><a class="settings-sidebar-link" data-subroute="accounts" href="#settings"><i data-lucide="link" class="size-4"></i>Connected accounts</a></li>
-          <li><a class="settings-sidebar-link" data-subroute="privacy" href="#settings"><i data-lucide="lock" class="size-4"></i>Privacy &amp; data</a></li>
-        </ul>
+  <!-- Helix pill tabs — Organization sections -->
+  <div role="tablist" class="flex flex-wrap gap-2 mb-6" aria-label="Settings sections">
+    <button id="settingstab-district" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('district')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="building-2" class="size-4"></i>District profile</button>
+    <button id="settingstab-users" type="button" role="tab" aria-selected="true" onclick="setSettingsTab('users')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full bg-foreground text-background text-sm font-semibold"><i data-lucide="users-round" class="size-4"></i>Users &amp; permissions</button>
+    <button id="settingstab-roles" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('roles')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="shield" class="size-4"></i>Roles</button>
+    <button id="settingstab-integrations" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('integrations')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="plug" class="size-4"></i>Integrations</button>
+    <button id="settingstab-audit" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('audit')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="clipboard-list" class="size-4"></i>Audit log</button>
+    <button id="settingstab-billing" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('billing')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="credit-card" class="size-4"></i>Billing</button>
+  </div>
 
-        <div class="border-t border-border my-2"></div>
+  <!-- DISTRICT PROFILE PANEL -->
+  <div id="settingspanel-district" class="settings-panel hidden">
+    <section class="bg-card border border-border rounded-lg shadow-sm p-6 max-w-2xl">
+      <h2 class="text-xl font-semibold">District profile</h2>
+      <p class="text-sm text-muted-foreground mb-6">Basic information about your district.</p>
+      <form class="grid grid-cols-2 gap-4">
+        <div class="space-y-1.5 col-span-2"><label class="text-sm font-semibold">District name</label><input type="text" value="Lincoln Unified School District" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
+        <div class="space-y-1.5"><label class="text-sm font-semibold">NCES ID</label><input type="text" value="0628920" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
+        <div class="space-y-1.5"><label class="text-sm font-semibold">Time zone</label><select class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"><option>America/Los_Angeles</option><option>America/New_York</option><option>America/Chicago</option></select></div>
+        <div class="space-y-1.5"><label class="text-sm font-semibold">School year</label><select class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"><option>2025–2026</option><option>2026–2027</option></select></div>
+        <div class="space-y-1.5"><label class="text-sm font-semibold">Primary contact</label><input type="text" value="Dr. Janet Rivera" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
+        <div class="col-span-2 flex gap-2 mt-2"><button type="submit" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Save changes</button><button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button></div>
+      </form>
+    </section>
+  </div>
 
-        <div class="px-3 pt-2 pb-1 flex items-center justify-between gap-2">
-          <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Organization</span>
-          <span class="inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Admin only</span>
-        </div>
-        <ul role="list" class="space-y-0.5 mb-2">
-          <li><a class="settings-sidebar-link" data-subroute="district" href="#settings"><i data-lucide="building-2" class="size-4"></i>District profile</a></li>
-          <li><a class="settings-sidebar-link" data-subroute="users" href="#settings-users"><i data-lucide="users-round" class="size-4"></i>Users &amp; permissions</a></li>
-          <li><a class="settings-sidebar-link" data-subroute="roles" href="#settings"><i data-lucide="shield" class="size-4"></i>Roles</a></li>
-          <li><a class="settings-sidebar-link" data-subroute="integrations" href="#settings"><i data-lucide="plug" class="size-4"></i>Clever / SSO integration</a></li>
-          <li><a class="settings-sidebar-link" data-subroute="audit" href="#settings"><i data-lucide="clipboard-list" class="size-4"></i>Audit log</a></li>
-          <li><a class="settings-sidebar-link" data-subroute="billing" href="#settings"><i data-lucide="credit-card" class="size-4"></i>Billing</a></li>
-        </ul>
-
-        <div class="border-t border-border my-2"></div>
-
-        <div class="px-3 pt-2 pb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Support</div>
-        <ul role="list" class="space-y-0.5">
-          <li><a class="settings-sidebar-link" data-subroute="help" href="#settings"><i data-lucide="life-buoy" class="size-4"></i>Help &amp; support</a></li>
-        </ul>
-      </nav>
-    </aside>
-
-    <div class="col-span-3">
-      <!-- DEFAULT PANEL: profile + look & feel -->
-      <div id="settingspanel-profile" class="settings-panel space-y-4">
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6" aria-labelledby="profile-heading">
-        <h2 id="profile-heading" class="text-xl font-semibold">My profile</h2>
-        <p class="text-sm text-muted-foreground mb-6">Your information as it appears to students and other staff.</p>
-        <form class="grid grid-cols-2 gap-4">
-          <div class="space-y-1.5">
-            <label for="first-name" class="text-sm font-semibold">First name</label>
-            <input id="first-name" type="text" value="Julia" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm">
-          </div>
-          <div class="space-y-1.5">
-            <label for="last-name" class="text-sm font-semibold">Last name</label>
-            <input id="last-name" type="text" value="Campbell" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm">
-          </div>
-          <div class="col-span-2 space-y-1.5">
-            <label for="display-name" class="text-sm font-semibold">Display name</label>
-            <input id="display-name" type="text" value="Julia C." class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm">
-          </div>
-          <div class="space-y-1.5">
-            <label for="email" class="text-sm font-semibold">Email</label>
-            <input id="email" type="email" value="julia.campbell@lincoln.edu" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm">
-          </div>
-          <div class="space-y-1.5">
-            <label for="phone" class="text-sm font-semibold">Phone</label>
-            <input id="phone" type="tel" value="(555) 891-2455" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm">
-          </div>
-          <div class="space-y-1.5">
-            <label for="role" class="text-sm font-semibold">Role</label>
-            <input id="role" type="text" value="Counselor Lead" disabled class="h-9 w-full rounded-md border border-input bg-muted px-3 text-sm text-muted-foreground">
-          </div>
-          <div class="space-y-1.5">
-            <span class="text-sm font-semibold">Permissions</span>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Facilitator</span>
-              <span class="inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Crisis responder</span>
-              <span class="inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Screener reviewer</span>
-            </div>
-          </div>
-          <div class="col-span-2 flex gap-2 mt-2">
-            <button type="submit" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Save changes</button>
-            <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
-          </div>
-        </form>
-      </section>
-
-      <section class="bg-card border border-border rounded-lg shadow-sm p-6" aria-labelledby="look-feel-heading">
-        <h2 id="look-feel-heading" class="text-xl font-semibold">Look &amp; feel</h2>
-        <p class="text-sm text-muted-foreground mb-6">Customize the appearance of your portal.</p>
-        <div class="space-y-5">
-          <div>
-            <div class="text-sm font-semibold mb-2">Theme</div>
-            <div role="radiogroup" class="flex gap-2">
-              <button role="radio" aria-checked="true" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold"><i data-lucide="sun" class="size-4"></i>Light</button>
-              <button role="radio" aria-checked="false" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="moon" class="size-4"></i>Dark</button>
-              <button role="radio" aria-checked="false" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="monitor" class="size-4"></i>System</button>
-            </div>
-          </div>
-          <div>
-            <div class="text-sm font-semibold mb-2">Density</div>
-            <div role="radiogroup" class="flex gap-2">
-              <button role="radio" aria-checked="false" class="inline-flex items-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Comfortable</button>
-              <button role="radio" aria-checked="true" class="inline-flex items-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold">Default</button>
-              <button role="radio" aria-checked="false" class="inline-flex items-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Compact</button>
-            </div>
-          </div>
-          <div class="space-y-1.5">
-            <label for="landing" class="text-sm font-semibold">Default landing page</label>
-            <select id="landing" class="h-9 w-64 rounded-md border border-input bg-input-bg px-3 text-sm">
-              <option>Home (dashboard)</option>
-              <option>Chat summaries inbox</option>
-              <option>Today's visits</option>
-            </select>
-          </div>
-        </div>
-      </section>
-      </div>
-      <!-- /settingspanel-profile -->
-
-      <!-- USERS & PERMISSIONS PANEL -->
-      <div id="settingspanel-users" class="settings-panel hidden">
+  <!-- USERS & PERMISSIONS PANEL -->
+  <div id="settingspanel-users" class="settings-panel">
         <div class="flex items-end justify-between mb-6 gap-4">
           <div>
             <h2 class="text-2xl font-semibold tracking-tight">Users &amp; permissions</h2>
@@ -5174,10 +5088,262 @@ Julia Campbell</textarea>
             <span class="text-muted-foreground">This view shows all users district-wide and is best for District Admins. School Admins can also manage their school's staff inline from <a class="font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('school-detail')">Schools → [school] → Staff tab</a>.</span>
           </div>
         </div>
-      </div>
-      <!-- /settingspanel-users -->
+  </div>
+  <!-- /settingspanel-users -->
 
-    </div>
+  <!-- ROLES PANEL -->
+  <div id="settingspanel-roles" class="settings-panel hidden">
+    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden max-w-3xl">
+      <header class="px-6 py-4 border-b border-border">
+        <h2 class="text-xl font-semibold">Roles</h2>
+        <p class="text-sm text-muted-foreground mt-0.5">Roles control what each user can see and do. Custom roles are managed by your CSM — contact support to add one.</p>
+      </header>
+      <ul class="divide-y divide-border" role="list">
+        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">District Administrator</div><div class="text-xs text-muted-foreground">Full access across all schools and settings.</div></div><span class="text-xs mono text-muted-foreground">3 users</span></li>
+        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">District Staff</div><div class="text-xs text-muted-foreground">District-wide read access, no admin actions.</div></div><span class="text-xs mono text-muted-foreground">12 users</span></li>
+        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">School Administrator</div><div class="text-xs text-muted-foreground">Manage a single school's staff and students.</div></div><span class="text-xs mono text-muted-foreground">14 users</span></li>
+        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">Clinical Staff</div><div class="text-xs text-muted-foreground">Counselors, social workers — access PHI for assigned students.</div></div><span class="text-xs mono text-muted-foreground">68 users</span></li>
+        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">School Staff</div><div class="text-xs text-muted-foreground">Teachers — limited view, no PHI.</div></div><span class="text-xs mono text-muted-foreground">50 users</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- INTEGRATIONS PANEL -->
+  <div id="settingspanel-integrations" class="settings-panel hidden">
+    <section class="space-y-3 max-w-2xl">
+      <div class="bg-card border border-border rounded-lg shadow-sm p-4 flex items-start gap-3">
+        <i data-lucide="plug" class="size-5 mt-0.5 shrink-0"></i>
+        <div class="flex-1">
+          <div class="flex items-center gap-2"><span class="font-semibold">Clever</span><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Connected</span></div>
+          <p class="text-sm text-muted-foreground mt-1">Roster sync · Last synced 2 hours ago · 1,247 students</p>
+        </div>
+        <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Manage</button>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-4 flex items-start gap-3">
+        <i data-lucide="key-round" class="size-5 mt-0.5 shrink-0"></i>
+        <div class="flex-1">
+          <div class="flex items-center gap-2"><span class="font-semibold">Single sign-on (SSO)</span><span class="inline-flex items-center rounded-full bg-card text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not configured</span></div>
+          <p class="text-sm text-muted-foreground mt-1">Configure SAML/SSO for staff sign-in via your IdP.</p>
+        </div>
+        <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Set up</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- AUDIT LOG PANEL -->
+  <div id="settingspanel-audit" class="settings-panel hidden">
+    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+      <header class="px-6 py-4 border-b border-border">
+        <h2 class="text-xl font-semibold">Audit log</h2>
+        <p class="text-sm text-muted-foreground mt-0.5">Trail of administrative actions across the district.</p>
+      </header>
+      <table class="w-full text-sm">
+        <thead class="bg-muted">
+          <tr class="border-b border-border">
+            <th scope="col" class="text-left px-6 py-3 text-base font-bold">When</th>
+            <th scope="col" class="text-left py-3 text-base font-bold">Actor</th>
+            <th scope="col" class="text-left py-3 text-base font-bold">Action</th>
+            <th scope="col" class="text-left py-3 text-base font-bold">Target</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <tr><td class="px-6 py-3 mono text-xs">Today, 9:14 AM</td><td class="py-3 font-semibold">Julia Campbell</td><td class="py-3">Updated user role</td><td class="py-3">Sarah Park · Clinical Staff</td></tr>
+          <tr><td class="px-6 py-3 mono text-xs">Yesterday, 3:22 PM</td><td class="py-3 font-semibold">Dana Walker</td><td class="py-3">Invited user</td><td class="py-3">ana.lopez@lincolnusd.edu</td></tr>
+          <tr><td class="px-6 py-3 mono text-xs">Tue, 5/26 10:05 AM</td><td class="py-3 font-semibold">Dana Walker</td><td class="py-3">Edited district profile</td><td class="py-3">Time zone</td></tr>
+          <tr><td class="px-6 py-3 mono text-xs">Mon, 5/25 8:48 AM</td><td class="py-3 font-semibold">Julia Campbell</td><td class="py-3">Resent guardian invite</td><td class="py-3">Maria Martinez · Kevin Martinez</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <!-- BILLING PANEL -->
+  <div id="settingspanel-billing" class="settings-panel hidden">
+    <section class="space-y-3 max-w-2xl">
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Current plan</div>
+        <div class="text-lg font-semibold mt-1">Non-insurance plan</div>
+        <div class="text-sm text-muted-foreground mt-1">100 visits / year per school · Renews August 1, 2026</div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Billing contact</div>
+        <div class="text-sm font-semibold mt-1">Dr. Janet Rivera</div>
+        <div class="text-sm text-muted-foreground">janet.rivera@lincoln.edu  ·  (555) 891-2400</div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-3">Recent invoices</div>
+        <ul class="divide-y divide-border" role="list">
+          <li class="py-2 flex items-center justify-between text-sm"><span class="mono text-xs">INV-2026-04</span><span>April 2026</span><a class="text-foreground hover:underline cursor-pointer font-semibold">Download</a></li>
+          <li class="py-2 flex items-center justify-between text-sm"><span class="mono text-xs">INV-2026-03</span><span>March 2026</span><a class="text-foreground hover:underline cursor-pointer font-semibold">Download</a></li>
+          <li class="py-2 flex items-center justify-between text-sm"><span class="mono text-xs">INV-2026-02</span><span>February 2026</span><a class="text-foreground hover:underline cursor-pointer font-semibold">Download</a></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ===================== ACCOUNT (Personal preferences) — Helix pill tabs ===================== -->
+<main id="account" class="page max-w-screen-2xl mx-auto px-6 py-8">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Account</h1>
+    <p class="text-base text-muted-foreground mt-1">Personal preferences for your portal</p>
+  </div>
+
+  <!-- Helix pill tabs — Personal sections -->
+  <div role="tablist" class="flex flex-wrap gap-2 mb-6" aria-label="Account sections">
+    <button id="accounttab-profile" type="button" role="tab" aria-selected="true" onclick="setAccountTab('profile')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full bg-foreground text-background text-sm font-semibold"><i data-lucide="user" class="size-4"></i>My profile</button>
+    <button id="accounttab-appearance" type="button" role="tab" aria-selected="false" onclick="setAccountTab('appearance')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="palette" class="size-4"></i>Look &amp; feel</button>
+    <button id="accounttab-notifications" type="button" role="tab" aria-selected="false" onclick="setAccountTab('notifications')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="bell" class="size-4"></i>Notifications</button>
+    <button id="accounttab-accounts" type="button" role="tab" aria-selected="false" onclick="setAccountTab('accounts')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="link" class="size-4"></i>Connected accounts</button>
+    <button id="accounttab-privacy" type="button" role="tab" aria-selected="false" onclick="setAccountTab('privacy')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="lock" class="size-4"></i>Privacy &amp; data</button>
+  </div>
+
+  <!-- MY PROFILE PANEL -->
+  <div id="accountpanel-profile" class="account-panel">
+    <section class="bg-card border border-border rounded-lg shadow-sm p-6 max-w-2xl" aria-labelledby="profile-heading">
+      <h2 id="profile-heading" class="text-xl font-semibold">My profile</h2>
+      <p class="text-sm text-muted-foreground mb-6">Your information as it appears to students and other staff.</p>
+      <form class="grid grid-cols-2 gap-4">
+        <div class="space-y-1.5"><label for="first-name" class="text-sm font-semibold">First name</label><input id="first-name" type="text" value="Julia" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
+        <div class="space-y-1.5"><label for="last-name" class="text-sm font-semibold">Last name</label><input id="last-name" type="text" value="Campbell" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
+        <div class="col-span-2 space-y-1.5"><label for="display-name" class="text-sm font-semibold">Display name</label><input id="display-name" type="text" value="Julia C." class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
+        <div class="space-y-1.5"><label for="email" class="text-sm font-semibold">Email</label><input id="email" type="email" value="julia.campbell@lincoln.edu" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
+        <div class="space-y-1.5"><label for="phone" class="text-sm font-semibold">Phone</label><input id="phone" type="tel" value="(555) 891-2455" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
+        <div class="space-y-1.5"><label for="role" class="text-sm font-semibold">Role</label><input id="role" type="text" value="Counselor Lead" disabled class="h-9 w-full rounded-md border border-input bg-muted px-3 text-sm text-muted-foreground"></div>
+        <div class="space-y-1.5">
+          <span class="text-sm font-semibold">Permissions</span>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Facilitator</span>
+            <span class="inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Crisis responder</span>
+            <span class="inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Screener reviewer</span>
+          </div>
+        </div>
+        <div class="col-span-2 flex gap-2 mt-2"><button type="submit" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Save changes</button><button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button></div>
+      </form>
+    </section>
+  </div>
+
+  <!-- LOOK & FEEL PANEL -->
+  <div id="accountpanel-appearance" class="account-panel hidden">
+    <section class="bg-card border border-border rounded-lg shadow-sm p-6 max-w-2xl" aria-labelledby="look-feel-heading">
+      <h2 id="look-feel-heading" class="text-xl font-semibold">Look &amp; feel</h2>
+      <p class="text-sm text-muted-foreground mb-6">Customize the appearance of your portal.</p>
+      <div class="space-y-5">
+        <div>
+          <div class="text-sm font-semibold mb-2">Theme</div>
+          <div role="radiogroup" class="flex gap-2">
+            <button role="radio" aria-checked="true" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold"><i data-lucide="sun" class="size-4"></i>Light</button>
+            <button role="radio" aria-checked="false" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="moon" class="size-4"></i>Dark</button>
+            <button role="radio" aria-checked="false" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="monitor" class="size-4"></i>System</button>
+          </div>
+        </div>
+        <div>
+          <div class="text-sm font-semibold mb-2">Density</div>
+          <div role="radiogroup" class="flex gap-2">
+            <button role="radio" aria-checked="false" class="inline-flex items-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Comfortable</button>
+            <button role="radio" aria-checked="true" class="inline-flex items-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold">Default</button>
+            <button role="radio" aria-checked="false" class="inline-flex items-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Compact</button>
+          </div>
+        </div>
+        <div class="space-y-1.5">
+          <label for="landing" class="text-sm font-semibold">Default landing page</label>
+          <select id="landing" class="h-9 w-64 rounded-md border border-input bg-input-bg px-3 text-sm">
+            <option>Home (dashboard)</option>
+            <option>Chat summaries inbox</option>
+            <option>Today's visits</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- NOTIFICATIONS PANEL -->
+  <div id="accountpanel-notifications" class="account-panel hidden">
+    <section class="bg-card border border-border rounded-lg shadow-sm p-6 max-w-2xl">
+      <h2 class="text-xl font-semibold">Notifications</h2>
+      <p class="text-sm text-muted-foreground mb-6">Choose what arrives in your inbox and on your phone.</p>
+      <div class="space-y-5">
+        <div>
+          <p class="text-sm font-semibold mb-3">Email alerts</p>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2"><input type="checkbox" checked class="size-4 rounded border-input accent-primary"><span class="text-sm">Severe-risk alerts</span></label>
+            <label class="flex items-center gap-2"><input type="checkbox" checked class="size-4 rounded border-input accent-primary"><span class="text-sm">Chat summaries for students I'm assigned to</span></label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="size-4 rounded border-input accent-primary"><span class="text-sm">Weekly digest</span></label>
+          </div>
+        </div>
+        <div>
+          <p class="text-sm font-semibold mb-3">SMS alerts</p>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2"><input type="checkbox" checked class="size-4 rounded border-input accent-primary"><span class="text-sm">Severe-risk alerts after hours</span></label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="size-4 rounded border-input accent-primary"><span class="text-sm">Severe-risk alerts during business hours</span></label>
+          </div>
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-sm font-semibold">Quiet hours</label>
+          <div class="flex items-center gap-2 text-sm">
+            <select class="h-9 rounded-md border border-input bg-input-bg px-3"><option>9:00 PM</option><option>10:00 PM</option></select>
+            <span class="text-muted-foreground">to</span>
+            <select class="h-9 rounded-md border border-input bg-input-bg px-3"><option>6:00 AM</option><option>7:00 AM</option></select>
+          </div>
+          <p class="text-xs text-muted-foreground">Severe-risk alerts always come through.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CONNECTED ACCOUNTS PANEL -->
+  <div id="accountpanel-accounts" class="account-panel hidden">
+    <section class="space-y-3 max-w-2xl">
+      <div class="bg-card border border-border rounded-lg shadow-sm p-4 flex items-center gap-3">
+        <i data-lucide="mail" class="size-5 shrink-0"></i>
+        <div class="flex-1">
+          <div class="font-semibold">Google</div>
+          <div class="text-sm text-muted-foreground">julia.campbell@lincoln.edu</div>
+        </div>
+        <span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Connected</span>
+        <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Disconnect</button>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-4 flex items-center gap-3">
+        <i data-lucide="key-round" class="size-5 shrink-0"></i>
+        <div class="flex-1">
+          <div class="font-semibold">Microsoft</div>
+          <div class="text-sm text-muted-foreground">Not connected</div>
+        </div>
+        <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Connect</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- PRIVACY & DATA PANEL -->
+  <div id="accountpanel-privacy" class="account-panel hidden">
+    <section class="space-y-3 max-w-2xl">
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h3 class="text-sm font-semibold">Two-factor authentication</h3>
+            <p class="text-sm text-muted-foreground mt-1">Add an extra layer of security to your account.</p>
+          </div>
+          <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Enable</button>
+        </div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h3 class="text-sm font-semibold">Export your data</h3>
+            <p class="text-sm text-muted-foreground mt-1">Download a copy of your profile, notes, and assigned-student history.</p>
+          </div>
+          <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Request export</button>
+        </div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h3 class="text-sm font-semibold">Active sessions</h3>
+            <p class="text-sm text-muted-foreground mt-1">2 active sessions  ·  Chrome on Mac (this device)  ·  iPhone</p>
+          </div>
+          <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-destructive bg-card text-destructive text-sm font-semibold hover:bg-destructive/10 transition-colors">Sign out other devices</button>
+        </div>
+      </div>
+    </section>
   </div>
 </main>
 
@@ -6511,9 +6677,39 @@ Julia Campbell</textarea>
     document.querySelectorAll('.settings-panel').forEach(p => p.classList.add('hidden'));
     const panel = document.getElementById('settingspanel-' + tab);
     if (panel) panel.classList.remove('hidden');
-    document.querySelectorAll('.settings-sidebar-link').forEach(a => {
-      a.classList.toggle('is-active', a.dataset.subroute === tab);
+    ['district', 'users', 'roles', 'integrations', 'audit', 'billing'].forEach(t => {
+      const btn = document.getElementById('settingstab-' + t);
+      if (!btn) return;
+      const isActive = t === tab;
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      if (isActive) {
+        btn.classList.add('bg-foreground', 'text-background');
+        btn.classList.remove('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
+      } else {
+        btn.classList.remove('bg-foreground', 'text-background');
+        btn.classList.add('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
+      }
     });
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  function setAccountTab(tab) {
+    document.querySelectorAll('.account-panel').forEach(p => p.classList.add('hidden'));
+    const panel = document.getElementById('accountpanel-' + tab);
+    if (panel) panel.classList.remove('hidden');
+    ['profile', 'appearance', 'notifications', 'accounts', 'privacy'].forEach(t => {
+      const btn = document.getElementById('accounttab-' + t);
+      if (!btn) return;
+      const isActive = t === tab;
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      if (isActive) {
+        btn.classList.add('bg-foreground', 'text-background');
+        btn.classList.remove('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
+      } else {
+        btn.classList.remove('bg-foreground', 'text-background');
+        btn.classList.add('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
+      }
+    });
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
   }
   function route() {
     let hash = window.location.hash.replace('#', '') || 'home';
@@ -6521,6 +6717,7 @@ Julia Campbell</textarea>
     let libTab = null;
     let inboxTab = null;
     let settingsTab = null;
+    let accountTab = null;
     let demoSurface = null;
     let scSurface = null;
     if (hash === 'library-skills') { hash = 'library'; libTab = 'skills'; navMatch = 'library'; }
@@ -6534,7 +6731,9 @@ Julia Campbell</textarea>
     else if (hash === 'settings-users-add') { navMatch = null; }
     else if (hash === 'settings-users-add-review') { navMatch = null; }
     else if (hash === 'settings-users-detail') { navMatch = null; }
-    else if (hash === 'settings') { settingsTab = 'profile'; }
+    else if (hash === 'settings') { settingsTab = 'users'; navMatch = 'settings'; }
+    else if (hash === 'account') { accountTab = 'profile'; navMatch = null; }
+    else if (hash.startsWith('account-')) { accountTab = hash.replace('account-', ''); hash = 'account'; navMatch = null; }
     else if (hash === 'student-profile') navMatch = 'students';
     else if (hash === 'school-detail') navMatch = 'schools';
     else if (hash === 'my-wellness') { navMatch = null; scSurface = 'home'; }
@@ -6555,6 +6754,7 @@ Julia Campbell</textarea>
     const target = document.getElementById(hash) || document.getElementById('home');
     target.classList.add('active');
 
+    if (accountTab) setAccountTab(accountTab);
     if (libTab) setLibTab(libTab);
     if (inboxTab) setInboxTab(inboxTab);
     if (settingsTab) setSettingsTab(settingsTab);
