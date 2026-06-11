@@ -4819,14 +4819,14 @@ Julia Campbell</textarea>
     <p class="text-base text-muted-foreground mt-1">Organization configuration for your district</p>
   </div>
 
-  <!-- Helix pill tabs — Organization sections -->
-  <div role="tablist" class="flex flex-wrap gap-2 mb-6" aria-label="Settings sections">
-    <button id="settingstab-district" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('district')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="building-2" class="size-4"></i>District profile</button>
-    <button id="settingstab-users" type="button" role="tab" aria-selected="true" onclick="setSettingsTab('users')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full bg-foreground text-background text-sm font-semibold"><i data-lucide="users-round" class="size-4"></i>Users &amp; permissions</button>
-    <button id="settingstab-roles" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('roles')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="shield" class="size-4"></i>Roles</button>
-    <button id="settingstab-integrations" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('integrations')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="plug" class="size-4"></i>Integrations</button>
-    <button id="settingstab-audit" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('audit')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="clipboard-list" class="size-4"></i>Audit log</button>
-    <button id="settingstab-billing" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('billing')" class="settings-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="credit-card" class="size-4"></i>Billing</button>
+  <!-- Helix Pill/Segment tabs — Organization sections -->
+  <div role="tablist" class="h-9 bg-muted p-[3px] rounded-lg flex items-center gap-0.5 mb-6" aria-label="Settings sections">
+    <button id="settingstab-district" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('district')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="building-2" class="size-4"></i>District profile</button>
+    <button id="settingstab-users" type="button" role="tab" aria-selected="true" onclick="setSettingsTab('users')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm"><i data-lucide="users-round" class="size-4"></i>Users &amp; permissions</button>
+    <button id="settingstab-roles" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('roles')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="shield" class="size-4"></i>Roles</button>
+    <button id="settingstab-integrations" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('integrations')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="plug" class="size-4"></i>Integrations</button>
+    <button id="settingstab-audit" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('audit')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="clipboard-list" class="size-4"></i>Audit log</button>
+    <button id="settingstab-billing" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('billing')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="credit-card" class="size-4"></i>Billing</button>
   </div>
 
   <!-- DISTRICT PROFILE PANEL -->
@@ -5188,13 +5188,13 @@ Julia Campbell</textarea>
     <p class="text-base text-muted-foreground mt-1">Personal preferences for your portal</p>
   </div>
 
-  <!-- Helix pill tabs — Personal sections -->
-  <div role="tablist" class="flex flex-wrap gap-2 mb-6" aria-label="Account sections">
-    <button id="accounttab-profile" type="button" role="tab" aria-selected="true" onclick="setAccountTab('profile')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full bg-foreground text-background text-sm font-semibold"><i data-lucide="user" class="size-4"></i>My profile</button>
-    <button id="accounttab-appearance" type="button" role="tab" aria-selected="false" onclick="setAccountTab('appearance')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="palette" class="size-4"></i>Look &amp; feel</button>
-    <button id="accounttab-notifications" type="button" role="tab" aria-selected="false" onclick="setAccountTab('notifications')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="bell" class="size-4"></i>Notifications</button>
-    <button id="accounttab-accounts" type="button" role="tab" aria-selected="false" onclick="setAccountTab('accounts')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="link" class="size-4"></i>Connected accounts</button>
-    <button id="accounttab-privacy" type="button" role="tab" aria-selected="false" onclick="setAccountTab('privacy')" class="account-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="lock" class="size-4"></i>Privacy &amp; data</button>
+  <!-- Helix Pill/Segment tabs — Personal sections -->
+  <div role="tablist" class="h-9 bg-muted p-[3px] rounded-lg flex items-center gap-0.5 mb-6" aria-label="Account sections">
+    <button id="accounttab-profile" type="button" role="tab" aria-selected="true" onclick="setAccountTab('profile')" class="account-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm"><i data-lucide="user" class="size-4"></i>My profile</button>
+    <button id="accounttab-appearance" type="button" role="tab" aria-selected="false" onclick="setAccountTab('appearance')" class="account-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="palette" class="size-4"></i>Look &amp; feel</button>
+    <button id="accounttab-notifications" type="button" role="tab" aria-selected="false" onclick="setAccountTab('notifications')" class="account-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="bell" class="size-4"></i>Notifications</button>
+    <button id="accounttab-accounts" type="button" role="tab" aria-selected="false" onclick="setAccountTab('accounts')" class="account-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="link" class="size-4"></i>Connected accounts</button>
+    <button id="accounttab-privacy" type="button" role="tab" aria-selected="false" onclick="setAccountTab('privacy')" class="account-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="lock" class="size-4"></i>Privacy &amp; data</button>
   </div>
 
   <!-- MY PROFILE PANEL -->
@@ -6673,22 +6673,28 @@ Julia Campbell</textarea>
     e.currentTarget.click();
   }
 
+  // Helix Pill/Segment tab states (per spec):
+  //   active   → bg-background text-foreground shadow-sm
+  //   inactive → bg-transparent text-muted-foreground hover:text-foreground transition-colors
+  const HELIX_PILL_ACTIVE = ['bg-background', 'text-foreground', 'shadow-sm'];
+  const HELIX_PILL_INACTIVE = ['bg-transparent', 'text-muted-foreground', 'hover:text-foreground', 'transition-colors'];
+  function applyHelixPillState(btn, isActive) {
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    if (isActive) {
+      HELIX_PILL_INACTIVE.forEach(c => btn.classList.remove(c));
+      HELIX_PILL_ACTIVE.forEach(c => btn.classList.add(c));
+    } else {
+      HELIX_PILL_ACTIVE.forEach(c => btn.classList.remove(c));
+      HELIX_PILL_INACTIVE.forEach(c => btn.classList.add(c));
+    }
+  }
   function setSettingsTab(tab) {
     document.querySelectorAll('.settings-panel').forEach(p => p.classList.add('hidden'));
     const panel = document.getElementById('settingspanel-' + tab);
     if (panel) panel.classList.remove('hidden');
     ['district', 'users', 'roles', 'integrations', 'audit', 'billing'].forEach(t => {
       const btn = document.getElementById('settingstab-' + t);
-      if (!btn) return;
-      const isActive = t === tab;
-      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      if (isActive) {
-        btn.classList.add('bg-foreground', 'text-background');
-        btn.classList.remove('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
-      } else {
-        btn.classList.remove('bg-foreground', 'text-background');
-        btn.classList.add('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
-      }
+      if (btn) applyHelixPillState(btn, t === tab);
     });
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
   }
@@ -6698,16 +6704,7 @@ Julia Campbell</textarea>
     if (panel) panel.classList.remove('hidden');
     ['profile', 'appearance', 'notifications', 'accounts', 'privacy'].forEach(t => {
       const btn = document.getElementById('accounttab-' + t);
-      if (!btn) return;
-      const isActive = t === tab;
-      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      if (isActive) {
-        btn.classList.add('bg-foreground', 'text-background');
-        btn.classList.remove('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
-      } else {
-        btn.classList.remove('bg-foreground', 'text-background');
-        btn.classList.add('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
-      }
+      if (btn) applyHelixPillState(btn, t === tab);
     });
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
   }
