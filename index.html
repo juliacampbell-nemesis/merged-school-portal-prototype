@@ -421,11 +421,17 @@
 
 <div class="flex min-h-[calc(100vh-33px-3.5rem)]">
   <aside id="main-sidebar" class="w-64 shrink-0 border-r border-sidebar-border bg-sidebar flex flex-col sticky top-14 self-start max-h-[calc(100vh-3.5rem)]">
-    <div class="px-4 py-5 border-b border-sidebar-border">
+    <div class="px-4 py-5 border-b border-sidebar-border space-y-2">
       <!-- Switch to Self-Care (opens in new tab) -->
       <a href="#my-wellness" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 w-full h-9 px-3 rounded-full border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
         <i data-lucide="heart-pulse" class="size-4"></i>
         Switch to Self-Care
+        <i data-lucide="external-link" class="size-3.5 text-muted-foreground"></i>
+      </a>
+      <!-- Student demo (opens in new tab) -->
+      <a href="#student-demo" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 w-full h-9 px-3 rounded-full border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
+        <i data-lucide="eye" class="size-4"></i>
+        Student demo
         <i data-lucide="external-link" class="size-3.5 text-muted-foreground"></i>
       </a>
     </div>
@@ -440,22 +446,6 @@
         <li class="admin-only"><a href="#reports" class="nav-link" data-route="reports"><i data-lucide="file-text" class="size-4"></i>Reports</a></li>
       </ul>
 
-      <!-- Student Demo (collapsible group) -->
-      <div class="mt-4 pt-3 border-t border-sidebar-border">
-        <button id="student-demo-toggle" type="button" onclick="toggleStudentDemo()" class="nav-link w-full justify-between" aria-expanded="true" aria-controls="student-demo-subnav">
-          <span class="inline-flex items-center gap-2"><i data-lucide="eye" class="size-4"></i>Student demo</span>
-          <i id="student-demo-chevron" data-lucide="chevron-down" class="size-4 transition-transform" style="transform: rotate(180deg)"></i>
-        </button>
-        <ul id="student-demo-subnav" role="list" class="space-y-0.5 mt-0.5 ml-2 pl-2 border-l border-sidebar-border">
-          <li><a href="#student-demo" class="nav-link" data-demo-surface="home"><i data-lucide="home" class="size-4"></i>Home</a></li>
-          <li><a href="#student-demo-habits" class="nav-link" data-demo-surface="habits"><i data-lucide="clock-3" class="size-4"></i>Habits</a></li>
-          <li><a href="#student-demo-chat" class="nav-link" data-demo-surface="chat"><i data-lucide="message-circle" class="size-4"></i>Chat</a></li>
-          <li><a href="#student-demo-goals" class="nav-link" data-demo-surface="goals"><i data-lucide="trophy" class="size-4"></i>Goals</a></li>
-          <li><a href="#student-demo-videos" class="nav-link" data-demo-surface="videos"><i data-lucide="play-circle" class="size-4"></i>Videos</a></li>
-          <li><a href="#student-demo-journal" class="nav-link" data-demo-surface="journal"><i data-lucide="pencil" class="size-4"></i>Journal</a></li>
-          <li><a href="#student-demo-more" class="nav-link" data-demo-surface="more"><i data-lucide="ellipsis" class="size-4"></i>More</a></li>
-        </ul>
-      </div>
     </nav>
 
     <!-- Sidebar footer: Help (how-to-use-the-portal content; distinct from Library which is student-facing) -->
@@ -5812,16 +5802,6 @@ Julia Campbell</textarea>
   }
   function navigate(route) {
     window.location.hash = route;
-  }
-  function toggleStudentDemo() {
-    const subnav = document.getElementById('student-demo-subnav');
-    const chevron = document.getElementById('student-demo-chevron');
-    const btn = document.getElementById('student-demo-toggle');
-    if (!subnav) return;
-    subnav.classList.toggle('hidden');
-    const isOpen = !subnav.classList.contains('hidden');
-    chevron.style.transform = isOpen ? 'rotate(180deg)' : '';
-    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   }
   function toggleAccountMenu() {
     const menu = document.getElementById('account-menu');
