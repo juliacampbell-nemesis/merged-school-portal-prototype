@@ -1017,8 +1017,8 @@
       <span class="ml-auto text-sm text-muted-foreground">7 unread  ·  154 all-time</span>
     </div>
 
-    <div class="grid grid-cols-[1fr_460px] gap-4 items-start">
-      <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+    <!-- Chat summary table (full width); detail opens in a slide-in drawer on row click -->
+    <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
         <table class="w-full text-sm">
           <thead class="bg-muted">
             <tr class="border-b border-border">
@@ -1029,43 +1029,43 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-border">
-            <tr class="bg-accent cursor-pointer" aria-selected="true">
+            <tr class="bg-accent cursor-pointer" aria-selected="true" onclick="openSummaryDrawer()">
               <td class="px-6 py-3 font-semibold">Martinez, Kevin</td>
               <td class="py-3 text-muted-foreground line-clamp-1">Practiced box breathing during anxiety. Reflected on a friend disagreement.</td>
               <td class="py-3 mono text-xs">Today, 9:23 AM</td>
               <td class="text-right pr-6 py-3 mono">11</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openSummaryDrawer()">
               <td class="px-6 py-3 font-semibold">Sullivan, Emma</td>
               <td class="py-3 text-muted-foreground line-clamp-1">Worked through pre-exam anxiety. Wants to talk about sleep.</td>
               <td class="py-3 mono text-xs">Today, 8:15 AM</td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openSummaryDrawer()">
               <td class="px-6 py-3 font-semibold">Jensen, Tyler</td>
               <td class="py-3 text-muted-foreground line-clamp-1">Family conflict, asked about communication strategies with parent.</td>
               <td class="py-3 mono text-xs">Yesterday, 4:12 PM</td>
               <td class="text-right pr-6 py-3 mono">10</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openSummaryDrawer()">
               <td class="px-6 py-3 font-semibold">Khan, Aisha</td>
               <td class="py-3 text-muted-foreground line-clamp-1">Coping skill check-in. Mentions friend group dynamics.</td>
               <td class="py-3 mono text-xs">Yesterday, 10:45 AM</td>
               <td class="text-right pr-6 py-3 mono">9</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openSummaryDrawer()">
               <td class="px-6 py-3 font-semibold">Thompson, Marcus</td>
               <td class="py-3 text-muted-foreground line-clamp-1">Discussed self-talk patterns and applied thought-reframing skill.</td>
               <td class="py-3 mono text-xs">Tue, 5/26/26 3:30 PM</td>
               <td class="text-right pr-6 py-3 mono">10</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openSummaryDrawer()">
               <td class="px-6 py-3 font-semibold">Reyes, Diego</td>
               <td class="py-3 text-muted-foreground line-clamp-1">Reflected on a leadership opportunity and stress management.</td>
               <td class="py-3 mono text-xs">Tue, 5/26/26 11:08 AM</td>
               <td class="text-right pr-6 py-3 mono">11</td>
             </tr>
-            <tr class="hover:bg-accent cursor-pointer transition-colors">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="openSummaryDrawer()">
               <td class="px-6 py-3 font-semibold">Lin, Sara</td>
               <td class="py-3 text-muted-foreground line-clamp-1">End-of-year reflection. Practiced gratitude journaling skill.</td>
               <td class="py-3 mono text-xs">Mon, 5/25/26 2:45 PM</td>
@@ -1080,18 +1080,20 @@
             <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Next<i data-lucide="chevron-right" class="size-4"></i></button>
           </div>
         </footer>
-      </div>
+    </div>
 
-      <!-- Chat summary detail panel -->
-      <aside class="bg-card border border-border rounded-lg shadow-sm sticky top-4" aria-label="Chat summary detail">
-        <header class="flex items-center justify-between px-6 py-4 border-b border-border">
+    <!-- Chat summary detail drawer (Alongside pattern: slide-in from right on row click) -->
+    <div id="summary-detail-drawer" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="summary-detail-title">
+      <div onclick="closeSummaryDrawer()" class="absolute inset-0 bg-foreground/40"></div>
+      <aside class="absolute top-0 right-0 h-full w-full max-w-md bg-card shadow-xl flex flex-col" aria-label="Chat summary detail">
+        <header class="flex items-center justify-between px-6 py-4 border-b border-border shrink-0">
           <div>
-            <h2 class="text-lg font-semibold">Kevin's Chat Summary</h2>
+            <h2 id="summary-detail-title" class="text-lg font-semibold">Kevin's Chat Summary</h2>
             <p class="text-xs text-muted-foreground mt-0.5 mono">Today, 9:23 AM</p>
           </div>
-          <button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Close panel"><i data-lucide="x" class="size-4"></i></button>
+          <button type="button" onclick="closeSummaryDrawer()" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Close drawer"><i data-lucide="x" class="size-4"></i></button>
         </header>
-        <div class="p-6 space-y-6">
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
           <div>
             <h3 class="text-sm font-semibold mb-3">Here is a summary of what Kevin has learned and practiced:</h3>
             <div class="border border-border rounded-md p-4">
@@ -6004,6 +6006,23 @@ Julia Campbell</textarea>
     if (e.key !== 'Escape') return;
     const drawer = document.getElementById('alert-detail-drawer');
     if (drawer && !drawer.classList.contains('hidden')) closeAlertDrawer();
+  });
+
+  // === INBOX CHAT SUMMARY DETAIL DRAWER — same pattern as the alert drawer ===
+  function openSummaryDrawer() {
+    const drawer = document.getElementById('summary-detail-drawer');
+    if (!drawer) return;
+    drawer.classList.remove('hidden');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  function closeSummaryDrawer() {
+    const drawer = document.getElementById('summary-detail-drawer');
+    if (drawer) drawer.classList.add('hidden');
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const drawer = document.getElementById('summary-detail-drawer');
+    if (drawer && !drawer.classList.contains('hidden')) closeSummaryDrawer();
   });
 
   // === TOAST helper ===
