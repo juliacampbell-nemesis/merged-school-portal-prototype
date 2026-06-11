@@ -442,7 +442,8 @@
         <li><a href="#inbox" class="nav-link" data-route="inbox"><i data-lucide="inbox" class="size-4"></i>Inbox<span class="ml-auto inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground">3</span></a></li>
         <li><a href="#students" class="nav-link" data-route="students"><i data-lucide="users" class="size-4"></i>Students</a></li>
         <li class="district-only"><a href="#schools" class="nav-link" data-route="schools"><i data-lucide="school" class="size-4"></i>Schools</a></li>
-        <li><a href="#library" class="nav-link" data-route="library"><i data-lucide="book-open" class="size-4"></i>Library</a></li>
+        <li><a href="#skills" class="nav-link" data-route="skills"><i data-lucide="brain" class="size-4"></i>Skills</a></li>
+        <li><a href="#screeners" class="nav-link" data-route="screeners"><i data-lucide="clipboard-list" class="size-4"></i>Screeners</a></li>
         <li class="admin-only"><a href="#reports" class="nav-link" data-route="reports"><i data-lucide="file-text" class="size-4"></i>Reports</a></li>
       </ul>
 
@@ -677,10 +678,10 @@
         </div>
         <p class="text-sm text-muted-foreground mb-4 max-w-2xl">When staff assign skills, students return to the app more often and spend more time engaging with support. Push curated skills to students via your LMS in a click.</p>
         <div class="flex flex-wrap gap-2">
-          <a onclick="navigate('library-skills')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors cursor-pointer">
+          <a onclick="navigate('skills')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors cursor-pointer">
             <i data-lucide="plus" class="size-4"></i>Assign a skill
           </a>
-          <a onclick="navigate('library-skills'); setTimeout(() => setSkillsInnerTab('reporting'), 50)" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer">
+          <a onclick="navigate('skills'); setTimeout(() => setSkillsInnerTab('reporting'), 50)" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors cursor-pointer">
             View assignment reporting<i data-lucide="arrow-right" class="size-4"></i>
           </a>
         </div>
@@ -689,7 +690,7 @@
         <div class="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">This week</div>
         <div class="text-3xl font-bold">14</div>
         <div class="text-sm text-muted-foreground mt-0.5">skills assigned across 3 schools</div>
-        <a onclick="navigate('library-skills')" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer mt-3">Browse the catalog<i data-lucide="arrow-right" class="size-3.5"></i></a>
+        <a onclick="navigate('skills')" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer mt-3">Browse the catalog<i data-lucide="arrow-right" class="size-3.5"></i></a>
       </div>
     </div>
   </section>
@@ -701,7 +702,7 @@
           <h2 id="screener-insights-heading" class="text-lg font-semibold">Screener follow-ups needed</h2>
           <p class="text-sm text-muted-foreground mt-0.5">Students whose results suggest clinical follow-up</p>
         </div>
-        <a class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer" onclick="navigate('library-screeners')">
+        <a class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer" onclick="navigate('screeners')">
           View in Library<i data-lucide="arrow-right" class="size-4"></i>
         </a>
       </header>
@@ -1940,25 +1941,17 @@ Julia Campbell</textarea>
 </main>
 
 <!-- ===================== LIBRARY ===================== -->
-<main id="library" class="page max-w-screen-2xl mx-auto px-6 py-8">
+<main id="skills" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <div class="mb-6">
-    <h1 class="text-2xl font-bold tracking-tight">Library</h1>
-    <p class="text-base text-muted-foreground mt-1">Content + tools available to assign or reference</p>
+    <h1 class="text-2xl font-bold tracking-tight">Skills</h1>
+    <p class="text-base text-muted-foreground mt-1">Assign curated skills for students to practice and track engagement.</p>
   </div>
 
-  <div role="tablist" class="border-b border-border mb-6 flex gap-1" aria-label="Library sections">
-    <button role="tab" aria-selected="true" id="libtab-skills" onclick="setLibTab('skills')" class="lib-tab px-4 py-2.5 text-sm font-semibold text-primary border-b-2 border-primary inline-flex items-center gap-2"><i data-lucide="brain" class="size-4"></i>Skills</button>
-    <button role="tab" aria-selected="false" id="libtab-screeners" onclick="setLibTab('screeners')" class="lib-tab px-4 py-2.5 text-sm font-semibold text-muted-foreground border-b-2 border-transparent hover:text-foreground hover:border-border transition-colors inline-flex items-center gap-2"><i data-lucide="clipboard-list" class="size-4"></i>Screeners</button>
+  <!-- Inner Assign / Reporting tabs — Helix Pill/Segment -->
+  <div role="tablist" class="h-9 bg-muted p-[3px] rounded-lg inline-flex items-center gap-0.5 mb-6" aria-label="Skills view">
+    <button id="skills-inner-tab-assign" type="button" role="tab" aria-selected="true" onclick="setSkillsInnerTab('assign')" class="skills-inner-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm">Assign</button>
+    <button id="skills-inner-tab-reporting" type="button" role="tab" aria-selected="false" onclick="setSkillsInnerTab('reporting')" class="skills-inner-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors">Reporting</button>
   </div>
-
-  <section id="libpanel-skills" class="libpanel" role="tabpanel" aria-labelledby="libtab-skills">
-    <h2 class="text-xl font-bold tracking-tight mb-4">Assign skills for students to work on</h2>
-
-    <!-- Inner Assign / Reporting tab strip (Alongside pattern) -->
-    <div role="tablist" class="mb-6 flex gap-2" aria-label="Skills view">
-      <button id="skills-inner-tab-assign" type="button" role="tab" aria-selected="true" onclick="setSkillsInnerTab('assign')" class="skills-inner-tab inline-flex items-center gap-2 h-9 px-4 rounded-full bg-foreground text-background text-sm font-semibold">Assign</button>
-      <button id="skills-inner-tab-reporting" type="button" role="tab" aria-selected="false" onclick="setSkillsInnerTab('reporting')" class="skills-inner-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors">Reporting</button>
-    </div>
 
     <!-- ASSIGN inner panel -->
     <div id="skills-inner-panel-assign">
@@ -2236,14 +2229,20 @@ Julia Campbell</textarea>
         <p class="text-sm text-muted-foreground max-w-md mx-auto">Track which skills have been assigned via LMS, completion rates, and student engagement. Content sourced from Alongside Reporting when this tab is wired.</p>
       </div>
     </div>
-  </section>
+</main>
 
-  <section id="libpanel-screeners" class="libpanel hidden" role="tabpanel" aria-labelledby="libtab-screeners">
-    <!-- Inner Your screeners / Screeners we offer tab strip (Alongside pattern) -->
-    <div role="tablist" class="mb-6 flex gap-2" aria-label="Screeners view">
-      <button id="screeners-inner-tab-yours" type="button" role="tab" aria-selected="true" onclick="setScreenersInnerTab('yours')" class="screeners-inner-tab inline-flex items-center gap-2 h-9 px-4 rounded-full bg-foreground text-background text-sm font-semibold">Your screeners</button>
-      <button id="screeners-inner-tab-catalog" type="button" role="tab" aria-selected="false" onclick="setScreenersInnerTab('catalog')" class="screeners-inner-tab inline-flex items-center gap-2 h-9 px-4 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:bg-muted transition-colors">Screeners we offer</button>
-    </div>
+<!-- ===================== SCREENERS ===================== -->
+<main id="screeners" class="page max-w-screen-2xl mx-auto px-6 py-8">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Screeners</h1>
+    <p class="text-base text-muted-foreground mt-1">Send wellness screeners on a cadence and review responses.</p>
+  </div>
+
+  <!-- Inner Your screeners / Screeners we offer — Helix Pill/Segment -->
+  <div role="tablist" class="h-9 bg-muted p-[3px] rounded-lg inline-flex items-center gap-0.5 mb-6" aria-label="Screeners view">
+    <button id="screeners-inner-tab-yours" type="button" role="tab" aria-selected="true" onclick="setScreenersInnerTab('yours')" class="screeners-inner-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm">Your screeners</button>
+    <button id="screeners-inner-tab-catalog" type="button" role="tab" aria-selected="false" onclick="setScreenersInnerTab('catalog')" class="screeners-inner-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors">Screeners we offer</button>
+  </div>
 
     <!-- YOUR SCREENERS panel -->
     <div id="screeners-inner-panel-yours">
@@ -2390,10 +2389,9 @@ Julia Campbell</textarea>
       </div>
     </div>
     <!-- /SCREENERS WE OFFER panel -->
-  </section>
 </main>
 
-<!-- ===================== HELP — portal-usage content (distinct from Library which is student-facing) ===================== -->
+<!-- ===================== HELP — portal-usage content ===================== -->
 <main id="help" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <div class="mb-6">
     <h1 class="text-2xl font-bold tracking-tight">Help</h1>
@@ -5998,23 +5996,6 @@ Julia Campbell</textarea>
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeAccountMenu();
   });
-  function setLibTab(tab) {
-    document.querySelectorAll('.libpanel').forEach(p => p.classList.add('hidden'));
-    document.getElementById('libpanel-' + tab).classList.remove('hidden');
-    ['skills', 'screeners'].forEach(t => {
-      const btn = document.getElementById('libtab-' + t);
-      if (!btn) return;
-      const isActive = t === tab;
-      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      if (isActive) {
-        btn.classList.add('text-primary', 'border-primary');
-        btn.classList.remove('text-muted-foreground', 'border-transparent', 'hover:text-foreground', 'hover:border-border');
-      } else {
-        btn.classList.remove('text-primary', 'border-primary');
-        btn.classList.add('text-muted-foreground', 'border-transparent', 'hover:text-foreground', 'hover:border-border');
-      }
-    });
-  }
   function setInboxTab(tab) {
     document.querySelectorAll('.inbox-panel').forEach(p => p.classList.add('hidden'));
     document.getElementById('inboxpanel-' + tab).classList.remove('hidden');
@@ -6392,7 +6373,7 @@ Julia Campbell</textarea>
     });
   }
 
-  // === LIBRARY — Screeners inner Your screeners / Screeners we offer tabs (Alongside pattern) ===
+  // === SCREENERS — inner Your screeners / Screeners we offer tabs (Helix Pill/Segment) ===
   function setScreenersInnerTab(tab) {
     const yoursPanel = document.getElementById('screeners-inner-panel-yours');
     const catalogPanel = document.getElementById('screeners-inner-panel-catalog');
@@ -6402,21 +6383,11 @@ Julia Campbell</textarea>
     const isYours = tab === 'yours';
     yoursPanel.classList.toggle('hidden', !isYours);
     catalogPanel.classList.toggle('hidden', isYours);
-    [yoursTab, catalogTab].forEach(t => {
-      if (!t) return;
-      const active = (t === yoursTab) === isYours;
-      t.setAttribute('aria-selected', active ? 'true' : 'false');
-      if (active) {
-        t.classList.add('bg-foreground', 'text-background');
-        t.classList.remove('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
-      } else {
-        t.classList.remove('bg-foreground', 'text-background');
-        t.classList.add('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
-      }
-    });
+    if (yoursTab) applyHelixPillState(yoursTab, isYours);
+    if (catalogTab) applyHelixPillState(catalogTab, !isYours);
   }
 
-  // === LIBRARY — Skills inner Assign / Reporting tabs (Alongside pattern) ===
+  // === SKILLS — inner Assign / Reporting tabs (Helix Pill/Segment) ===
   function setSkillsInnerTab(tab) {
     const assignPanel = document.getElementById('skills-inner-panel-assign');
     const reportingPanel = document.getElementById('skills-inner-panel-reporting');
@@ -6426,19 +6397,8 @@ Julia Campbell</textarea>
     const isAssign = tab === 'assign';
     assignPanel.classList.toggle('hidden', !isAssign);
     reportingPanel.classList.toggle('hidden', isAssign);
-    // Style: active tab = filled foreground; inactive = outline
-    [assignTab, reportingTab].forEach(t => {
-      if (!t) return;
-      const active = (t === assignTab) === isAssign;
-      t.setAttribute('aria-selected', active ? 'true' : 'false');
-      if (active) {
-        t.classList.add('bg-foreground', 'text-background');
-        t.classList.remove('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
-      } else {
-        t.classList.remove('bg-foreground', 'text-background');
-        t.classList.add('border', 'border-input', 'bg-card', 'text-foreground', 'hover:bg-muted', 'transition-colors');
-      }
-    });
+    if (assignTab) applyHelixPillState(assignTab, isAssign);
+    if (reportingTab) applyHelixPillState(reportingTab, !isAssign);
   }
 
   // === INBOX ALERT DETAIL DRAWER — slide-in from right per Alongside pattern ===
@@ -6711,14 +6671,18 @@ Julia Campbell</textarea>
   function route() {
     let hash = window.location.hash.replace('#', '') || 'home';
     let navMatch = hash;
-    let libTab = null;
     let inboxTab = null;
     let settingsTab = null;
     let accountTab = null;
+    let skillsInner = null;
+    let screenersInner = null;
     let demoSurface = null;
     let scSurface = null;
-    if (hash === 'library-skills') { hash = 'library'; libTab = 'skills'; navMatch = 'library'; }
-    else if (hash === 'library-screeners') { hash = 'library'; libTab = 'screeners'; navMatch = 'library'; }
+    // Backwards-compat: old #library / #library-skills / #library-screeners route to the new Skills / Screeners pages
+    if (hash === 'library' || hash === 'library-skills' || hash === 'skills') { hash = 'skills'; navMatch = 'skills'; }
+    else if (hash === 'library-screeners' || hash === 'screeners') { hash = 'screeners'; navMatch = 'screeners'; }
+    else if (hash === 'skills-reporting') { hash = 'skills'; skillsInner = 'reporting'; navMatch = 'skills'; }
+    else if (hash === 'screeners-catalog') { hash = 'screeners'; screenersInner = 'catalog'; navMatch = 'screeners'; }
     else if (hash === 'help-rollout') { hash = 'help'; navMatch = 'help'; }
     else if (hash === 'help-articles') { hash = 'help'; navMatch = 'help'; }
     else if (hash === 'help-contact') { hash = 'help'; navMatch = 'help'; }
@@ -6752,7 +6716,8 @@ Julia Campbell</textarea>
     target.classList.add('active');
 
     if (accountTab) setAccountTab(accountTab);
-    if (libTab) setLibTab(libTab);
+    if (skillsInner) setSkillsInnerTab(skillsInner);
+    if (screenersInner) setScreenersInnerTab(screenersInner);
     if (inboxTab) setInboxTab(inboxTab);
     if (settingsTab) setSettingsTab(settingsTab);
     setNavActive(navMatch);
