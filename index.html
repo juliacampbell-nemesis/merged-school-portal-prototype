@@ -5506,7 +5506,7 @@ Julia Campbell</textarea>
 <main id="settings-users-add" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
     <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('home')">Home</a></li>
+      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('settings')">Settings</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
       <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('settings-users')">Users &amp; permissions</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
@@ -5672,7 +5672,7 @@ Julia Campbell</textarea>
 <main id="settings-users-add-review" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
     <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('home')">Home</a></li>
+      <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('settings')">Settings</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
       <li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('settings-users')">Users &amp; permissions</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
@@ -6787,44 +6787,28 @@ Julia Campbell</textarea>
     e.currentTarget.click();
   }
 
-  // === USER DETAIL BREADCRUMB — context-aware based on entry origin ===
-  // School Detail → Staff tab → row click sets origin='school' before navigating.
-  // Settings → Users → row click leaves it unset (default 'settings').
-  function setUserDetailOrigin(origin) {
-    try { sessionStorage.setItem('userDetailOrigin', origin); } catch (e) {}
-  }
-  function getUserDetailOrigin() {
-    try { return sessionStorage.getItem('userDetailOrigin') || 'settings'; } catch (e) { return 'settings'; }
-  }
+  // === USER DETAIL BREADCRUMB ===
+  // The user detail page lives at Settings → Users & permissions in the IA,
+  // regardless of how the user got there (Settings → Users row click, or
+  // School Detail → Staff tab row click). Breadcrumb reflects the canonical
+  // location, and the sidebar always highlights Settings on these pages.
+  // setUserDetailOrigin is a no-op kept for backwards-compat with onclick wiring.
+  function setUserDetailOrigin(_origin) { /* no-op */ }
   function updateUserDetailBreadcrumb() {
     const ol = document.getElementById('user-detail-breadcrumb');
     if (!ol) return;
-    const origin = getUserDetailOrigin();
     const userName = document.querySelector('#settings-users-detail h1')?.textContent || 'Staff member';
-    let trail;
-    if (origin === 'school') {
-      trail = [
-        { label: 'Schools', target: 'schools' },
-        { label: 'Lincoln High School', target: 'school-detail' },
-        { label: userName, current: true }
-      ];
-    } else {
-      trail = [
-        { label: 'Home', target: 'home' },
-        { label: 'Users & permissions', target: 'settings-users' },
-        { label: userName, current: true }
-      ];
-    }
-    ol.innerHTML = trail.map((item, i) => {
-      const isLast = i === trail.length - 1;
-      const chevron = isLast ? '' : '<li><i data-lucide="chevron-right" class="size-4"></i></li>';
+    const trail = [
+      { label: 'Settings', target: 'settings' },
+      { label: 'Users & permissions', target: 'settings-users' },
+      { label: userName, current: true }
+    ];
+    ol.innerHTML = trail.map((item) => {
       if (item.current) {
         return `<li class="text-foreground font-semibold" aria-current="page">${item.label}</li>`;
       }
-      return `<li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('${item.target}')">${item.label}</a></li>${chevron}`;
+      return `<li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('${item.target}')">${item.label}</a></li><li><i data-lucide="chevron-right" class="size-4"></i></li>`;
     }).join('');
-    // Re-add chevrons between non-last items (the simple map above placed them after each
-    // non-current item, so it's already right). Refresh lucide.
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
   }
 
@@ -7011,12 +6995,7 @@ Julia Campbell</textarea>
     else if (hash === 'settings-users') { hash = 'settings'; settingsTab = 'users'; navMatch = 'settings'; }
     else if (hash === 'settings-users-add') { navMatch = 'settings'; }
     else if (hash === 'settings-users-add-review') { navMatch = 'settings'; }
-    else if (hash === 'settings-users-detail') {
-      // Highlight by origin: if the user got here from Schools → School Detail
-      // → Staff tab, keep Schools highlighted in the sidebar so they don't feel
-      // teleported. Otherwise default to Settings.
-      navMatch = (typeof getUserDetailOrigin === 'function' && getUserDetailOrigin() === 'school') ? 'schools' : 'settings';
-    }
+    else if (hash === 'settings-users-detail') { navMatch = 'settings'; }
     else if (hash === 'settings') { settingsTab = 'users'; navMatch = 'settings'; }
     else if (hash === 'account') { accountTab = 'profile'; navMatch = null; }
     else if (hash.startsWith('account-')) { accountTab = hash.replace('account-', ''); hash = 'account'; navMatch = null; }
