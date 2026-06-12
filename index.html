@@ -373,7 +373,15 @@
   </aside>
 </div>
 
-<!-- Feedback screenshot lightbox (opens when a log entry's "View" button is clicked) -->
+<!-- Pin-to-My-Reports button template — cloned by initReportPins() onto every widget on a report detail page.
+     Lives in static HTML so Tailwind generates its classes. -->
+<template id="report-pin-template">
+  <button type="button" data-pin-btn data-pinned="false" onclick="toggleReportPin(event, this)" class="report-pin group/pin absolute top-3 right-3 z-20 inline-flex items-center justify-center size-7 rounded-md border border-border bg-card hover:bg-muted transition-colors" aria-label="Pin to My Reports" aria-pressed="false">
+    <i data-lucide="pin" class="size-3.5 text-muted-foreground"></i>
+    <span class="pin-tip pointer-events-none absolute top-full right-0 mt-1 whitespace-nowrap rounded-md bg-foreground text-background text-xs font-semibold px-2 py-1 opacity-0 group-hover/pin:opacity-100 transition-opacity">Click to pin to My Reports</span>
+  </button>
+</template>
+
 <!-- ===================== DEMO CONTROLS (developer/reviewer toolbar — remove on handoff) ===================== -->
 <div id="demo-toolbar" class="fixed bottom-4 right-4 z-50">
   <!-- Collapsed trigger -->
@@ -7061,6 +7069,48 @@ Julia Campbell</textarea>
     if (drawer && !drawer.classList.contains('hidden')) closeFeedbackDrawer();
   });
 
+  // === REPORT WIDGET PINNING ===
+  // Every widget on a report detail page gets a pin button (injected, not hand-authored).
+  // Toggling it flips between "Click to pin to My Reports" / "Click to unpin from My Reports".
+  // The actual My Reports population is intentionally not wired yet (handled in a later pass).
+  function initReportPins(mainEl) {
+    if (!mainEl) return;
+    const tpl = document.getElementById('report-pin-template');
+    if (!tpl) return;
+    mainEl.querySelectorAll('.bg-card.border.rounded-lg.shadow-sm').forEach(card => {
+      if (card.dataset.pinInit) return;                                 // already processed
+      if (card.classList.contains('p-3')) return;                       // filter toolbar, not a widget
+      if (card.querySelector('.bg-card.border.rounded-lg.shadow-sm')) return; // outer container, not a leaf widget
+      card.dataset.pinInit = '1';
+      if (getComputedStyle(card).position === 'static') card.classList.add('relative');
+      // If the widget has a header with its own right-side action (date range,
+      // "Details →", etc.), reserve room so the pin doesn't sit on top of it.
+      const header = card.querySelector(':scope > header');
+      if (header) header.style.paddingRight = '3rem';
+      card.appendChild(tpl.content.firstElementChild.cloneNode(true));
+    });
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  function toggleReportPin(event, btn) {
+    event.stopPropagation();
+    const next = btn.dataset.pinned !== 'true';
+    btn.dataset.pinned = next ? 'true' : 'false';
+    btn.setAttribute('aria-pressed', next ? 'true' : 'false');
+    btn.setAttribute('aria-label', next ? 'Unpin from My Reports' : 'Pin to My Reports');
+    const icon = btn.querySelector('svg') || btn.querySelector('i'); // lucide swaps <i> → <svg> after render
+    const tip = btn.querySelector('.pin-tip');
+    if (next) {
+      btn.classList.add('border-primary', 'bg-accent');
+      icon.classList.remove('text-muted-foreground'); icon.classList.add('text-primary');
+      if (tip) tip.textContent = 'Click to unpin from My Reports';
+    } else {
+      btn.classList.remove('border-primary', 'bg-accent');
+      icon.classList.add('text-muted-foreground'); icon.classList.remove('text-primary');
+      if (tip) tip.textContent = 'Click to pin to My Reports';
+    }
+    showToast(next ? 'Pinned to My Reports' : 'Unpinned from My Reports', 'pin');
+  }
+
   // Helix Pill/Segment tab states (per spec):
   //   active   → bg-background text-foreground shadow-sm
   //   inactive → bg-transparent text-muted-foreground hover:text-foreground transition-colors
@@ -7155,6 +7205,8 @@ Julia Campbell</textarea>
     if (scSurface) setSelfCareSurface(scSurface);
     if (hash === 'settings-users-add-review') loadAddUserReview();
     if (hash === 'settings-users-detail') { updateUserDetailPermissionsPreview(); updateUserDetailBreadcrumb(); }
+    // Pin affordance on every report detail page (not the launcher, not My Reports itself).
+    if (hash.startsWith('reports-') && hash !== 'reports-dashboard') initReportPins(target);
     if (window.location.hash === '#help-rollout') setHelpTab('rollout');
     else if (window.location.hash === '#help-contact') setHelpTab('contact');
 
