@@ -296,6 +296,15 @@
   .sc-nav-link.is-active:hover {
     background-color: #1B2545;
   }
+
+  /* My Reports — drag-and-drop + click-to-swap reordering of pinned widgets */
+  .swap-handle { cursor: grab; }
+  .report-pinned-card.dragging { opacity: .4; }
+  .report-pinned-card.swap-source { outline: 2px solid hsl(var(--primary)); outline-offset: 2px; }
+  .swap-overlay, .swap-source-banner { display: none; }
+  #my-reports-grid.swap-mode .report-pinned-card:not(.swap-source) { cursor: pointer; }
+  #my-reports-grid.swap-mode .report-pinned-card:not(.swap-source) .swap-overlay { display: flex; }
+  #my-reports-grid.swap-mode .report-pinned-card.swap-source .swap-source-banner { display: inline-flex; }
 </style>
 </head>
 <body class="bg-background text-foreground antialiased min-h-screen" data-persona="clinical-staff" data-insurance="hybrid" data-roster="clever">
@@ -2849,113 +2858,87 @@ Julia Campbell</textarea>
     </div>
   </div>
 
-  <!-- Pinned: Wellness -->
-  <section class="mb-8" aria-labelledby="pinned-wellness-heading">
-    <div class="flex items-center gap-2 mb-3">
-      <h2 id="pinned-wellness-heading" class="text-base font-semibold">Wellness</h2>
-      <button type="button" class="inline-flex items-center gap-1 h-7 px-2 rounded-md border border-input bg-card text-xs font-semibold leading-4 hover:bg-muted transition-colors"><i data-lucide="filter" class="size-3.5"></i>Filter</button>
-      <a class="ml-auto text-xs font-semibold text-muted-foreground hover:text-foreground cursor-pointer" onclick="navigate('reports-wellness')">Open report  →</a>
-    </div>
-    <div class="grid grid-cols-3 gap-4">
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6 relative">
-        <div class="absolute top-3 left-3"><button type="button" class="inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Reorder widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
-        <div class="absolute top-3 right-3 flex items-center gap-0.5">
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
-        </div>
-        <div class="pt-4">
-          <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="alert-octagon" class="size-4"></i>Students with severe issue</div>
-          <div class="text-3xl font-semibold mt-3">12</div>
-          <div class="text-sm text-muted-foreground mt-1">Lincoln High: 5  ·  Kennedy: 4  ·  Roosevelt: 3</div>
-        </div>
-      </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6 relative">
-        <div class="absolute top-3 left-3"><button type="button" class="inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Reorder widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
-        <div class="absolute top-3 right-3 flex items-center gap-0.5">
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
-        </div>
-        <div class="pt-4">
-          <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="shield-check" class="size-4"></i>Safety plans created</div>
-          <div class="text-3xl font-semibold mt-3">6</div>
-          <div class="text-sm text-muted-foreground mt-1 flex items-center gap-1"><i data-lucide="arrow-up" class="size-3.5"></i>2 vs prior period</div>
-        </div>
-      </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6 relative">
-        <div class="absolute top-3 left-3"><button type="button" class="inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Reorder widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
-        <div class="absolute top-3 right-3 flex items-center gap-0.5">
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
-        </div>
-        <div class="pt-4">
-          <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="shield-alert" class="size-4"></i>Alerts triaged</div>
-          <div class="text-3xl font-semibold mt-3">147</div>
-          <div class="text-sm text-muted-foreground mt-1">17 active  ·  4.2hr avg response</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Reorder hint -->
+  <div class="flex items-center gap-2 mb-3 text-sm text-muted-foreground">
+    <i data-lucide="move" class="size-4"></i>
+    <span>Drag a widget to rearrange, or click its <span class="inline-flex items-center align-middle"><i data-lucide="arrow-right-left" class="size-3.5"></i></span> handle to swap two widgets.</span>
+  </div>
 
-  <!-- Pinned: App usage -->
-  <section class="mb-8" aria-labelledby="pinned-usage-heading">
-    <div class="flex items-center gap-2 mb-3">
-      <h2 id="pinned-usage-heading" class="text-base font-semibold">App usage</h2>
-      <button type="button" class="inline-flex items-center gap-1 h-7 px-2 rounded-md border border-input bg-card text-xs font-semibold leading-4 hover:bg-muted transition-colors"><i data-lucide="filter" class="size-3.5"></i>Filter</button>
-      <a class="ml-auto text-xs font-semibold text-muted-foreground hover:text-foreground cursor-pointer" onclick="navigate('reports-usage')">Open report  →</a>
-    </div>
-    <div class="grid grid-cols-3 gap-4">
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6 relative">
-        <div class="absolute top-3 left-3"><button type="button" class="inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Reorder widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
-        <div class="absolute top-3 right-3 flex items-center gap-0.5">
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
-        </div>
-        <div class="pt-4">
-          <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="users" class="size-4"></i>Active accounts (student)</div>
-          <div class="text-3xl font-semibold mt-3">91</div>
-          <div class="text-sm text-muted-foreground mt-1">Across all campuses</div>
-        </div>
+  <!-- Pinned widgets — one flat, reorderable grid (drag-and-drop + click-to-swap) -->
+  <div id="my-reports-grid" class="grid grid-cols-3 gap-4 mb-6">
+    <div class="report-pinned-card bg-card border border-border rounded-lg shadow-sm p-6 relative" draggable="true">
+      <div class="absolute top-3 left-3 z-10"><button type="button" onclick="startReportSwap(this)" class="swap-handle inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Drag to move, or click to swap with another widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
+      <div class="absolute top-3 right-3 z-10 flex items-center gap-0.5">
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
       </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6 relative">
-        <div class="absolute top-3 left-3"><button type="button" class="inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Reorder widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
-        <div class="absolute top-3 right-3 flex items-center gap-0.5">
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
-        </div>
-        <div class="pt-4">
-          <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="check-circle-2" class="size-4"></i>Activities completed</div>
-          <div class="text-3xl font-semibold mt-3">4,006</div>
-          <div class="text-sm text-muted-foreground mt-1">Skills, journals, videos, moods</div>
-        </div>
+      <div class="pt-4">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="alert-octagon" class="size-4"></i>Students with severe issue</div>
+        <div class="text-3xl font-semibold mt-3">12</div>
+        <div class="text-sm text-muted-foreground mt-1">Lincoln High: 5  ·  Kennedy: 4  ·  Roosevelt: 3</div>
       </div>
     </div>
-  </section>
-
-  <!-- Pinned: Care delivery -->
-  <section class="mb-8" aria-labelledby="pinned-care-heading">
-    <div class="flex items-center gap-2 mb-3">
-      <h2 id="pinned-care-heading" class="text-base font-semibold">Care delivery</h2>
-      <button type="button" class="inline-flex items-center gap-1 h-7 px-2 rounded-md border border-input bg-card text-xs font-semibold leading-4 hover:bg-muted transition-colors"><i data-lucide="filter" class="size-3.5"></i>Filter</button>
-      <a class="ml-auto text-xs font-semibold text-muted-foreground hover:text-foreground cursor-pointer" onclick="navigate('reports-care')">Open report  →</a>
-    </div>
-    <div class="grid grid-cols-3 gap-4">
-      <div class="bg-card border border-border rounded-lg shadow-sm relative">
-        <div class="absolute top-3 left-3 z-10"><button type="button" class="inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Reorder widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
-        <div class="absolute top-3 right-3 z-10 flex items-center gap-0.5">
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
-          <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
-        </div>
-        <header class="px-6 pt-12 pb-3">
-          <h3 class="text-base font-semibold">Visits delivered</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Of quarter allocation</p>
-        </header>
-        <div class="p-6 pt-0">
-          <div class="text-3xl font-semibold">234 <span class="text-base text-muted-foreground font-normal">/ 425</span></div>
-          <div class="text-sm text-muted-foreground mt-1">55% utilization</div>
-        </div>
+    <div class="report-pinned-card bg-card border border-border rounded-lg shadow-sm p-6 relative" draggable="true">
+      <div class="absolute top-3 left-3 z-10"><button type="button" onclick="startReportSwap(this)" class="swap-handle inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Drag to move, or click to swap with another widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
+      <div class="absolute top-3 right-3 z-10 flex items-center gap-0.5">
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
+      </div>
+      <div class="pt-4">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="shield-check" class="size-4"></i>Safety plans created</div>
+        <div class="text-3xl font-semibold mt-3">6</div>
+        <div class="text-sm text-muted-foreground mt-1 flex items-center gap-1"><i data-lucide="arrow-up" class="size-3.5"></i>2 vs prior period</div>
       </div>
     </div>
-  </section>
+    <div class="report-pinned-card bg-card border border-border rounded-lg shadow-sm p-6 relative" draggable="true">
+      <div class="absolute top-3 left-3 z-10"><button type="button" onclick="startReportSwap(this)" class="swap-handle inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Drag to move, or click to swap with another widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
+      <div class="absolute top-3 right-3 z-10 flex items-center gap-0.5">
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
+      </div>
+      <div class="pt-4">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="shield-alert" class="size-4"></i>Alerts triaged</div>
+        <div class="text-3xl font-semibold mt-3">147</div>
+        <div class="text-sm text-muted-foreground mt-1">17 active  ·  4.2hr avg response</div>
+      </div>
+    </div>
+    <div class="report-pinned-card bg-card border border-border rounded-lg shadow-sm p-6 relative" draggable="true">
+      <div class="absolute top-3 left-3 z-10"><button type="button" onclick="startReportSwap(this)" class="swap-handle inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Drag to move, or click to swap with another widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
+      <div class="absolute top-3 right-3 z-10 flex items-center gap-0.5">
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
+      </div>
+      <div class="pt-4">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="users" class="size-4"></i>Active accounts (student)</div>
+        <div class="text-3xl font-semibold mt-3">91</div>
+        <div class="text-sm text-muted-foreground mt-1">Across all campuses</div>
+      </div>
+    </div>
+    <div class="report-pinned-card bg-card border border-border rounded-lg shadow-sm p-6 relative" draggable="true">
+      <div class="absolute top-3 left-3 z-10"><button type="button" onclick="startReportSwap(this)" class="swap-handle inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Drag to move, or click to swap with another widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
+      <div class="absolute top-3 right-3 z-10 flex items-center gap-0.5">
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
+      </div>
+      <div class="pt-4">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="check-circle-2" class="size-4"></i>Activities completed</div>
+        <div class="text-3xl font-semibold mt-3">4,006</div>
+        <div class="text-sm text-muted-foreground mt-1">Skills, journals, videos, moods</div>
+      </div>
+    </div>
+    <div class="report-pinned-card bg-card border border-border rounded-lg shadow-sm p-6 relative" draggable="true">
+      <div class="absolute top-3 left-3 z-10"><button type="button" onclick="startReportSwap(this)" class="swap-handle inline-flex items-center justify-center size-6 rounded-md hover:bg-muted transition-colors" aria-label="Drag to move, or click to swap with another widget"><i data-lucide="arrow-right-left" class="size-3.5 text-muted-foreground"></i></button></div>
+      <div class="absolute top-3 right-3 z-10 flex items-center gap-0.5">
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="Unpin"><i data-lucide="pin-off" class="size-4 text-muted-foreground"></i></button>
+        <button type="button" class="inline-flex items-center justify-center size-7 rounded-md hover:bg-muted transition-colors" aria-label="More options"><i data-lucide="more-vertical" class="size-4 text-muted-foreground"></i></button>
+      </div>
+      <div class="pt-4">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="calendar-check" class="size-4"></i>Visits delivered</div>
+        <div class="text-3xl font-semibold mt-3">234 <span class="text-base text-muted-foreground font-normal">/ 425</span></div>
+        <div class="text-sm text-muted-foreground mt-1">55% utilization</div>
+      </div>
+    </div>
+  </div>
 
   <!-- Empty state hint -->
   <div class="bg-card border border-border rounded-lg shadow-sm p-6 text-center">
@@ -7111,6 +7094,98 @@ Julia Campbell</textarea>
     showToast(next ? 'Pinned to My Reports' : 'Unpinned from My Reports', 'pin');
   }
 
+  // === MY REPORTS — reorder pinned widgets (drag-and-drop + click-to-swap) ===
+  let reportSwapSource = null;
+  function initMyReportsReorder() {
+    const grid = document.getElementById('my-reports-grid');
+    if (!grid || grid.dataset.reorderInit) return;
+    grid.dataset.reorderInit = '1';
+    grid.querySelectorAll('.report-pinned-card').forEach(card => {
+      // Inject swap-mode overlays once (kept out of static HTML to avoid 6x repetition).
+      const overlay = document.createElement('div');
+      overlay.className = 'swap-overlay absolute inset-0 z-30 items-center justify-center rounded-lg';
+      overlay.style.background = 'hsl(var(--card) / 0.85)';
+      overlay.innerHTML = '<span class="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow"><i data-lucide="arrow-right-left" class="size-4"></i>Click to swap</span>';
+      card.appendChild(overlay);
+      const banner = document.createElement('div');
+      banner.className = 'swap-source-banner absolute -top-3 left-1/2 -translate-x-1/2 z-30 whitespace-nowrap items-center gap-1.5 h-7 px-3 rounded-full bg-primary text-primary-foreground text-xs font-semibold shadow';
+      banner.textContent = 'Click another card to swap · Esc to cancel';
+      card.appendChild(banner);
+      // Drag-and-drop
+      card.addEventListener('dragstart', (e) => {
+        if (reportSwapSource) { e.preventDefault(); return; }  // not while a swap is staged
+        card.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', ''); } catch (_) {}
+      });
+      card.addEventListener('dragend', () => card.classList.remove('dragging'));
+    });
+    grid.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const dragging = grid.querySelector('.dragging');
+      if (!dragging) return;
+      const after = getDragAfterElement(grid, e.clientX, e.clientY);
+      if (after == null) grid.appendChild(dragging);
+      else if (after !== dragging) grid.insertBefore(dragging, after);
+    });
+    grid.addEventListener('drop', (e) => { e.preventDefault(); showToast('Layout updated', 'check'); });
+    // Click-to-swap target selection (clicking a non-source card body).
+    grid.addEventListener('click', (e) => {
+      if (!reportSwapSource) return;
+      if (e.target.closest('.swap-handle')) return;       // handle clicks go through startReportSwap
+      const card = e.target.closest('.report-pinned-card');
+      if (!card || card === reportSwapSource) return;
+      performReportSwap(card);
+    });
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  function getDragAfterElement(grid, x, y) {
+    const els = [...grid.querySelectorAll('.report-pinned-card:not(.dragging)')];
+    let best = { dist: Infinity, el: null };
+    for (const el of els) {
+      const b = el.getBoundingClientRect();
+      const cx = b.left + b.width / 2, cy = b.top + b.height / 2;
+      // Card whose center is "after" the pointer in reading order (next row, or same row to the right).
+      const afterPointer = (cy > y + 1) || (Math.abs(cy - y) <= b.height / 2 && cx > x);
+      if (!afterPointer) continue;
+      const d = Math.hypot(cx - x, cy - y);
+      if (d < best.dist) best = { dist: d, el };
+    }
+    return best.el;
+  }
+  function startReportSwap(handleBtn) {
+    const card = handleBtn.closest('.report-pinned-card');
+    const grid = document.getElementById('my-reports-grid');
+    if (!card || !grid) return;
+    if (!reportSwapSource) {
+      reportSwapSource = card;
+      grid.classList.add('swap-mode');
+      card.classList.add('swap-source');
+    } else if (reportSwapSource === card) {
+      cancelReportSwap();                                 // clicking the source's handle cancels
+    } else {
+      performReportSwap(card);                            // clicking another card's handle picks it
+    }
+  }
+  function performReportSwap(target) {
+    if (!reportSwapSource || reportSwapSource === target) { cancelReportSwap(); return; }
+    const placeholder = document.createComment('swap');
+    reportSwapSource.replaceWith(placeholder);
+    target.replaceWith(reportSwapSource);
+    placeholder.replaceWith(target);
+    cancelReportSwap();
+    showToast('Widgets swapped', 'arrow-right-left');
+  }
+  function cancelReportSwap() {
+    const grid = document.getElementById('my-reports-grid');
+    if (grid) grid.classList.remove('swap-mode');
+    if (reportSwapSource) reportSwapSource.classList.remove('swap-source');
+    reportSwapSource = null;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && reportSwapSource) cancelReportSwap();
+  });
+
   // Helix Pill/Segment tab states (per spec):
   //   active   → bg-background text-foreground shadow-sm
   //   inactive → bg-transparent text-muted-foreground hover:text-foreground transition-colors
@@ -7207,6 +7282,7 @@ Julia Campbell</textarea>
     if (hash === 'settings-users-detail') { updateUserDetailPermissionsPreview(); updateUserDetailBreadcrumb(); }
     // Pin affordance on every report detail page (not the launcher, not My Reports itself).
     if (hash.startsWith('reports-') && hash !== 'reports-dashboard') initReportPins(target);
+    if (hash === 'reports-dashboard') initMyReportsReorder();
     if (window.location.hash === '#help-rollout') setHelpTab('rollout');
     else if (window.location.hash === '#help-contact') setHelpTab('contact');
 
