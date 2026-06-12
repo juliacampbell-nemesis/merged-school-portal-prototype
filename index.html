@@ -5748,11 +5748,17 @@ Julia Campbell</textarea>
 <!-- ===================== USER DETAIL (edit existing staff member — mirrors Alongside Edit Staff Member modal, as a page) ===================== -->
 <main id="settings-users-detail" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
-    <!-- Filled by updateUserDetailBreadcrumb() based on sessionStorage.userDetailOrigin.
-         Default trail is Settings → Users & permissions; entries from Schools → [school]
-         → Staff get a Schools-based trail instead. -->
+    <!-- Filled by updateUserDetailBreadcrumb(). The breadcrumb itself always reads
+         Settings → Users & permissions → [name] (canonical location). The contextual
+         "back to school" link below appears only when entry origin is 'school'. -->
     <ol id="user-detail-breadcrumb" class="flex items-center gap-1.5 text-sm text-muted-foreground"></ol>
   </nav>
+  <!-- Contextual back link, shown only when entry origin = school (set by School Detail's Staff tab row clicks) -->
+  <div id="user-detail-from-school" class="hidden mb-4">
+    <a class="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('school-detail')">
+      <i data-lucide="arrow-left" class="size-4"></i>Back to Lincoln High School
+    </a>
+  </div>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
       <h1 class="text-2xl font-bold tracking-tight">Anastasia Trueman</h1>
@@ -6787,13 +6793,18 @@ Julia Campbell</textarea>
     e.currentTarget.click();
   }
 
-  // === USER DETAIL BREADCRUMB ===
-  // The user detail page lives at Settings → Users & permissions in the IA,
-  // regardless of how the user got there (Settings → Users row click, or
-  // School Detail → Staff tab row click). Breadcrumb reflects the canonical
-  // location, and the sidebar always highlights Settings on these pages.
-  // setUserDetailOrigin is a no-op kept for backwards-compat with onclick wiring.
-  function setUserDetailOrigin(_origin) { /* no-op */ }
+  // === USER DETAIL BREADCRUMB + contextual back-to-school link ===
+  // The user detail page lives at Settings → Users & permissions in the IA —
+  // breadcrumb reflects that canonical location regardless of entry path,
+  // and the sidebar always highlights Settings. To preserve the "I came from
+  // a school" context, we also surface a "← Back to [school]" link directly
+  // under the breadcrumb when origin === 'school'.
+  function setUserDetailOrigin(origin) {
+    try { sessionStorage.setItem('userDetailOrigin', origin); } catch (e) {}
+  }
+  function getUserDetailOrigin() {
+    try { return sessionStorage.getItem('userDetailOrigin') || 'settings'; } catch (e) { return 'settings'; }
+  }
   function updateUserDetailBreadcrumb() {
     const ol = document.getElementById('user-detail-breadcrumb');
     if (!ol) return;
@@ -6809,6 +6820,11 @@ Julia Campbell</textarea>
       }
       return `<li><a class="hover:text-foreground cursor-pointer font-medium" onclick="navigate('${item.target}')">${item.label}</a></li><li><i data-lucide="chevron-right" class="size-4"></i></li>`;
     }).join('');
+    // Show or hide the back-to-school chip based on entry origin.
+    const fromChip = document.getElementById('user-detail-from-school');
+    if (fromChip) {
+      fromChip.classList.toggle('hidden', getUserDetailOrigin() !== 'school');
+    }
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
   }
 
