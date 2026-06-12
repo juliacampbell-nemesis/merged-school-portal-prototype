@@ -242,9 +242,9 @@
   /* These attributes are written to <body> by applyDemoState() and drive visibility.
      They're CSS-only so a developer can grep them out at handoff time. */
 
-  /* Roster sync = Clever (default) → hide non-Clever-only controls (e.g., Create invite, per-row Send Invite, manual roster controls) */
+  /* Roster source = Clever (default) → hide non-Clever-only controls (e.g., Create invite, per-row Send Invite, manual roster controls) */
   body[data-roster="clever"] .roster-non-clever { display: none !important; }
-  /* Roster sync = Manual → hide Clever-sourced UI cues */
+  /* Roster source = Manual → hide Clever-sourced UI cues */
   body[data-roster="manual"] .roster-clever-only { display: none !important; }
 
   /* Insurance model = Free → no insurance UI anywhere */
@@ -415,7 +415,7 @@
         </select>
       </div>
       <div>
-        <label for="demo-roster" class="block text-xs font-semibold text-foreground mb-1">Roster sync</label>
+        <label for="demo-roster" class="block text-xs font-semibold text-foreground mb-1">Roster source</label>
         <select id="demo-roster" onchange="setDemoRoster(this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
           <option value="clever" selected>Clever (default — invites auto-managed)</option>
           <option value="manual">Manual (invites needed for activation)</option>
@@ -533,8 +533,8 @@
       <p class="text-base text-muted-foreground mt-1">Lincoln High School  ·  Tuesday, May 26</p>
     </div>
     <div class="flex items-center gap-2 text-sm text-muted-foreground">
-      <i data-lucide="refresh-cw" class="size-4"></i>
-      <span>Synced from Clever 2hr ago</span>
+      <i data-lucide="users" class="size-4"></i>
+      <span>Roster via Clever</span>
     </div>
   </div>
 
@@ -1263,7 +1263,7 @@ Julia Campbell</textarea>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
       <h1 class="text-2xl font-bold tracking-tight">Students</h1>
-      <p class="text-base text-muted-foreground mt-1">1,247 students  ·  Synced from Clever 2 hours ago</p>
+      <p class="text-base text-muted-foreground mt-1">1,247 students  ·  Roster via Clever</p>
     </div>
     <div class="flex items-center gap-2">
       <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
@@ -5215,7 +5215,7 @@ Julia Campbell</textarea>
         <div class="flex items-end justify-between mb-6 gap-4">
           <div>
             <h2 class="text-2xl font-semibold tracking-tight">Users &amp; permissions</h2>
-            <p class="text-sm text-muted-foreground mt-1">147 staff users across 14 schools  ·  Synced with Clever 2hr ago</p>
+            <p class="text-sm text-muted-foreground mt-1">147 staff users across 14 schools  ·  Roster via Clever</p>
           </div>
           <div class="flex items-center gap-2">
             <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
@@ -5480,7 +5480,7 @@ Julia Campbell</textarea>
         <i data-lucide="plug" class="size-5 mt-0.5 shrink-0"></i>
         <div class="flex-1">
           <div class="flex items-center gap-2"><span class="font-semibold">Clever</span><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Connected</span></div>
-          <p class="text-sm text-muted-foreground mt-1">Roster sync · Last synced 2 hours ago · 1,247 students</p>
+          <p class="text-sm text-muted-foreground mt-1">Roster &amp; SSO · Student data loads from Clever in real time at sign-in · 1,247 students</p>
         </div>
         <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Manage</button>
       </div>
