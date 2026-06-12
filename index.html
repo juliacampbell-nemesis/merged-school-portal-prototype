@@ -2863,65 +2863,196 @@ Julia Campbell</textarea>
       <li class="text-foreground font-semibold" aria-current="page">Care delivery</li>
     </ol>
   </nav>
+
+  <!-- Page header — School filter + Export Summary (matches TC Insights top bar) -->
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
       <h1 class="text-2xl font-bold tracking-tight">Care delivery</h1>
-      <p class="text-base text-muted-foreground mt-1">TimelyCare visits, allocation, and utilization patterns</p>
+      <p class="text-base text-muted-foreground mt-1">TimelyCare visits, invites, and utilization patterns. Mirrors the TC school portal Insights surface.</p>
     </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
-  </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
+    <div class="flex items-center gap-2">
+      <button type="button" class="district-only inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="building-2" class="size-4 text-muted-foreground"></i>All Schools<i data-lucide="chevron-down" class="size-4"></i></button>
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Export Summary</button>
+    </div>
   </div>
 
-  <!-- CARE section -->
-  <div class="mb-8">
-    <div class="flex items-center justify-between mb-3">
-      <div>
-        <h2 class="text-xl font-semibold flex items-center gap-2"><i data-lucide="heart-pulse" class="size-5"></i>Care delivery</h2>
-        <p class="text-sm text-muted-foreground mt-0.5">TimelyCare visits, allocation, and utilization patterns</p>
+  <!-- ============ AT A GLANCE ============ -->
+  <section aria-labelledby="at-a-glance-heading" class="mb-8">
+    <h2 id="at-a-glance-heading" class="text-lg font-semibold mb-4">At a Glance</h2>
+
+    <!-- Visit Summary card (utilization, stacked status bar, 4-col breakdown) -->
+    <div class="bg-card border border-border rounded-lg shadow-sm mb-6">
+      <header class="px-6 pt-8 pb-6 min-h-24 flex items-start justify-between">
+        <div class="space-y-1">
+          <h3 class="text-xl font-semibold">Visit Summary</h3>
+          <p class="text-sm text-muted-foreground">All-time visits booked against your annual pool</p>
+        </div>
+      </header>
+      <div class="px-6 pb-6">
+        <div class="text-2xl font-bold text-tc-sage-700">78%</div>
+        <!-- Stacked horizontal bar -->
+        <div class="w-full flex rounded-full h-5 overflow-hidden bg-muted mt-3" role="img" aria-label="Visit pool utilization: 12 scheduled, 60 completed, 4 no-show, 2 late cancellation">
+          <div class="h-full bg-primary" style="width:12%"></div>
+          <div class="h-full bg-tc-sage-500" style="width:60%"></div>
+          <div class="h-full bg-tc-orange-500" style="width:4%"></div>
+          <div class="h-full bg-tc-berry-500" style="width:2%"></div>
+        </div>
+        <p class="text-sm text-muted-foreground mt-2">78 of 100 visits utilized this school year</p>
+        <!-- 4-column breakdown -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+          <div><div class="flex items-center gap-2 text-sm"><span class="size-2.5 rounded-full bg-primary"></span><span>Scheduled</span></div><div class="text-2xl font-semibold mt-1">12 <span class="text-xs text-muted-foreground font-normal">15%</span></div></div>
+          <div><div class="flex items-center gap-2 text-sm"><span class="size-2.5 rounded-full bg-tc-sage-500"></span><span>Completed</span></div><div class="text-2xl font-semibold mt-1">60 <span class="text-xs text-muted-foreground font-normal">77%</span></div></div>
+          <div><div class="flex items-center gap-2 text-sm"><span class="size-2.5 rounded-full bg-tc-orange-500"></span><span>No-show</span></div><div class="text-2xl font-semibold mt-1">4 <span class="text-xs text-muted-foreground font-normal">5%</span></div></div>
+          <div><div class="flex items-center gap-2 text-sm"><span class="size-2.5 rounded-full bg-tc-berry-500"></span><span>Late cancel</span></div><div class="text-2xl font-semibold mt-1">2 <span class="text-xs text-muted-foreground font-normal">3%</span></div></div>
+        </div>
       </div>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
-        <i data-lucide="download" class="size-4"></i>Download<i data-lucide="chevron-down" class="size-4"></i>
-      </button>
     </div>
-    <div class="grid grid-cols-3 gap-4">
-      <section class="col-span-2 bg-card border border-border rounded-lg shadow-sm" aria-labelledby="visits-over-time-heading">
-        <header class="px-6 py-4 border-b border-border flex items-center justify-between">
-          <div>
-            <h3 id="visits-over-time-heading" class="text-base font-semibold">Visits over time</h3>
-            <p class="text-xs text-muted-foreground mt-0.5">Daily delivered visits by type</p>
-          </div>
-          <button type="button" class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline">Details<i data-lucide="arrow-right" class="size-4"></i></button>
-        </header>
-        <div class="p-6">
-          <div class="bg-muted rounded-md h-56 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <i data-lucide="bar-chart-3" class="size-4"></i>Stacked bar: on-site + telehealth, 30 days
-          </div>
-        </div>
-      </section>
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="visit-mix-heading">
-        <header class="px-6 py-4 border-b border-border">
-          <h3 id="visit-mix-heading" class="text-base font-semibold">Visit mix</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">By type</p>
-        </header>
-        <div class="p-6">
-          <div class="bg-muted rounded-md h-40 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <i data-lucide="pie-chart" class="size-4"></i>Donut
-          </div>
-          <dl class="mt-4 space-y-2 text-sm">
-            <div class="flex justify-between"><dt class="text-muted-foreground">Counseling</dt><dd class="font-semibold mono">128</dd></div>
-            <div class="flex justify-between"><dt class="text-muted-foreground">Psychiatry</dt><dd class="font-semibold mono">62</dd></div>
-            <div class="flex justify-between"><dt class="text-muted-foreground">Intake</dt><dd class="font-semibold mono">44</dd></div>
-          </dl>
-        </div>
-      </section>
-    </div>
-  </div>
 
-  <!-- /CARE section -->
+    <!-- Upcoming Visits + Pending Invites (2-col) -->
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Upcoming Visits with own date range (forward-looking, default next 7 days) -->
+      <div class="bg-card border border-border rounded-lg shadow-sm">
+        <header class="px-6 pt-8 pb-6 min-h-24 flex items-start justify-between gap-3">
+          <div class="space-y-1">
+            <h3 class="text-xl font-semibold">Upcoming Visits</h3>
+            <p class="text-sm text-muted-foreground">Scheduled visits by location</p>
+          </div>
+          <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors shrink-0"><i data-lucide="calendar" class="size-4 text-muted-foreground"></i>Next 7 days<i data-lucide="chevron-down" class="size-4"></i></button>
+        </header>
+        <div class="px-6 pb-6">
+          <div class="text-3xl font-bold text-tc-sage-700">12</div>
+          <div class="w-full flex rounded-full h-5 overflow-hidden bg-muted mt-3" role="img" aria-label="Upcoming visits by location: 5 at school, 4 telehealth, 2 on campus, 1 day student off-campus">
+            <div class="h-full bg-primary" style="width:42%"></div>
+            <div class="h-full bg-tc-sage-500" style="width:33%"></div>
+            <div class="h-full bg-tc-orange-500" style="width:17%"></div>
+            <div class="h-full bg-tc-berry-500" style="width:8%"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-3 pt-4 text-sm">
+            <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-primary"></span>At school <span class="ml-auto font-semibold mono">5</span></div>
+            <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-sage-500"></span>Telehealth <span class="ml-auto font-semibold mono">4</span></div>
+            <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-orange-500"></span>On campus <span class="ml-auto font-semibold mono">2</span></div>
+            <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-berry-500"></span>Off-campus <span class="ml-auto font-semibold mono">1</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Invites -->
+      <div class="bg-card border border-border rounded-lg shadow-sm">
+        <header class="px-6 pt-8 pb-6 min-h-24">
+          <h3 class="text-xl font-semibold">Pending Invites</h3>
+          <p class="text-sm text-muted-foreground mt-1">Guardian invites awaiting acceptance</p>
+        </header>
+        <div class="px-6 pb-6">
+          <div class="text-3xl font-bold text-tc-sage-700">23</div>
+          <p class="text-sm text-muted-foreground mt-2">8 sent this week  ·  4 nearing expiration</p>
+          <button type="button" onclick="navigate('students')" class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer">View invites<i data-lucide="arrow-right" class="size-4"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INSURANCE COVERAGE (hybrid plans only) ============ -->
+  <section class="insurance-only mb-8" aria-labelledby="insurance-heading">
+    <div class="bg-card border border-border rounded-lg shadow-sm">
+      <header class="px-6 pt-8 pb-6 min-h-24">
+        <h3 id="insurance-heading" class="text-xl font-semibold">Insurance Coverage</h3>
+        <p class="text-sm text-muted-foreground mt-1">Current insurance status across your active roster</p>
+      </header>
+      <div class="px-6 pb-6">
+        <div class="grid grid-cols-3 gap-4">
+          <div class="rounded-md border border-border p-4"><div class="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Insured</div><div class="text-2xl font-semibold mt-1">812</div><div class="text-xs text-muted-foreground mt-0.5">65% of students</div></div>
+          <div class="rounded-md border border-border p-4"><div class="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Uninsured</div><div class="text-2xl font-semibold mt-1">287</div><div class="text-xs text-muted-foreground mt-0.5">23% of students</div></div>
+          <div class="rounded-md border border-border p-4"><div class="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Unknown</div><div class="text-2xl font-semibold mt-1">148</div><div class="text-xs text-muted-foreground mt-0.5">12% of students</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VISIT & INVITE ACTIVITY ============ -->
+  <section aria-labelledby="activity-heading" class="mb-8">
+    <div class="flex items-center justify-between mb-4">
+      <h2 id="activity-heading" class="text-lg font-semibold">Visit &amp; Invite Activity</h2>
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4 text-muted-foreground"></i>Last 30 days<i data-lucide="chevron-down" class="size-4"></i></button>
+    </div>
+
+    <!-- KPI row: Invites Sent + Invite Conversion -->
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <h3 class="text-xl font-semibold">Invites Sent</h3>
+        <p class="text-sm text-muted-foreground mt-1">Guardian invites delivered in this period</p>
+        <div class="text-3xl font-bold text-tc-sage-700 mt-4">47</div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <h3 class="text-xl font-semibold">Invite Conversion</h3>
+        <p class="text-sm text-muted-foreground mt-1">Invites accepted / invites sent</p>
+        <div class="text-3xl font-bold text-tc-sage-700 mt-4">64%</div>
+        <p class="text-xs text-muted-foreground mt-1">30 accepted of 47 sent</p>
+      </div>
+    </div>
+
+    <!-- Donut row: Invite Status + Visit Activity + Visit Location -->
+    <div class="grid grid-cols-3 gap-4">
+      <!-- Invite Status donut -->
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <h3 class="text-xl font-semibold">Invite Status</h3>
+        <p class="text-sm text-muted-foreground mt-1 mb-4">Distribution across referral states</p>
+        <div class="bg-muted rounded-md h-32 flex items-center justify-center gap-2 text-sm text-muted-foreground"><i data-lucide="pie-chart" class="size-4"></i>Donut</div>
+        <dl class="mt-4 space-y-2 text-sm">
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-sage-500"></span><dt>Active</dt><dd class="ml-auto font-semibold mono">30</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-primary"></span><dt>Pending</dt><dd class="ml-auto font-semibold mono">10</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-orange-500"></span><dt>Claimed</dt><dd class="ml-auto font-semibold mono">4</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-muted-foreground/40"></span><dt>Expired</dt><dd class="ml-auto font-semibold mono">2</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-berry-500"></span><dt>Cancelled</dt><dd class="ml-auto font-semibold mono">1</dd></div>
+        </dl>
+      </div>
+
+      <!-- Visit Activity donut (by status) -->
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <h3 class="text-xl font-semibold">Visit Activity</h3>
+        <p class="text-sm text-muted-foreground mt-1 mb-4">Visits in this period, by status</p>
+        <div class="bg-muted rounded-md h-32 flex items-center justify-center gap-2 text-sm text-muted-foreground"><i data-lucide="pie-chart" class="size-4"></i>Donut</div>
+        <dl class="mt-4 space-y-2 text-sm">
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-primary"></span><dt>Scheduled</dt><dd class="ml-auto font-semibold mono">12</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-sage-500"></span><dt>Completed</dt><dd class="ml-auto font-semibold mono">60</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-orange-500"></span><dt>No-show</dt><dd class="ml-auto font-semibold mono">4</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-berry-500"></span><dt>Late cancellation</dt><dd class="ml-auto font-semibold mono">2</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-muted-foreground/40"></span><dt>Cancelled</dt><dd class="ml-auto font-semibold mono">3</dd></div>
+        </dl>
+      </div>
+
+      <!-- Visit Location donut -->
+      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+        <h3 class="text-xl font-semibold">Visit Location</h3>
+        <p class="text-sm text-muted-foreground mt-1 mb-4">Where visits happened</p>
+        <div class="bg-muted rounded-md h-32 flex items-center justify-center gap-2 text-sm text-muted-foreground"><i data-lucide="pie-chart" class="size-4"></i>Donut</div>
+        <dl class="mt-4 space-y-2 text-sm">
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-primary"></span><dt>At school</dt><dd class="ml-auto font-semibold mono">31</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-sage-500"></span><dt>Telehealth</dt><dd class="ml-auto font-semibold mono">42</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-orange-500"></span><dt>On campus</dt><dd class="ml-auto font-semibold mono">6</dd></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-berry-500"></span><dt>Off-campus</dt><dd class="ml-auto font-semibold mono">2</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRENDS (merged-portal addition; not in TC Insights today) ============ -->
+  <section aria-labelledby="trends-heading">
+    <h2 id="trends-heading" class="text-lg font-semibold mb-4">Trends</h2>
+    <div class="bg-card border border-border rounded-lg shadow-sm">
+      <header class="px-6 py-4 border-b border-border flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-semibold">Visits over time</h3>
+          <p class="text-xs text-muted-foreground mt-0.5">Daily delivered visits, last 30 days</p>
+        </div>
+        <button type="button" class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline">Details<i data-lucide="arrow-right" class="size-4"></i></button>
+      </header>
+      <div class="p-6">
+        <div class="bg-muted rounded-md h-56 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+          <i data-lucide="bar-chart-3" class="size-4"></i>Stacked bar: at-school + telehealth, 30 days
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <!-- ===================== REPORTS — WELLNESS ===================== -->
