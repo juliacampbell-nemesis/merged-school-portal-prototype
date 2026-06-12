@@ -307,7 +307,7 @@
   </div>
 </div>
 
-<!-- ===================== FEEDBACK PORTAL — floating button + drawer; entries stored in localStorage, also mailto'd to Julia ===================== -->
+<!-- ===================== FEEDBACK PORTAL — floating button + drawer; entries POST to a shared Google Form + cached in localStorage ===================== -->
 <button id="feedback-fab" type="button" onclick="openFeedbackDrawer()" class="fixed bottom-16 right-4 z-50 inline-flex items-center gap-2 h-10 px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-lg hover:bg-primary/90 transition-colors" aria-haspopup="dialog">
   <i data-lucide="message-square-plus" class="size-4"></i>
   Send feedback
@@ -381,7 +381,7 @@
       </div>
       <div class="text-xs text-muted-foreground bg-muted/40 border border-border rounded-md px-3 py-2 flex items-start gap-2">
         <i data-lucide="info" class="size-3.5 mt-0.5 shrink-0"></i>
-        <span>Submissions are saved to your browser and opened in your email client addressed to <span class="mono">julia.campbell@timelycare.com</span>. The current URL is included automatically.</span>
+        <span>Submissions sync to our shared team Google Sheet. A copy (including any screenshot) is also kept in your browser's feedback log. The current page URL is included automatically.</span>
       </div>
     </form>
     <footer class="px-6 py-4 border-t border-border shrink-0 flex items-center justify-between gap-2">
@@ -5615,7 +5615,7 @@ Julia Campbell</textarea>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
       <h1 class="text-2xl font-bold tracking-tight">Feedback log</h1>
-      <p class="text-base text-muted-foreground mt-1">Feedback you've submitted from this browser. Also delivered via email to <span class="mono">julia.campbell@timelycare.com</span>.</p>
+      <p class="text-base text-muted-foreground mt-1">Feedback you've submitted from <strong>this browser</strong>. All submissions also sync to the team's shared Google Sheet — this list is just your local copy (and the only place screenshots are kept).</p>
     </div>
     <div class="flex items-center gap-2">
       <button type="button" onclick="exportFeedbackCsv()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Export CSV</button>
@@ -6950,8 +6950,57 @@ Julia Campbell</textarea>
 
   // === FEEDBACK PORTAL — drawer + submission storage ===
   const FEEDBACK_STORAGE_KEY = 'prototypeFeedback';
-  const FEEDBACK_RECIPIENT = 'julia.campbell@timelycare.com';
   const FEEDBACK_MAX_IMAGE_BYTES = 2 * 1024 * 1024; // 2 MB — keeps localStorage usable
+
+  // Google Form sync — submissions POST here so the whole team sees them in the
+  // linked Google Sheet. localStorage stays as each person's own "recent" view.
+  const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSe5IqPYDcXyjFTBtaEXWUR3XyelWJlzvpUsFkQOzCDXERwhdg/formResponse';
+  const GOOGLE_FORM_FIELDS = {
+    category: 'entry.2124464746',
+    title: 'entry.1527875484',
+    description: 'entry.807785799',
+    severity: 'entry.1841954309',
+    name: 'entry.1843538604',
+    url: 'entry.2051973491',
+  };
+  // Map our internal category keys to the exact Google Form option labels.
+  // 'other' uses Google's inline-other sentinel + a companion .other_option_response.
+  const GOOGLE_CATEGORY_LABEL = {
+    ui: 'UI / visual',
+    experience: 'Experience / flow',
+    functionality: 'Functionality',
+    permissions: 'Permissions',
+    missing: 'Missing feature',
+    bug: 'Bug',
+    copy: 'Copy/wording',
+    other: '__other_option__',
+  };
+  function syncFeedbackToGoogleForm(entry) {
+    try {
+      const params = new URLSearchParams();
+      params.append(GOOGLE_FORM_FIELDS.category, GOOGLE_CATEGORY_LABEL[entry.category] || '__other_option__');
+      if (entry.category === 'other') {
+        params.append(GOOGLE_FORM_FIELDS.category + '.other_option_response', entry.otherDetail || 'Other');
+      }
+      params.append(GOOGLE_FORM_FIELDS.title, entry.title || '');
+      // Screenshots can't go through a Form POST — note their presence in the
+      // description so the Sheet reviewer knows one exists in the submitter's log.
+      let desc = entry.description || '';
+      if (entry.screenshot) {
+        desc += `\n\n[Screenshot attached in submitter's local feedback log: ${entry.screenshotMeta?.name || 'screenshot'}]`;
+      }
+      params.append(GOOGLE_FORM_FIELDS.description, desc);
+      if (entry.severity) {
+        params.append(GOOGLE_FORM_FIELDS.severity, entry.severity.charAt(0).toUpperCase() + entry.severity.slice(1));
+      }
+      if (entry.name) params.append(GOOGLE_FORM_FIELDS.name, entry.name);
+      params.append(GOOGLE_FORM_FIELDS.url, entry.url || '');
+      // no-cors: the POST goes through; we just can't (and don't need to) read the response.
+      fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body: params });
+    } catch (e) {
+      // Best-effort sync — the local log still has the entry if this fails.
+    }
+  }
   let feedbackScreenshotDataUrl = null; // staged image, set when user picks a file
   let feedbackScreenshotMeta = null;    // { name, size, type }
   function ingestFeedbackScreenshotFile(file) {
@@ -7065,28 +7114,13 @@ Julia Campbell</textarea>
     const list = loadFeedback();
     list.unshift(entry);
     saveFeedback(list);
-    // Open user's mail client with the body pre-filled — mailto can't attach
-    // files, so we just note that a screenshot is in the local log.
-    const subject = encodeURIComponent(`[Prototype feedback] ${entry.title}`);
-    const screenshotNote = entry.screenshot
-      ? `\nScreenshot: attached locally (${entry.screenshotMeta.name}, ${formatBytes(entry.screenshotMeta.size)}). Mailto can't carry attachments — view the image in the prototype's Feedback log.\n`
-      : '';
-    const body = encodeURIComponent(
-      `Category: ${FEEDBACK_CATEGORY_LABEL[category] || category}` +
-      (entry.otherDetail ? ` (${entry.otherDetail})` : '') + `\n` +
-      `Severity: ${severity}\n` +
-      `Submitted by: ${entry.name || '(anonymous)'}\n` +
-      `When: ${entry.timestamp}\n` +
-      `URL: ${entry.url}\n` +
-      screenshotNote +
-      `\nTitle: ${entry.title}\n\n` +
-      `Description:\n${entry.description}\n`
-    );
-    window.open(`mailto:${FEEDBACK_RECIPIENT}?subject=${subject}&body=${body}`, '_blank');
+    // Sync to the shared Google Form (team-wide), keep the local log as the
+    // per-user view + screenshot store.
+    syncFeedbackToGoogleForm(entry);
     form.reset();
     clearFeedbackScreenshot();
     closeFeedbackDrawer();
-    showToast('Feedback saved + email opened', 'check');
+    showToast('Feedback sent — thank you!', 'check');
     // If the feedback log is currently in view, re-render it.
     if (document.getElementById('feedback')?.classList.contains('active')) renderFeedbackLog();
   }
