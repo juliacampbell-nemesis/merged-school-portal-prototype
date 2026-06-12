@@ -2343,12 +2343,127 @@ Julia Campbell</textarea>
     </div>
     <!-- /ASSIGN inner panel -->
 
-    <!-- REPORTING inner panel — content TBD from Alongside reference -->
+    <!-- REPORTING inner panel — mirrors Alongside Skills Reporting -->
     <div id="skills-inner-panel-reporting" class="hidden">
-      <div class="bg-card border border-border rounded-lg shadow-sm p-12 text-center">
-        <i data-lucide="bar-chart-3" class="size-10 text-muted-foreground mx-auto mb-3"></i>
-        <h3 class="text-base font-bold mb-2">Skill assignment reporting</h3>
-        <p class="text-sm text-muted-foreground max-w-md mx-auto">Track which skills have been assigned via LMS, completion rates, and student engagement. Content sourced from Alongside Reporting when this tab is wired.</p>
+      <!-- Scope selector + completion report download -->
+      <div class="flex items-center gap-4 mb-6 flex-wrap">
+        <button type="button" class="inline-flex items-center justify-between gap-3 h-10 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors min-w-72">
+          Lincoln Unified School District<i data-lucide="chevron-down" class="size-4 text-muted-foreground"></i>
+        </button>
+        <a class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline cursor-pointer"><i data-lucide="download" class="size-4"></i>Completion report</a>
+      </div>
+
+      <!-- District Summary -->
+      <h3 class="text-lg font-semibold mb-4">District Summary</h3>
+      <div class="grid grid-cols-4 gap-4 mb-8">
+        <div class="bg-card border border-border border-t-4 border-t-tc-berry-500 rounded-lg shadow-sm p-5">
+          <div class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Staff who assigned</div>
+          <div class="text-3xl font-semibold text-tc-berry-600 mt-2">11</div>
+        </div>
+        <div class="bg-card border border-border border-t-4 border-t-tc-navy-500 rounded-lg shadow-sm p-5">
+          <div class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Skills assigned</div>
+          <div class="text-3xl font-semibold text-tc-navy-600 mt-2">16</div>
+        </div>
+        <div class="bg-card border border-border border-t-4 border-t-tc-orange-500 rounded-lg shadow-sm p-5">
+          <div class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Skills started</div>
+          <div class="text-3xl font-semibold text-tc-orange-600 mt-2">8</div>
+        </div>
+        <div class="bg-card border border-border border-t-4 border-t-tc-sage-500 rounded-lg shadow-sm p-5">
+          <div class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Skills completed</div>
+          <div class="text-3xl font-semibold text-tc-sage-600 mt-2">3</div>
+        </div>
+      </div>
+
+      <!-- Top Skills Assigned -->
+      <h3 class="text-lg font-semibold mb-4">Top Skills Assigned</h3>
+      <div class="grid grid-cols-4 gap-4 mb-8">
+        <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+          <div class="px-5 py-3 bg-tc-navy-50"><span class="font-semibold text-tc-navy-700">Improve sleep</span></div>
+          <div class="p-5">
+            <p class="text-sm text-muted-foreground min-h-12">Level up your sleep to boost your mood and feel energized</p>
+            <div class="mt-4">
+              <div class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Student completion <i data-lucide="info" class="size-3.5"></i></div>
+              <div class="flex items-center gap-2 mt-2">
+                <div class="flex-1 h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-tc-sage-500" style="width:100%"></div></div>
+                <span class="text-sm font-semibold mono">2/2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+          <div class="px-5 py-3 bg-tc-sage-50"><span class="font-semibold text-tc-sage-700">Increase focus</span></div>
+          <div class="p-5">
+            <p class="text-sm text-muted-foreground min-h-12">Increase focus and decrease procrastination</p>
+            <div class="mt-4">
+              <div class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Student completion <i data-lucide="info" class="size-3.5"></i></div>
+              <div class="flex items-center gap-2 mt-2">
+                <div class="flex-1 h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-tc-sage-500" style="width:0%"></div></div>
+                <span class="text-sm font-semibold mono">0/1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+          <div class="px-5 py-3 bg-tc-orange-50"><span class="font-semibold text-tc-orange-700">Increase motivation</span></div>
+          <div class="p-5">
+            <p class="text-sm text-muted-foreground min-h-12">Create a reward system to stay motivated and track progress</p>
+            <div class="mt-4">
+              <div class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Student completion <i data-lucide="info" class="size-3.5"></i></div>
+              <div class="flex items-center gap-2 mt-2">
+                <div class="flex-1 h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-tc-sage-500" style="width:0%"></div></div>
+                <span class="text-sm font-semibold mono">0/1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+          <div class="px-5 py-3 bg-tc-berry-50"><span class="font-semibold text-tc-berry-700">Boost self-confidence</span></div>
+          <div class="p-5">
+            <p class="text-sm text-muted-foreground min-h-12">Practice self-compassion to boost your self-confidence</p>
+            <div class="mt-4">
+              <div class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Student completion <i data-lucide="info" class="size-3.5"></i></div>
+              <div class="flex items-center gap-2 mt-2">
+                <div class="flex-1 h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-tc-sage-500" style="width:0%"></div></div>
+                <span class="text-sm font-semibold mono">0/1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schools breakdown -->
+      <h3 class="text-lg font-semibold mb-4">Schools</h3>
+      <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-muted">
+            <tr class="border-b border-border">
+              <th scope="col" class="text-left px-6 py-3 text-base font-bold">School</th>
+              <th scope="col" class="text-left py-3 text-base font-bold">Staff who assigned</th>
+              <th scope="col" class="text-left py-3 text-base font-bold"><span class="inline-flex items-center gap-1">Student completion <i data-lucide="info" class="size-3.5 text-muted-foreground"></i></span></th>
+              <th scope="col" class="text-right pr-6 py-3 text-base font-bold"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('school-detail')">
+              <td class="px-6 py-4 font-semibold">Lincoln High School</td>
+              <td class="py-4 mono">6</td>
+              <td class="py-4"><div class="flex items-center gap-3 max-w-xs"><div class="flex-1 h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-tc-orange-400" style="width:50%"></div></div><span class="text-sm font-semibold mono shrink-0">2/4</span></div></td>
+              <td class="text-right pr-6 py-4"><i data-lucide="chevron-right" class="size-4 text-muted-foreground inline"></i></td>
+            </tr>
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('school-detail')">
+              <td class="px-6 py-4 font-semibold">Roosevelt Middle School</td>
+              <td class="py-4 mono">3</td>
+              <td class="py-4"><div class="flex items-center gap-3 max-w-xs"><div class="flex-1 h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-tc-sage-500" style="width:67%"></div></div><span class="text-sm font-semibold mono shrink-0">2/3</span></div></td>
+              <td class="text-right pr-6 py-4"><i data-lucide="chevron-right" class="size-4 text-muted-foreground inline"></i></td>
+            </tr>
+            <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('school-detail')">
+              <td class="px-6 py-4 font-semibold">Washington Elementary</td>
+              <td class="py-4 mono">2</td>
+              <td class="py-4"><div class="flex items-center gap-3 max-w-xs"><div class="flex-1 h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-muted-foreground/40" style="width:0%"></div></div><span class="text-sm font-semibold mono shrink-0">0/2</span></div></td>
+              <td class="text-right pr-6 py-4"><i data-lucide="chevron-right" class="size-4 text-muted-foreground inline"></i></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 </main>
