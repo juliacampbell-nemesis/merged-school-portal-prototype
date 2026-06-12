@@ -350,6 +350,18 @@
         <textarea id="fb-description" rows="5" required placeholder="What did you see? What did you expect? Steps to reproduce if it's a bug." class="w-full rounded-md border border-input bg-input-bg px-3 py-2 text-sm leading-5"></textarea>
       </div>
       <div>
+        <label class="block text-sm font-semibold mb-1.5">Screenshot <span class="text-muted-foreground text-xs">(optional, PNG/JPG up to 2 MB)</span></label>
+        <input id="fb-screenshot-file" type="file" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp" onchange="onFeedbackScreenshotChange(event)" class="block w-full text-sm text-muted-foreground file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border file:border-input file:bg-card file:text-sm file:font-semibold file:cursor-pointer file:hover:bg-muted">
+        <div id="fb-screenshot-preview" class="hidden mt-2 flex items-center gap-3 rounded-md border border-border p-2">
+          <img id="fb-screenshot-thumb" alt="Screenshot preview" class="size-16 rounded object-cover border border-border" src="">
+          <div class="flex-1 min-w-0">
+            <div id="fb-screenshot-name" class="text-sm font-semibold truncate"></div>
+            <div id="fb-screenshot-size" class="text-xs text-muted-foreground mono"></div>
+          </div>
+          <button type="button" onclick="clearFeedbackScreenshot()" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Remove screenshot"><i data-lucide="x" class="size-4"></i></button>
+        </div>
+      </div>
+      <div>
         <label class="block text-sm font-semibold mb-2">Severity</label>
         <div class="flex gap-2">
           <label class="flex items-center gap-2 rounded-md border border-border px-3 py-1.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-severity" value="low" checked class="size-4 accent-primary"><span class="text-sm">Low</span></label>
@@ -374,6 +386,25 @@
       </div>
     </footer>
   </aside>
+</div>
+
+<!-- Feedback screenshot lightbox (opens when a log entry's "View" button is clicked) -->
+<div id="feedback-screenshot-modal" class="hidden fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-labelledby="feedback-screenshot-caption">
+  <div onclick="closeFeedbackScreenshot()" class="absolute inset-0 bg-foreground/70"></div>
+  <div class="absolute inset-0 flex items-center justify-center p-8">
+    <div class="bg-card rounded-lg shadow-xl max-w-5xl max-h-[90vh] w-full flex flex-col" onclick="event.stopPropagation()">
+      <header class="flex items-center justify-between px-6 py-3 border-b border-border shrink-0 gap-4">
+        <div id="feedback-screenshot-caption" class="text-sm font-semibold truncate"></div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a id="feedback-screenshot-download" href="#" download="screenshot.png" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</a>
+          <button type="button" onclick="closeFeedbackScreenshot()" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Close screenshot viewer"><i data-lucide="x" class="size-4"></i></button>
+        </div>
+      </header>
+      <div class="flex-1 overflow-auto p-4 bg-muted/40 flex items-center justify-center">
+        <img id="feedback-screenshot-img" alt="Feedback screenshot" class="max-w-full max-h-full object-contain rounded" src="">
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== DEMO CONTROLS (developer/reviewer toolbar — remove on handoff) ===================== -->
@@ -5078,7 +5109,6 @@ Julia Campbell</textarea>
     <button id="settingstab-users" type="button" role="tab" aria-selected="true" onclick="setSettingsTab('users')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm"><i data-lucide="users-round" class="size-4"></i>Users &amp; permissions</button>
     <button id="settingstab-roles" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('roles')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="shield" class="size-4"></i>Roles</button>
     <button id="settingstab-integrations" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('integrations')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="plug" class="size-4"></i>Integrations</button>
-    <button id="settingstab-audit" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('audit')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="clipboard-list" class="size-4"></i>Audit log</button>
     <button id="settingstab-billing" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('billing')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="credit-card" class="size-4"></i>Billing</button>
   </div>
 
@@ -5383,32 +5413,6 @@ Julia Campbell</textarea>
     </section>
   </div>
 
-  <!-- AUDIT LOG PANEL -->
-  <div id="settingspanel-audit" class="settings-panel hidden">
-    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-      <header class="px-6 py-4 border-b border-border">
-        <h2 class="text-xl font-semibold">Audit log</h2>
-        <p class="text-sm text-muted-foreground mt-0.5">Trail of administrative actions across the district.</p>
-      </header>
-      <table class="w-full text-sm">
-        <thead class="bg-muted">
-          <tr class="border-b border-border">
-            <th scope="col" class="text-left px-6 py-3 text-base font-bold">When</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Actor</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Action</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Target</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-border">
-          <tr><td class="px-6 py-3 mono text-xs">Today, 9:14 AM</td><td class="py-3 font-semibold">Julia Campbell</td><td class="py-3">Updated user role</td><td class="py-3">Sarah Park · Clinical Staff</td></tr>
-          <tr><td class="px-6 py-3 mono text-xs">Yesterday, 3:22 PM</td><td class="py-3 font-semibold">Dana Walker</td><td class="py-3">Invited user</td><td class="py-3">ana.lopez@lincolnusd.edu</td></tr>
-          <tr><td class="px-6 py-3 mono text-xs">Tue, 5/26 10:05 AM</td><td class="py-3 font-semibold">Dana Walker</td><td class="py-3">Edited district profile</td><td class="py-3">Time zone</td></tr>
-          <tr><td class="px-6 py-3 mono text-xs">Mon, 5/25 8:48 AM</td><td class="py-3 font-semibold">Julia Campbell</td><td class="py-3">Resent guardian invite</td><td class="py-3">Maria Martinez · Kevin Martinez</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </div>
-
   <!-- BILLING PANEL -->
   <div id="settingspanel-billing" class="settings-panel hidden">
     <section class="space-y-3 max-w-2xl">
@@ -5622,6 +5626,7 @@ Julia Campbell</textarea>
           <th scope="col" class="text-left py-3 text-base font-bold">Severity</th>
           <th scope="col" class="text-left py-3 text-base font-bold">Title</th>
           <th scope="col" class="text-left py-3 text-base font-bold">Page</th>
+          <th scope="col" class="text-left py-3 text-base font-bold">Screenshot</th>
           <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Actions</th>
         </tr>
       </thead>
@@ -6940,6 +6945,38 @@ Julia Campbell</textarea>
   // === FEEDBACK PORTAL — drawer + submission storage ===
   const FEEDBACK_STORAGE_KEY = 'prototypeFeedback';
   const FEEDBACK_RECIPIENT = 'julia.campbell@timelycare.com';
+  const FEEDBACK_MAX_IMAGE_BYTES = 2 * 1024 * 1024; // 2 MB — keeps localStorage usable
+  let feedbackScreenshotDataUrl = null; // staged image, set when user picks a file
+  let feedbackScreenshotMeta = null;    // { name, size, type }
+  function onFeedbackScreenshotChange(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) { clearFeedbackScreenshot(); return; }
+    if (!/^image\//.test(file.type)) { showToast('Please choose an image file', 'info'); event.target.value = ''; return; }
+    if (file.size > FEEDBACK_MAX_IMAGE_BYTES) { showToast('Image is too large — please keep it under 2 MB', 'info'); event.target.value = ''; return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      feedbackScreenshotDataUrl = e.target.result;
+      feedbackScreenshotMeta = { name: file.name, size: file.size, type: file.type };
+      const preview = document.getElementById('fb-screenshot-preview');
+      document.getElementById('fb-screenshot-thumb').src = feedbackScreenshotDataUrl;
+      document.getElementById('fb-screenshot-name').textContent = file.name;
+      document.getElementById('fb-screenshot-size').textContent = formatBytes(file.size);
+      preview.classList.remove('hidden');
+    };
+    reader.readAsDataURL(file);
+  }
+  function clearFeedbackScreenshot() {
+    feedbackScreenshotDataUrl = null;
+    feedbackScreenshotMeta = null;
+    const input = document.getElementById('fb-screenshot-file');
+    if (input) input.value = '';
+    document.getElementById('fb-screenshot-preview')?.classList.add('hidden');
+  }
+  function formatBytes(n) {
+    if (n < 1024) return n + ' B';
+    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+    return (n / 1024 / 1024).toFixed(2) + ' MB';
+  }
   const FEEDBACK_CATEGORY_LABEL = {
     ui: '🎨 UI / visual',
     experience: '🧭 Experience / flow',
@@ -6982,25 +7019,33 @@ Julia Campbell</textarea>
       description: document.getElementById('fb-description').value.trim(),
       otherDetail: document.getElementById('fb-other-detail').value.trim(),
       name: document.getElementById('fb-name').value.trim(),
-      url: window.location.href
+      url: window.location.href,
+      screenshot: feedbackScreenshotDataUrl,
+      screenshotMeta: feedbackScreenshotMeta
     };
     const list = loadFeedback();
     list.unshift(entry);
     saveFeedback(list);
-    // Open user's mail client with the body pre-filled — works without a backend.
+    // Open user's mail client with the body pre-filled — mailto can't attach
+    // files, so we just note that a screenshot is in the local log.
     const subject = encodeURIComponent(`[Prototype feedback] ${entry.title}`);
+    const screenshotNote = entry.screenshot
+      ? `\nScreenshot: attached locally (${entry.screenshotMeta.name}, ${formatBytes(entry.screenshotMeta.size)}). Mailto can't carry attachments — view the image in the prototype's Feedback log.\n`
+      : '';
     const body = encodeURIComponent(
       `Category: ${FEEDBACK_CATEGORY_LABEL[category] || category}` +
       (entry.otherDetail ? ` (${entry.otherDetail})` : '') + `\n` +
       `Severity: ${severity}\n` +
       `Submitted by: ${entry.name || '(anonymous)'}\n` +
       `When: ${entry.timestamp}\n` +
-      `URL: ${entry.url}\n\n` +
-      `Title: ${entry.title}\n\n` +
+      `URL: ${entry.url}\n` +
+      screenshotNote +
+      `\nTitle: ${entry.title}\n\n` +
       `Description:\n${entry.description}\n`
     );
     window.open(`mailto:${FEEDBACK_RECIPIENT}?subject=${subject}&body=${body}`, '_blank');
     form.reset();
+    clearFeedbackScreenshot();
     closeFeedbackDrawer();
     showToast('Feedback saved + email opened', 'check');
     // If the feedback log is currently in view, re-render it.
@@ -7025,12 +7070,16 @@ Julia Campbell</textarea>
                      : 'bg-card text-muted-foreground border border-border';
       const pageLabel = (() => { try { return new URL(e.url).hash || '/'; } catch (_) { return e.url; } })();
       const escape = s => (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const screenshotCell = e.screenshot
+        ? `<button type="button" onclick="openFeedbackScreenshot('${e.id}')" class="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:underline cursor-pointer"><img src="${e.screenshot}" alt="" class="size-10 rounded object-cover border border-border"><span>View</span></button>`
+        : '<span class="text-xs text-muted-foreground">—</span>';
       return `<tr>
         <td class="px-6 py-3 mono text-xs">${escape(when)}</td>
         <td class="py-3">${escape(catLabel)}${e.otherDetail ? ` <span class="text-muted-foreground">(${escape(e.otherDetail)})</span>` : ''}</td>
         <td class="py-3"><span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold leading-4 ${sevClass}">${escape(e.severity)}</span></td>
         <td class="py-3 font-semibold">${escape(e.title)}<div class="text-xs text-muted-foreground font-normal mt-0.5 line-clamp-2">${escape(e.description)}</div></td>
         <td class="py-3 mono text-xs text-muted-foreground">${escape(pageLabel)}</td>
+        <td class="py-3">${screenshotCell}</td>
         <td class="text-right pr-6 py-3"><button type="button" onclick="deleteFeedback('${e.id}')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Delete entry"><i data-lucide="trash-2" class="size-4"></i></button></td>
       </tr>`;
     }).join('');
@@ -7041,13 +7090,28 @@ Julia Campbell</textarea>
     saveFeedback(list);
     renderFeedbackLog();
   }
+  function openFeedbackScreenshot(id) {
+    const entry = loadFeedback().find(e => e.id === id);
+    if (!entry || !entry.screenshot) return;
+    document.getElementById('feedback-screenshot-img').src = entry.screenshot;
+    document.getElementById('feedback-screenshot-caption').textContent =
+      `${entry.title}  ·  ${entry.screenshotMeta?.name || 'screenshot'}`;
+    document.getElementById('feedback-screenshot-download').href = entry.screenshot;
+    document.getElementById('feedback-screenshot-download').download = entry.screenshotMeta?.name || 'feedback-screenshot.png';
+    document.getElementById('feedback-screenshot-modal').classList.remove('hidden');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  function closeFeedbackScreenshot() {
+    document.getElementById('feedback-screenshot-modal')?.classList.add('hidden');
+  }
   function exportFeedbackCsv() {
     const list = loadFeedback();
     if (!list.length) { showToast('No feedback to export', 'info'); return; }
-    const rows = [['When','Category','Other detail','Severity','Title','Description','URL','Name'].join(',')];
+    const rows = [['When','Category','Other detail','Severity','Title','Description','URL','Name','Screenshot'].join(',')];
     list.forEach(e => {
       const cell = s => `"${(s || '').toString().replace(/"/g, '""')}"`;
-      rows.push([e.timestamp, e.category, e.otherDetail, e.severity, e.title, e.description, e.url, e.name].map(cell).join(','));
+      const shot = e.screenshot ? (e.screenshotMeta?.name || 'attached') : '';
+      rows.push([e.timestamp, e.category, e.otherDetail, e.severity, e.title, e.description, e.url, e.name, shot].map(cell).join(','));
     });
     const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
@@ -7058,6 +7122,8 @@ Julia Campbell</textarea>
   }
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
+    const modal = document.getElementById('feedback-screenshot-modal');
+    if (modal && !modal.classList.contains('hidden')) { closeFeedbackScreenshot(); return; }
     const drawer = document.getElementById('feedback-drawer');
     if (drawer && !drawer.classList.contains('hidden')) closeFeedbackDrawer();
   });
@@ -7081,7 +7147,7 @@ Julia Campbell</textarea>
     document.querySelectorAll('.settings-panel').forEach(p => p.classList.add('hidden'));
     const panel = document.getElementById('settingspanel-' + tab);
     if (panel) panel.classList.remove('hidden');
-    ['district', 'users', 'roles', 'integrations', 'audit', 'billing'].forEach(t => {
+    ['district', 'users', 'roles', 'integrations', 'billing'].forEach(t => {
       const btn = document.getElementById('settingstab-' + t);
       if (btn) applyHelixPillState(btn, t === tab);
     });
