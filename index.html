@@ -350,24 +350,6 @@
         <textarea id="fb-description" rows="5" required placeholder="What did you see? What did you expect? Steps to reproduce if it's a bug." class="w-full rounded-md border border-input bg-input-bg px-3 py-2 text-sm leading-5"></textarea>
       </div>
       <div>
-        <label for="fb-screenshot-file" class="block text-sm font-semibold mb-1.5">Screenshot <span class="text-muted-foreground text-xs">(optional, PNG/JPG up to 2 MB)</span></label>
-        <!-- Drop zone: click anywhere to open the file picker, or drag and drop. -->
-        <div id="fb-screenshot-dropzone" onclick="document.getElementById('fb-screenshot-file').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('fb-screenshot-file').click();}" role="button" tabindex="0" aria-label="Choose or drop a screenshot" class="border border-dashed border-input rounded-md px-4 py-5 text-center cursor-pointer hover:bg-muted/40 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none">
-          <i data-lucide="image-plus" class="size-6 text-muted-foreground mx-auto mb-2"></i>
-          <p class="text-sm font-semibold">Drag and drop, or click to choose</p>
-          <p class="text-xs text-muted-foreground mt-0.5">PNG, JPG, GIF, or WebP — up to 2 MB</p>
-        </div>
-        <input id="fb-screenshot-file" type="file" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp" onchange="onFeedbackScreenshotChange(event)" class="sr-only">
-        <div id="fb-screenshot-preview" class="hidden mt-2 flex items-center gap-3 rounded-md border border-border p-2">
-          <img id="fb-screenshot-thumb" alt="Screenshot preview" class="size-16 rounded object-cover border border-border" src="">
-          <div class="flex-1 min-w-0">
-            <div id="fb-screenshot-name" class="text-sm font-semibold truncate"></div>
-            <div id="fb-screenshot-size" class="text-xs text-muted-foreground mono"></div>
-          </div>
-          <button type="button" onclick="clearFeedbackScreenshot()" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Remove screenshot"><i data-lucide="x" class="size-4"></i></button>
-        </div>
-      </div>
-      <div>
         <label class="block text-sm font-semibold mb-2">Severity</label>
         <div class="flex gap-2">
           <label class="flex items-center gap-2 rounded-md border border-border px-3 py-1.5 cursor-pointer hover:bg-muted/40 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"><input type="radio" name="fb-severity" value="low" checked class="size-4 accent-primary"><span class="text-sm">Low</span></label>
@@ -381,38 +363,17 @@
       </div>
       <div class="text-xs text-muted-foreground bg-muted/40 border border-border rounded-md px-3 py-2 flex items-start gap-2">
         <i data-lucide="info" class="size-3.5 mt-0.5 shrink-0"></i>
-        <span>Submissions sync to our shared team Google Sheet. A copy (including any screenshot) is also kept in your browser's feedback log. The current page URL is included automatically.</span>
+        <span>Submissions sync to our shared team Google Sheet. The current page URL is included automatically.</span>
       </div>
     </form>
-    <footer class="px-6 py-4 border-t border-border shrink-0 flex items-center justify-between gap-2">
-      <a class="text-sm font-semibold text-foreground hover:underline cursor-pointer inline-flex items-center gap-1" onclick="closeFeedbackDrawer(); navigate('feedback')"><i data-lucide="list" class="size-4"></i>View feedback log</a>
-      <div class="flex gap-2">
-        <button type="button" onclick="closeFeedbackDrawer()" class="inline-flex items-center justify-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
-        <button type="submit" form="feedback-form" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="send" class="size-4"></i>Send</button>
-      </div>
+    <footer class="px-6 py-4 border-t border-border shrink-0 flex items-center justify-end gap-2">
+      <button type="button" onclick="closeFeedbackDrawer()" class="inline-flex items-center justify-center h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button>
+      <button type="submit" form="feedback-form" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="send" class="size-4"></i>Send</button>
     </footer>
   </aside>
 </div>
 
 <!-- Feedback screenshot lightbox (opens when a log entry's "View" button is clicked) -->
-<div id="feedback-screenshot-modal" class="hidden fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-labelledby="feedback-screenshot-caption">
-  <div onclick="closeFeedbackScreenshot()" class="absolute inset-0 bg-foreground/70"></div>
-  <div class="absolute inset-0 flex items-center justify-center p-8">
-    <div class="bg-card rounded-lg shadow-xl max-w-5xl max-h-[90vh] w-full flex flex-col" onclick="event.stopPropagation()">
-      <header class="flex items-center justify-between px-6 py-3 border-b border-border shrink-0 gap-4">
-        <div id="feedback-screenshot-caption" class="text-sm font-semibold truncate"></div>
-        <div class="flex items-center gap-2 shrink-0">
-          <a id="feedback-screenshot-download" href="#" download="screenshot.png" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</a>
-          <button type="button" onclick="closeFeedbackScreenshot()" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Close screenshot viewer"><i data-lucide="x" class="size-4"></i></button>
-        </div>
-      </header>
-      <div class="flex-1 overflow-auto p-4 bg-muted/40 flex items-center justify-center">
-        <img id="feedback-screenshot-img" alt="Feedback screenshot" class="max-w-full max-h-full object-contain rounded" src="">
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ===================== DEMO CONTROLS (developer/reviewer toolbar — remove on handoff) ===================== -->
 <div id="demo-toolbar" class="fixed bottom-4 right-4 z-50">
   <!-- Collapsed trigger -->
@@ -5610,42 +5571,6 @@ Julia Campbell</textarea>
   </div>
 </main>
 
-<!-- ===================== FEEDBACK LOG — table of submissions saved in localStorage ===================== -->
-<main id="feedback" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Feedback log</h1>
-      <p class="text-base text-muted-foreground mt-1">Feedback you've submitted from <strong>this browser</strong>. All submissions also sync to the team's shared Google Sheet — this list is just your local copy (and the only place screenshots are kept).</p>
-    </div>
-    <div class="flex items-center gap-2">
-      <button type="button" onclick="exportFeedbackCsv()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Export CSV</button>
-      <button type="button" onclick="openFeedbackDrawer()" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="message-square-plus" class="size-4"></i>New feedback</button>
-    </div>
-  </div>
-
-  <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-    <table class="w-full text-sm">
-      <thead class="bg-muted">
-        <tr class="border-b border-border">
-          <th scope="col" class="text-left px-6 py-3 text-base font-bold">When</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">Category</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">Severity</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">Title</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">Page</th>
-          <th scope="col" class="text-left py-3 text-base font-bold">Screenshot</th>
-          <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="feedback-log-rows" class="divide-y divide-border"></tbody>
-    </table>
-    <div id="feedback-log-empty" class="hidden p-12 text-center">
-      <i data-lucide="message-square" class="size-10 text-muted-foreground mx-auto mb-3"></i>
-      <h3 class="text-base font-bold mb-1">No feedback yet</h3>
-      <p class="text-sm text-muted-foreground max-w-md mx-auto">Click "Send feedback" anywhere in the prototype to add the first entry. Entries are stored in this browser's localStorage.</p>
-    </div>
-  </div>
-</main>
-
 <!-- ===================== ADD USER (Step 1: details + role + schools — mirrors TC apps/school-portal/src/app/settings/users/add/page.tsx) ===================== -->
 <main id="settings-users-add" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
@@ -6948,12 +6873,10 @@ Julia Campbell</textarea>
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
   }
 
-  // === FEEDBACK PORTAL — drawer + submission storage ===
-  const FEEDBACK_STORAGE_KEY = 'prototypeFeedback';
-  const FEEDBACK_MAX_IMAGE_BYTES = 2 * 1024 * 1024; // 2 MB — keeps localStorage usable
-
-  // Google Form sync — submissions POST here so the whole team sees them in the
-  // linked Google Sheet. localStorage stays as each person's own "recent" view.
+  // === FEEDBACK PORTAL — drawer + Google Form sync ===
+  // No backend: submissions POST to a shared Google Form so the whole team
+  // sees them in the linked Sheet. Nothing is stored locally — the Sheet is
+  // the single source of truth.
   const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSe5IqPYDcXyjFTBtaEXWUR3XyelWJlzvpUsFkQOzCDXERwhdg/formResponse';
   const GOOGLE_FORM_FIELDS = {
     category: 'entry.2124464746',
@@ -6983,13 +6906,7 @@ Julia Campbell</textarea>
         params.append(GOOGLE_FORM_FIELDS.category + '.other_option_response', entry.otherDetail || 'Other');
       }
       params.append(GOOGLE_FORM_FIELDS.title, entry.title || '');
-      // Screenshots can't go through a Form POST — note their presence in the
-      // description so the Sheet reviewer knows one exists in the submitter's log.
-      let desc = entry.description || '';
-      if (entry.screenshot) {
-        desc += `\n\n[Screenshot attached in submitter's local feedback log: ${entry.screenshotMeta?.name || 'screenshot'}]`;
-      }
-      params.append(GOOGLE_FORM_FIELDS.description, desc);
+      params.append(GOOGLE_FORM_FIELDS.description, entry.description || '');
       if (entry.severity) {
         params.append(GOOGLE_FORM_FIELDS.severity, entry.severity.charAt(0).toUpperCase() + entry.severity.slice(1));
       }
@@ -6998,99 +6915,19 @@ Julia Campbell</textarea>
       // no-cors: the POST goes through; we just can't (and don't need to) read the response.
       fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body: params });
     } catch (e) {
-      // Best-effort sync — the local log still has the entry if this fails.
+      // Best-effort — nothing to fall back to without a backend.
     }
   }
-  let feedbackScreenshotDataUrl = null; // staged image, set when user picks a file
-  let feedbackScreenshotMeta = null;    // { name, size, type }
-  function ingestFeedbackScreenshotFile(file) {
-    if (!file) { clearFeedbackScreenshot(); return; }
-    if (!/^image\//.test(file.type)) { showToast('Please choose an image file', 'info'); document.getElementById('fb-screenshot-file').value = ''; return; }
-    if (file.size > FEEDBACK_MAX_IMAGE_BYTES) { showToast('Image is too large — please keep it under 2 MB', 'info'); document.getElementById('fb-screenshot-file').value = ''; return; }
-    const reader = new FileReader();
-    reader.onload = e => {
-      feedbackScreenshotDataUrl = e.target.result;
-      feedbackScreenshotMeta = { name: file.name, size: file.size, type: file.type };
-      const preview = document.getElementById('fb-screenshot-preview');
-      document.getElementById('fb-screenshot-thumb').src = feedbackScreenshotDataUrl;
-      document.getElementById('fb-screenshot-name').textContent = file.name;
-      document.getElementById('fb-screenshot-size').textContent = formatBytes(file.size);
-      preview.classList.remove('hidden');
-    };
-    reader.readAsDataURL(file);
-  }
-  function onFeedbackScreenshotChange(event) {
-    ingestFeedbackScreenshotFile(event.target.files && event.target.files[0]);
-  }
-  function clearFeedbackScreenshot() {
-    feedbackScreenshotDataUrl = null;
-    feedbackScreenshotMeta = null;
-    const input = document.getElementById('fb-screenshot-file');
-    if (input) input.value = '';
-    document.getElementById('fb-screenshot-preview')?.classList.add('hidden');
-  }
-  // Drag and drop wiring for the screenshot dropzone — initialized after the
-  // drawer markup exists in the DOM.
-  function initFeedbackDropzone() {
-    const dz = document.getElementById('fb-screenshot-dropzone');
-    if (!dz || dz.dataset.dndBound) return;
-    dz.dataset.dndBound = '1';
-    const setHover = on => {
-      dz.classList.toggle('border-primary', on);
-      dz.classList.toggle('bg-accent', on);
-      dz.classList.toggle('border-dashed', !on);
-      dz.classList.toggle('border-input', !on);
-    };
-    ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => {
-      e.preventDefault(); e.stopPropagation();
-      if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
-      setHover(true);
-    }));
-    ['dragleave','dragend'].forEach(ev => dz.addEventListener(ev, e => {
-      e.preventDefault(); e.stopPropagation();
-      // Only un-highlight if leaving the dropzone itself, not entering a child.
-      if (ev === 'dragleave' && dz.contains(e.relatedTarget)) return;
-      setHover(false);
-    }));
-    dz.addEventListener('drop', e => {
-      e.preventDefault(); e.stopPropagation();
-      setHover(false);
-      const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-      ingestFeedbackScreenshotFile(file);
-    });
-  }
-  function formatBytes(n) {
-    if (n < 1024) return n + ' B';
-    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
-    return (n / 1024 / 1024).toFixed(2) + ' MB';
-  }
-  const FEEDBACK_CATEGORY_LABEL = {
-    ui: '🎨 UI / visual',
-    experience: '🧭 Experience / flow',
-    functionality: '⚙️ Functionality',
-    permissions: '🔐 Permissions',
-    missing: '➕ Missing feature',
-    bug: '🐛 Bug',
-    copy: '✏️ Copy / wording',
-    other: '❓ Other'
-  };
   function openFeedbackDrawer() {
     const drawer = document.getElementById('feedback-drawer');
     if (!drawer) return;
     drawer.classList.remove('hidden');
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-    initFeedbackDropzone();
     setTimeout(() => document.getElementById('fb-title')?.focus(), 50);
   }
   function closeFeedbackDrawer() {
     const drawer = document.getElementById('feedback-drawer');
     if (drawer) drawer.classList.add('hidden');
-  }
-  function loadFeedback() {
-    try { return JSON.parse(localStorage.getItem(FEEDBACK_STORAGE_KEY)) || []; } catch (e) { return []; }
-  }
-  function saveFeedback(list) {
-    try { localStorage.setItem(FEEDBACK_STORAGE_KEY, JSON.stringify(list)); } catch (e) {}
   }
   function submitFeedback(event) {
     event.preventDefault();
@@ -7099,8 +6936,6 @@ Julia Campbell</textarea>
     if (!category) return;
     const severity = form.querySelector('input[name=fb-severity]:checked')?.value || 'low';
     const entry = {
-      id: 'fb-' + (loadFeedback().length + 1) + '-' + Math.floor(performance.now() * 1000),
-      timestamp: new Date().toISOString(),
       category,
       severity,
       title: document.getElementById('fb-title').value.trim(),
@@ -7108,106 +6943,17 @@ Julia Campbell</textarea>
       otherDetail: document.getElementById('fb-other-detail').value.trim(),
       name: document.getElementById('fb-name').value.trim(),
       url: window.location.href,
-      screenshot: feedbackScreenshotDataUrl,
-      screenshotMeta: feedbackScreenshotMeta
     };
-    const list = loadFeedback();
-    list.unshift(entry);
-    saveFeedback(list);
-    // Sync to the shared Google Form (team-wide), keep the local log as the
-    // per-user view + screenshot store.
     syncFeedbackToGoogleForm(entry);
     form.reset();
-    clearFeedbackScreenshot();
     closeFeedbackDrawer();
     showToast('Feedback sent — thank you!', 'check');
-    // If the feedback log is currently in view, re-render it.
-    if (document.getElementById('feedback')?.classList.contains('active')) renderFeedbackLog();
-  }
-  function renderFeedbackLog() {
-    const tbody = document.getElementById('feedback-log-rows');
-    const empty = document.getElementById('feedback-log-empty');
-    if (!tbody) return;
-    const list = loadFeedback();
-    if (!list.length) {
-      tbody.innerHTML = '';
-      empty?.classList.remove('hidden');
-      return;
-    }
-    empty?.classList.add('hidden');
-    tbody.innerHTML = list.map(e => {
-      const when = new Date(e.timestamp).toLocaleString();
-      const catLabel = FEEDBACK_CATEGORY_LABEL[e.category] || e.category;
-      const sevClass = e.severity === 'high' ? 'bg-destructive text-destructive-foreground'
-                     : e.severity === 'medium' ? 'bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200'
-                     : 'bg-card text-muted-foreground border border-border';
-      const pageLabel = (() => { try { return new URL(e.url).hash || '/'; } catch (_) { return e.url; } })();
-      const escape = s => (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-      const screenshotCell = e.screenshot
-        ? `<button type="button" onclick="openFeedbackScreenshot('${e.id}')" class="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:underline cursor-pointer"><img src="${e.screenshot}" alt="" class="size-10 rounded object-cover border border-border"><span>View</span></button>`
-        : '<span class="text-xs text-muted-foreground">—</span>';
-      return `<tr>
-        <td class="px-6 py-3 mono text-xs">${escape(when)}</td>
-        <td class="py-3">${escape(catLabel)}${e.otherDetail ? ` <span class="text-muted-foreground">(${escape(e.otherDetail)})</span>` : ''}</td>
-        <td class="py-3"><span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold leading-4 ${sevClass}">${escape(e.severity)}</span></td>
-        <td class="py-3 font-semibold">${escape(e.title)}<div class="text-xs text-muted-foreground font-normal mt-0.5 line-clamp-2">${escape(e.description)}</div></td>
-        <td class="py-3 mono text-xs text-muted-foreground">${escape(pageLabel)}</td>
-        <td class="py-3">${screenshotCell}</td>
-        <td class="text-right pr-6 py-3"><button type="button" onclick="deleteFeedback('${e.id}')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Delete entry"><i data-lucide="trash-2" class="size-4"></i></button></td>
-      </tr>`;
-    }).join('');
-    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-  }
-  function deleteFeedback(id) {
-    const list = loadFeedback().filter(e => e.id !== id);
-    saveFeedback(list);
-    renderFeedbackLog();
-  }
-  function openFeedbackScreenshot(id) {
-    const entry = loadFeedback().find(e => e.id === id);
-    if (!entry || !entry.screenshot) return;
-    document.getElementById('feedback-screenshot-img').src = entry.screenshot;
-    document.getElementById('feedback-screenshot-caption').textContent =
-      `${entry.title}  ·  ${entry.screenshotMeta?.name || 'screenshot'}`;
-    document.getElementById('feedback-screenshot-download').href = entry.screenshot;
-    document.getElementById('feedback-screenshot-download').download = entry.screenshotMeta?.name || 'feedback-screenshot.png';
-    document.getElementById('feedback-screenshot-modal').classList.remove('hidden');
-    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-  }
-  function closeFeedbackScreenshot() {
-    document.getElementById('feedback-screenshot-modal')?.classList.add('hidden');
-  }
-  function exportFeedbackCsv() {
-    const list = loadFeedback();
-    if (!list.length) { showToast('No feedback to export', 'info'); return; }
-    const rows = [['When','Category','Other detail','Severity','Title','Description','URL','Name','Screenshot'].join(',')];
-    list.forEach(e => {
-      const cell = s => `"${(s || '').toString().replace(/"/g, '""')}"`;
-      const shot = e.screenshot ? (e.screenshotMeta?.name || 'attached') : '';
-      rows.push([e.timestamp, e.category, e.otherDetail, e.severity, e.title, e.description, e.url, e.name, shot].map(cell).join(','));
-    });
-    const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'prototype-feedback.csv';
-    a.click();
-    URL.revokeObjectURL(url);
   }
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    const modal = document.getElementById('feedback-screenshot-modal');
-    if (modal && !modal.classList.contains('hidden')) { closeFeedbackScreenshot(); return; }
     const drawer = document.getElementById('feedback-drawer');
     if (drawer && !drawer.classList.contains('hidden')) closeFeedbackDrawer();
   });
-  // When the feedback drawer is open, swallow a stray drop that misses the
-  // dropzone so the browser doesn't load the file in place of the prototype.
-  ['dragover','drop'].forEach(ev => window.addEventListener(ev, e => {
-    const drawer = document.getElementById('feedback-drawer');
-    if (!drawer || drawer.classList.contains('hidden')) return;
-    if (e.target.closest && e.target.closest('#fb-screenshot-dropzone')) return;
-    e.preventDefault();
-  }));
 
   // Helix Pill/Segment tab states (per spec):
   //   active   → bg-background text-foreground shadow-sm
@@ -7271,7 +7017,6 @@ Julia Campbell</textarea>
     else if (hash === 'settings') { settingsTab = 'users'; navMatch = 'settings'; }
     else if (hash === 'account') { accountTab = 'profile'; navMatch = null; }
     else if (hash.startsWith('account-')) { accountTab = hash.replace('account-', ''); hash = 'account'; navMatch = null; }
-    else if (hash === 'feedback') { navMatch = null; }
     else if (hash === 'student-profile') navMatch = 'students';
     else if (hash === 'school-detail') navMatch = 'schools';
     else if (hash === 'my-wellness') { navMatch = null; scSurface = 'home'; }
@@ -7304,7 +7049,6 @@ Julia Campbell</textarea>
     if (scSurface) setSelfCareSurface(scSurface);
     if (hash === 'settings-users-add-review') loadAddUserReview();
     if (hash === 'settings-users-detail') { updateUserDetailPermissionsPreview(); updateUserDetailBreadcrumb(); }
-    if (hash === 'feedback') renderFeedbackLog();
     if (window.location.hash === '#help-rollout') setHelpTab('rollout');
     else if (window.location.hash === '#help-contact') setHelpTab('contact');
 
