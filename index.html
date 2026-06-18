@@ -2772,10 +2772,6 @@ Julia Campbell</textarea>
         <div class="flex items-center gap-3"><i data-lucide="message-square" class="size-4 text-muted-foreground"></i><span class="font-semibold">Chat &amp; topics</span></div>
         <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
       </a>
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-mood')">
-        <div class="flex items-center gap-3"><i data-lucide="smile" class="size-4 text-muted-foreground"></i><span class="font-semibold">Student mood &amp; habits</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
       <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-content')">
         <div class="flex items-center gap-3"><i data-lucide="play-circle" class="size-4 text-muted-foreground"></i><span class="font-semibold">Top content</span></div>
         <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
@@ -2801,21 +2797,6 @@ Julia Campbell</textarea>
       </a>
       <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-staff')">
         <div class="flex items-center gap-3"><i data-lucide="users-round" class="size-4 text-muted-foreground"></i><span class="font-semibold">Staff engagement</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-    </div>
-  </section>
-
-  <!-- Activity (downloads + scheduled) -->
-  <section>
-    <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="folder" class="size-5"></i>Activity</h2>
-    <div class="grid grid-cols-3 gap-4">
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-recent')">
-        <div class="flex items-center gap-3"><i data-lucide="download" class="size-4 text-muted-foreground"></i><span class="font-semibold">Recent downloads</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-recent')">
-        <div class="flex items-center gap-3"><i data-lucide="calendar-clock" class="size-4 text-muted-foreground"></i><span class="font-semibold">Scheduled reports</span></div>
         <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
       </a>
     </div>
@@ -3000,44 +2981,28 @@ Julia Campbell</textarea>
       </div>
     </div>
 
-    <!-- Upcoming Visits + Pending Invites (2-col) -->
-    <div class="grid grid-cols-2 gap-4">
-      <!-- Upcoming Visits with own date range (forward-looking, default next 7 days) -->
-      <div class="bg-card border border-border rounded-lg shadow-sm">
-        <header class="px-6 pt-8 pb-6 min-h-24 flex items-start justify-between gap-3">
-          <div class="space-y-1">
-            <h3 class="text-xl font-semibold">Upcoming Visits</h3>
-            <p class="text-sm text-muted-foreground">Scheduled visits by location</p>
-          </div>
-          <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors shrink-0"><i data-lucide="calendar" class="size-4 text-muted-foreground"></i>Next 7 days<i data-lucide="chevron-down" class="size-4"></i></button>
-        </header>
-        <div class="px-6 pb-6">
-          <div class="text-3xl font-bold text-tc-sage-700">12</div>
-          <div class="w-full flex rounded-full h-5 overflow-hidden bg-muted mt-3" role="img" aria-label="Upcoming visits by location: 5 at school, 4 telehealth, 2 on campus, 1 day student off-campus">
-            <div class="h-full bg-primary" style="width:42%"></div>
-            <div class="h-full bg-tc-sage-500" style="width:33%"></div>
-            <div class="h-full bg-tc-orange-500" style="width:17%"></div>
-            <div class="h-full bg-tc-berry-500" style="width:8%"></div>
-          </div>
-          <div class="grid grid-cols-2 gap-3 pt-4 text-sm">
-            <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-primary"></span>At school <span class="ml-auto font-semibold mono">5</span></div>
-            <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-sage-500"></span>Telehealth <span class="ml-auto font-semibold mono">4</span></div>
-            <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-orange-500"></span>On campus <span class="ml-auto font-semibold mono">2</span></div>
-            <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-berry-500"></span>Off-campus <span class="ml-auto font-semibold mono">1</span></div>
-          </div>
+    <!-- Upcoming Visits (own forward-looking date range, default next 7 days) -->
+    <div class="bg-card border border-border rounded-lg shadow-sm">
+      <header class="px-6 pt-8 pb-6 min-h-24 flex items-start justify-between gap-3">
+        <div class="space-y-1">
+          <h3 class="text-xl font-semibold">Upcoming Visits</h3>
+          <p class="text-sm text-muted-foreground">Scheduled visits by location</p>
         </div>
-      </div>
-
-      <!-- Pending Invites -->
-      <div class="bg-card border border-border rounded-lg shadow-sm">
-        <header class="px-6 pt-8 pb-6 min-h-24">
-          <h3 class="text-xl font-semibold">Pending Invites</h3>
-          <p class="text-sm text-muted-foreground mt-1">Guardian invites awaiting acceptance</p>
-        </header>
-        <div class="px-6 pb-6">
-          <div class="text-3xl font-bold text-tc-sage-700">23</div>
-          <p class="text-sm text-muted-foreground mt-2">8 sent this week  ·  4 nearing expiration</p>
-          <button type="button" onclick="navigate('students')" class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer">View invites<i data-lucide="arrow-right" class="size-4"></i></button>
+        <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors shrink-0"><i data-lucide="calendar" class="size-4 text-muted-foreground"></i>Next 7 days<i data-lucide="chevron-down" class="size-4"></i></button>
+      </header>
+      <div class="px-6 pb-6">
+        <div class="text-3xl font-bold text-tc-sage-700">12</div>
+        <div class="w-full flex rounded-full h-5 overflow-hidden bg-muted mt-3" role="img" aria-label="Upcoming visits by location: 5 at school, 4 telehealth, 2 on campus, 1 day student off-campus">
+          <div class="h-full bg-primary" style="width:42%"></div>
+          <div class="h-full bg-tc-sage-500" style="width:33%"></div>
+          <div class="h-full bg-tc-orange-500" style="width:17%"></div>
+          <div class="h-full bg-tc-berry-500" style="width:8%"></div>
+        </div>
+        <div class="grid grid-cols-4 gap-3 pt-4 text-sm">
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-primary"></span>At school <span class="ml-auto font-semibold mono">5</span></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-sage-500"></span>Telehealth <span class="ml-auto font-semibold mono">4</span></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-orange-500"></span>On campus <span class="ml-auto font-semibold mono">2</span></div>
+          <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-berry-500"></span>Off-campus <span class="ml-auto font-semibold mono">1</span></div>
         </div>
       </div>
     </div>
@@ -3123,25 +3088,6 @@ Julia Campbell</textarea>
           <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-orange-500"></span><dt>On campus</dt><dd class="ml-auto font-semibold mono">6</dd></div>
           <div class="flex items-center gap-2"><span class="size-2.5 rounded-full bg-tc-berry-500"></span><dt>Off-campus</dt><dd class="ml-auto font-semibold mono">2</dd></div>
         </dl>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ TRENDS (merged-portal addition; not in TC Insights today) ============ -->
-  <section aria-labelledby="trends-heading">
-    <h2 id="trends-heading" class="text-lg font-semibold mb-4">Trends</h2>
-    <div class="bg-card border border-border rounded-lg shadow-sm">
-      <header class="px-6 py-4 border-b border-border flex items-center justify-between">
-        <div>
-          <h3 class="text-base font-semibold">Visits over time</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Daily delivered visits, last 30 days</p>
-        </div>
-        <button type="button" class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline">Details<i data-lucide="arrow-right" class="size-4"></i></button>
-      </header>
-      <div class="p-6">
-        <div class="bg-muted rounded-md h-56 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-          <i data-lucide="bar-chart-3" class="size-4"></i>Stacked bar: at-school + telehealth, 30 days
-        </div>
       </div>
     </div>
   </section>
@@ -3351,64 +3297,6 @@ Julia Campbell</textarea>
     </div>
   </section>
   <!-- /CHAT & TOPICS section -->
-</main>
-
-<!-- ===================== REPORTS — MOOD & HABITS ===================== -->
-<main id="reports-mood" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Student mood &amp; habits</li>
-    </ol>
-  </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Student mood &amp; habits</h1>
-      <p class="text-base text-muted-foreground mt-1">Self-reported mood distribution across all check-ins</p>
-    </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
-  </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
-  </div>
-
-  <div class="mb-8">
-    <div class="grid grid-cols-3 gap-4">
-      <section class="col-span-2 bg-card border border-border rounded-lg shadow-sm" aria-labelledby="mood-heading">
-        <header class="px-6 py-4 border-b border-border">
-          <h3 id="mood-heading" class="text-base font-semibold">Mood tracked</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Distribution of mood check-ins this period</p>
-        </header>
-        <ul class="p-6 space-y-4 text-sm" role="list">
-          <li class="flex items-center gap-3"><span class="min-w-[80px]">okay</span><div class="flex-1 bg-muted rounded-full h-3 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 100%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">39.4%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[80px]">great</span><div class="flex-1 bg-muted rounded-full h-3 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 71%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">28.0%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[80px]">good</span><div class="flex-1 bg-muted rounded-full h-3 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 56%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">22.0%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[80px]">not good</span><div class="flex-1 bg-muted rounded-full h-3 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 16%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">6.4%</span></li>
-          <li class="flex items-center gap-3"><span class="min-w-[80px]">awful</span><div class="flex-1 bg-muted rounded-full h-3 overflow-hidden"><div class="h-full bg-foreground rounded-full" style="width: 11%"></div></div><span class="mono text-xs text-muted-foreground w-12 text-right">4.2%</span></li>
-        </ul>
-      </section>
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="mood-meta-heading">
-        <header class="px-6 py-4 border-b border-border">
-          <h3 id="mood-meta-heading" class="text-base font-semibold">Mood check-in volume</h3>
-          <p class="text-xs text-muted-foreground mt-0.5">Trend over time</p>
-        </header>
-        <div class="p-6">
-          <div class="bg-muted rounded-md h-40 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <i data-lucide="line-chart" class="size-4"></i>Daily check-ins, 30 days
-          </div>
-          <dl class="mt-4 grid grid-cols-2 gap-3 text-center">
-            <div><dd class="text-xl font-semibold">2,451</dd><dt class="text-xs text-muted-foreground">Check-ins</dt></div>
-            <div><dd class="text-xl font-semibold">3.2 / wk</dd><dt class="text-xs text-muted-foreground">Per student</dt></div>
-          </dl>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <!-- /MOOD section -->
 </main>
 
 <!-- ===================== REPORTS — TOP CONTENT ===================== -->
@@ -3769,92 +3657,6 @@ Julia Campbell</textarea>
   </div>
 
   <p class="text-xs text-muted-foreground mt-4 max-w-2xl">"Skills assigned" counts pushes via Google Classroom / Canvas / Schoology / Copy URL during the selected period. Rollout = whether the staff member completed the in-app onboarding checklist.</p>
-</main>
-
-<!-- ===================== REPORTS — RECENT DOWNLOADS ===================== -->
-<main id="reports-recent" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Recent downloads</li>
-    </ol>
-  </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Recent downloads &amp; scheduled reports</h1>
-      <p class="text-base text-muted-foreground mt-1">Reports you or your district have generated</p>
-    </div>
-    <div class="flex items-center gap-2">
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar-clock" class="size-4"></i>Scheduled reports</button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="plus" class="size-4"></i>Build custom report</button>
-    </div>
-  </div>
-
-  <div>
-    <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-      <table class="w-full text-sm">
-        <thead class="bg-muted">
-          <tr class="border-b border-border">
-            <th scope="col" class="text-left px-6 py-3 text-base font-bold">Report</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Period</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Scope</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Format</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Generated by</th>
-            <th scope="col" class="text-left py-3 text-base font-bold">Generated</th>
-            <th scope="col" class="text-right pr-6 py-3 text-base font-bold">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-border">
-          <tr class="hover:bg-accent transition-colors">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="file-text" class="size-4 text-muted-foreground"></i>Quarterly wellness summary</td>
-            <td class="py-3 mono">Q1 2026</td>
-            <td class="py-3">District-wide</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4 mono">PDF</span></td>
-            <td class="py-3">Julia C.</td>
-            <td class="py-3 mono text-xs">2 days ago</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent transition-colors">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="file-spreadsheet" class="size-4 text-muted-foreground"></i>Visit utilization by school</td>
-            <td class="py-3 mono">Apr 2026</td>
-            <td class="py-3">All schools</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4 mono">XLSX</span></td>
-            <td class="py-3">Marcus R.</td>
-            <td class="py-3 mono text-xs">Last week</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent transition-colors">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="file-text" class="size-4 text-muted-foreground"></i>Crisis incidents log</td>
-            <td class="py-3 mono">YTD</td>
-            <td class="py-3">Lincoln High</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4 mono">PDF</span></td>
-            <td class="py-3">Julia C.</td>
-            <td class="py-3 mono text-xs">May 8</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent transition-colors">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="file-spreadsheet" class="size-4 text-muted-foreground"></i>Screener completion roster</td>
-            <td class="py-3 mono">Apr 2026</td>
-            <td class="py-3">All schools</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4 mono">CSV</span></td>
-            <td class="py-3">Marcus R.</td>
-            <td class="py-3 mono text-xs">May 1</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-          <tr class="hover:bg-accent transition-colors">
-            <td class="px-6 py-3 font-semibold flex items-center gap-2"><i data-lucide="file-text" class="size-4 text-muted-foreground"></i>Annual board summary</td>
-            <td class="py-3 mono">2024–25</td>
-            <td class="py-3">District-wide</td>
-            <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4 mono">PDF</span></td>
-            <td class="py-3">District admin</td>
-            <td class="py-3 mono text-xs">Apr 18</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </main>
 
 <!-- ===================== MY WELLNESS (Self-Care standalone app — Alongside 1:1 reproduction) ===================== -->
