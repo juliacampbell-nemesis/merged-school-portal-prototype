@@ -2745,46 +2745,32 @@ Julia Campbell</textarea>
     </div>
   </a>
 
-  <!-- Report groups — one card per group, each listing its reports as clickable rows -->
-  <div class="grid grid-cols-3 gap-4 items-start">
-    <!-- Care & Wellness -->
-    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-      <header class="px-5 py-4 border-b border-border flex items-center gap-2">
-        <i data-lucide="heart-pulse" class="size-5"></i>
-        <h2 class="text-lg font-semibold">Care &amp; Wellness</h2>
-      </header>
-      <ul class="divide-y divide-border" role="list">
-        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-care')"><span class="flex items-center gap-3"><i data-lucide="calendar-check" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Care delivery</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
-        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-wellness')"><span class="flex items-center gap-3"><i data-lucide="shield-alert" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Wellness</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
-      </ul>
-    </section>
-
-    <!-- Student Engagement -->
-    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-      <header class="px-5 py-4 border-b border-border flex items-center gap-2">
-        <i data-lucide="activity" class="size-5"></i>
-        <h2 class="text-lg font-semibold">Student Engagement</h2>
-      </header>
-      <ul class="divide-y divide-border" role="list">
-        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-usage')"><span class="flex items-center gap-3"><i data-lucide="users" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">App usage</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
-        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-chat')"><span class="flex items-center gap-3"><i data-lucide="message-square" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Chat &amp; topics</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
-        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-content')"><span class="flex items-center gap-3"><i data-lucide="play-circle" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Top content</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
-        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-engagement')"><span class="flex items-center gap-3"><i data-lucide="pie-chart" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Engagement mix</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
-        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-feedback')"><span class="flex items-center gap-3"><i data-lucide="quote" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Student feedback</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
-      </ul>
-    </section>
-
-    <!-- District & Schools -->
-    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-      <header class="px-5 py-4 border-b border-border flex items-center gap-2">
-        <i data-lucide="school" class="size-5"></i>
-        <h2 class="text-lg font-semibold">District &amp; Schools</h2>
-      </header>
-      <ul class="divide-y divide-border" role="list">
-        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-schools')"><span class="flex items-center gap-3"><i data-lucide="bar-chart-3" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Schools comparison</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
-        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-staff')"><span class="flex items-center gap-3"><i data-lucide="users-round" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Staff engagement</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
-      </ul>
-    </section>
+  <!-- Report groups — one single-click card each; opens a combined page with all that group's reports -->
+  <div class="grid grid-cols-3 gap-4 items-stretch">
+    <a class="bg-card border border-border rounded-lg shadow-sm p-6 hover:bg-muted/30 transition-colors cursor-pointer flex flex-col" onclick="navigate('reports-group-wellbeing')">
+      <div class="flex items-center justify-between">
+        <span class="size-11 rounded-lg border border-accent-border flex items-center justify-center bg-accent text-accent-foreground"><i data-lucide="heart-pulse" class="size-5"></i></span>
+        <i data-lucide="arrow-right" class="size-5 text-muted-foreground"></i>
+      </div>
+      <div class="text-lg font-semibold mt-4">Care &amp; Wellness</div>
+      <div class="text-sm text-muted-foreground mt-1">Care delivery  ·  Wellness</div>
+    </a>
+    <a class="bg-card border border-border rounded-lg shadow-sm p-6 hover:bg-muted/30 transition-colors cursor-pointer flex flex-col" onclick="navigate('reports-group-engagement')">
+      <div class="flex items-center justify-between">
+        <span class="size-11 rounded-lg border border-accent-border flex items-center justify-center bg-accent text-accent-foreground"><i data-lucide="activity" class="size-5"></i></span>
+        <i data-lucide="arrow-right" class="size-5 text-muted-foreground"></i>
+      </div>
+      <div class="text-lg font-semibold mt-4">Student Engagement</div>
+      <div class="text-sm text-muted-foreground mt-1">App usage  ·  Chat &amp; topics  ·  Top content  ·  Engagement mix  ·  Student feedback</div>
+    </a>
+    <a class="bg-card border border-border rounded-lg shadow-sm p-6 hover:bg-muted/30 transition-colors cursor-pointer flex flex-col" onclick="navigate('reports-group-district')">
+      <div class="flex items-center justify-between">
+        <span class="size-11 rounded-lg border border-accent-border flex items-center justify-center bg-accent text-accent-foreground"><i data-lucide="school" class="size-5"></i></span>
+        <i data-lucide="arrow-right" class="size-5 text-muted-foreground"></i>
+      </div>
+      <div class="text-lg font-semibold mt-4">District &amp; Schools</div>
+      <div class="text-sm text-muted-foreground mt-1">Schools comparison  ·  Staff engagement</div>
+    </a>
   </div>
 </main>
 
@@ -2913,26 +2899,27 @@ Julia Campbell</textarea>
 </main>
 
 <!-- ===================== REPORTS — CARE DELIVERY ===================== -->
-<main id="reports-care" class="page max-w-screen-2xl mx-auto px-6 py-8">
+<main id="reports-group-wellbeing" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
     <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
       <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Care delivery</li>
+      <li class="text-foreground font-semibold" aria-current="page">Care & Wellness</li>
     </ol>
   </nav>
-
-  <!-- Page header — School filter + Export Summary (matches TC Insights top bar) -->
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Care delivery</h1>
-      <p class="text-base text-muted-foreground mt-1">TimelyCare visits, invites, and utilization patterns. Mirrors the TC school portal Insights surface.</p>
-    </div>
-    <div class="flex items-center gap-2">
-      <button type="button" class="district-only inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="building-2" class="size-4 text-muted-foreground"></i>All Schools<i data-lucide="chevron-down" class="size-4"></i></button>
-      <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Export Summary</button>
-    </div>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Care & Wellness</h1>
+    <p class="text-base text-muted-foreground mt-1">TimelyCare visits and Alongside wellbeing across your district</p>
   </div>
+  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
+    <button type="button" class="district-only inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="building-2" class="size-4 text-muted-foreground"></i>All Schools<i data-lucide="chevron-down" class="size-4"></i></button>
+    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
+    <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
+  </div>
+  <section class="mb-10">
+    <h2 class="text-xl font-bold tracking-tight mb-4 pb-2 border-b border-border">Care delivery</h2>
+<!-- Page header — School filter + Export Summary (matches TC Insights top bar) -->
+  
 
   <!-- ============ AT A GLANCE ============ -->
   <section aria-labelledby="at-a-glance-heading" class="mb-8">
@@ -3076,31 +3063,10 @@ Julia Campbell</textarea>
       </div>
     </div>
   </section>
-</main>
-
-<!-- ===================== REPORTS — WELLNESS ===================== -->
-<main id="reports-wellness" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Wellness</li>
-    </ol>
-  </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Wellness</h1>
-      <p class="text-base text-muted-foreground mt-1">Student mood and health habits</p>
-    </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
-  </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
-  </div>
-
-  <!-- Section: Student Mood & Health Habits (Alongside Dashboard, Section 4) -->
+  </section>
+  <section class="mb-10">
+    <h2 class="text-xl font-bold tracking-tight mb-4 pb-2 border-b border-border">Wellness</h2>
+<!-- Section: Student Mood & Health Habits (Alongside Dashboard, Section 4) -->
   <section aria-labelledby="mood-habits-section-heading">
     <h2 id="mood-habits-section-heading" class="text-lg font-bold tracking-tight mb-3">Student Mood &amp; Health Habits</h2>
 
@@ -3140,31 +3106,29 @@ Julia Campbell</textarea>
       </div>
     </div>
   </section>
+  </section>
 </main>
 
-<!-- ===================== REPORTS — APP USAGE ===================== -->
-<main id="reports-usage" class="page max-w-screen-2xl mx-auto px-6 py-8">
+<main id="reports-group-engagement" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
     <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
       <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">App usage</li>
+      <li class="text-foreground font-semibold" aria-current="page">Student Engagement</li>
     </ol>
   </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">App usage</h1>
-      <p class="text-base text-muted-foreground mt-1">Active accounts, in-app activity, and helpfulness ratings</p>
-    </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Student Engagement</h1>
+    <p class="text-base text-muted-foreground mt-1">How students are using Alongside</p>
   </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
+  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
+    <button type="button" class="district-only inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="building-2" class="size-4 text-muted-foreground"></i>All Schools<i data-lucide="chevron-down" class="size-4"></i></button>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
     <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
   </div>
-
-  <div class="mb-8">
+  <section class="mb-10">
+    <h2 class="text-xl font-bold tracking-tight mb-4 pb-2 border-b border-border">App usage</h2>
+<div class="mb-8">
     <h4 class="text-sm font-bold uppercase tracking-wide text-muted-foreground mb-2">Student</h4>
     <div class="grid grid-cols-4 gap-4 mb-4">
       <div class="bg-card border border-border rounded-lg shadow-sm p-6">
@@ -3205,31 +3169,10 @@ Julia Campbell</textarea>
   </div>
 
   <!-- /APP USAGE section -->
-</main>
-
-<!-- ===================== REPORTS — CHAT & TOPICS ===================== -->
-<main id="reports-chat" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Chat &amp; topics</li>
-    </ol>
-  </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Chat &amp; topics</h1>
-      <p class="text-base text-muted-foreground mt-1">What students are discussing and what they're working on</p>
-    </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
-  </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
-  </div>
-
-  <!-- Section: Chat metrics (Alongside Dashboard, Section 3) -->
+  </section>
+  <section class="mb-10">
+    <h2 class="text-xl font-bold tracking-tight mb-4 pb-2 border-b border-border">Chat & topics</h2>
+<!-- Section: Chat metrics (Alongside Dashboard, Section 3) -->
   <section aria-labelledby="chat-metrics-section-heading">
     <h2 id="chat-metrics-section-heading" class="text-lg font-bold tracking-tight mb-3">Chat metrics</h2>
     <div class="grid grid-cols-3 gap-4">
@@ -3282,31 +3225,10 @@ Julia Campbell</textarea>
     </div>
   </section>
   <!-- /CHAT & TOPICS section -->
-</main>
-
-<!-- ===================== REPORTS — TOP CONTENT ===================== -->
-<main id="reports-content" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Top content</li>
-    </ol>
-  </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Top content</h1>
-      <p class="text-base text-muted-foreground mt-1">Most-watched videos and most-used journal prompts</p>
-    </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
-  </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
-  </div>
-
-  <!-- Section: Top Journal Prompts and Videos (Alongside Dashboard, Section 5) -->
+  </section>
+  <section class="mb-10">
+    <h2 class="text-xl font-bold tracking-tight mb-4 pb-2 border-b border-border">Top content</h2>
+<!-- Section: Top Journal Prompts and Videos (Alongside Dashboard, Section 5) -->
   <section aria-labelledby="top-content-section-heading">
     <h2 id="top-content-section-heading" class="text-lg font-bold tracking-tight mb-3">Top Journal Prompts and Videos</h2>
     <div class="grid grid-cols-2 gap-4">
@@ -3346,31 +3268,10 @@ Julia Campbell</textarea>
     </div>
   </section>
   <!-- /TOP CONTENT section -->
-</main>
-
-<!-- ===================== REPORTS — ENGAGEMENT MIX ===================== -->
-<main id="reports-engagement" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Engagement mix</li>
-    </ol>
-  </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Engagement mix</h1>
-      <p class="text-base text-muted-foreground mt-1">How students are spending time in the app</p>
-    </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
-  </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-4 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
-  </div>
-
-  <!-- Section: Engagement by Type (Alongside Dashboard, sub-card of Top Journal Prompts and Videos section) -->
+  </section>
+  <section class="mb-10">
+    <h2 class="text-xl font-bold tracking-tight mb-4 pb-2 border-b border-border">Engagement mix</h2>
+<!-- Section: Engagement by Type (Alongside Dashboard, sub-card of Top Journal Prompts and Videos section) -->
   <section aria-labelledby="engagement-section-heading">
     <h2 id="engagement-section-heading" class="text-lg font-bold tracking-tight mb-3">Engagement</h2>
     <article class="bg-card border border-border rounded-lg shadow-sm max-w-2xl">
@@ -3390,30 +3291,10 @@ Julia Campbell</textarea>
     </article>
   </section>
   <!-- /ENGAGEMENT MIX section -->
-</main>
-
-<!-- ===================== REPORTS — STUDENT FEEDBACK ===================== -->
-<main id="reports-feedback" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Student feedback</li>
-    </ol>
-  </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Student Feedback</h1>
-    </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
-  </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
-  </div>
-
-  <!-- Section: Student Feedback (Alongside Dashboard, Section 6) — free-text quotes -->
+  </section>
+  <section class="mb-10">
+    <h2 class="text-xl font-bold tracking-tight mb-4 pb-2 border-b border-border">Student feedback</h2>
+<!-- Section: Student Feedback (Alongside Dashboard, Section 6) — free-text quotes -->
   <section aria-labelledby="student-feedback-section-heading">
     <h2 id="student-feedback-section-heading" class="text-lg font-bold tracking-tight mb-3">Student Feedback</h2>
     <article class="bg-card border border-border rounded-lg shadow-sm max-w-3xl">
@@ -3441,31 +3322,29 @@ Julia Campbell</textarea>
     </article>
   </section>
   <!-- /STUDENT FEEDBACK section -->
+  </section>
 </main>
 
-<!-- ===================== REPORTS — SCHOOLS COMPARISON ===================== -->
-<main id="reports-schools" class="page max-w-screen-2xl mx-auto px-6 py-8">
+<main id="reports-group-district" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
     <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
       <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Schools comparison</li>
+      <li class="text-foreground font-semibold" aria-current="page">District & Schools</li>
     </ol>
   </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Schools Comparison</h1>
-      <p class="text-base text-muted-foreground mt-1">Alongside Usage by Campus and Severe Issues by Campus</p>
-    </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="refresh-cw" class="size-4"></i>Refresh data</button>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">District & Schools</h1>
+    <p class="text-base text-muted-foreground mt-1">Cross-campus comparison and staff rollout</p>
   </div>
   <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="filter" class="size-4"></i>Filter</button>
+    <button type="button" class="district-only inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="building-2" class="size-4 text-muted-foreground"></i>All Schools<i data-lucide="chevron-down" class="size-4"></i></button>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>Year to date<i data-lucide="chevron-down" class="size-4"></i></button>
     <button type="button" class="ml-auto inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
   </div>
-
-  <!-- Section: Alongside Usage by Campus (Alongside Dashboard, Section 1) -->
+  <section class="mb-10">
+    <h2 class="text-xl font-bold tracking-tight mb-4 pb-2 border-b border-border">Schools comparison</h2>
+<!-- Section: Alongside Usage by Campus (Alongside Dashboard, Section 1) -->
   <section aria-labelledby="usage-section-heading" class="mb-8">
     <h2 id="usage-section-heading" class="text-lg font-bold tracking-tight mb-3">Alongside Usage by Campus</h2>
     <div class="grid grid-cols-2 gap-4">
@@ -3519,31 +3398,10 @@ Julia Campbell</textarea>
     </div>
   </section>
   <!-- /SCHOOLS COMPARISON section -->
-</main>
-
-<!-- ===================== REPORTS — STAFF ENGAGEMENT (per Elsa: admins need to hold staff accountable for rollout + skill assignments) ===================== -->
-<main id="reports-staff" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <nav aria-label="Breadcrumb" class="mb-4">
-    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('reports')">Reports</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li class="text-foreground font-semibold" aria-current="page">Staff engagement</li>
-    </ol>
-  </nav>
-  <div class="flex items-end justify-between mb-6 gap-4">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Staff engagement</h1>
-      <p class="text-base text-muted-foreground mt-1">Who's completed rollout and who's assigning skills, by staff member.</p>
-    </div>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="download" class="size-4"></i>Download</button>
-  </div>
-  <div class="bg-card border border-border rounded-lg shadow-sm p-3 mb-6 flex items-center gap-2 flex-wrap">
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">All schools<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors"><i data-lucide="calendar" class="size-4"></i>This semester<i data-lucide="chevron-down" class="size-4"></i></button>
-    <button type="button" class="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Role: Any<i data-lucide="chevron-down" class="size-4"></i></button>
-  </div>
-
-  <!-- KPI row -->
+  </section>
+  <section class="mb-10">
+    <h2 class="text-xl font-bold tracking-tight mb-4 pb-2 border-b border-border">Staff engagement</h2>
+<!-- KPI row -->
   <div class="grid grid-cols-3 gap-4 mb-6">
     <article class="bg-card border border-border rounded-lg shadow-sm p-5">
       <div class="text-sm font-semibold text-muted-foreground">Rollout completed</div>
@@ -3642,7 +3500,9 @@ Julia Campbell</textarea>
   </div>
 
   <p class="text-xs text-muted-foreground mt-4 max-w-2xl">"Skills assigned" counts pushes via Google Classroom / Canvas / Schoology / Copy URL during the selected period. Rollout = whether the staff member completed the in-app onboarding checklist.</p>
+  </section>
 </main>
+
 
 <!-- ===================== MY WELLNESS (Self-Care standalone app — Alongside 1:1 reproduction) ===================== -->
 <main id="my-wellness" class="page">
