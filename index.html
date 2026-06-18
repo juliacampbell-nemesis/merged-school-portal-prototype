@@ -2745,62 +2745,47 @@ Julia Campbell</textarea>
     </div>
   </a>
 
-  <!-- Care & Wellness -->
-  <section class="mb-8">
-    <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="heart-pulse" class="size-5"></i>Care &amp; Wellness</h2>
-    <div class="grid grid-cols-3 gap-4">
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-care')">
-        <div class="flex items-center gap-3"><i data-lucide="calendar-check" class="size-4 text-muted-foreground"></i><span class="font-semibold">Care delivery</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-wellness')">
-        <div class="flex items-center gap-3"><i data-lucide="shield-alert" class="size-4 text-muted-foreground"></i><span class="font-semibold">Wellness</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-    </div>
-  </section>
+  <!-- Report groups — one card per group, each listing its reports as clickable rows -->
+  <div class="grid grid-cols-3 gap-4 items-start">
+    <!-- Care & Wellness -->
+    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+      <header class="px-5 py-4 border-b border-border flex items-center gap-2">
+        <i data-lucide="heart-pulse" class="size-5"></i>
+        <h2 class="text-lg font-semibold">Care &amp; Wellness</h2>
+      </header>
+      <ul class="divide-y divide-border" role="list">
+        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-care')"><span class="flex items-center gap-3"><i data-lucide="calendar-check" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Care delivery</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
+        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-wellness')"><span class="flex items-center gap-3"><i data-lucide="shield-alert" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Wellness</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
+      </ul>
+    </section>
 
-  <!-- Student Engagement -->
-  <section class="mb-8">
-    <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="activity" class="size-5"></i>Student Engagement</h2>
-    <div class="grid grid-cols-3 gap-4">
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-usage')">
-        <div class="flex items-center gap-3"><i data-lucide="users" class="size-4 text-muted-foreground"></i><span class="font-semibold">App usage</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-chat')">
-        <div class="flex items-center gap-3"><i data-lucide="message-square" class="size-4 text-muted-foreground"></i><span class="font-semibold">Chat &amp; topics</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-content')">
-        <div class="flex items-center gap-3"><i data-lucide="play-circle" class="size-4 text-muted-foreground"></i><span class="font-semibold">Top content</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-engagement')">
-        <div class="flex items-center gap-3"><i data-lucide="pie-chart" class="size-4 text-muted-foreground"></i><span class="font-semibold">Engagement mix</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-feedback')">
-        <div class="flex items-center gap-3"><i data-lucide="quote" class="size-4 text-muted-foreground"></i><span class="font-semibold">Student feedback</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-    </div>
-  </section>
+    <!-- Student Engagement -->
+    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+      <header class="px-5 py-4 border-b border-border flex items-center gap-2">
+        <i data-lucide="activity" class="size-5"></i>
+        <h2 class="text-lg font-semibold">Student Engagement</h2>
+      </header>
+      <ul class="divide-y divide-border" role="list">
+        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-usage')"><span class="flex items-center gap-3"><i data-lucide="users" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">App usage</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
+        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-chat')"><span class="flex items-center gap-3"><i data-lucide="message-square" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Chat &amp; topics</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
+        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-content')"><span class="flex items-center gap-3"><i data-lucide="play-circle" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Top content</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
+        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-engagement')"><span class="flex items-center gap-3"><i data-lucide="pie-chart" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Engagement mix</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
+        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-feedback')"><span class="flex items-center gap-3"><i data-lucide="quote" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Student feedback</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
+      </ul>
+    </section>
 
-  <!-- District & Schools -->
-  <section class="mb-8">
-    <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="school" class="size-5"></i>District &amp; Schools</h2>
-    <div class="grid grid-cols-3 gap-4">
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-schools')">
-        <div class="flex items-center gap-3"><i data-lucide="bar-chart-3" class="size-4 text-muted-foreground"></i><span class="font-semibold">Schools comparison</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-      <a class="bg-card border border-border rounded-lg shadow-sm px-5 py-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center justify-between" onclick="navigate('reports-staff')">
-        <div class="flex items-center gap-3"><i data-lucide="users-round" class="size-4 text-muted-foreground"></i><span class="font-semibold">Staff engagement</span></div>
-        <i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i>
-      </a>
-    </div>
-  </section>
+    <!-- District & Schools -->
+    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+      <header class="px-5 py-4 border-b border-border flex items-center gap-2">
+        <i data-lucide="school" class="size-5"></i>
+        <h2 class="text-lg font-semibold">District &amp; Schools</h2>
+      </header>
+      <ul class="divide-y divide-border" role="list">
+        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-schools')"><span class="flex items-center gap-3"><i data-lucide="bar-chart-3" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Schools comparison</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
+        <li><a class="flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors cursor-pointer" onclick="navigate('reports-staff')"><span class="flex items-center gap-3"><i data-lucide="users-round" class="size-4 text-muted-foreground"></i><span class="font-semibold text-sm">Staff engagement</span></span><i data-lucide="arrow-right" class="size-4 text-muted-foreground"></i></a></li>
+      </ul>
+    </section>
+  </div>
 </main>
 
 <!-- ===================== REPORTS — MY REPORTS ===================== -->
