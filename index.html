@@ -599,8 +599,61 @@
     </div>
   </section>
 
-  <div class="grid grid-cols-3 gap-4 mb-6">
-    <div class="col-span-2 space-y-4">
+  <!-- Upcoming Visits — full-width primary surface for facilitators -->
+  <section class="bg-card border border-border rounded-lg shadow-sm mb-6" aria-labelledby="visits-heading">
+    <header class="px-6 py-4 border-b border-border">
+      <h2 id="visits-heading" class="text-lg font-semibold">Upcoming Visits</h2>
+      <p class="text-sm text-muted-foreground mt-0.5">Visits you're scheduled to facilitate</p>
+    </header>
+    <ul class="divide-y divide-border" role="list">
+      <li class="px-6 py-4 flex items-center gap-3">
+        <span class="text-sm font-semibold mono w-16 text-muted-foreground">9:00 AM</span>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-semibold">Marcus T.  ·  Gr 10</div>
+          <div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+            <i data-lucide="map-pin" class="size-3"></i>On-site  ·  counseling
+          </div>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">
+          Checked in
+        </span>
+      </li>
+      <li class="px-6 py-4 flex items-center gap-3">
+        <span class="text-sm font-semibold mono w-16 text-muted-foreground">10:30 AM</span>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-semibold">Aisha K.  ·  Gr 9</div>
+          <div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+            <i data-lucide="video" class="size-3"></i>Telehealth  ·  psych follow-up
+          </div>
+        </div>
+        <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
+          Start<i data-lucide="arrow-right" class="size-3.5"></i>
+        </button>
+      </li>
+      <li class="px-6 py-4 flex items-center gap-3">
+        <span class="text-sm font-semibold mono w-16 text-muted-foreground">11:15 AM</span>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-semibold">Diego R.  ·  Gr 11</div>
+          <div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+            <i data-lucide="map-pin" class="size-3"></i>On-site  ·  intake
+          </div>
+        </div>
+        <span class="text-xs text-muted-foreground">Upcoming</span>
+      </li>
+      <li class="px-6 py-4 flex items-center gap-3">
+        <span class="text-sm font-semibold mono w-16 text-muted-foreground">1:00 PM</span>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-semibold">Sara L.  ·  Gr 12</div>
+          <div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+            <i data-lucide="video" class="size-3"></i>Telehealth  ·  therapy
+          </div>
+        </div>
+        <span class="text-xs text-muted-foreground">Upcoming</span>
+      </li>
+    </ul>
+  </section>
+
+  <div class="grid grid-cols-2 gap-4 mb-6">
       <!-- RECENT ALERTS widget -->
       <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="recent-alerts-heading">
         <header class="flex items-center justify-between px-6 py-4 border-b border-border">
@@ -704,60 +757,6 @@
           </li>
         </ul>
       </section>
-    </div>
-
-    <aside class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="visits-heading">
-      <header class="px-6 py-4 border-b border-border">
-        <h2 id="visits-heading" class="text-lg font-semibold">Upcoming Visits</h2>
-        <p class="text-sm text-muted-foreground mt-0.5">Visits you're scheduled to facilitate</p>
-      </header>
-      <ul class="divide-y divide-border" role="list">
-        <li class="px-6 py-4 flex items-center gap-3">
-          <span class="text-sm font-semibold mono w-16 text-muted-foreground">9:00 AM</span>
-          <div class="flex-1 min-w-0">
-            <div class="text-sm font-semibold">Marcus T.  ·  Gr 10</div>
-            <div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-              <i data-lucide="map-pin" class="size-3"></i>On-site  ·  counseling
-            </div>
-          </div>
-          <span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">
-            Checked in
-          </span>
-        </li>
-        <li class="px-6 py-4 flex items-center gap-3">
-          <span class="text-sm font-semibold mono w-16 text-muted-foreground">10:30 AM</span>
-          <div class="flex-1 min-w-0">
-            <div class="text-sm font-semibold">Aisha K.  ·  Gr 9</div>
-            <div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-              <i data-lucide="video" class="size-3"></i>Telehealth  ·  psych follow-up
-            </div>
-          </div>
-          <button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
-            Start<i data-lucide="arrow-right" class="size-3.5"></i>
-          </button>
-        </li>
-        <li class="px-6 py-4 flex items-center gap-3">
-          <span class="text-sm font-semibold mono w-16 text-muted-foreground">11:15 AM</span>
-          <div class="flex-1 min-w-0">
-            <div class="text-sm font-semibold">Diego R.  ·  Gr 11</div>
-            <div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-              <i data-lucide="map-pin" class="size-3"></i>On-site  ·  intake
-            </div>
-          </div>
-          <span class="text-xs text-muted-foreground">Upcoming</span>
-        </li>
-        <li class="px-6 py-4 flex items-center gap-3">
-          <span class="text-sm font-semibold mono w-16 text-muted-foreground">1:00 PM</span>
-          <div class="flex-1 min-w-0">
-            <div class="text-sm font-semibold">Sara L.  ·  Gr 12</div>
-            <div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-              <i data-lucide="video" class="size-3"></i>Telehealth  ·  therapy
-            </div>
-          </div>
-          <span class="text-xs text-muted-foreground">Upcoming</span>
-        </li>
-      </ul>
-    </aside>
   </div>
 
   <!-- Assign Skills CTA — per Elsa: assigning skills is the #1 driver of return engagement -->
