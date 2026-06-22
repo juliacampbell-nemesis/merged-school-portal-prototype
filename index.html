@@ -529,6 +529,7 @@
         <li><a href="#skills" class="nav-link" data-route="skills"><i data-lucide="brain" class="size-4"></i>Skills</a></li>
         <li><a href="#screeners" class="nav-link" data-route="screeners"><i data-lucide="clipboard-list" class="size-4"></i>Screeners</a></li>
         <li class="admin-only"><a href="#reports" class="nav-link" data-route="reports"><i data-lucide="file-text" class="size-4"></i>Reports</a></li>
+        <li class="admin-only"><a href="#settings" class="nav-link" data-route="settings"><i data-lucide="users-round" class="size-4"></i>User Management</a></li>
       </ul>
 
     </nav>
@@ -536,7 +537,6 @@
     <!-- Sidebar footer: Help + Settings (organization config; admin-only) -->
     <div class="px-3 pb-4 pt-3 border-t border-sidebar-border space-y-0.5">
       <a href="#help" class="nav-link" data-route="help"><i data-lucide="life-buoy" class="size-4"></i>Help</a>
-      <a href="#settings" class="nav-link admin-only" data-route="settings"><i data-lucide="settings" class="size-4"></i>Settings</a>
     </div>
   </aside>
 
@@ -1654,6 +1654,28 @@ Julia Campbell</textarea>
       <p class="text-base text-muted-foreground mt-1">Lincoln Unified District  ·  14 schools  ·  12,840 enrolled students</p>
     </div>
     <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"><i data-lucide="plus" class="size-4"></i>Add school</button>
+  </div>
+
+  <!-- District info card (relocated from the old Settings → District profile tab) -->
+  <div class="bg-card border border-border rounded-lg shadow-sm p-6 mb-6">
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="size-10 rounded-lg bg-accent text-accent-foreground border border-accent-border flex items-center justify-center shrink-0"><i data-lucide="building-2" class="size-5"></i></span>
+          <div>
+            <h2 class="text-lg font-bold tracking-tight">Lincoln Unified School District</h2>
+            <p class="text-sm text-muted-foreground">District profile</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-6 mt-4 text-sm text-muted-foreground flex-wrap">
+          <span class="flex items-center gap-2"><span class="font-semibold text-foreground">NCES ID:</span> <span class="mono">0628920</span></span>
+          <span class="flex items-center gap-2"><span class="font-semibold text-foreground">Time zone:</span> America/Los_Angeles</span>
+          <span class="flex items-center gap-2"><span class="font-semibold text-foreground">School year:</span> 2025–2026</span>
+          <span class="flex items-center gap-2"><span class="font-semibold text-foreground">Primary contact:</span> Dr. Janet Rivera</span>
+        </div>
+      </div>
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors shrink-0"><i data-lucide="pencil" class="size-4"></i>Edit district info</button>
+    </div>
   </div>
 
   <!-- Header row: search (left) + filters (right) — matches Students page pattern -->
@@ -4743,52 +4765,20 @@ Julia Campbell</textarea>
 
 <!-- ===================== SETTINGS ===================== -->
 <main id="settings" class="page max-w-screen-2xl mx-auto px-6 py-8">
-  <div class="mb-6">
-    <h1 class="text-2xl font-bold tracking-tight">Settings</h1>
-    <p class="text-base text-muted-foreground mt-1">Organization configuration for your district</p>
+  <div class="flex items-end justify-between mb-6 gap-4">
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight">User Management</h1>
+      <p class="text-base text-muted-foreground mt-1">147 staff users across 14 schools  ·  Roster via Clever</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
+        <i data-lucide="download" class="size-4"></i>Export
+      </button>
+      <button type="button" onclick="navigate('settings-users-add')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
+        <i data-lucide="user-plus" class="size-4"></i>Add user
+      </button>
+    </div>
   </div>
-
-  <!-- Helix Pill/Segment tabs — Organization sections -->
-  <div role="tablist" class="h-9 bg-muted p-[3px] rounded-lg flex items-center gap-0.5 mb-6" aria-label="Settings sections">
-    <button id="settingstab-district" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('district')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="building-2" class="size-4"></i>District profile</button>
-    <button id="settingstab-users" type="button" role="tab" aria-selected="true" onclick="setSettingsTab('users')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm"><i data-lucide="users-round" class="size-4"></i>Users &amp; permissions</button>
-    <button id="settingstab-roles" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('roles')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="shield" class="size-4"></i>Roles</button>
-    <button id="settingstab-integrations" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('integrations')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="plug" class="size-4"></i>Integrations</button>
-    <button id="settingstab-billing" type="button" role="tab" aria-selected="false" onclick="setSettingsTab('billing')" class="settings-tab flex-1 inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors"><i data-lucide="credit-card" class="size-4"></i>Billing</button>
-  </div>
-
-  <!-- DISTRICT PROFILE PANEL -->
-  <div id="settingspanel-district" class="settings-panel hidden">
-    <section class="bg-card border border-border rounded-lg shadow-sm p-6 max-w-2xl">
-      <h2 class="text-xl font-semibold">District profile</h2>
-      <p class="text-sm text-muted-foreground mb-6">Basic information about your district.</p>
-      <form class="grid grid-cols-2 gap-4">
-        <div class="space-y-1.5 col-span-2"><label class="text-sm font-semibold">District name</label><input type="text" value="Lincoln Unified School District" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
-        <div class="space-y-1.5"><label class="text-sm font-semibold">NCES ID</label><input type="text" value="0628920" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
-        <div class="space-y-1.5"><label class="text-sm font-semibold">Time zone</label><select class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"><option>America/Los_Angeles</option><option>America/New_York</option><option>America/Chicago</option></select></div>
-        <div class="space-y-1.5"><label class="text-sm font-semibold">School year</label><select class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"><option>2025–2026</option><option>2026–2027</option></select></div>
-        <div class="space-y-1.5"><label class="text-sm font-semibold">Primary contact</label><input type="text" value="Dr. Janet Rivera" class="h-9 w-full rounded-md border border-input bg-input-bg px-3 text-sm"></div>
-        <div class="col-span-2 flex gap-2 mt-2"><button type="submit" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Save changes</button><button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Cancel</button></div>
-      </form>
-    </section>
-  </div>
-
-  <!-- USERS & PERMISSIONS PANEL -->
-  <div id="settingspanel-users" class="settings-panel">
-        <div class="flex items-end justify-between mb-6 gap-4">
-          <div>
-            <h2 class="text-2xl font-semibold tracking-tight">Users &amp; permissions</h2>
-            <p class="text-sm text-muted-foreground mt-1">147 staff users across 14 schools  ·  Roster via Clever</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
-              <i data-lucide="download" class="size-4"></i>Export
-            </button>
-            <button type="button" onclick="navigate('settings-users-add')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
-              <i data-lucide="user-plus" class="size-4"></i>Add user
-            </button>
-          </div>
-        </div>
 
         <!-- Filters -->
         <div class="bg-card border border-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-2 flex-wrap">
@@ -5016,71 +5006,6 @@ Julia Campbell</textarea>
             <span class="text-muted-foreground">This view shows all users district-wide and is best for District Admins. School Admins can also manage their school's staff inline from <a class="font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('school-detail')">Schools → [school] → Staff tab</a>.</span>
           </div>
         </div>
-  </div>
-  <!-- /settingspanel-users -->
-
-  <!-- ROLES PANEL -->
-  <div id="settingspanel-roles" class="settings-panel hidden">
-    <section class="bg-card border border-border rounded-lg shadow-sm overflow-hidden max-w-3xl">
-      <header class="px-6 py-4 border-b border-border">
-        <h2 class="text-xl font-semibold">Roles</h2>
-        <p class="text-sm text-muted-foreground mt-0.5">Roles control what each user can see and do. Custom roles are managed by your CSM — contact support to add one.</p>
-      </header>
-      <ul class="divide-y divide-border" role="list">
-        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">District Administrator</div><div class="text-xs text-muted-foreground">Full access across all schools and settings.</div></div><span class="text-xs mono text-muted-foreground">3 users</span></li>
-        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">District Staff</div><div class="text-xs text-muted-foreground">District-wide read access, no admin actions.</div></div><span class="text-xs mono text-muted-foreground">12 users</span></li>
-        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">School Administrator</div><div class="text-xs text-muted-foreground">Manage a single school's staff and students.</div></div><span class="text-xs mono text-muted-foreground">14 users</span></li>
-        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">Clinical Staff</div><div class="text-xs text-muted-foreground">Counselors, social workers — access PHI for assigned students.</div></div><span class="text-xs mono text-muted-foreground">68 users</span></li>
-        <li class="px-6 py-3 flex items-center justify-between"><div><div class="font-semibold text-sm">School Staff</div><div class="text-xs text-muted-foreground">Teachers — limited view, no PHI.</div></div><span class="text-xs mono text-muted-foreground">50 users</span></li>
-      </ul>
-    </section>
-  </div>
-
-  <!-- INTEGRATIONS PANEL -->
-  <div id="settingspanel-integrations" class="settings-panel hidden">
-    <section class="space-y-3 max-w-2xl">
-      <div class="bg-card border border-border rounded-lg shadow-sm p-4 flex items-start gap-3">
-        <i data-lucide="plug" class="size-5 mt-0.5 shrink-0"></i>
-        <div class="flex-1">
-          <div class="flex items-center gap-2"><span class="font-semibold">Clever</span><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Connected</span></div>
-          <p class="text-sm text-muted-foreground mt-1">Roster &amp; SSO · Student data loads from Clever in real time at sign-in · 1,247 students</p>
-        </div>
-        <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Manage</button>
-      </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-4 flex items-start gap-3">
-        <i data-lucide="key-round" class="size-5 mt-0.5 shrink-0"></i>
-        <div class="flex-1">
-          <div class="flex items-center gap-2"><span class="font-semibold">Single sign-on (SSO)</span><span class="inline-flex items-center rounded-full bg-card text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Not configured</span></div>
-          <p class="text-sm text-muted-foreground mt-1">Configure SAML/SSO for staff sign-in via your IdP.</p>
-        </div>
-        <button type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">Set up</button>
-      </div>
-    </section>
-  </div>
-
-  <!-- BILLING PANEL -->
-  <div id="settingspanel-billing" class="settings-panel hidden">
-    <section class="space-y-3 max-w-2xl">
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <div class="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Current plan</div>
-        <div class="text-lg font-semibold mt-1">Non-insurance plan</div>
-        <div class="text-sm text-muted-foreground mt-1">100 visits / year per school · Renews August 1, 2026</div>
-      </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <div class="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Billing contact</div>
-        <div class="text-sm font-semibold mt-1">Dr. Janet Rivera</div>
-        <div class="text-sm text-muted-foreground">janet.rivera@lincoln.edu  ·  (555) 891-2400</div>
-      </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <div class="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-3">Recent invoices</div>
-        <ul class="divide-y divide-border" role="list">
-          <li class="py-2 flex items-center justify-between text-sm"><span class="mono text-xs">INV-2026-04</span><span>April 2026</span><a class="text-foreground hover:underline cursor-pointer font-semibold">Download</a></li>
-          <li class="py-2 flex items-center justify-between text-sm"><span class="mono text-xs">INV-2026-03</span><span>March 2026</span><a class="text-foreground hover:underline cursor-pointer font-semibold">Download</a></li>
-          <li class="py-2 flex items-center justify-between text-sm"><span class="mono text-xs">INV-2026-02</span><span>February 2026</span><a class="text-foreground hover:underline cursor-pointer font-semibold">Download</a></li>
-        </ul>
-      </div>
-    </section>
-  </div>
 </main>
 
 <!-- ===================== ACCOUNT (Personal preferences) — Helix pill tabs ===================== -->
@@ -5253,9 +5178,7 @@ Julia Campbell</textarea>
 <main id="settings-users-add" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
     <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('settings')">Settings</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('settings-users')">Users &amp; permissions</a></li>
+      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('settings')">User Management</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
       <li class="text-foreground font-semibold" aria-current="page">Add user</li>
     </ol>
@@ -5419,9 +5342,7 @@ Julia Campbell</textarea>
 <main id="settings-users-add-review" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
     <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('settings')">Settings</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('settings-users')">Users &amp; permissions</a></li>
+      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('settings')">User Management</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
       <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('settings-users-add')">Add user</a></li>
       <li><i data-lucide="chevron-right" class="size-4"></i></li>
@@ -6533,8 +6454,7 @@ Julia Campbell</textarea>
     if (!ol) return;
     const userName = document.querySelector('#settings-users-detail h1')?.textContent || 'Staff member';
     const trail = [
-      { label: 'Settings', target: 'settings' },
-      { label: 'Users & permissions', target: 'settings-users' },
+      { label: 'User Management', target: 'settings' },
       { label: userName, current: true }
     ];
     ol.innerHTML = trail.map((item) => {
@@ -6782,16 +6702,6 @@ Julia Campbell</textarea>
       HELIX_PILL_INACTIVE.forEach(c => btn.classList.add(c));
     }
   }
-  function setSettingsTab(tab) {
-    document.querySelectorAll('.settings-panel').forEach(p => p.classList.add('hidden'));
-    const panel = document.getElementById('settingspanel-' + tab);
-    if (panel) panel.classList.remove('hidden');
-    ['district', 'users', 'roles', 'integrations', 'billing'].forEach(t => {
-      const btn = document.getElementById('settingstab-' + t);
-      if (btn) applyHelixPillState(btn, t === tab);
-    });
-    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-  }
   function setAccountTab(tab) {
     document.querySelectorAll('.account-panel').forEach(p => p.classList.add('hidden'));
     const panel = document.getElementById('accountpanel-' + tab);
@@ -6806,7 +6716,6 @@ Julia Campbell</textarea>
     let hash = window.location.hash.replace('#', '') || 'home';
     let navMatch = hash;
     let inboxTab = null;
-    let settingsTab = null;
     let accountTab = null;
     let skillsInner = null;
     let screenersInner = null;
@@ -6822,11 +6731,11 @@ Julia Campbell</textarea>
     else if (hash === 'help-contact') { hash = 'help'; navMatch = 'help'; }
     else if (hash === 'inbox-alerts') { hash = 'inbox'; inboxTab = 'alerts'; navMatch = 'inbox'; }
     else if (hash === 'inbox-summaries') { hash = 'inbox'; inboxTab = 'summaries'; navMatch = 'inbox'; }
-    else if (hash === 'settings-users') { hash = 'settings'; settingsTab = 'users'; navMatch = 'settings'; }
+    else if (hash === 'settings-users') { hash = 'settings'; navMatch = 'settings'; }
     else if (hash === 'settings-users-add') { navMatch = 'settings'; }
     else if (hash === 'settings-users-add-review') { navMatch = 'settings'; }
     else if (hash === 'settings-users-detail') { navMatch = 'settings'; }
-    else if (hash === 'settings') { settingsTab = 'users'; navMatch = 'settings'; }
+    else if (hash === 'settings') { navMatch = 'settings'; }
     else if (hash === 'account') { accountTab = 'profile'; navMatch = null; }
     else if (hash.startsWith('account-')) { accountTab = hash.replace('account-', ''); hash = 'account'; navMatch = null; }
     else if (hash === 'student-profile') navMatch = 'students';
@@ -6853,7 +6762,6 @@ Julia Campbell</textarea>
     if (skillsInner) setSkillsInnerTab(skillsInner);
     if (screenersInner) setScreenersInnerTab(screenersInner);
     if (inboxTab) setInboxTab(inboxTab);
-    if (settingsTab) setSettingsTab(settingsTab);
     setNavActive(navMatch);
     // setDemoSurface runs LAST because setNavActive iterates ALL .nav-link items
     // (including student-demo sub-items) and would wipe their is-active state otherwise.
