@@ -796,15 +796,15 @@
         <ul class="space-y-3 text-sm" role="list">
           <li class="flex items-center justify-between">
             <span><strong class="font-semibold">8 students</strong>  ·  PHQ-9 severe / moderate</span>
-            <a class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer">Review<i data-lucide="arrow-right" class="size-3.5"></i></a>
+            <a onclick="navigate('screeners')" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer">Review<i data-lucide="arrow-right" class="size-3.5"></i></a>
           </li>
           <li class="flex items-center justify-between">
             <span><strong class="font-semibold">3 students</strong>  ·  GAD-7 severe</span>
-            <a class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer">Review<i data-lucide="arrow-right" class="size-3.5"></i></a>
+            <a onclick="navigate('screeners')" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer">Review<i data-lucide="arrow-right" class="size-3.5"></i></a>
           </li>
           <li class="flex items-center justify-between">
             <span><strong class="font-semibold">5 students</strong>  ·  30+ days since screener</span>
-            <a class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer">Review<i data-lucide="arrow-right" class="size-3.5"></i></a>
+            <a onclick="navigate('screeners')" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline cursor-pointer">Review<i data-lucide="arrow-right" class="size-3.5"></i></a>
           </li>
         </ul>
       </div>
@@ -1059,7 +1059,7 @@
                 <span class="inline-block bg-muted text-foreground rounded-lg rounded-bl-sm px-3 py-2 max-w-[85%]">Thank you for trusting me with that, Clarke. I want to make sure you have someone safe to talk to. I'm sharing what you said with a staff member at your school so they can check in with you today.</span>
               </div>
             </div>
-            <a class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline cursor-pointer mt-2">View full conversation history<i data-lucide="arrow-right" class="size-3.5"></i></a>
+            <a onclick="navigate('inbox-alerts')" class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline cursor-pointer mt-2">View full conversation history<i data-lucide="arrow-right" class="size-3.5"></i></a>
           </div>
 
           <div class="space-y-2">
@@ -1278,56 +1278,56 @@ Julia Campbell</textarea>
           <td class="py-3 font-semibold">Kevin Martinez</td><td class="py-3">11</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">Urgent</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">1 / 8</td><td class="py-3 mono">12</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'students')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr data-student-name="Emma Sullivan" data-guardian-name="David Sullivan" data-guardian-email="dsullivan@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Emma Sullivan"></td>
           <td class="py-3 font-semibold">Emma Sullivan</td><td class="py-3">9</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Monitoring</span></td>
           <td class="py-3">1 week ago</td><td class="py-3 mono">5 / 5</td><td class="py-3 mono">2</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'students')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr data-student-name="Marcus Thompson" data-guardian-name="Janet Thompson" data-guardian-email="jthompson@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Marcus Thompson"></td>
           <td class="py-3 font-semibold">Marcus Thompson</td><td class="py-3">10</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">2 / 4</td><td class="py-3 mono">7</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'students')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr data-student-name="Aisha Khan" data-guardian-name="Aban Khan" data-guardian-email="akhan@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Aisha Khan"></td>
           <td class="py-3 font-semibold">Aisha Khan</td><td class="py-3">9</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Monitoring</span></td>
           <td class="py-3">2 days ago</td><td class="py-3 mono">4 / 6</td><td class="py-3 mono">3</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'students')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr data-student-name="Diego Reyes" data-guardian-name="Sofia Reyes" data-guardian-email="sreyes@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Diego Reyes"></td>
           <td class="py-3 font-semibold">Diego Reyes</td><td class="py-3">11</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">3 / 3</td><td class="py-3 mono">4</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'students')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr data-student-name="Tyler Jensen" data-guardian-name="Mark Jensen" data-guardian-email="" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Tyler Jensen"></td>
           <td class="py-3 font-semibold">Tyler Jensen</td><td class="py-3">10</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Monitoring</span></td>
           <td class="py-3">4 days ago</td><td class="py-3 mono">0 / 4</td><td class="py-3 mono">1</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'students')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr data-student-name="Sara Lin" data-guardian-name="" data-guardian-email="" data-ineligible-reason="adult" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox disabled class="size-4 rounded border-input accent-primary opacity-40 cursor-not-allowed align-middle" aria-label="Sara Lin — cannot invite (18+)" title="Students 18+ must self-enroll — guardian invite flow doesn't apply"></td>
           <td class="py-3 font-semibold">Sara Lin<span class="ml-2 inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4" title="18+ — not eligible for guardian invite">Adult</span></td><td class="py-3">12</td><td class="py-3">Active</td>
           <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Stable</span></td>
           <td class="py-3">Today</td><td class="py-3 mono">6 / 6</td><td class="py-3 mono">8</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'students')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr data-student-name="Jordan Pierce" data-guardian-name="Lisa Pierce" data-guardian-email="lpierce@example.com" class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="navigate('student-profile')" onkeydown="handleStudentRowKey(event)">
           <td class="pl-6 pr-3 py-3 w-10 sticky left-0 z-10 bg-inherit" onclick="event.stopPropagation()"><input type="checkbox" data-student-checkbox class="size-4 rounded border-input accent-primary cursor-pointer align-middle" onclick="toggleStudentSelection(this)" aria-label="Select Jordan Pierce"></td>
           <td class="py-3 font-semibold">Jordan Pierce</td><td class="py-3">11</td><td class="py-3">Inactive</td>
           <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">—</span></td>
           <td class="py-3">3 mo ago</td><td class="py-3 mono">0 / 0</td><td class="py-3 mono">0</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'students')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
       </tbody>
     </table>
@@ -1448,7 +1448,6 @@ Julia Campbell</textarea>
             <h2 id="student-visits-heading" class="text-lg font-semibold">Visit history</h2>
             <p class="text-sm text-muted-foreground mt-0.5">Past and upcoming TimelyCare visits</p>
           </div>
-          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer">All visits<i data-lucide="arrow-right" class="size-4"></i></a>
         </header>
         <table class="w-full text-sm">
           <thead class="bg-muted">
@@ -1507,7 +1506,6 @@ Julia Campbell</textarea>
             <h2 id="student-documents-heading" class="text-lg font-semibold flex items-center gap-2">Documents <span class="inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-[10px] font-semibold leading-4"><i data-lucide="lock" class="size-3"></i>PHI</span></h2>
             <p class="text-sm text-muted-foreground mt-0.5">Care plans, safety plans, and clinical notes pushed from TimelyCare</p>
           </div>
-          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer">All documents<i data-lucide="arrow-right" class="size-4"></i></a>
         </header>
         <table class="w-full text-sm">
           <thead class="bg-muted">
@@ -1560,21 +1558,21 @@ Julia Campbell</textarea>
               <div class="text-sm font-semibold">Today, 9:23 AM</div>
               <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Practiced box breathing during anxiety. Reflected on a friend disagreement.</div>
             </div>
-            <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline shrink-0 ml-3">Open<i data-lucide="arrow-right" class="size-4"></i></a>
+            <a onclick="navigate('inbox-summaries')" class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline shrink-0 ml-3 cursor-pointer">Open<i data-lucide="arrow-right" class="size-4"></i></a>
           </li>
           <li class="px-6 py-3 hover:bg-accent transition-colors flex items-center justify-between cursor-pointer" onclick="navigate('inbox-summaries')">
             <div class="flex-1 min-w-0">
               <div class="text-sm font-semibold">May 14, 3:24 PM</div>
               <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Coping skill check-in after a difficult conversation at home.</div>
             </div>
-            <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline shrink-0 ml-3">Open<i data-lucide="arrow-right" class="size-4"></i></a>
+            <a onclick="navigate('inbox-summaries')" class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline shrink-0 ml-3 cursor-pointer">Open<i data-lucide="arrow-right" class="size-4"></i></a>
           </li>
           <li class="px-6 py-3 hover:bg-accent transition-colors flex items-center justify-between cursor-pointer" onclick="navigate('inbox-summaries')">
             <div class="flex-1 min-w-0">
               <div class="text-sm font-semibold">May 8, 1:02 PM</div>
               <div class="text-sm text-muted-foreground mt-0.5 line-clamp-1">Scheduled check-in. Mentioned family stress.</div>
             </div>
-            <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline shrink-0 ml-3">Open<i data-lucide="arrow-right" class="size-4"></i></a>
+            <a onclick="navigate('inbox-summaries')" class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline shrink-0 ml-3 cursor-pointer">Open<i data-lucide="arrow-right" class="size-4"></i></a>
           </li>
         </ul>
       </section>
@@ -1639,7 +1637,7 @@ Julia Campbell</textarea>
               <span class="inline-flex items-center rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-[10px] font-semibold leading-4">Mild</span>
             </li>
           </ul>
-          <a class="block text-sm font-semibold text-foreground hover:underline mt-3 text-center cursor-pointer">All screeners →</a>
+          <a onclick="navigate('screeners')" class="block text-sm font-semibold text-foreground hover:underline mt-3 text-center cursor-pointer">All screeners →</a>
         </div>
       </section>
     </aside>
@@ -1710,29 +1708,29 @@ Julia Campbell</textarea>
           <td class="px-6 py-3 font-semibold">Lincoln High School</td><td class="py-3">High</td><td class="py-3 mono">1,247</td><td class="py-3 mono">42</td>
           <td class="py-3"><span class="inline-flex items-center rounded-full bg-destructive text-destructive-foreground px-2 py-0.5 text-xs font-semibold leading-4">3</span></td>
           <td class="py-3 mono">78 / 100</td><td class="py-3 mono">78%</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'schools')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('school-detail')">
           <td class="px-6 py-3 font-semibold">Roosevelt Middle School</td><td class="py-3">Middle</td><td class="py-3 mono">892</td><td class="py-3 mono">31</td>
           <td class="py-3"><span class="inline-flex items-center rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">1</span></td>
           <td class="py-3 mono">42 / 75</td><td class="py-3 mono">56%</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'schools')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('school-detail')">
           <td class="px-6 py-3 font-semibold">Washington Elementary</td><td class="py-3">Elementary</td><td class="py-3 mono">645</td><td class="py-3 mono">28</td>
           <td class="py-3 mono">0</td><td class="py-3 mono">18 / 50</td><td class="py-3 mono">36%</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'schools')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('school-detail')">
           <td class="px-6 py-3 font-semibold">Kennedy High School</td><td class="py-3">High</td><td class="py-3 mono">1,408</td><td class="py-3 mono">47</td>
           <td class="py-3"><span class="inline-flex items-center rounded-full bg-secondary text-secondary-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">2</span></td>
           <td class="py-3 mono">92 / 100</td><td class="py-3 mono">92%</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'schools')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
         <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="navigate('school-detail')">
           <td class="px-6 py-3 font-semibold">Jefferson Middle School</td><td class="py-3">Middle</td><td class="py-3 mono">765</td><td class="py-3 mono">29</td>
           <td class="py-3 mono">0</td><td class="py-3 mono">22 / 75</td><td class="py-3 mono">29%</td>
-          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+          <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'schools')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
         </tr>
       </tbody>
     </table>
@@ -1802,49 +1800,49 @@ Julia Campbell</textarea>
             <td class="py-3">Counselor Lead</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Counselor Lead</span></td>
             <td class="py-3 mono text-xs">Today, 8:02 AM</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'staff')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">MR</div><div><div class="font-semibold">Marcus Rivera</div><div class="text-xs text-muted-foreground">marcus.rivera@lincoln.edu</div></div></div></td>
             <td class="py-3">School Counselor</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Clinical Staff</span></td>
             <td class="py-3 mono text-xs">Today, 7:45 AM</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'staff')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">SP</div><div><div class="font-semibold">Sarah Park</div><div class="text-xs text-muted-foreground">sarah.park@lincoln.edu</div></div></div></td>
             <td class="py-3">Social Worker</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Clinical Staff</span></td>
             <td class="py-3 mono text-xs">Yesterday, 3:22 PM</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'staff')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">TB</div><div><div class="font-semibold">Tom Bryant</div><div class="text-xs text-muted-foreground">tom.bryant@lincoln.edu</div></div></div></td>
             <td class="py-3">Teacher · 10th grade English</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-card text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">School Staff</span></td>
             <td class="py-3 mono text-xs">Mon, 5/25 2:14 PM</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'staff')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">AH</div><div><div class="font-semibold">Dr. Janet Rivera</div><div class="text-xs text-muted-foreground">janet.rivera@lincoln.edu</div></div></div></td>
             <td class="py-3">Principal</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">School Admin</span></td>
             <td class="py-3 mono text-xs">Today, 9:11 AM</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'staff')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-accent text-accent-foreground border border-accent-border flex items-center justify-center text-xs font-semibold">EF</div><div><div class="font-semibold">Elsa Friis</div><div class="text-xs text-muted-foreground">elsa.friis@lincoln.edu</div></div></div></td>
             <td class="py-3">Assistant Counselor</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-accent text-accent-foreground border border-accent-border px-2 py-0.5 text-xs font-semibold leading-4">Clinical Staff</span></td>
             <td class="py-3 mono text-xs">Tue, 5/26 4:38 PM</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'staff')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
           <tr class="hover:bg-accent cursor-pointer transition-colors" onclick="setUserDetailOrigin('school'); navigate('settings-users-detail')">
             <td class="px-6 py-3"><div class="flex items-center gap-3"><div class="size-8 rounded-full bg-muted text-muted-foreground border border-border flex items-center justify-center text-xs font-semibold">JD</div><div><div class="font-semibold">James Doyle</div><div class="text-xs text-muted-foreground">james.doyle@lincoln.edu</div></div></div></td>
             <td class="py-3 text-muted-foreground">Teacher · 9th grade Math</td>
             <td class="py-3"><span class="inline-flex items-center rounded-full bg-card text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Pending invite</span></td>
             <td class="py-3 mono text-xs text-muted-foreground">—</td>
-            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
+            <td class="text-right pr-6 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'staff')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Row actions"><i data-lucide="more-vertical" class="size-4"></i><span class="sr-only">Row actions</span></button></td>
           </tr>
         </tbody>
       </table>
@@ -3218,9 +3216,6 @@ Julia Campbell</textarea>
           <span class="text-sm">I like this app</span>
         </li>
       </ul>
-      <footer class="px-6 py-3 text-center border-t border-border">
-        <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer">View all 47 responses<i data-lucide="arrow-right" class="size-4"></i></a>
-      </footer>
     </article>
   </section>
   <!-- /STUDENT FEEDBACK section -->
@@ -4772,7 +4767,7 @@ Julia Campbell</textarea>
                 </td>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Active</span></td>
                 <td class="py-3 mono text-xs">Today, 9:42 AM</td>
-                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Julia Campbell"><i data-lucide="more-vertical" class="size-4"></i></button></td>
+                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'users')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Julia Campbell"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
               <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Marcus Rivera"></td>
@@ -4790,7 +4785,7 @@ Julia Campbell</textarea>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-muted text-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Facilitator</span></td>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Active</span></td>
                 <td class="py-3 mono text-xs">Today, 8:15 AM</td>
-                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Marcus Rivera"><i data-lucide="more-vertical" class="size-4"></i></button></td>
+                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'users')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Marcus Rivera"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
               <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Sarah Park"></td>
@@ -4813,7 +4808,7 @@ Julia Campbell</textarea>
                 </td>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Active</span></td>
                 <td class="py-3 mono text-xs">Yesterday</td>
-                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Sarah Park"><i data-lucide="more-vertical" class="size-4"></i></button></td>
+                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'users')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Sarah Park"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
               <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Dr. Janet Rivera"></td>
@@ -4831,7 +4826,7 @@ Julia Campbell</textarea>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold leading-4">School admin</span></td>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Active</span></td>
                 <td class="py-3 mono text-xs">May 24</td>
-                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Dr. Janet Rivera"><i data-lucide="more-vertical" class="size-4"></i></button></td>
+                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'users')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Dr. Janet Rivera"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
               <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Tom Bryant"></td>
@@ -4849,7 +4844,7 @@ Julia Campbell</textarea>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-card text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Viewer only</span></td>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Active</span></td>
                 <td class="py-3 mono text-xs">3 days ago</td>
-                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Tom Bryant"><i data-lucide="more-vertical" class="size-4"></i></button></td>
+                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'users')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Tom Bryant"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
               <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Pat Liu"></td>
@@ -4872,7 +4867,7 @@ Julia Campbell</textarea>
                 </td>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Active</span></td>
                 <td class="py-3 mono text-xs">Today, 10:03 AM</td>
-                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Pat Liu"><i data-lucide="more-vertical" class="size-4"></i></button></td>
+                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'users')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Pat Liu"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
               <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Dana Walker"></td>
@@ -4890,7 +4885,7 @@ Julia Campbell</textarea>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold leading-4">District admin</span></td>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Active</span></td>
                 <td class="py-3 mono text-xs">Today, 6:15 AM</td>
-                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Dana Walker"><i data-lucide="more-vertical" class="size-4"></i></button></td>
+                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'users')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Dana Walker"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
               <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Ana Lopez"></td>
@@ -4908,7 +4903,7 @@ Julia Campbell</textarea>
                 <td class="py-3 text-muted-foreground italic">— set on accept</td>
                 <td class="py-3"><span class="inline-flex items-center gap-1 rounded-full bg-tc-orange-50 text-tc-orange-900 border border-tc-orange-200 px-2 py-0.5 text-xs font-semibold leading-4">Pending invite</span></td>
                 <td class="py-3 mono text-xs text-muted-foreground">—</td>
-                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Ana Lopez"><i data-lucide="more-vertical" class="size-4"></i></button></td>
+                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'users')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Ana Lopez"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
               <tr class="bg-card hover:bg-accent cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset outline-none" tabindex="0" onclick="setUserDetailOrigin('settings'); navigate('settings-users-detail')" onkeydown="handleStudentRowKey(event)">
                 <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded border-input" aria-label="Select Robert Kim"></td>
@@ -4926,7 +4921,7 @@ Julia Campbell</textarea>
                 <td class="py-3 text-muted-foreground">Facilitator</td>
                 <td class="py-3"><span class="inline-flex items-center rounded-full bg-card text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Inactive</span></td>
                 <td class="py-3 mono text-xs text-muted-foreground">3 mo ago</td>
-                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Robert Kim"><i data-lucide="more-vertical" class="size-4"></i></button></td>
+                <td class="text-right pr-4 py-3" onclick="event.stopPropagation()"><button type="button" onclick="openRowMenu(event, this, 'users')" class="inline-flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors" aria-label="Actions for Robert Kim"><i data-lucide="more-vertical" class="size-4"></i></button></td>
               </tr>
             </tbody>
           </table>
@@ -6377,6 +6372,49 @@ Julia Campbell</textarea>
     e.preventDefault();
     e.currentTarget.click();
   }
+
+  // === TABLE ROW-ACTION MENU (kebab) ===
+  // Shared dropdown for the ⋮ kebabs across the Users, Staff, Students, and
+  // Schools tables. Actions are context presets; nav items route, others toast.
+  const ROW_MENU_PRESETS = {
+    users:    [{ label: 'Edit user', nav: 'settings-users-detail' }, { label: 'Resend invite' }, { sep: true }, { label: 'Deactivate', danger: true }],
+    staff:    [{ label: 'Edit user', nav: 'settings-users-detail' }, { label: 'Resend invite' }, { sep: true }, { label: 'Remove from school', danger: true }],
+    students: [{ label: 'View profile', nav: 'student-profile' }, { label: 'Resend guardian invite' }],
+    schools:  [{ label: 'View school', nav: 'school-detail' }, { label: 'Visit allocation', nav: 'school-detail' }],
+  };
+  let rowMenuEl = null;
+  function closeRowMenu() { if (rowMenuEl) { rowMenuEl.remove(); rowMenuEl = null; } }
+  function openRowMenu(event, btn, type) {
+    event.stopPropagation();
+    const wasOpenFor = rowMenuEl && rowMenuEl.dataset.owner === (btn.dataset.rmid || '');
+    closeRowMenu();
+    if (wasOpenFor) return;                       // second click on same kebab = close
+    const items = ROW_MENU_PRESETS[type] || [];
+    if (!btn.dataset.rmid) btn.dataset.rmid = 'rm' + Math.floor(performance.now() * 1000);
+    const menu = document.createElement('div');
+    menu.id = 'row-action-menu';
+    menu.dataset.owner = btn.dataset.rmid;
+    menu.setAttribute('role', 'menu');
+    menu.className = 'fixed z-[70] w-56 bg-card border border-border rounded-md shadow-md py-1';
+    menu.innerHTML = items.map(it => it.sep
+      ? '<div class="border-t border-border my-1"></div>'
+      : `<button type="button" role="menuitem" data-nav="${it.nav || ''}" data-label="${it.label}" class="dropdown-item w-full text-left${it.danger ? ' text-destructive' : ''}">${it.label}</button>`
+    ).join('');
+    document.body.appendChild(menu);
+    const r = btn.getBoundingClientRect();
+    menu.style.top = (r.bottom + 4) + 'px';
+    menu.style.left = Math.max(8, r.right - menu.offsetWidth) + 'px';
+    menu.querySelectorAll('button').forEach(b => b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const nav = b.dataset.nav, label = b.dataset.label;
+      closeRowMenu();
+      if (nav) navigate(nav); else showToast(label, 'check');
+    }));
+    rowMenuEl = menu;
+  }
+  document.addEventListener('click', closeRowMenu);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeRowMenu(); });
+  window.addEventListener('hashchange', closeRowMenu);
 
   // === USER DETAIL BREADCRUMB + contextual back-to-school link ===
   // The user detail page lives at Settings → Users & permissions in the IA —
