@@ -1766,59 +1766,9 @@ Julia Campbell</textarea>
 
   <!-- Helix Pill/Segment tabs -->
   <div role="tablist" class="h-9 bg-muted p-[3px] rounded-lg inline-flex items-center gap-0.5 mb-6" aria-label="School sections">
-    <button role="tab" id="schooltab-overview" aria-selected="true" onclick="setSchoolTab('overview')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm">Overview</button>
+    <button role="tab" id="schooltab-visits" aria-selected="true" onclick="setSchoolTab('visits')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm">Visit allocation</button>
     <button role="tab" id="schooltab-staff" aria-selected="false" onclick="setSchoolTab('staff')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors">Staff</button>
-    <button role="tab" id="schooltab-visits" aria-selected="false" onclick="setSchoolTab('visits')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors">Visit allocation</button>
   </div>
-
-  <!-- ===================== OVERVIEW PANEL ===================== -->
-  <section id="schoolpanel-overview" class="school-panel" role="tabpanel" aria-labelledby="schooltab-overview">
-    <div class="grid grid-cols-4 gap-4 mb-4">
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="calendar-check" class="size-4"></i>Visits used</div>
-        <div class="text-3xl font-semibold mt-3">78 <span class="text-base text-muted-foreground font-normal">/ 100</span></div>
-        <div class="text-sm text-muted-foreground mt-1"><a class="text-primary font-semibold hover:underline cursor-pointer" onclick="setSchoolTab('visits')">View allocation →</a></div>
-      </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <div class="flex items-center gap-2 text-sm text-destructive font-medium"><i data-lucide="shield-alert" class="size-4"></i>Active crises</div>
-        <div class="text-3xl font-semibold text-destructive mt-3">3</div>
-        <div class="text-sm text-muted-foreground mt-1"><a class="text-primary font-semibold hover:underline cursor-pointer" onclick="navigate('inbox-alerts')">View alerts at this school →</a></div>
-      </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="check-circle-2" class="size-4"></i>Skills completed</div>
-        <div class="text-3xl font-semibold mt-3">412</div>
-        <div class="text-sm text-muted-foreground mt-1">68% completion rate</div>
-      </div>
-      <div class="bg-card border border-border rounded-lg shadow-sm p-6">
-        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="clipboard-check" class="size-4"></i>Screeners administered</div>
-        <div class="text-3xl font-semibold mt-3">523</div>
-        <div class="text-sm text-muted-foreground mt-1">11 need follow-up</div>
-      </div>
-    </div>
-
-    <div>
-      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="utilization-heading">
-        <header class="px-6 py-4 border-b border-border flex items-center justify-between">
-          <div>
-            <h2 id="utilization-heading" class="text-lg font-semibold">Visit utilization</h2>
-            <p class="text-sm text-muted-foreground mt-0.5">Non-insurance plan  ·  100 visits / yr</p>
-          </div>
-          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="setSchoolTab('visits')"><i data-lucide="arrow-right" class="size-4"></i></a>
-        </header>
-        <div class="p-6">
-          <div class="bg-muted rounded-md h-32 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <i data-lucide="pie-chart" class="size-4"></i>Visits used / allocated
-          </div>
-          <dl class="mt-4 text-sm space-y-2">
-            <div class="flex justify-between"><dt class="text-muted-foreground">On-site</dt><dd class="font-semibold mono">31</dd></div>
-            <div class="flex justify-between"><dt class="text-muted-foreground">Telehealth</dt><dd class="font-semibold mono">47</dd></div>
-            <div class="flex justify-between"><dt class="text-muted-foreground">Cancelled</dt><dd class="font-semibold mono">8</dd></div>
-            <div class="border-t border-border pt-2 flex justify-between font-semibold"><dt>Used</dt><dd class="mono">78 / 100</dd></div>
-          </dl>
-        </div>
-      </section>
-    </div>
-  </section>
 
   <!-- ===================== STAFF PANEL ===================== -->
   <section id="schoolpanel-staff" class="school-panel hidden" role="tabpanel" aria-labelledby="schooltab-staff">
@@ -1909,7 +1859,7 @@ Julia Campbell</textarea>
   </section>
 
   <!-- ===================== VISIT ALLOCATION PANEL ===================== -->
-  <section id="schoolpanel-visits" class="school-panel hidden" role="tabpanel" aria-labelledby="schooltab-visits">
+  <section id="schoolpanel-visits" class="school-panel" role="tabpanel" aria-labelledby="schooltab-visits">
     <!-- Allocation summary + edit -->
     <div class="bg-card border border-border rounded-lg shadow-sm p-6 mb-4 flex items-start justify-between gap-4">
       <div>
@@ -5809,7 +5759,7 @@ Julia Campbell</textarea>
     document.querySelectorAll('.school-panel').forEach(p => p.classList.add('hidden'));
     const panel = document.getElementById('schoolpanel-' + tab);
     if (panel) panel.classList.remove('hidden');
-    ['overview', 'staff', 'visits'].forEach(t => {
+    ['visits', 'staff'].forEach(t => {
       const btn = document.getElementById('schooltab-' + t);
       if (btn) applyHelixPillState(btn, t === tab);
     });
