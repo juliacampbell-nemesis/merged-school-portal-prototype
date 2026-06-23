@@ -5854,7 +5854,7 @@ Julia Campbell</textarea>
   }
   // === ADD USER FLOW — 2-step page (mirrors TC settings/users/add + add/review pages) ===
   // Permissions per role: anchored in our merged roles-matrix.html. Each row lists
-  // capabilities the role gets by default; "configurable" attributes (PHI, Org Contact,
+  // capabilities the role gets by default; "configurable" attributes (PHI, Org Admin,
   // alert subscriptions) are noted with a separate badge if needed in a later pass.
   const ADD_USER_ROLE_LABELS = {
     'district-administrator': 'District Administrator',
@@ -5877,7 +5877,8 @@ Julia Campbell</textarea>
       { label: 'View visit data (district-wide)', desc: 'Aggregate visit counts and trends.' },
       { label: 'View all Reports', desc: 'District-wide insights and exports.' },
       { label: 'View Library', desc: 'Skills, screeners, staff resources.' },
-      { label: 'Receive Crisis alerts', desc: 'Configurable per user.' }
+      { label: 'Org Admin contact (configurable)', desc: 'Off by default; can be enabled to list district staff as org admins.' },
+      { label: 'Receive alerts (configurable)', desc: 'Configurable per user — many districts add student-services / mental-health teams.' }
     ],
     'school-administrator': [
       { label: 'Manage school users (assigned schools)', desc: 'Invite and manage staff at your schools.' },
@@ -5885,6 +5886,7 @@ Julia Campbell</textarea>
       { label: 'Invite distribution', desc: 'Refer students to TimelyCare for care.' },
       { label: 'View school Reports', desc: 'Reports scoped to your school(s).' },
       { label: 'Receive Crisis alerts', desc: 'Email + SMS for high-severity flags.' },
+      { label: 'Receive anonymous-tip alerts', desc: 'Default recipient for anonymous "tip line" alerts (Clinical Staff configurable).' },
       { label: 'Assign skills via LMS', desc: 'Push skills through Google Classroom / Canvas / Schoology.' }
     ],
     'clinical-staff': [
@@ -5892,13 +5894,14 @@ Julia Campbell</textarea>
       { label: 'View visit schedule + history', desc: 'Per-student PHI-gated detail.' },
       { label: 'Visit facilitation', desc: 'Start and end on-site visit sessions.' },
       { label: 'Invite distribution', desc: 'Refer students to TimelyCare for care.' },
-      { label: 'Receive all alert types', desc: 'Chat summary, Crisis email/SMS, Standard, Anonymous.' },
+      { label: 'Receive alert types', desc: 'Chat summary, Crisis email/SMS, Standard. Anonymous-tip configurable.' },
       { label: 'View screener results', desc: 'PHQ-9, GAD-7, etc. per student.' },
       { label: 'Assign skills via LMS', desc: 'Push skills through Google Classroom / Canvas / Schoology.' }
     ],
     'school-staff': [
       { label: 'View student roster (read-only)', desc: 'No PHI by default.' },
       { label: 'View dashboard', desc: 'School-level aggregate metrics.' },
+      { label: 'Assign skills via LMS', desc: 'Default for classroom teachers — push skills via Google Classroom / Canvas / Schoology.' },
       { label: 'View Library', desc: 'Skills, screeners, staff resources.' },
       { label: 'Receive alerts (configurable)', desc: 'Off by default; school admin can opt in.' }
     ]
