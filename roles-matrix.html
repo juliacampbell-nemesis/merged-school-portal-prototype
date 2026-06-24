@@ -9,21 +9,17 @@
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script>
   tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['adelle-sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        },
-        colors: {
-          'tc-navy': { 50: '#E5EDF4', 100: '#C2D6E5', 500: '#16538E', 700: '#0F3D6B', 900: '#0A2B4A' },
-          'tc-sage': { 50: '#ECF4EC', 100: '#D4E6D4', 500: '#5C8F5C', 700: '#3F6B3F' },
-          'tc-orange': { 50: '#FCEFE3', 100: '#F8DCC2', 500: '#D17A3C', 700: '#A5582A' },
-          'tc-berry': { 50: '#F8E7EC', 100: '#EDC3CF', 500: '#B33A5C', 700: '#8A2A47' },
-          'tc-gray': { 50: '#F6F6F4', 100: '#ECECE7', 200: '#D9D9D2', 400: '#8C8C84', 700: '#3F3F3A', 900: '#1F1F1C' },
-          'tc-cream': '#FBF7EE',
-        },
+    theme: { extend: {
+      fontFamily: { sans: ['adelle-sans', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+      colors: {
+        'tc-navy': { 50: '#E5EDF4', 100: '#C2D6E5', 500: '#16538E', 700: '#0F3D6B', 900: '#0A2B4A' },
+        'tc-sage': { 50: '#ECF4EC', 100: '#D4E6D4', 500: '#5C8F5C', 700: '#3F6B3F' },
+        'tc-orange': { 50: '#FCEFE3', 100: '#F8DCC2', 500: '#D17A3C', 700: '#A5582A' },
+        'tc-berry': { 50: '#F8E7EC', 100: '#EDC3CF', 500: '#B33A5C', 700: '#8A2A47' },
+        'tc-gray': { 50: '#F6F6F4', 100: '#ECECE7', 200: '#D9D9D2', 400: '#8C8C84', 700: '#3F3F3A', 900: '#1F1F1C' },
+        'tc-cream': '#FBF7EE',
       },
-    },
+    } },
   };
 </script>
 <style>
@@ -54,7 +50,10 @@
         <h1 class="text-2xl font-bold tracking-tight">Merged School Portal — Roles Matrix</h1>
         <p class="text-sm text-tc-gray-700 mt-1">5 user types · TimelyCare base + one new role (<strong class="text-tc-navy-700">Clinical Staff</strong>) absorbing Alongside's Counselor / Social Worker / School Psychologist.</p>
       </div>
-      <div class="text-xs text-tc-gray-400">v1 · analysis draft · for discussion, not built</div>
+      <div class="flex flex-col items-end gap-2 no-print">
+        <a href="roles-matrix.xlsx" download class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-tc-navy-500 text-white text-sm font-semibold hover:bg-tc-navy-700 transition-colors"><i data-lucide="download" class="size-4"></i>Download spreadsheet (.xlsx)</a>
+        <div class="text-xs text-tc-gray-400">Merged School Portal — Roles Matrix v2 (incorporates Alongside review, Jess Bell) · for discussion, not built</div>
+      </div>
     </div>
 
     <!-- Legend -->
@@ -83,261 +82,39 @@
         <th class="px-4 py-3 text-left font-semibold" style="width: 280px;">Notes / origin</th>
       </tr>
     </thead>
-
     <tbody>
-      <!-- ============ User & school management (TC) ============ -->
       <tr class="section-header"><td colspan="7" class="px-4 py-2 text-xs uppercase tracking-wide">User &amp; school management <span class="text-tc-gray-400 font-normal normal-case ml-2">— TimelyCare</span></td></tr>
-
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Manage district users</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-no role-clinical">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">District-scope only.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Manage school users (per school)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-no role-clinical">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">School Admin scoped to their school.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Create / manage schools in district</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-no role-clinical">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Hardcoded in TC today.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Allocate invites/visits to schools</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-no role-clinical">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">District-level budget allocation.</td>
-      </tr>
-
-      <!-- ============ Visits & care (TC) ============ -->
+      <tr><td class="px-4 py-2.5 font-medium">Manage district users</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-no">—</td><td class="text-center cell-no">—</td><td class="text-center cell-no role-clinical">—</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">District-scope only.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Manage school users (per school)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-no">—</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-no role-clinical">—</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">School Admin scoped to their school.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Create / manage schools in district</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-no">—</td><td class="text-center cell-no">—</td><td class="text-center cell-no role-clinical">—</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">Hardcoded in TC today.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Allocate invites/visits to schools</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-no">—</td><td class="text-center cell-no">—</td><td class="text-center cell-no role-clinical">—</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">District-level budget allocation.</td></tr>
       <tr class="section-header"><td colspan="7" class="px-4 py-2 text-xs uppercase tracking-wide">Visits &amp; care <span class="text-tc-gray-400 font-normal normal-case ml-2">— TimelyCare (PHI gated)</span></td></tr>
-
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View visit data (aggregate, no PHI)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">No identifying info.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View visit schedule (per student, PHI)</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Requires <code class="bg-tc-gray-100 px-1 rounded text-[10px]">PHI&nbsp;Access&nbsp;=&nbsp;ON</code>. Clinical default ON.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View visit history (student detail, PHI)</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Same gate.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View student clinical records</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Health notes pushed from TC to portal.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View / edit insurance status</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-cfg font-bold role-clinical">●</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">PHI-gated for non-admin.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Visit facilitation (start/end session)</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">In-school provider only.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Invite distribution (refer a student)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Teachers may refer if school enables.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Invite management (view status)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">PHI-gated for non-admin.</td>
-      </tr>
-
-      <!-- ============ Students & alerts (Alongside) ============ -->
+      <tr><td class="px-4 py-2.5 font-medium">View visit data (aggregate, no PHI)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="px-4 py-2 text-xs text-tc-gray-700">No identifying info.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">View visit schedule (per student, PHI)</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">Requires PHI Access = ON . Clinical default ON.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">View visit history (student detail, PHI)</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">Same gate.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">View student clinical records</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-no">—</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">Health notes pushed from TC to portal.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">View / edit insurance status</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-cfg font-bold role-clinical">●</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">PHI-gated for non-admin.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Visit facilitation (start/end session)</td><td class="text-center cell-no">—</td><td class="text-center cell-no">—</td><td class="text-center cell-no">—</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">In-school provider only.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Invite distribution (refer a student)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-cfg font-bold">●</td><td class="px-4 py-2 text-xs text-tc-gray-700">Teachers may refer if school enables.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Invite management (view status)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">PHI-gated for non-admin.</td></tr>
       <tr class="section-header"><td colspan="7" class="px-4 py-2 text-xs uppercase tracking-wide">Students &amp; alerts <span class="text-tc-gray-400 font-normal normal-case ml-2">— Alongside</span></td></tr>
-
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View student roster</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">School Staff: read-only, role-filtered list.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Download SY roster (CSV)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-no role-clinical">—</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Requires <code class="bg-tc-gray-100 px-1 rounded text-[10px]">Org&nbsp;Contact&nbsp;=&nbsp;ON</code> (Alongside flag).</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View dashboard</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">All staff; data filtered by scope.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Receive Chat summary alerts</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Per-user subscription. Clinical Staff default ON.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Receive Crisis email / SMS alerts</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Crisis = high-severity; defaults conservatively wide.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Receive Standard message alerts</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Per-user subscription.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Receive Anonymous message alerts</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">"Tip line" routing.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View screener results (per student)</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Gated by "access to alerts" subscription.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Assign skills to students</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-no">—</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-cfg font-bold">●</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Teachers may assign if school enables.</td>
-      </tr>
-
-      <!-- ============ Library / Reports / Insights ============ -->
+      <tr><td class="px-4 py-2.5 font-medium">View student roster</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-cfg font-bold">●</td><td class="px-4 py-2 text-xs text-tc-gray-700">School Staff: read-only, role-filtered list.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Download SY roster (CSV)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-no role-clinical">—</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">Requires Org Contact = ON (Alongside flag).</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">View dashboard</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="px-4 py-2 text-xs text-tc-gray-700">All staff; data filtered by scope.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Receive Chat summary alerts</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-cfg font-bold">●</td><td class="px-4 py-2 text-xs text-tc-gray-700">Per-user subscription. Clinical Staff default ON.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Receive Crisis email / SMS alerts</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-cfg font-bold">●</td><td class="px-4 py-2 text-xs text-tc-gray-700">Crisis = high-severity; defaults conservatively wide.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Receive Standard message alerts</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-cfg font-bold">●</td><td class="px-4 py-2 text-xs text-tc-gray-700">Per-user subscription.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Receive Anonymous message alerts</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-cfg font-bold role-clinical">●</td><td class="text-center cell-cfg font-bold">●</td><td class="px-4 py-2 text-xs text-tc-gray-700">&quot;Tip line&quot; routing. Defaults to School Admin; Clinical Staff configurable. (Jess B., Alongside)</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">View screener results (per student)</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-cfg font-bold">●</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">Gated by &quot;access to alerts&quot; subscription.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Assign skills to students</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-no">—</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="px-4 py-2 text-xs text-tc-gray-700">Default for classroom teachers — Assign Skills was built for them. (Jess B., Alongside)</td></tr>
       <tr class="section-header"><td colspan="7" class="px-4 py-2 text-xs uppercase tracking-wide">Library, reports &amp; insights</td></tr>
-
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View Library (skills, screeners, resources)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Read-only for all.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">View Reports (download insights)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-cfg font-bold role-clinical">●</td>
-        <td class="text-center cell-no">—</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Clinical Staff: configurable.</td>
-      </tr>
-
-      <!-- ============ System ============ -->
+      <tr><td class="px-4 py-2.5 font-medium">View Library (skills, screeners, resources)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="px-4 py-2 text-xs text-tc-gray-700">Read-only for all.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">View Reports (dashboards &amp; exports)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-cfg font-bold role-clinical">●</td><td class="text-center cell-no">—</td><td class="px-4 py-2 text-xs text-tc-gray-700">Clinical Staff: configurable.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">View Insights (Alongside AI summary)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="px-4 py-2 text-xs text-tc-gray-700">Mirrors Alongside Dashboard — all staff, data filtered by scope. School-scoped AI summary of student conversation themes.</td></tr>
       <tr class="section-header"><td colspan="7" class="px-4 py-2 text-xs uppercase tracking-wide">System</td></tr>
-
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Student Demo (preview mode)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Sandboxed; no data writes.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Self-Care mode (own private space)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">Universal. Not visible to district.</td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2.5 font-medium">Settings (own profile)</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="text-center cell-yes font-bold role-clinical">✓</td>
-        <td class="text-center cell-yes font-bold">✓</td>
-        <td class="px-4 py-2 text-xs text-tc-gray-700">All users.</td>
-      </tr>
+      <tr><td class="px-4 py-2.5 font-medium">Student Demo (preview mode)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="px-4 py-2 text-xs text-tc-gray-700">Sandboxed; no data writes.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Self-Care mode (own private space)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="px-4 py-2 text-xs text-tc-gray-700">Universal. Not visible to district.</td></tr>
+      <tr><td class="px-4 py-2.5 font-medium">Settings (own profile)</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="text-center cell-yes font-bold role-clinical">✓</td><td class="text-center cell-yes font-bold">✓</td><td class="px-4 py-2 text-xs text-tc-gray-700">All users.</td></tr>
     </tbody>
   </table>
 
@@ -357,42 +134,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="px-4 py-2.5 font-medium">PHI Access (default)</td>
-          <td class="text-center text-xs">configurable</td>
-          <td class="text-center text-xs">configurable</td>
-          <td class="text-center text-xs">configurable</td>
-          <td class="text-center cell-yes font-bold role-clinical">ON</td>
-          <td class="text-center cell-no">OFF</td>
-          <td class="px-4 py-2 text-xs text-tc-gray-700">Student name, ID, visit times, provider name, modality. TC-native.</td>
-        </tr>
-        <tr>
-          <td class="px-4 py-2.5 font-medium">Org Contact (default)</td>
-          <td class="text-center cell-yes font-bold">ON</td>
-          <td class="text-center cell-no">OFF</td>
-          <td class="text-center cell-yes font-bold">ON</td>
-          <td class="text-center cell-no role-clinical">OFF</td>
-          <td class="text-center cell-no">OFF</td>
-          <td class="px-4 py-2 text-xs text-tc-gray-700">Roster download, escalation routing target. Alongside-native.</td>
-        </tr>
-        <tr>
-          <td class="px-4 py-2.5 font-medium">Alert subscriptions (default set)</td>
-          <td class="text-center text-xs">Crisis (E+SMS)</td>
-          <td class="text-center text-xs">None</td>
-          <td class="text-center text-xs">Crisis (E+SMS)</td>
-          <td class="text-center text-xs cell-yes font-bold role-clinical">All 5</td>
-          <td class="text-center text-xs">None</td>
-          <td class="px-4 py-2 text-xs text-tc-gray-700">Chat summary, Crisis Email, Crisis SMS, Standard, Anonymous. Per-user override.</td>
-        </tr>
-        <tr>
-          <td class="px-4 py-2.5 font-medium">Job title (metadata only)</td>
-          <td class="text-center text-xs">free text</td>
-          <td class="text-center text-xs">free text</td>
-          <td class="text-center text-xs">Principal / Asst Principal / Admin</td>
-          <td class="text-center text-xs role-clinical">Counselor / Social Worker / Psychologist / LCSW / LMFT</td>
-          <td class="text-center text-xs">Teacher / Coach / Para / Other</td>
-          <td class="px-4 py-2 text-xs text-tc-gray-700">Display only. Used for routing rules and UI labels — does not grant permission.</td>
-        </tr>
+        <tr><td class="px-4 py-2.5 font-medium">PHI Access (default)</td><td class="text-center text-xs">configurable</td><td class="text-center text-xs">configurable</td><td class="text-center text-xs">configurable</td><td class="text-center cell-yes font-bold">ON</td><td class="text-center cell-no role-clinical">OFF</td><td class="px-4 py-2 text-xs text-tc-gray-700">Student name, ID, visit times, provider name, modality. TC-native.</td></tr>
+        <tr><td class="px-4 py-2.5 font-medium">Org Admin (default)</td><td class="text-center cell-yes font-bold">ON</td><td class="text-center cell-cfg font-bold">Optional</td><td class="text-center cell-yes font-bold">ON</td><td class="text-center cell-no">OFF</td><td class="text-center cell-no role-clinical">OFF</td><td class="px-4 py-2 text-xs text-tc-gray-700">Roster download, escalation routing target. Called &quot;Org Admin&quot; in Alongside Retool. District Staff configurable — some districts list extra staff here. (Jess B., Alongside)</td></tr>
+        <tr><td class="px-4 py-2.5 font-medium">Alert subscriptions (default set)</td><td class="text-center text-xs">Crisis (E+SMS)</td><td class="text-center cell-cfg font-bold">Configurable</td><td class="text-center text-xs">Crisis (E+SMS)</td><td class="text-center cell-yes font-bold">All 5</td><td class="text-center text-xs role-clinical">None</td><td class="px-4 py-2 text-xs text-tc-gray-700">Chat summary, Crisis Email, Crisis SMS, Standard, Anonymous. Per-user override. District Staff configurable — many districts add student-services / mental-health teams. (Jess B., Alongside)</td></tr>
+        <tr><td class="px-4 py-2.5 font-medium">Job title (metadata only)</td><td class="text-center text-xs">free text</td><td class="text-center text-xs">free text</td><td class="text-center text-xs">Principal / Asst Principal / Admin</td><td class="text-center text-xs">Counselor / LPC / Social Worker / Psychologist / LCSW / LMFT</td><td class="text-center text-xs role-clinical">Teacher / Coach / Para / Other</td><td class="px-4 py-2 text-xs text-tc-gray-700">Display only. Used for routing rules and UI labels — does not grant permission. (LPC per Alongside — TX differentiates it from counselor.)</td></tr>
       </tbody>
     </table>
   </section>
@@ -429,7 +174,7 @@
           <tr><td class="py-2 text-tc-gray-700">District Administrator</td><td class="py-2 font-semibold text-right">→ District Administrator</td></tr>
           <tr><td class="py-2 text-tc-gray-700">District Staff</td><td class="py-2 font-semibold text-right">→ District Staff</td></tr>
           <tr><td class="py-2 text-tc-gray-700">School Administrator</td><td class="py-2 font-semibold text-right">→ School Administrator</td></tr>
-          <tr><td class="py-2 text-tc-gray-700">School Staff <span class="text-xs text-tc-gray-400">(PHI ON)</span></td><td class="py-2 font-semibold text-right">→ <span class="text-tc-navy-700">Clinical Staff</span> <span class="text-xs text-tc-gray-400">(new)</span></td></tr>
+          <tr class="bg-tc-navy-50"><td class="py-2 text-tc-gray-700 px-2">School Staff <span class="text-xs text-tc-gray-400">(PHI ON)</span></td><td class="py-2 font-semibold text-right px-2">→ <span class="text-tc-navy-700">Clinical Staff</span> <span class="text-xs text-tc-gray-400">(new)</span></td></tr>
           <tr><td class="py-2 text-tc-gray-700">School Staff <span class="text-xs text-tc-gray-400">(PHI OFF)</span></td><td class="py-2 font-semibold text-right">→ School Staff</td></tr>
         </tbody>
       </table>
@@ -444,15 +189,15 @@
     <h3 class="text-base font-bold mb-3">Open questions before this can ship</h3>
     <ol class="space-y-2 text-sm text-tc-gray-700 list-decimal pl-5">
       <li><strong class="text-tc-gray-900">District Staff usage.</strong> No Alongside equivalent. Is TC using this heavily, or can we collapse to 4 roles? Affects whether we end at 4 roles + Clinical Staff (5) or 3 + Clinical Staff (4).</li>
-      <li><strong class="text-tc-gray-900">"Other" in Alongside.</strong> What does it actually represent — office staff, coach, para, district observer? If anything outside School Staff, may need its own attribute.</li>
-      <li><strong class="text-tc-gray-900">Counselor vs Social Worker vs Psychologist permissions.</strong> Are they functionally identical in practice, or does one have signoff authority another doesn't? Determines whether one Clinical Staff role is right.</li>
+      <li><strong class="text-tc-gray-900">&quot;Other&quot; in Alongside.</strong> What does it actually represent — office staff, coach, para, district observer? If anything outside School Staff, may need its own attribute.</li>
+      <li><strong class="text-tc-gray-900">Counselor vs Social Worker vs Psychologist permissions.</strong> Are they functionally identical in practice, or does one have signoff authority another doesn&#x27;t? Determines whether one Clinical Staff role is right.</li>
       <li><strong class="text-tc-gray-900">PHI default for school admins.</strong> Today Alongside Principal/Asst Principal often see student names. Should Merged School Admin default PHI = ON or OFF? Defaults shape onboarding friction.</li>
       <li><strong class="text-tc-gray-900">Crisis SMS sender cost.</strong> Defaulting Clinical Staff to receive Crisis SMS multiplies recipients — confirm with TC ops + Alongside on per-school SMS budget.</li>
     </ol>
   </section>
 
   <footer class="mt-8 mb-12 text-xs text-tc-gray-400 flex items-center justify-between">
-    <span>Throwaway analysis · not a spec · share with Julia for review</span>
+    <span>Throwaway analysis · not a spec · generated from roles-matrix.xlsx</span>
     <a href="merged-portal-prototype.html" class="text-tc-navy-500 hover:underline">← back to prototype</a>
   </footer>
 
