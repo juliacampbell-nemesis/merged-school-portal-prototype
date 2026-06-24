@@ -257,6 +257,10 @@
   body[data-persona="clinical-staff"] .district-only,
   body[data-persona="school-staff"] .district-only { display: none !important; }
 
+  /* Inverse of .district-only — single-school personas get a "My School" entry; district personas don't */
+  body[data-persona="district-administrator"] .school-scoped-only,
+  body[data-persona="district-staff"] .school-scoped-only { display: none !important; }
+
   body[data-persona="school-staff"] .admin-only,
   body[data-persona="clinical-staff"] .admin-only { display: none !important; }
 
@@ -526,6 +530,7 @@
         <li><a href="#inbox" class="nav-link" data-route="inbox"><i data-lucide="inbox" class="size-4"></i>Inbox<span class="ml-auto inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground">3</span></a></li>
         <li><a href="#students" class="nav-link" data-route="students"><i data-lucide="users" class="size-4"></i>Students</a></li>
         <li class="district-only"><a href="#schools" class="nav-link" data-route="schools"><i data-lucide="school" class="size-4"></i>Schools</a></li>
+        <li class="school-scoped-only"><a href="#school-detail" class="nav-link" data-route="schools"><i data-lucide="school" class="size-4"></i>My School</a></li>
         <li><a href="#skills" class="nav-link" data-route="skills"><i data-lucide="brain" class="size-4"></i>Skills</a></li>
         <li><a href="#screeners" class="nav-link" data-route="screeners"><i data-lucide="clipboard-list" class="size-4"></i>Screeners</a></li>
         <li class="admin-only"><a href="#reports" class="nav-link" data-route="reports"><i data-lucide="file-text" class="size-4"></i>Reports</a></li>
@@ -1741,8 +1746,8 @@ Julia Campbell</textarea>
 <main id="school-detail" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <nav aria-label="Breadcrumb" class="mb-4">
     <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
-      <li><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('schools')">Schools</a></li>
-      <li><i data-lucide="chevron-right" class="size-4"></i></li>
+      <li class="district-only"><a class="hover:text-foreground cursor-pointer font-medium underline" onclick="navigate('schools')">Schools</a></li>
+      <li class="district-only"><i data-lucide="chevron-right" class="size-4"></i></li>
       <li class="text-foreground font-semibold" aria-current="page">Lincoln High School</li>
     </ol>
   </nav>
@@ -1766,6 +1771,7 @@ Julia Campbell</textarea>
   <div role="tablist" class="h-9 bg-muted p-[3px] rounded-lg inline-flex items-center gap-0.5 mb-6" aria-label="School sections">
     <button role="tab" id="schooltab-visits" aria-selected="true" onclick="setSchoolTab('visits')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm">Visit allocation</button>
     <button role="tab" id="schooltab-staff" aria-selected="false" onclick="setSchoolTab('staff')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors">Staff</button>
+    <button role="tab" id="schooltab-insights" aria-selected="false" onclick="setSchoolTab('insights')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors">Insights</button>
   </div>
 
   <!-- ===================== STAFF PANEL ===================== -->
@@ -1986,6 +1992,87 @@ Julia Campbell</textarea>
         <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('reports')">View all in Reports<i data-lucide="arrow-right" class="size-4"></i></a>
       </footer>
     </section>
+  </section>
+
+  <!-- ===================== INSIGHTS PANEL (Alongside AI summary — all personas, scope-filtered) ===================== -->
+  <section id="schoolpanel-insights" class="school-panel hidden" role="tabpanel" aria-labelledby="schooltab-insights">
+    <div class="mb-6 flex items-start justify-between gap-4 flex-wrap">
+      <div>
+        <h2 class="text-lg font-semibold flex items-center gap-2"><i data-lucide="sparkles" class="size-5 text-primary"></i>Insights for Lincoln High School</h2>
+        <p class="text-sm text-muted-foreground mt-1 max-w-2xl">AI-generated summary of what students are talking about, with positive highlights and actionable recommendations — based on Alongside conversations at this school. Refreshes as more students engage.</p>
+      </div>
+      <span class="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground"><i data-lucide="info" class="size-3.5"></i>Sample data</span>
+    </div>
+
+    <!-- What students are talking about -->
+    <h3 class="text-base font-semibold flex items-center gap-2 mb-3"><i data-lucide="message-circle" class="size-4 text-muted-foreground"></i>What students are talking about</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="flex items-start justify-between gap-2">
+          <h4 class="font-semibold leading-snug">Social Belonging &amp; Peer Dynamics</h4>
+          <span class="shrink-0 inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">28 convos</span>
+        </div>
+        <ul class="mt-3 space-y-1.5 text-sm text-muted-foreground list-disc list-inside marker:text-muted-foreground/60">
+          <li>Fear of Exclusion &amp; Ghosting</li>
+          <li>Conflict Resolution &amp; Restoration</li>
+          <li>General Relationship Guidance</li>
+        </ul>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="flex items-start justify-between gap-2">
+          <h4 class="font-semibold leading-snug">Academic Pressure &amp; Performance</h4>
+          <span class="shrink-0 inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">26 convos</span>
+        </div>
+        <ul class="mt-3 space-y-1.5 text-sm text-muted-foreground list-disc list-inside marker:text-muted-foreground/60">
+          <li>Test Anxiety &amp; Study Strategy</li>
+          <li>Workload &amp; Extracurricular Balance</li>
+        </ul>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="flex items-start justify-between gap-2">
+          <h4 class="font-semibold leading-snug">Lifestyle &amp; Home Environment</h4>
+          <span class="shrink-0 inline-flex items-center rounded-full bg-muted text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">24 convos</span>
+        </div>
+        <ul class="mt-3 space-y-1.5 text-sm text-muted-foreground list-disc list-inside marker:text-muted-foreground/60">
+          <li>Sleep Hygiene &amp; Screen Boundaries</li>
+          <li>Family &amp; Values Conflict</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Positive highlights -->
+    <h3 class="text-base font-semibold flex items-center gap-2 mb-3"><i data-lucide="trending-up" class="size-4 text-muted-foreground"></i>Positive highlights</h3>
+    <div class="bg-card border border-border rounded-lg shadow-sm p-6 mb-8">
+      <ul class="space-y-4 text-sm">
+        <li class="flex gap-3">
+          <i data-lucide="check-circle-2" class="size-4 text-primary mt-0.5 shrink-0"></i>
+          <p class="text-muted-foreground"><span class="font-semibold text-foreground">Rapid Uptake of CBT Tools:</span> Students showed remarkable resilience and willingness to use psychological tools. When offered methods like the &lsquo;Worry Tree,&rsquo; &lsquo;Memory Palaces,&rsquo; or &lsquo;Perspective Taking,&rsquo; they immediately applied them and reported feeling better, rather than just complaining.</p>
+        </li>
+        <li class="flex gap-3">
+          <i data-lucide="check-circle-2" class="size-4 text-primary mt-0.5 shrink-0"></i>
+          <p class="text-muted-foreground"><span class="font-semibold text-foreground">Empathy when Prompted:</span> Despite feeling hurt, when asked to imagine their friend&rsquo;s perspective, almost every student was able to shift from anger to understanding (e.g., realizing a friend might just be busy or excited, not malicious).</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Actionable recommendations -->
+    <h3 class="text-base font-semibold flex items-center gap-2 mb-3"><i data-lucide="lightbulb" class="size-4 text-muted-foreground"></i>Actionable recommendations</h3>
+    <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+      <ul class="space-y-4 text-sm">
+        <li class="flex gap-3">
+          <i data-lucide="arrow-right" class="size-4 text-primary mt-0.5 shrink-0"></i>
+          <p class="text-muted-foreground"><span class="font-semibold text-foreground">Implement a &lsquo;Friendship Fluency&rsquo; Campaign:</span> Run advisory sessions that normalize expanding social circles. Use the &lsquo;Perspective Taking&rsquo; framework (which students responded to well in chats) to help students understand that a friend&rsquo;s new connection is not a rejection of the old one.</p>
+        </li>
+        <li class="flex gap-3">
+          <i data-lucide="arrow-right" class="size-4 text-primary mt-0.5 shrink-0"></i>
+          <p class="text-muted-foreground"><span class="font-semibold text-foreground">Coordinate Assessment Calendars:</span> The data shows students hitting breaking points when 3+ major assessments align with sports seasons. Review the master calendar to space out finals or major projects across different departments.</p>
+        </li>
+        <li class="flex gap-3">
+          <i data-lucide="arrow-right" class="size-4 text-primary mt-0.5 shrink-0"></i>
+          <p class="text-muted-foreground"><span class="font-semibold text-foreground">Launch a &lsquo;Tech-Down&rsquo; Challenge:</span> Specifically target the high-achieving students who work late. Frame sleep not just as &lsquo;health&rsquo; but as a performance enhancer for their coding and academic work, encouraging a 10:00 PM digital curfew.</p>
+        </li>
+      </ul>
+    </div>
   </section>
 </main>
 
@@ -5773,7 +5860,7 @@ Julia Campbell</textarea>
     document.querySelectorAll('.school-panel').forEach(p => p.classList.add('hidden'));
     const panel = document.getElementById('schoolpanel-' + tab);
     if (panel) panel.classList.remove('hidden');
-    ['visits', 'staff'].forEach(t => {
+    ['visits', 'staff', 'insights'].forEach(t => {
       const btn = document.getElementById('schooltab-' + t);
       if (btn) applyHelixPillState(btn, t === tab);
     });
@@ -5870,12 +5957,12 @@ Julia Campbell</textarea>
       { label: 'Create & manage schools', desc: 'Add new schools in the district.' },
       { label: 'Allocate invites to schools', desc: 'Set per-school invite/visit budgets.' },
       { label: 'View visit data (district-wide)', desc: 'Aggregate visit counts and trends.' },
-      { label: 'View all Reports', desc: 'District-wide insights and exports.' },
+      { label: 'View all Reports', desc: 'District-wide reports and exports.' },
       { label: 'Receive Crisis alerts', desc: 'Email + SMS for high-severity flags.' }
     ],
     'district-staff': [
       { label: 'View visit data (district-wide)', desc: 'Aggregate visit counts and trends.' },
-      { label: 'View all Reports', desc: 'District-wide insights and exports.' },
+      { label: 'View all Reports', desc: 'District-wide reports and exports.' },
       { label: 'View Library', desc: 'Skills, screeners, staff resources.' },
       { label: 'Org Admin contact (configurable)', desc: 'Off by default; can be enabled to list district staff as org admins.' },
       { label: 'Receive alerts (configurable)', desc: 'Configurable per user — many districts add student-services / mental-health teams.' }
