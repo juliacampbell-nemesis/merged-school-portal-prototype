@@ -569,12 +569,8 @@
 <main id="home" class="page max-w-screen-2xl mx-auto px-6 py-8">
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
-      <h1 class="text-2xl font-bold tracking-tight">Good morning, Julia</h1>
+      <h1 id="home-greeting" class="text-2xl font-bold tracking-tight">Good morning, Julia</h1>
       <p class="text-base text-muted-foreground mt-1">Lincoln High School  ·  Tuesday, May 26</p>
-    </div>
-    <div class="flex items-center gap-2 text-sm text-muted-foreground">
-      <i data-lucide="users" class="size-4"></i>
-      <span>Roster via Clever</span>
     </div>
   </div>
 
@@ -1339,7 +1335,7 @@ Julia Campbell</textarea>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
       <h1 class="text-2xl font-bold tracking-tight">Students</h1>
-      <p class="text-base text-muted-foreground mt-1">1,247 students  ·  Roster via Clever</p>
+      <p class="text-base text-muted-foreground mt-1">1,247 students</p>
     </div>
     <div class="flex items-center gap-2">
       <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
@@ -4897,7 +4893,7 @@ Julia Campbell</textarea>
   <div class="flex items-end justify-between mb-6 gap-4">
     <div>
       <h1 class="text-2xl font-bold tracking-tight">User Management</h1>
-      <p class="text-base text-muted-foreground mt-1">147 staff users across 14 schools  ·  Roster via Clever</p>
+      <p class="text-base text-muted-foreground mt-1">147 staff users across 14 schools</p>
     </div>
     <div class="flex items-center gap-2">
       <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
@@ -5893,6 +5889,7 @@ Julia Campbell</textarea>
     setText('persona-full-name', p.fullName);
     setText('persona-email', p.email);
     setText('persona-role-org', p.roleOrg);
+    setText('home-greeting', 'Good morning, ' + (p.fullName || '').split(' ')[0]);
   }
   function updateDemoToolbarSummary() {
     const summary = document.getElementById('demo-toolbar-summary');
