@@ -247,6 +247,16 @@
   /* Roster source = Manual → hide Clever-sourced UI cues */
   body[data-roster="manual"] .roster-clever-only { display: none !important; }
 
+  /* Product entitlement = which product(s) the org has (Both / TimelyCare only / Alongside only).
+     .alongside-only = present only when the org has Alongside; .tc-only = present only when it has TimelyCare. */
+  body[data-product="tc"] .alongside-only { display: none !important; }
+  body[data-product="alongside"] .tc-only { display: none !important; }
+  /* Insurance is a TimelyCare concept — no insurance UI for Alongside-only orgs */
+  body[data-product="alongside"] .insurance-only { display: none !important; }
+  /* Bespoke TimelyCare-only Home dashboard — shown only when the org is TC-only */
+  .tc-home { display: none; }
+  body[data-product="tc"] .tc-home { display: block; }
+
   /* Insurance model = Free → no insurance UI anywhere */
   body[data-insurance="free"] .insurance-only { display: none !important; }
   /* Insurance model = Hybrid → insurance UI is present, possibly optional */
@@ -311,7 +321,7 @@
   #my-reports-grid.swap-mode .report-pinned-card.swap-source .swap-source-banner { display: inline-flex; }
 </style>
 </head>
-<body class="bg-background text-foreground antialiased min-h-screen" data-persona="clinical-staff" data-insurance="hybrid" data-roster="clever">
+<body class="bg-background text-foreground antialiased min-h-screen" data-persona="clinical-staff" data-insurance="hybrid" data-roster="clever" data-product="both">
 
 <div class="border-b border-border bg-card">
   <div class="px-6 py-2 text-xs text-muted-foreground flex items-center gap-2">
@@ -442,6 +452,14 @@
           <option value="manual">Manual (invites needed for activation)</option>
         </select>
       </div>
+      <div>
+        <label for="demo-product" class="block text-xs font-semibold text-foreground mb-1">Product</label>
+        <select id="demo-product" onchange="setDemoProduct(this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="both" selected>Both (TimelyCare + Alongside)</option>
+          <option value="tc">TimelyCare only</option>
+          <option value="alongside">Alongside only</option>
+        </select>
+      </div>
     </div>
 
     <div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
@@ -509,7 +527,7 @@
 
 <div class="flex min-h-[calc(100vh-33px-3.5rem)]">
   <aside id="main-sidebar" class="w-64 shrink-0 border-r border-sidebar-border bg-sidebar flex flex-col sticky top-14 self-start max-h-[calc(100vh-3.5rem)]">
-    <div class="px-4 py-5 border-b border-sidebar-border space-y-2">
+    <div class="px-4 py-5 border-b border-sidebar-border space-y-2 alongside-only">
       <!-- Switch to Self-Care (opens in new tab) -->
       <a href="#my-wellness" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 w-full h-9 px-3 rounded-full border border-input bg-card text-sm font-semibold hover:bg-muted transition-colors">
         <i data-lucide="heart-pulse" class="size-4"></i>
@@ -527,12 +545,12 @@
     <nav class="flex-1 p-3 overflow-y-auto" aria-label="Primary">
       <ul role="list" class="space-y-1">
         <li><a href="#home" class="nav-link" data-route="home"><i data-lucide="layout-dashboard" class="size-4"></i>Home</a></li>
-        <li><a href="#inbox" class="nav-link" data-route="inbox"><i data-lucide="inbox" class="size-4"></i>Inbox<span class="ml-auto inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground">3</span></a></li>
+        <li class="alongside-only"><a href="#inbox" class="nav-link" data-route="inbox"><i data-lucide="inbox" class="size-4"></i>Inbox<span class="ml-auto inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground">3</span></a></li>
         <li><a href="#students" class="nav-link" data-route="students"><i data-lucide="users" class="size-4"></i>Students</a></li>
         <li class="district-only"><a href="#schools" class="nav-link" data-route="schools"><i data-lucide="school" class="size-4"></i>Schools</a></li>
         <li class="school-scoped-only"><a href="#school-detail" class="nav-link" data-route="schools"><i data-lucide="school" class="size-4"></i>My School</a></li>
-        <li><a href="#skills" class="nav-link" data-route="skills"><i data-lucide="brain" class="size-4"></i>Skills</a></li>
-        <li><a href="#screeners" class="nav-link" data-route="screeners"><i data-lucide="clipboard-list" class="size-4"></i>Screeners</a></li>
+        <li class="alongside-only"><a href="#skills" class="nav-link" data-route="skills"><i data-lucide="brain" class="size-4"></i>Skills</a></li>
+        <li class="alongside-only"><a href="#screeners" class="nav-link" data-route="screeners"><i data-lucide="clipboard-list" class="size-4"></i>Screeners</a></li>
         <li class="admin-only"><a href="#reports" class="nav-link" data-route="reports"><i data-lucide="file-text" class="size-4"></i>Reports</a></li>
         <li class="admin-only"><a href="#settings" class="nav-link" data-route="settings"><i data-lucide="users-round" class="size-4"></i>User Management</a></li>
       </ul>
@@ -559,6 +577,8 @@
       <span>Roster via Clever</span>
     </div>
   </div>
+
+  <div class="alongside-only"><!-- Blended Home: shown for Both + Alongside-only; replaced by .tc-home when TC-only -->
 
   <!-- MY REPORTS — primary widget on Home (Alongside Dashboard parity).
        Schools have told us these engagement/outcome metrics drive retention,
@@ -600,7 +620,7 @@
   </section>
 
   <!-- Upcoming Visits — full-width primary surface for facilitators -->
-  <section class="bg-card border border-border rounded-lg shadow-sm mb-6" aria-labelledby="visits-heading">
+  <section class="tc-only bg-card border border-border rounded-lg shadow-sm mb-6" aria-labelledby="visits-heading">
     <header class="px-6 py-4 border-b border-border">
       <h2 id="visits-heading" class="text-lg font-semibold">Upcoming Visits</h2>
       <p class="text-sm text-muted-foreground mt-0.5">Visits you're scheduled to facilitate</p>
@@ -814,6 +834,91 @@
         </ul>
       </div>
     </section>
+  </div>
+  </div><!-- /.alongside-only -->
+
+  <!-- ===== TC-ONLY HOME — bespoke care-operations dashboard (shown only when product = TimelyCare only) ===== -->
+  <div class="tc-home">
+    <!-- KPI strip -->
+    <div class="grid grid-cols-4 gap-4 mb-6">
+      <div class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="calendar-check" class="size-4"></i>Visit pool</div>
+        <div class="text-3xl font-semibold mt-3">78 <span class="text-lg font-normal text-muted-foreground">/ 100</span></div>
+        <div class="text-xs text-muted-foreground mt-1">22 remaining · SY 25–26</div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="calendar-clock" class="size-4"></i>Upcoming this week</div>
+        <div class="text-3xl font-semibold mt-3">12</div>
+        <div class="text-xs text-muted-foreground mt-1">4 scheduled today</div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="check-circle-2" class="size-4"></i>Completed this month</div>
+        <div class="text-3xl font-semibold mt-3">31</div>
+        <div class="text-xs text-muted-foreground mt-1">of 78 this school year</div>
+      </div>
+      <div class="bg-card border border-border rounded-lg shadow-sm p-5">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground font-medium"><i data-lucide="map-pin" class="size-4"></i>On-site / telehealth</div>
+        <div class="text-3xl font-semibold mt-3">31 <span class="text-lg font-normal text-muted-foreground">/ 47</span></div>
+        <div class="text-xs text-muted-foreground mt-1">completed visits by location</div>
+      </div>
+    </div>
+
+    <!-- Upcoming Visits — full-width primary surface for facilitators -->
+    <section class="bg-card border border-border rounded-lg shadow-sm mb-6" aria-labelledby="tc-visits-heading">
+      <header class="px-6 py-4 border-b border-border">
+        <h2 id="tc-visits-heading" class="text-lg font-semibold">Upcoming Visits</h2>
+        <p class="text-sm text-muted-foreground mt-0.5">Visits you're scheduled to facilitate</p>
+      </header>
+      <ul class="divide-y divide-border" role="list">
+        <li class="px-6 py-4 flex items-center gap-3"><span class="text-sm font-semibold mono w-16 text-muted-foreground">9:00 AM</span><div class="flex-1 min-w-0"><div class="text-sm font-semibold">Marcus T.  ·  Gr 10</div><div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5"><i data-lucide="map-pin" class="size-3"></i>On-site  ·  counseling</div></div><span class="inline-flex items-center gap-1 rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Checked in</span></li>
+        <li class="px-6 py-4 flex items-center gap-3"><span class="text-sm font-semibold mono w-16 text-muted-foreground">10:30 AM</span><div class="flex-1 min-w-0"><div class="text-sm font-semibold">Aisha K.  ·  Gr 9</div><div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5"><i data-lucide="video" class="size-3"></i>Telehealth  ·  psych follow-up</div></div><button type="button" class="inline-flex items-center gap-1 h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">Start<i data-lucide="arrow-right" class="size-3.5"></i></button></li>
+        <li class="px-6 py-4 flex items-center gap-3"><span class="text-sm font-semibold mono w-16 text-muted-foreground">11:15 AM</span><div class="flex-1 min-w-0"><div class="text-sm font-semibold">Diego R.  ·  Gr 11</div><div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5"><i data-lucide="map-pin" class="size-3"></i>On-site  ·  intake</div></div><span class="text-xs text-muted-foreground">Upcoming</span></li>
+        <li class="px-6 py-4 flex items-center gap-3"><span class="text-sm font-semibold mono w-16 text-muted-foreground">1:00 PM</span><div class="flex-1 min-w-0"><div class="text-sm font-semibold">Sara L.  ·  Gr 12</div><div class="text-xs text-muted-foreground flex items-center gap-1 mt-0.5"><i data-lucide="video" class="size-3"></i>Telehealth  ·  therapy</div></div><span class="text-xs text-muted-foreground">Upcoming</span></li>
+      </ul>
+    </section>
+
+    <!-- Invite students CTA — only on the manual/invite roster model (Clever auto-manages invites, so this hides there) -->
+    <section class="roster-non-clever bg-card border border-border rounded-lg shadow-sm overflow-hidden mb-6">
+      <div class="grid grid-cols-[1fr_240px] items-stretch">
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-2"><i data-lucide="user-plus" class="size-5 text-primary"></i><h2 class="text-lg font-bold">Invite students to care</h2></div>
+          <p class="text-sm text-muted-foreground mb-4 max-w-2xl">Students activate by guardian invite. Send invites so families can consent and students can be scheduled for visits.</p>
+          <a onclick="navigate('students')" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors cursor-pointer"><i data-lucide="user-plus" class="size-4"></i>Invite students</a>
+        </div>
+        <div class="bg-primary/5 border-l border-border p-6 flex flex-col justify-center">
+          <div class="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Pending</div>
+          <div class="text-3xl font-bold">5</div>
+          <div class="text-sm text-muted-foreground mt-0.5">guardian invites awaiting acceptance</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent visits + By visit type -->
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="tc-recent-heading">
+        <header class="px-6 py-4 border-b border-border flex items-center justify-between">
+          <h2 id="tc-recent-heading" class="text-lg font-semibold">Recent visits</h2>
+          <a class="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:underline cursor-pointer" onclick="navigate('reports')">Full report<i data-lucide="arrow-right" class="size-4"></i></a>
+        </header>
+        <ul class="divide-y divide-border" role="list">
+          <li class="px-6 py-3 flex items-center gap-3"><span class="text-xs text-muted-foreground mono w-20 shrink-0">Wed 1:30 PM</span><div class="flex-1 min-w-0"><div class="text-sm font-semibold">Clarke H.  ·  Gr 9</div><div class="text-xs text-muted-foreground">Telehealth  ·  Dr. Patel</div></div><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></li>
+          <li class="px-6 py-3 flex items-center gap-3"><span class="text-xs text-muted-foreground mono w-20 shrink-0">Wed 10:00 AM</span><div class="flex-1 min-w-0"><div class="text-sm font-semibold">Kevin M.  ·  Gr 11</div><div class="text-xs text-muted-foreground">On-site  ·  Sarah Park</div></div><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></li>
+          <li class="px-6 py-3 flex items-center gap-3"><span class="text-xs text-muted-foreground mono w-20 shrink-0">Tue 2:15 PM</span><div class="flex-1 min-w-0"><div class="text-sm font-semibold">Emma S.  ·  Gr 9</div><div class="text-xs text-muted-foreground">Telehealth  ·  Dr. Ng</div></div><span class="inline-flex items-center rounded-full bg-card text-muted-foreground border border-border px-2 py-0.5 text-xs font-semibold leading-4">Cancelled</span></li>
+          <li class="px-6 py-3 flex items-center gap-3"><span class="text-xs text-muted-foreground mono w-20 shrink-0">Mon 3:45 PM</span><div class="flex-1 min-w-0"><div class="text-sm font-semibold">Aisha K.  ·  Gr 9</div><div class="text-xs text-muted-foreground">On-site  ·  Marcus Rivera</div></div><span class="inline-flex items-center rounded-full bg-tc-sage-50 text-tc-sage-600 border border-tc-sage-200 px-2 py-0.5 text-xs font-semibold leading-4">Completed</span></li>
+        </ul>
+      </section>
+      <section class="bg-card border border-border rounded-lg shadow-sm" aria-labelledby="tc-bytype-heading">
+        <header class="px-6 py-4 border-b border-border"><h2 id="tc-bytype-heading" class="text-lg font-semibold">By visit type</h2></header>
+        <div class="p-6">
+          <dl class="text-sm space-y-3">
+            <div><div class="flex justify-between mb-1"><dt>On-site</dt><dd class="font-semibold mono">31</dd></div><div class="h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-primary" style="width:40%"></div></div></div>
+            <div><div class="flex justify-between mb-1"><dt>Telehealth</dt><dd class="font-semibold mono">47</dd></div><div class="h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-primary" style="width:60%"></div></div></div>
+            <div><div class="flex justify-between mb-1"><dt class="text-muted-foreground">Cancelled</dt><dd class="font-semibold mono">8</dd></div><div class="h-1.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-muted-foreground/40" style="width:10%"></div></div></div>
+            <div class="border-t border-border pt-3 flex justify-between font-semibold"><dt>Total used</dt><dd class="mono">78 / 100</dd></div>
+          </dl>
+        </div>
+      </section>
+    </div>
   </div>
 </main>
 
@@ -1770,9 +1875,9 @@ Julia Campbell</textarea>
 
   <!-- Helix Pill/Segment tabs -->
   <div role="tablist" class="h-9 bg-muted p-[3px] rounded-lg inline-flex items-center gap-0.5 mb-6" aria-label="School sections">
-    <button role="tab" id="schooltab-visits" aria-selected="true" onclick="setSchoolTab('visits')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm">Visit allocation</button>
+    <button role="tab" id="schooltab-visits" aria-selected="true" onclick="setSchoolTab('visits')" class="school-tab tc-only inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-background text-foreground shadow-sm">Visit allocation</button>
+    <button role="tab" id="schooltab-insights" aria-selected="false" onclick="setSchoolTab('insights')" class="school-tab alongside-only inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors">Insights</button>
     <button role="tab" id="schooltab-staff" aria-selected="false" onclick="setSchoolTab('staff')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors">Staff</button>
-    <button role="tab" id="schooltab-insights" aria-selected="false" onclick="setSchoolTab('insights')" class="school-tab inline-flex items-center justify-center gap-2 px-3 py-1 rounded-md text-sm font-medium bg-transparent text-muted-foreground hover:text-foreground transition-colors">Insights</button>
   </div>
 
   <!-- ===================== STAFF PANEL ===================== -->
@@ -1864,7 +1969,7 @@ Julia Campbell</textarea>
   </section>
 
   <!-- ===================== VISIT ALLOCATION PANEL ===================== -->
-  <section id="schoolpanel-visits" class="school-panel" role="tabpanel" aria-labelledby="schooltab-visits">
+  <section id="schoolpanel-visits" class="school-panel tc-only" role="tabpanel" aria-labelledby="schooltab-visits">
     <!-- At-a-glance school stats (relocated from the removed Overview tab) -->
     <div class="grid grid-cols-3 gap-4 mb-4">
       <div class="bg-card border border-border rounded-lg shadow-sm p-6">
@@ -1996,7 +2101,7 @@ Julia Campbell</textarea>
   </section>
 
   <!-- ===================== INSIGHTS PANEL (Alongside AI summary — all personas, scope-filtered) ===================== -->
-  <section id="schoolpanel-insights" class="school-panel hidden" role="tabpanel" aria-labelledby="schooltab-insights">
+  <section id="schoolpanel-insights" class="school-panel hidden alongside-only" role="tabpanel" aria-labelledby="schooltab-insights">
     <div class="mb-6 flex items-start justify-between gap-4 flex-wrap">
       <div>
         <h2 class="text-lg font-semibold flex items-center gap-2"><i data-lucide="sparkles" class="size-5 text-primary"></i>Insights for Lincoln High School</h2>
@@ -2759,7 +2864,7 @@ Julia Campbell</textarea>
 
   <!-- Report groups — one single-click card each; opens a combined page with all that group's reports -->
   <div class="grid grid-cols-3 gap-4 items-stretch">
-    <a class="bg-card border border-border rounded-lg shadow-sm p-6 hover:bg-muted/30 transition-colors cursor-pointer flex flex-col" onclick="navigate('reports-group-wellbeing')">
+    <a class="tc-only bg-card border border-border rounded-lg shadow-sm p-6 hover:bg-muted/30 transition-colors cursor-pointer flex flex-col" onclick="navigate('reports-group-wellbeing')">
       <div class="flex items-center justify-between">
         <span class="size-11 rounded-lg border border-accent-border flex items-center justify-center bg-accent text-accent-foreground"><i data-lucide="heart-pulse" class="size-5"></i></span>
         <i data-lucide="arrow-right" class="size-5 text-muted-foreground"></i>
@@ -2767,7 +2872,7 @@ Julia Campbell</textarea>
       <div class="text-lg font-semibold mt-4">Care &amp; Wellness</div>
       <div class="text-sm text-muted-foreground mt-1">Care delivery  ·  Wellness</div>
     </a>
-    <a class="bg-card border border-border rounded-lg shadow-sm p-6 hover:bg-muted/30 transition-colors cursor-pointer flex flex-col" onclick="navigate('reports-group-engagement')">
+    <a class="alongside-only bg-card border border-border rounded-lg shadow-sm p-6 hover:bg-muted/30 transition-colors cursor-pointer flex flex-col" onclick="navigate('reports-group-engagement')">
       <div class="flex items-center justify-between">
         <span class="size-11 rounded-lg border border-accent-border flex items-center justify-center bg-accent text-accent-foreground"><i data-lucide="activity" class="size-5"></i></span>
         <i data-lucide="arrow-right" class="size-5 text-muted-foreground"></i>
@@ -5745,7 +5850,7 @@ Julia Campbell</textarea>
       roleShort: 'Teacher', roleOrg: 'Teacher · Lincoln High School'
     }
   };
-  const DEMO_DEFAULTS = { persona: 'clinical-staff', insurance: 'hybrid', roster: 'clever' };
+  const DEMO_DEFAULTS = { persona: 'clinical-staff', insurance: 'hybrid', roster: 'clever', product: 'both' };
   let DEMO_STATE = Object.assign({}, DEMO_DEFAULTS);
 
   function loadDemoState() {
@@ -5763,15 +5868,19 @@ Julia Campbell</textarea>
     const p = document.getElementById('demo-persona');
     const i = document.getElementById('demo-insurance');
     const r = document.getElementById('demo-roster');
+    const pr = document.getElementById('demo-product');
     if (p) p.value = DEMO_STATE.persona;
     if (i) i.value = DEMO_STATE.insurance;
     if (r) r.value = DEMO_STATE.roster;
+    if (pr) pr.value = DEMO_STATE.product;
   }
   function applyDemoState() {
     document.body.dataset.persona = DEMO_STATE.persona;
     document.body.dataset.insurance = DEMO_STATE.insurance;
     document.body.dataset.roster = DEMO_STATE.roster;
+    document.body.dataset.product = DEMO_STATE.product;
     applyPersona(DEMO_STATE.persona);
+    applySchoolTabDefault();
     updateDemoToolbarSummary();
   }
   function applyPersona(key) {
@@ -5791,11 +5900,17 @@ Julia Campbell</textarea>
     const p = DEMO_PERSONAS[DEMO_STATE.persona];
     const insurance = DEMO_STATE.insurance === 'hybrid' ? 'Hybrid' : 'Free';
     const roster = DEMO_STATE.roster === 'clever' ? 'Clever' : 'Manual';
-    summary.textContent = `· ${p.roleShort} · ${insurance} · ${roster}`;
+    const product = DEMO_STATE.product === 'tc' ? 'TC only' : DEMO_STATE.product === 'alongside' ? 'Alongside only' : 'Both';
+    summary.textContent = `· ${p.roleShort} · ${insurance} · ${roster} · ${product}`;
   }
   function setDemoPersona(value) { DEMO_STATE.persona = value; saveDemoState(); applyDemoState(); }
   function setDemoInsurance(value) { DEMO_STATE.insurance = value; saveDemoState(); applyDemoState(); }
   function setDemoRoster(value) { DEMO_STATE.roster = value; saveDemoState(); applyDemoState(); }
+  function setDemoProduct(value) { DEMO_STATE.product = value; saveDemoState(); applyDemoState(); }
+  // Single-product orgs change the default school-detail tab: Alongside-only lands on Insights (Visit allocation is gated off); otherwise Visit allocation.
+  function applySchoolTabDefault() {
+    if (typeof setSchoolTab === 'function') setSchoolTab(document.body.dataset.product === 'alongside' ? 'insights' : 'visits');
+  }
   function resetDemoState() {
     DEMO_STATE = Object.assign({}, DEMO_DEFAULTS);
     saveDemoState();
