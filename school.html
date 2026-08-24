@@ -61,6 +61,11 @@
         <select id="sch-alaccess" onchange="setSch('canDownloadRoster', this.value)" class="w-full h-8 px-2 rounded border border-input bg-input-bg text-sm">
           <option value="yes" selected>Yes (org contact)</option><option value="no">No</option>
         </select></div>
+      <div><label for="sch-demo" class="block text-xs font-semibold mb-1">Demo data (NEXT_PUBLIC_DEV_MOCKS)</label>
+        <select id="sch-demo" onchange="setSch('demoData', this.value)" class="w-full h-8 px-2 rounded border border-input bg-input-bg text-sm">
+          <option value="on" selected>On — Therapy tab visible (KI-001)</option><option value="off">Off — what every real school sees today</option>
+        </select>
+        <p class="text-[10px] text-muted-foreground mt-1 leading-snug">On main the Therapy tab is demo-mode only until Plan 2's final commit wires the flag. Members prefilled with the 9 demo-scenario students (a fresh main demo session starts empty).</p></div>
       <div id="sch-spec-readout" class="rounded border border-demo-orange-200 bg-demo-orange-50 px-2 py-1.5"></div>
       <a href="family.html" class="block text-center text-xs font-semibold text-primary hover:underline pt-1">Family Portal surface →</a>
       <a href="index.html" class="block text-center text-[11px] text-muted-foreground hover:underline">Merged-portal design (future concept, reference)</a>
@@ -134,7 +139,46 @@
             <strong>This cell was Finding F-001.</strong> Until 2026-08-24, main showed Upload + Add student here even though this staffer's Student management permission was revoked. Fixed in PR #1045 — what you see now is both the spec and current main.
           </div>
 
-          <div class="space-y-6">
+          <!-- PageTabs: renders only when >=2 tabs visible (demo sessions) -->
+          <div id="sch-tabs" class="hidden mb-4">
+            <div role="tablist" aria-label="Student views" class="inline-flex items-center gap-1 rounded-lg bg-muted p-1">
+              <button id="tab-btn-all" role="tab" onclick="setSch('tab','all')" class="px-3.5 h-8 rounded-md text-sm font-semibold">All Students</button>
+              <button id="tab-btn-therapy" role="tab" onclick="setSch('tab','therapy')" class="px-3.5 h-8 rounded-md text-sm font-semibold inline-flex items-center gap-1.5">Therapy <span class="inline-flex min-w-5 justify-center rounded-full bg-primary px-1.5 text-xs font-semibold text-primary-foreground">9</span></button>
+            </div>
+          </div>
+
+          <!-- Therapy tab panel (demo sessions only — mirrors TherapyTab.tsx) -->
+          <div id="tab-therapy" class="hidden">
+            <div class="w-full bg-card rounded-lg shadow-sm border border-border">
+              <div class="p-6 space-y-6">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <div class="flex gap-2 sm:ml-auto">
+                    <button type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted"><i data-lucide="upload" class="w-4 h-4"></i>Upload CSV</button>
+                    <button id="ther-invite-btn" type="button" disabled class="inline-flex items-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed">Create invite</button>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                  <label for="therapy-demo-segment" class="text-sm font-normal">Demo segment</label>
+                  <div class="w-64">
+                    <select id="therapy-demo-segment" onchange="setSch('segment', this.value)" class="w-full h-9 px-2 rounded-md border border-input bg-input-bg text-sm font-normal text-foreground">
+                      <option value="traditional-visit">Traditional — visit-based (no insurance)</option>
+                      <option value="traditional-hybrid" selected>Traditional — hybrid (insurance)</option>
+                      <option value="boarding-visit">Boarding — visit-based (enrollment status)</option>
+                    </select>
+                  </div>
+                  <button type="button" onclick="resetTherapySelection()" class="h-8 px-3 rounded-md text-sm font-semibold hover:bg-muted">Reset demo data</button>
+                </div>
+                <div class="hidden md:block">
+                  <table class="w-full text-sm">
+                    <thead><tr class="border-b border-border text-muted-foreground" id="ther-head"></tr></thead>
+                    <tbody id="ther-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="tab-all" class="space-y-6">
             <!-- StudentList card -->
             <div class="w-full bg-card rounded-lg shadow-sm border border-border">
               <div class="p-6 space-y-6">
@@ -198,7 +242,22 @@
   const SCHOOL_MATRIX = [{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}}];
 
   const ROLE_LABELS = { DISTRICT_ADMIN: 'District Admin', SCHOOL_ADMIN: 'School Administrator', SCHOOL_FACILITATOR: 'School Staff', DISTRICT_STAFF: 'District Staff', TIMELY_ADMIN: 'Timely Admin' };
-  const SCH_DEFAULTS = { productPlan: 'COMBINED', schoolUserRole: 'SCHOOL_ADMIN', smRevoked: 'no', canDownloadRoster: 'yes' };
+
+  // Generated from the REAL readiness engine (getMissingFields) + the real demo
+  // scenario students — do not hand-edit; regenerate via esbuild over readiness.ts.
+  const THERAPY_STATES = {"traditional-visit":[{"name":"Noda Burthday","grade":"7","dob":"","sid":"90008","insurance":null,"consent":null,"adult":false,"missing":["dob"]},{"name":"Dorm Byrd","grade":"9","dob":"2011-01-19","sid":"90007","insurance":"INSURED","consent":"MINOR_SELF_CONSENT","adult":false,"missing":[]},{"name":"Emery Jencie","grade":"12","dob":"2007-02-11","sid":"90009","insurance":"INSURED","consent":null,"adult":true,"missing":[]},{"name":"Dokk Pending","grade":"9","dob":"2011-09-04","sid":"90002","insurance":null,"consent":"PARENT_CAREGIVER","adult":false,"missing":[]},{"name":"Gapp Persson","grade":"8","dob":"2012-08-30","sid":"90006","insurance":null,"consent":null,"adult":false,"missing":["guardianEmail","guardianPhone"]},{"name":"Connie Senter","grade":"8","dob":"2012-02-10","sid":"90001","insurance":null,"consent":null,"adult":false,"missing":[]},{"name":"Atta Station","grade":"10","dob":"2010-12-01","sid":"90003","insurance":null,"consent":"PARENT_CAREGIVER","adult":false,"missing":[]},{"name":"Adele Teen","grade":"12","dob":"2007-06-15","sid":"90005","insurance":null,"consent":null,"adult":true,"missing":["studentPhone"]},{"name":"Rhea Zonn","grade":"10","dob":"2010-05-22","sid":"90004","insurance":null,"consent":"MINOR_SELF_CONSENT","adult":false,"missing":[]}],"traditional-hybrid":[{"name":"Noda Burthday","grade":"7","dob":"","sid":"90008","insurance":null,"consent":null,"adult":false,"missing":["dob","insuranceStatus"]},{"name":"Dorm Byrd","grade":"9","dob":"2011-01-19","sid":"90007","insurance":"INSURED","consent":"MINOR_SELF_CONSENT","adult":false,"missing":[]},{"name":"Emery Jencie","grade":"12","dob":"2007-02-11","sid":"90009","insurance":"INSURED","consent":null,"adult":true,"missing":[]},{"name":"Dokk Pending","grade":"9","dob":"2011-09-04","sid":"90002","insurance":null,"consent":"PARENT_CAREGIVER","adult":false,"missing":["insuranceStatus"]},{"name":"Gapp Persson","grade":"8","dob":"2012-08-30","sid":"90006","insurance":null,"consent":null,"adult":false,"missing":["guardianEmail","guardianPhone","insuranceStatus"]},{"name":"Connie Senter","grade":"8","dob":"2012-02-10","sid":"90001","insurance":null,"consent":null,"adult":false,"missing":["insuranceStatus"]},{"name":"Atta Station","grade":"10","dob":"2010-12-01","sid":"90003","insurance":null,"consent":"PARENT_CAREGIVER","adult":false,"missing":["insuranceStatus"]},{"name":"Adele Teen","grade":"12","dob":"2007-06-15","sid":"90005","insurance":null,"consent":null,"adult":true,"missing":["studentPhone","insuranceStatus"]},{"name":"Rhea Zonn","grade":"10","dob":"2010-05-22","sid":"90004","insurance":null,"consent":"MINOR_SELF_CONSENT","adult":false,"missing":["insuranceStatus"]}],"boarding-visit":[{"name":"Noda Burthday","grade":"7","dob":"","sid":"90008","insurance":null,"consent":null,"adult":false,"missing":["dob","consentType","studentEmail","studentPhone","enrollmentStatus"]},{"name":"Dorm Byrd","grade":"9","dob":"2011-01-19","sid":"90007","insurance":"INSURED","consent":"MINOR_SELF_CONSENT","adult":false,"missing":["studentEmail","studentPhone","enrollmentStatus"]},{"name":"Emery Jencie","grade":"12","dob":"2007-02-11","sid":"90009","insurance":"INSURED","consent":null,"adult":true,"missing":["guardianEmail","guardianPhone","enrollmentStatus"]},{"name":"Dokk Pending","grade":"9","dob":"2011-09-04","sid":"90002","insurance":null,"consent":"PARENT_CAREGIVER","adult":false,"missing":["consentDocument","attestation","studentEmail","studentPhone","enrollmentStatus"]},{"name":"Gapp Persson","grade":"8","dob":"2012-08-30","sid":"90006","insurance":null,"consent":null,"adult":false,"missing":["guardianEmail","guardianPhone","consentType","studentEmail","studentPhone","enrollmentStatus"]},{"name":"Connie Senter","grade":"8","dob":"2012-02-10","sid":"90001","insurance":null,"consent":null,"adult":false,"missing":["consentType","studentEmail","studentPhone","enrollmentStatus"]},{"name":"Atta Station","grade":"10","dob":"2010-12-01","sid":"90003","insurance":null,"consent":"PARENT_CAREGIVER","adult":false,"missing":["attestation","studentEmail","studentPhone","enrollmentStatus"]},{"name":"Adele Teen","grade":"12","dob":"2007-06-15","sid":"90005","insurance":null,"consent":null,"adult":true,"missing":["studentPhone","enrollmentStatus"]},{"name":"Rhea Zonn","grade":"10","dob":"2010-05-22","sid":"90004","insurance":null,"consent":"MINOR_SELF_CONSENT","adult":false,"missing":["mscReason","studentEmail","studentPhone","enrollmentStatus"]}]};
+  // therapy.missing.* labels from students.json; adults remap guardian contact
+  // to emergency contact (missingFieldLabelKey).
+  const MISSING_LABELS = { dob: 'Date of birth', studentIdNumber: 'Student ID', guardianEmail: 'Guardian email', guardianPhone: 'Guardian phone', studentEmail: 'Student email', studentPhone: 'Student phone', consentType: 'Consent type', consentDocument: 'Consent document', attestation: 'Contact attestation', mscReason: 'Self-consent reason', insuranceStatus: 'Insurance status', enrollmentStatus: 'Enrollment status' };
+  function missingLabel(key, adult) {
+    if (adult && key === 'guardianEmail') return 'Emergency contact email';
+    if (adult && key === 'guardianPhone') return 'Emergency contact phone';
+    return MISSING_LABELS[key] || key;
+  }
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmtDob(iso) { if (!iso) return '—'; const [y, m, d] = iso.slice(0, 10).split('-').map(Number); return MONTHS[m - 1] + ' ' + d + ', ' + y; }
+
+  const SCH_DEFAULTS = { productPlan: 'COMBINED', schoolUserRole: 'SCHOOL_ADMIN', smRevoked: 'no', canDownloadRoster: 'yes', demoData: 'on', tab: 'all', segment: 'traditional-hybrid' };
   let SCH = Object.assign({}, SCH_DEFAULTS);
 
   function schLookup() {
@@ -242,9 +301,70 @@
     box.innerHTML = '<div class="text-[10px] uppercase tracking-wide font-bold text-demo-orange-900 mb-1">Spec says (roster/invite) — main matches</div>' +
       '<div class="text-[11px]">Students tab ' + yn(e.studentsTabVisible) + ' · Add ' + yn(e.addStudentVisible) + ' · Upload ' + yn(e.bulkUploadVisible) + ' · Download CSV ' + yn(e.downloadRosterVisible) + '</div>';
 
+    // Tabs: PageTabs renders only when >=2 tabs visible — i.e. demo sessions (KI-001)
+    const demo = SCH.demoData === 'on';
+    if (!demo && SCH.tab === 'therapy') SCH.tab = 'all';
+    show('sch-tabs', demo && e.studentsTabVisible);
+    show('tab-all', e.studentsTabVisible && SCH.tab === 'all');
+    show('tab-therapy', demo && e.studentsTabVisible && SCH.tab === 'therapy');
+    const tabCls = on => 'px-3.5 h-8 rounded-md text-sm font-semibold inline-flex items-center gap-1.5 ' + (on ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground');
+    const tA = document.getElementById('tab-btn-all'), tT = document.getElementById('tab-btn-therapy');
+    if (tA) { tA.className = tabCls(SCH.tab === 'all'); tA.setAttribute('aria-selected', SCH.tab === 'all'); }
+    if (tT) { tT.className = tabCls(SCH.tab === 'therapy'); tT.setAttribute('aria-selected', SCH.tab === 'therapy'); }
+    if (demo && SCH.tab === 'therapy') renderTherapy();
+
     const s = document.getElementById('demo-toolbar-summary');
-    if (s) s.textContent = '· ' + SCH.productPlan + ' · ' + ROLE_LABELS[SCH.schoolUserRole] + (SCH.smRevoked === 'yes' ? ' · SM revoked' : '');
+    if (s) s.textContent = '· ' + SCH.productPlan + ' · ' + ROLE_LABELS[SCH.schoolUserRole] + (SCH.smRevoked === 'yes' ? ' · SM revoked' : '') + (demo ? ' · demo' : '');
     syncSchControls();
+    if (window.lucide) lucide.createIcons();
+  }
+
+  let THER_SELECTED = new Set();
+  function resetTherapySelection() { THER_SELECTED.clear(); renderTherapy(); }
+  function toggleTherSel(i, checked) { if (checked) THER_SELECTED.add(i); else THER_SELECTED.delete(i); updateInviteBtn(); }
+  function updateInviteBtn() {
+    const b = document.getElementById('ther-invite-btn');
+    if (!b) return;
+    const n = THER_SELECTED.size;
+    b.disabled = n === 0;
+    b.textContent = n === 0 ? 'Create invite' : 'Create invite (' + n + ')';
+  }
+  function renderTherapy() {
+    const seg = SCH.segment;
+    const rows = THERAPY_STATES[seg] || [];
+    const hybrid = seg === 'traditional-hybrid';
+    const head = document.getElementById('ther-head');
+    const body = document.getElementById('ther-body');
+    if (!head || !body) return;
+    // Column set mirrors TherapyTab: Insurance only on traditional-hybrid
+    head.innerHTML = '<th scope="col" class="w-10 pr-0 h-12"><input type="checkbox" disabled aria-label="Select all ready students" class="w-4 h-4 rounded border-input"></th>' +
+      '<th scope="col" class="text-left h-12 font-medium">Name</th><th scope="col" class="text-left h-12 font-medium whitespace-nowrap">Grade</th>' +
+      '<th scope="col" class="text-left h-12 font-medium">DOB</th><th scope="col" class="text-left h-12 font-medium">Student ID</th>' +
+      (hybrid ? '<th scope="col" class="text-left h-12 font-medium">Insurance</th>' : '') +
+      '<th scope="col" class="text-left h-12 font-medium">Consent type</th>';
+    // Prune selections that are no longer ready under this segment
+    THER_SELECTED = new Set([...THER_SELECTED].filter(i => rows[i] && rows[i].missing.length === 0));
+    body.innerHTML = rows.map((r, i) => {
+      const ready = r.missing.length === 0;
+      const labels = r.missing.map(k => missingLabel(k, r.adult)).join(', ');
+      const insBadge = r.insurance === 'INSURED' ? '<span class="text-xs rounded-full border border-success/40 text-success px-2 py-0.5 font-semibold">Insured</span>'
+        : r.insurance === 'UNINSURED' ? '<span class="text-xs rounded-full border border-destructive/40 text-destructive px-2 py-0.5 font-semibold">Uninsured</span>'
+        : '<span class="text-xs rounded-full border border-border text-muted-foreground px-2 py-0.5 font-semibold">Unknown</span>';
+      const consent = r.consent === 'PARENT_CAREGIVER' ? '<span class="text-xs rounded-full border border-success/40 text-success px-2 py-0.5 font-semibold">Parent/Caregiver</span>'
+        : r.consent === 'MINOR_SELF_CONSENT' ? '<span class="text-xs rounded-full border border-border text-muted-foreground px-2 py-0.5 font-semibold">Minor Self-Consent</span>'
+        : '<span aria-label="Not set">—</span>';
+      return '<tr class="border-b border-border h-[52px] cursor-pointer' + (i % 2 ? ' bg-muted/40' : '') + '">' +
+        '<td class="pr-0"><span class="inline-flex align-middle' + (ready ? '' : ' cursor-not-allowed') + '" title="' + (ready ? '' : 'Missing required info — complete it before inviting') + '">' +
+        '<input type="checkbox" ' + (ready ? (THER_SELECTED.has(i) ? 'checked ' : '') + 'onchange="toggleTherSel(' + i + ', this.checked)"' : 'disabled aria-disabled="true"') + ' aria-label="Select ' + r.name + '" class="w-4 h-4 rounded border-input"></span></td>' +
+        '<td><div class="flex items-center gap-2"><span>' + r.name + '</span>' +
+        (r.adult ? '<span class="text-xs rounded-full border border-border text-muted-foreground px-2 py-0.5 font-semibold" title="18+ students receive their own invite — it goes to the student\'s email and phone, not a guardian.">18+</span>' : '') +
+        (ready ? '' : '<span role="img" aria-label="Missing information: ' + labels + '" title="Missing: ' + labels + '"><i data-lucide="triangle-alert" class="w-4 h-4 text-warning"></i></span>') +
+        '</div></td>' +
+        '<td>' + (r.grade || '—') + '</td><td>' + fmtDob(r.dob) + '</td><td>' + (r.sid || '—') + '</td>' +
+        (hybrid ? '<td>' + insBadge + '</td>' : '') +
+        '<td>' + consent + '</td></tr>';
+    }).join('');
+    updateInviteBtn();
     if (window.lucide) lucide.createIcons();
   }
 
@@ -252,7 +372,7 @@
   function saveSch() { try { localStorage.setItem('schoolDemoState', JSON.stringify(SCH)); } catch (e) {} }
   function resetSch() { SCH = Object.assign({}, SCH_DEFAULTS); saveSch(); applySch(); }
   function syncSchControls() {
-    const m = { 'sch-plan': 'productPlan', 'sch-role': 'schoolUserRole', 'sch-perms': 'smRevoked', 'sch-alaccess': 'canDownloadRoster' };
+    const m = { 'sch-plan': 'productPlan', 'sch-role': 'schoolUserRole', 'sch-perms': 'smRevoked', 'sch-alaccess': 'canDownloadRoster', 'sch-demo': 'demoData', 'therapy-demo-segment': 'segment' };
     for (const [id, k] of Object.entries(m)) { const el = document.getElementById(id); if (el) el.value = SCH[k]; }
   }
   function toggleDemoToolbar() {
