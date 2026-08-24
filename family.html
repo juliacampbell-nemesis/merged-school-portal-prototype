@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Portal — Wireframe Prototype (Helix)</title>
+
+<!-- Adelle Sans (Helix primary font) via Adobe Fonts; Inter fallback -->
+<link rel="stylesheet" href="https://use.typekit.net/ayf2bms.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+<!-- Tailwind CDN with Helix token configuration -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          border: 'hsl(var(--border) / <alpha-value>)',
+          input: 'hsl(var(--input) / <alpha-value>)',
+          'input-bg': 'hsl(var(--input-bg) / <alpha-value>)',
+          ring: 'hsl(var(--ring) / <alpha-value>)',
+          background: 'hsl(var(--background) / <alpha-value>)',
+          foreground: 'hsl(var(--foreground) / <alpha-value>)',
+          primary: {
+            DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+            foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
+          },
+          secondary: {
+            DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
+            foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
+          },
+          destructive: {
+            DEFAULT: 'hsl(var(--destructive) / <alpha-value>)',
+            foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)',
+          },
+          muted: {
+            DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
+            foreground: 'hsl(var(--muted-foreground) / <alpha-value>)',
+          },
+          accent: {
+            DEFAULT: 'hsl(var(--accent) / <alpha-value>)',
+            foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
+            border: 'hsl(var(--accent-border) / <alpha-value>)',
+          },
+          card: {
+            DEFAULT: 'hsl(var(--card) / <alpha-value>)',
+            foreground: 'hsl(var(--card-foreground) / <alpha-value>)',
+          },
+          sidebar: {
+            DEFAULT: 'hsl(var(--sidebar) / <alpha-value>)',
+            foreground: 'hsl(var(--sidebar-foreground) / <alpha-value>)',
+            border: 'hsl(var(--sidebar-border) / <alpha-value>)',
+            accent: 'hsl(var(--sidebar-accent) / <alpha-value>)',
+            'accent-foreground': 'hsl(var(--sidebar-accent-foreground) / <alpha-value>)',
+          },
+          /* Helix primitive palettes (per ux.internal.timelycare.com/helix tokens/colors) */
+          'tc-navy': {
+            50: '#F2F7FD', 100: '#E4EEFA', 200: '#C2DCF5', 300: '#8CC0ED', 400: '#4FA0E1',
+            500: '#2884CF', 600: '#1A67AF', 700: '#16538E', 800: '#164776', 900: '#16385B', 950: '#102741',
+          },
+          'tc-sky': {
+            50: '#EEFBFD', 100: '#D5EFF5', 200: '#B0E6F1', 300: '#7AD3E6', 400: '#2DADCC',
+            500: '#209ABA', 600: '#1E7C9C', 700: '#1F647F', 800: '#215369', 900: '#204659', 950: '#102D3C',
+          },
+          'tc-berry': {
+            50: '#FFF1F3', 100: '#FEE5E8', 200: '#FDCED6', 300: '#FBA6B4', 400: '#F8748C',
+            500: '#F04367', 600: '#DD2151', 700: '#C01A49', 800: '#8A163E', 900: '#691130', 950: '#4B061C',
+          },
+          'tc-orange': {
+            50: '#FFF9EC', 100: '#FFF2D3', 200: '#FFE2A5', 300: '#FFCC66', 400: '#FFAB32',
+            500: '#FF910A', 600: '#F57600', 700: '#CC5902', 800: '#A1450B', 900: '#823A0C', 950: '#461B04',
+          },
+          'tc-sage': {
+            50: '#F6F8F5', 100: '#EAF1E7', 200: '#D4E2D0', 300: '#B1CBAA', 400: '#86AB7D',
+            500: '#5B7F52', 600: '#4F7247', 700: '#415B3A', 800: '#354A31', 900: '#2D3D2A', 950: '#152013',
+          },
+          'tc-gray': {
+            50: '#F9F9FA', 100: '#F4F4F5', 200: '#E5E6E6', 300: '#D3D4D4', 400: '#A3A3A3',
+            500: '#646565', 600: '#525353', 700: '#404040', 800: '#262727', 900: '#191A1A', 950: '#000000',
+          },
+          'tc-cream': {
+            50: '#FCF5ED', 100: '#F9EBDB', 200: '#F2D5B6', 300: '#E9B788', 400: '#E09257',
+            500: '#D97536', 600: '#CA5F2C', 700: '#A84926', 800: '#873B25', 900: '#6D3321', 950: '#3A1810',
+          },
+          'tc-light-sand': {
+            50: '#F9F6F3', 100: '#F0EBE4', 200: '#E6DDD3', 300: '#CCB9A5', 400: '#B69981',
+            500: '#A78168', 600: '#9A705C', 700: '#815C4D', 800: '#694C43', 900: '#564038', 950: '#2D201D',
+          },
+          /* Alongside brand approximation (used only within #student-demo for 1:1 fidelity) */
+          'al-bg':         '#F5EAD3',
+          'al-bg-light':   '#FBF5EB',
+          'al-card':       '#FFFFFF',
+          'al-text':       '#1B2545',
+          'al-text-muted': '#6B6256',
+          'al-orange':     '#FF6B35',
+          'al-orange-bg':  '#FFE3D6',
+          'al-border':     '#E5DCC8',
+          'al-blue':       '#2D9CDB',
+          'al-green':      '#7DC58A',
+          'al-pink':       '#FFC1C8',
+          'al-purple':     '#D4BCFF',
+          'al-yellow':     '#FFE08A',
+          /* Self-Care mode (educator) variant: mint sidebar + purple CTAs */
+          'al-sc-sidebar': '#C0E0CA',
+          'al-sc-purple':  '#9B7BE0',
+          'al-sc-purple-light': '#E2D7F5',
+        },
+        borderRadius: {
+          lg: 'var(--radius)',
+          md: 'calc(var(--radius) - 2px)',
+          sm: 'calc(var(--radius) - 4px)',
+        },
+        fontFamily: {
+          sans: ['adelle-sans', 'Inter', 'system-ui', 'sans-serif'],
+          mono: ['adelle-mono', 'JetBrains Mono', 'monospace'],
+        },
+        boxShadow: {
+          sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+          DEFAULT: '0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10)',
+          md: '0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10)',
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  /* Helix canonical tokens — light theme (per ux.internal.timelycare.com/helix) */
+  :root {
+    --background: 30 27% 96%;          /* #F9F6F3 light-sand 50 */
+    --foreground: 0 0% 0%;             /* #000000 */
+    --card: 0 0% 100%;                 /* #FFFFFF */
+    --card-foreground: 0 0% 0%;        /* #000000 */
+    --primary: 210 73% 32%;            /* #16538E tc-navy 700 */
+    --primary-foreground: 240 5% 98%;  /* #F9F9FA */
+    --secondary: 240 5% 96%;           /* #F4F4F5 */
+    --secondary-foreground: 0 0% 10%;  /* #191A1A */
+    --muted: 33 25% 92%;               /* #F0EBE4 light-sand 100 */
+    --muted-foreground: 180 1% 40%;    /* #646565 */
+    --accent: 214 78% 94%;             /* #E4EEFA tc-navy 100 */
+    --accent-foreground: 210 73% 32%;  /* #16538E tc-navy 700 */
+    --accent-border: 210 75% 86%;      /* #C2DCF5 tc-navy 200 */
+    --border: 180 1% 83%;              /* #D3D4D4 tc-gray 300 */
+    --input: 180 1% 83%;               /* #D3D4D4 */
+    --input-bg: 0 0% 100%;             /* #FFFFFF */
+    --ring: 0 0% 64%;                  /* #A3A3A3 tc-gray 400 */
+    --destructive: 0 73% 51%;          /* #DC2626 red 600 */
+    --destructive-foreground: 0 86% 97%; /* #FEF2F2 */
+    --sidebar: 0 0% 100%;              /* #FFFFFF */
+    --sidebar-foreground: 0 0% 0%;     /* #000000 */
+    --sidebar-border: 180 1% 83%;      /* #D3D4D4 */
+    --sidebar-accent: 214 78% 94%;     /* #E4EEFA */
+    --sidebar-accent-foreground: 210 73% 32%; /* #16538E */
+    --radius: 10px;
+  }
+  body {
+    font-family: 'adelle-sans', 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono {
+    font-family: 'adelle-mono', 'JetBrains Mono', monospace;
+  }
+  .page { display: none; }
+  .page.active { display: block; }
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [role="tab"]:focus-visible,
+  [role="radio"]:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  button { cursor: pointer; }
+  /* Sidebar nav link (Helix sidebar pattern) */
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: hsl(var(--muted-foreground));
+    transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+    text-align: left;
+  }
+  .nav-link:hover {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
+  }
+  .nav-link.is-active {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+  /* Settings sidebar links (within the Settings page) */
+  .settings-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(var(--sidebar-foreground));
+    transition: background-color 150ms ease-in-out;
+    cursor: pointer;
+  }
+  .settings-sidebar-link:hover {
+    background-color: hsl(var(--muted));
+  }
+  .settings-sidebar-link.is-active {
+    background-color: hsl(var(--sidebar-accent));
+    color: hsl(var(--sidebar-accent-foreground));
+    font-weight: 600;
+  }
+  /* Account menu dropdown items */
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .dropdown-item:hover {
+    background-color: hsl(var(--muted));
+  }
+  /* Self-Care standalone mode — hides school portal chrome (top bar + sidebar) when opened in new tab */
+  body.is-self-care #topbar,
+  body.is-self-care #main-sidebar { display: none; }
+
+  /* ============ DEMO STATE GATES ============ */
+  /* These attributes are written to <body> by applyDemoState() and drive visibility.
+     They're CSS-only so a developer can grep them out at handoff time. */
+
+  /* Roster source = Clever (default) → hide non-Clever-only controls (e.g., Create invite, per-row Send Invite, manual roster controls) */
+  body[data-roster="clever"] .roster-non-clever { display: none !important; }
+  /* Roster source = Manual → hide Clever-sourced UI cues */
+  body[data-roster="manual"] .roster-clever-only { display: none !important; }
+
+  /* Product entitlement = which product(s) the org has (Both / TimelyCare only / Alongside only).
+     .alongside-only = present only when the org has Alongside; .tc-only = present only when it has TimelyCare. */
+  body[data-product="tc"] .alongside-only { display: none !important; }
+  body[data-product="alongside"] .tc-only { display: none !important; }
+  /* Insurance is a TimelyCare concept — no insurance UI for Alongside-only orgs */
+  body[data-product="alongside"] .insurance-only { display: none !important; }
+  /* Bespoke TimelyCare-only Home dashboard — shown only when the org is TC-only */
+  .tc-home { display: none; }
+  body[data-product="tc"] .tc-home { display: block; }
+
+  /* Insurance model = Free → no insurance UI anywhere */
+  body[data-insurance="free"] .insurance-only { display: none !important; }
+  /* Insurance model = Hybrid → insurance UI is present, possibly optional */
+
+  /* Persona gates — each persona hides what they shouldn't see */
+  /* District Admin/Staff see all; persona-scoped classes only apply to the others */
+  body[data-persona="school-administrator"] .district-only,
+  body[data-persona="clinical-staff"] .district-only,
+  body[data-persona="school-staff"] .district-only { display: none !important; }
+
+  /* Inverse of .district-only — single-school personas get a "My School" entry; district personas don't */
+  body[data-persona="district-administrator"] .school-scoped-only,
+  body[data-persona="district-staff"] .school-scoped-only { display: none !important; }
+
+  body[data-persona="school-staff"] .admin-only,
+  body[data-persona="clinical-staff"] .admin-only { display: none !important; }
+
+  body[data-persona="school-staff"] .phi-only { display: none !important; }
+
+  /* Screener results gating — per Elsa: teachers see only who completed, not the data */
+  body[data-persona="school-staff"] .screener-data { display: none !important; }
+  /* Inverse: the simplified "completed/not" indicator only shows for teachers */
+  .screener-completion-only { display: none; }
+  body[data-persona="school-staff"] .screener-completion-only { display: table-cell; }
+
+  /* Inbox alert severity highlight — per Elsa: severe alerts can't get lost when combined with other items */
+  .alert-row-high {
+    background-color: hsl(var(--destructive) / 0.04);
+    box-shadow: inset 4px 0 0 0 hsl(var(--destructive));
+  }
+  .alert-row-high:hover {
+    background-color: hsl(var(--destructive) / 0.08);
+  }
+  .alert-row-high.alert-row-selected {
+    background-color: hsl(var(--destructive) / 0.12);
+  }
+
+  body[data-persona="district-staff"] .user-mgmt-only,
+  body[data-persona="clinical-staff"] .user-mgmt-only,
+  body[data-persona="school-staff"] .user-mgmt-only { display: none !important; }
+
+  /* Demo toolbar styling */
+  #demo-toolbar { font-feature-settings: "tnum"; }
+  #demo-toolbar select { font-feature-settings: "tnum"; }
+
+  /* Elements hidden because the permutation matrix says this cell hides them */
+  .matrix-hidden { display: none !important; }
+
+  /* Self-Care sidebar nav active state (mint sidebar → navy pill with cream text) */
+  .sc-nav-link.is-active {
+    background-color: #1B2545; /* al-text */
+    color: #F5EAD3; /* al-bg */
+  }
+  .sc-nav-link.is-active:hover {
+    background-color: #1B2545;
+  }
+
+  /* My Reports — drag-and-drop + click-to-swap reordering of pinned widgets */
+  .swap-handle { cursor: grab; }
+  .report-pinned-card.dragging { opacity: .4; }
+  .report-pinned-card.swap-source { outline: 2px solid hsl(var(--primary)); outline-offset: 2px; }
+  .swap-overlay, .swap-source-banner { display: none; }
+  #my-reports-grid.swap-mode .report-pinned-card:not(.swap-source) { cursor: pointer; }
+  #my-reports-grid.swap-mode .report-pinned-card:not(.swap-source) .swap-overlay { display: flex; }
+  #my-reports-grid.swap-mode .report-pinned-card.swap-source .swap-source-banner { display: inline-flex; }
+</style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+
+<!-- ===== Demo toolbar (family dimensions) ===== -->
+<div id="demo-toolbar" class="fixed bottom-4 right-4 z-50">
+  <button id="demo-toolbar-trigger" type="button" onclick="toggleDemoToolbar()" class="inline-flex items-center gap-2 h-10 px-3 rounded-full border-2 border-dashed border-tc-orange-400 bg-card text-tc-orange-900 text-xs font-bold uppercase tracking-wide shadow-lg hover:bg-tc-orange-50 transition-colors" aria-haspopup="dialog" aria-expanded="false" aria-controls="demo-toolbar-panel">
+    <i data-lucide="settings-2" class="size-4"></i>
+    <span>Demo</span>
+    <span id="demo-toolbar-summary" class="hidden md:inline text-[10px] font-normal normal-case tracking-normal text-tc-orange-700"></span>
+  </button>
+  <div id="demo-toolbar-panel" class="hidden absolute bottom-12 right-0 w-80 rounded-lg border-2 border-dashed border-tc-orange-400 bg-card shadow-xl p-4 max-h-[80vh] overflow-y-auto" role="dialog" aria-labelledby="demo-toolbar-heading">
+    <div class="flex items-center justify-between mb-3">
+      <h3 id="demo-toolbar-heading" class="text-xs font-bold uppercase tracking-wide text-tc-orange-900 inline-flex items-center gap-1.5">
+        <i data-lucide="settings-2" class="size-3.5"></i> Family Portal demo
+      </h3>
+      <button type="button" onclick="toggleDemoToolbar()" class="size-6 inline-flex items-center justify-center rounded hover:bg-muted transition-colors" aria-label="Close demo controls">
+        <i data-lucide="x" class="size-3.5"></i>
+      </button>
+    </div>
+    <p class="text-[11px] text-muted-foreground mb-3 leading-snug">Flip the matrix dimensions to see what a guardian experiences in each cell. Persists across reloads.</p>
+    <div class="space-y-3">
+      <div>
+        <label for="fam-ageband" class="block text-xs font-semibold text-foreground mb-1">Student age band</label>
+        <select id="fam-ageband" onchange="setFam('ageBand', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="12-17" selected>12–17 (minor)</option>
+          <option value="18-19">18–19 (transitioned)</option>
+        </select>
+      </div>
+      <div>
+        <label for="fam-level" class="block text-xs font-semibold text-foreground mb-1">Parent access level</label>
+        <select id="fam-level" onchange="setFam('parentAccessLevel', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="FULL" selected>Full</option>
+          <option value="VIEW_ONLY">View only (18+, ROI signed)</option>
+          <option value="HISTORY_ONLY">History only (18+, no ROI)</option>
+        </select>
+      </div>
+      <div>
+        <label for="fam-proxy" class="block text-xs font-semibold text-foreground mb-1">Proxy relationship row</label>
+        <select id="fam-proxy" onchange="setFam('hasAccessLevel', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="yes" selected>Present (17→18 machinery active)</option>
+          <option value="legacy">Absent (legacy family — level ignored)</option>
+        </select>
+      </div>
+      <div>
+        <label for="fam-active" class="block text-xs font-semibold text-foreground mb-1">Account status</label>
+        <select id="fam-active" onchange="setFam('accountActive', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="yes" selected>Active</option>
+          <option value="no">Inactive</option>
+        </select>
+      </div>
+      <div>
+        <label for="fam-staterule" class="block text-xs font-semibold text-foreground mb-1">State minor-consent rule</label>
+        <select id="fam-staterule" onchange="setFam('stateRule', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="none" selected>No rule for this state</option>
+          <option value="no-consent-age">Rule without a consent age</option>
+          <option value="rule-below">Consent age 14 — child below it</option>
+          <option value="rule-at">Consent age 14 — child at/above</option>
+          <option value="rule-at-dual">At/above + dual consent supported</option>
+          <option value="unresolvable">State/DOB unresolvable</option>
+        </select>
+      </div>
+      <div>
+        <label for="fam-schedwindow" class="block text-xs font-semibold text-foreground mb-1">Scheduling window (contract)</label>
+        <select id="fam-schedwindow" onchange="setFam('schedWindow', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="open" selected>Open</option>
+          <option value="ends-soon">Access end date set</option>
+          <option value="ended">Ended (blocked)</option>
+        </select>
+      </div>
+      <div id="fam-spec-readout" class="rounded border border-tc-orange-200 bg-tc-orange-50/50 px-2 py-1.5"></div>
+      <a href="index.html" class="block text-center text-xs font-semibold text-primary hover:underline pt-1">← School Portal surface</a>
+    </div>
+    <div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+      <button type="button" onclick="resetFam()" class="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors">Reset</button>
+      <span class="text-[10px] text-muted-foreground">Persisted to localStorage</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Top bar ===== -->
+<header class="border-b border-border bg-card sticky top-0 z-40">
+  <div class="max-w-5xl mx-auto flex items-center justify-between h-14 px-4">
+    <a href="#dashboard" class="flex items-center gap-2" aria-label="Family Portal home">
+      <span class="size-8 rounded-md border border-border flex items-center justify-center"><i data-lucide="heart-handshake" class="size-5"></i></span>
+      <span class="font-bold text-base tracking-tight">Family Portal</span>
+    </a>
+    <nav class="flex items-center gap-1">
+      <a href="#dashboard" class="fam-nav nav-link px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-muted" data-route="dashboard">Dashboard</a>
+      <a href="#child" class="fam-nav nav-link px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-muted" data-route="child">Alex's Care</a>
+      <a href="#schedule" class="fam-nav nav-link px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-muted" data-route="schedule">Schedule</a>
+    </nav>
+    <div class="flex items-center gap-2 text-sm">
+      <span class="size-8 rounded-full bg-tc-sage-100 text-tc-sage-900 font-bold flex items-center justify-center text-xs">JR</span>
+      <span class="hidden md:block font-semibold">Jordan R.</span>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-4 py-8 space-y-10">
+
+  <!-- ===== Screen: Dashboard ===== -->
+  <section id="screen-dashboard">
+    <h1 class="text-2xl font-extrabold mb-1">Good morning, Jordan</h1>
+    <p class="text-muted-foreground text-sm mb-6">Here's how Alex is doing.</p>
+
+    <div class="bg-card border border-border rounded-lg shadow-sm overflow-hidden max-w-2xl">
+      <div class="px-6 py-4 flex items-center justify-between border-b border-border">
+        <div class="flex items-center gap-3">
+          <span class="size-10 rounded-full bg-tc-navy-100 text-tc-navy-900 font-bold flex items-center justify-center">AR</span>
+          <div>
+            <div class="font-bold">Alex Rivera</div>
+            <div class="text-xs text-muted-foreground">Grade 11 · Lincoln High School</div>
+          </div>
+        </div>
+        <!-- Header schedule link — the card-variant affordance gated by canScheduleAppointments -->
+        <a id="dash-schedule-link" href="#schedule" class="inline-flex items-center gap-1.5 h-8 px-3 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90">
+          <i data-lucide="calendar-plus" class="size-3.5"></i> Schedule Visit
+        </a>
+      </div>
+      <div class="px-6 py-4 space-y-3">
+        <!-- accessLimited alert (spec intent; F-006 note explains reality) -->
+        <div id="dash-access-limited" class="hidden rounded-md border border-tc-orange-300 bg-tc-orange-50 px-3 py-2 text-sm text-tc-orange-900 flex items-start gap-2">
+          <i data-lucide="alert-triangle" class="size-4 mt-0.5 shrink-0"></i>
+          <span>Access limited — Alex is now an adult. You can view care history from before their 18th birthday.</span>
+        </div>
+        <div id="dash-f006-note" class="hidden rounded border border-dashed border-tc-orange-400 bg-tc-orange-50/60 px-3 py-2 text-[11px] text-tc-orange-800">
+          <strong>Spec vs. reality (F-006):</strong> the matrix says this card shows the "Access limited" notice above. The real portal computes it but never renders it — this card currently looks identical to the view-only state.
+        </div>
+        <!-- Inactive account card -->
+        <div id="dash-inactive" class="hidden rounded-md border border-border bg-muted px-3 py-3 text-sm flex items-center justify-between">
+          <span class="font-semibold">Account inactive</span>
+          <span class="inline-flex items-center gap-1.5 text-primary font-semibold"><i data-lucide="phone" class="size-4"></i> Call Support</span>
+        </div>
+        <!-- Normal upcoming-visit block -->
+        <div id="dash-upcoming" class="text-sm text-muted-foreground">
+          No upcoming visits. <a href="#schedule" id="dash-upcoming-cta" class="text-primary font-semibold hover:underline">Schedule one now</a>
+        </div>
+        <!-- View-only sentence (replaces CTAs when scheduling is disabled) -->
+        <div id="dash-viewonly-note" class="hidden text-sm text-muted-foreground italic">
+          Visit scheduling is managed by Alex. You can view their care history below.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Screen: Child detail ===== -->
+  <section id="screen-child">
+    <div class="flex items-center gap-2 mb-6">
+      <h2 class="text-xl font-extrabold">Alex's Care</h2>
+      <span id="child-variant-chip" class="text-[10px] uppercase tracking-wide font-bold rounded-full border border-tc-orange-300 bg-tc-orange-50 text-tc-orange-800 px-2 py-0.5"></span>
+    </div>
+
+    <!-- legacyAgeRestricted dead end -->
+    <div id="child-agerestricted" class="hidden max-w-2xl rounded-lg border border-border bg-card p-8 text-center space-y-2">
+      <i data-lucide="lock" class="size-8 mx-auto text-muted-foreground"></i>
+      <h3 class="font-bold">This account can no longer be viewed</h3>
+      <p class="text-sm text-muted-foreground">Alex is now an adult. Please contact support with any questions.</p>
+    </div>
+
+    <div id="child-content" class="max-w-2xl space-y-4">
+      <!-- HISTORY_ONLY notice -->
+      <div id="child-access-limited" class="hidden rounded-md border border-tc-orange-300 bg-tc-orange-50 px-3 py-2 text-sm text-tc-orange-900 flex items-start gap-2">
+        <i data-lucide="info" class="size-4 mt-0.5 shrink-0"></i>
+        <span>Access limited — you can view records from before Alex's 18th birthday.</span>
+      </div>
+
+      <!-- Demographics (FULL only) -->
+      <div id="child-demographics" class="bg-card border border-border rounded-lg shadow-sm">
+        <div class="px-6 py-3 border-b border-border flex items-center justify-between">
+          <h3 class="font-bold text-sm">Student information</h3>
+          <button class="text-xs font-semibold text-primary hover:underline">Edit</button>
+        </div>
+        <div class="px-6 py-4 grid grid-cols-2 gap-3 text-sm">
+          <div><div class="text-xs text-muted-foreground">Name</div>Alex Rivera</div>
+          <div><div class="text-xs text-muted-foreground">Grade</div>11</div>
+          <div><div class="text-xs text-muted-foreground">School</div>Lincoln High School</div>
+          <div><div class="text-xs text-muted-foreground">Preferred language</div>English</div>
+        </div>
+      </div>
+
+      <!-- Visit history (all variants) -->
+      <div class="bg-card border border-border rounded-lg shadow-sm">
+        <div class="px-6 py-3 border-b border-border"><h3 class="font-bold text-sm">Visit history</h3></div>
+        <ul class="divide-y divide-border text-sm">
+          <li class="px-6 py-3 flex items-center justify-between"><span>Therapy visit — Dr. Patel</span><span class="text-xs text-muted-foreground">May 12</span></li>
+          <li class="px-6 py-3 flex items-center justify-between"><span>Therapy visit — Dr. Patel</span><span class="text-xs text-muted-foreground">Apr 28</span></li>
+          <li id="child-visit-cancelable" class="px-6 py-3 flex items-center justify-between">
+            <span>Upcoming: Therapy visit — Jun 3, 4:00 PM</span>
+            <span id="child-visit-actions" class="flex gap-2">
+              <button class="text-xs font-semibold text-primary hover:underline">Reschedule</button>
+              <button class="text-xs font-semibold text-destructive hover:underline">Cancel</button>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Minor consent banner (FULL variant only; state per matrix) -->
+      <div id="consent-banner" class="hidden rounded-lg border border-tc-navy-200 bg-tc-navy-50 px-4 py-3 text-sm space-y-1">
+        <div class="flex items-center gap-2 font-bold text-tc-navy-900"><i data-lucide="shield" class="size-4"></i> Some of Alex's records are private</div>
+        <p class="text-tc-navy-900/80">Under <span id="consent-state-law">your state's</span> privacy law, some care records are between Alex and their provider<span id="consent-age-note"> once they turn <strong>14</strong></span>.</p>
+        <p class="text-tc-navy-900/80">You can view: Signed Consent, Safety Plans, and Care Plans.</p>
+        <p id="consent-dual-note" class="hidden text-tc-navy-900/80 border-t border-tc-navy-200 pt-1 mt-1">Alex may grant you access to additional records through their student portal.</p>
+      </div>
+
+      <!-- Documents (all variants) -->
+      <div class="bg-card border border-border rounded-lg shadow-sm">
+        <div class="px-6 py-3 border-b border-border"><h3 class="font-bold text-sm">Documents</h3></div>
+        <ul class="divide-y divide-border text-sm">
+          <li class="px-6 py-3 flex items-center gap-2"><i data-lucide="file-text" class="size-4 text-muted-foreground"></i> Signed consent form</li>
+          <li class="px-6 py-3 flex items-center gap-2"><i data-lucide="file-text" class="size-4 text-muted-foreground"></i> Care plan — spring</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Screen: Schedule ===== -->
+  <section id="screen-schedule">
+    <h2 class="text-xl font-extrabold mb-6">Schedule a visit</h2>
+
+    <!-- B4: window ended — hard block -->
+    <div id="sched-blocked" class="hidden max-w-2xl rounded-lg border border-border bg-card p-8 text-center space-y-2">
+      <i data-lucide="alert-triangle" class="size-8 mx-auto text-tc-orange-600"></i>
+      <p class="text-sm font-semibold">Scheduling is not available at this time.</p>
+    </div>
+
+    <div id="sched-content" class="max-w-2xl space-y-4">
+      <!-- F-003 experience banner: shown when spec says this guardian shouldn't be here -->
+      <div id="sched-f003" class="hidden rounded border border-dashed border-destructive/60 bg-destructive/5 px-3 py-2 text-[12px] text-destructive space-y-1">
+        <div><strong>You can walk this whole wizard — but booking will fail at the very end (F-003).</strong> The real portal never checks parent access on this page; a view-only or history-only guardian only finds out at the last step.</div>
+        <button onclick="toggleSpecVersion()" id="sched-specversion-btn" class="font-semibold underline">Show what the spec says this screen should be →</button>
+      </div>
+      <!-- Spec version of the same screen -->
+      <div id="sched-specversion" class="hidden rounded-lg border border-border bg-card p-8 text-center space-y-2">
+        <i data-lucide="info" class="size-8 mx-auto text-tc-navy-600"></i>
+        <h3 class="font-bold">Scheduling is managed by Alex</h3>
+        <p class="text-sm text-muted-foreground">Alex is now an adult and schedules their own visits. You can view their care history.</p>
+        <button onclick="toggleSpecVersion()" class="text-xs font-semibold text-primary underline">← Back to what the portal actually shows today</button>
+      </div>
+
+      <div id="sched-wizard" class="space-y-4">
+        <!-- B5: access-ends-on banner -->
+        <div id="sched-endson" class="hidden rounded-md border border-primary/20 bg-primary/5 px-3 py-2 text-sm flex items-center gap-2">
+          <i data-lucide="calendar-clock" class="size-4 shrink-0"></i> Scheduling access ends on June 30, 2027.
+        </div>
+        <!-- Stepper -->
+        <ol class="flex items-center gap-2 text-xs font-semibold">
+          <li class="flex items-center gap-1.5"><span class="size-5 rounded-full bg-primary text-primary-foreground flex items-center justify-center">1</span> Select time</li>
+          <li class="text-muted-foreground">→</li>
+          <li class="flex items-center gap-1.5 text-muted-foreground"><span class="size-5 rounded-full border border-border flex items-center justify-center">2</span> Insurance</li>
+          <li class="text-muted-foreground">→</li>
+          <li class="flex items-center gap-1.5 text-muted-foreground"><span class="size-5 rounded-full border border-border flex items-center justify-center">3</span> Confirm</li>
+        </ol>
+        <!-- Calendar placeholder -->
+        <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+          <div class="text-sm font-bold mb-3">June 2027</div>
+          <div class="grid grid-cols-7 gap-1 text-center text-xs">
+            <span class="text-muted-foreground py-1">S</span><span class="text-muted-foreground py-1">M</span><span class="text-muted-foreground py-1">T</span><span class="text-muted-foreground py-1">W</span><span class="text-muted-foreground py-1">T</span><span class="text-muted-foreground py-1">F</span><span class="text-muted-foreground py-1">S</span>
+          </div>
+          <div id="sched-days" class="grid grid-cols-7 gap-1 text-center text-sm mt-1"></div>
+          <p id="sched-clamp-note" class="hidden text-[11px] text-muted-foreground mt-2">Days after June 30 are unavailable — the contract's scheduling access ends then.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center text-[11px] text-muted-foreground pb-8">
+    Wireframe prototype · synthetic data only · states driven by @k12/permutation-matrix (see Demo toolbar)
+  </footer>
+</main>
+
+<script>
+  const FAMILY_MATRIX = [{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownNoConsentAge"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shown"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownWithDualNote"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownNoConsentAge"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shown"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownWithDualNote"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownNoConsentAge"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shown"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownWithDualNote"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownNoConsentAge"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shown"}},{"ageBand":"12-17","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownWithDualNote"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownNoConsentAge"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shown"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownWithDualNote"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownNoConsentAge"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shown"}},{"ageBand":"12-17","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownWithDualNote"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownNoConsentAge"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shown"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownWithDualNote"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownNoConsentAge"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shown"}},{"ageBand":"12-17","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownWithDualNote"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownNoConsentAge"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shown"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":true,"cancelRescheduleVisible":true,"dashboardCardVariant":"normal","consentBanner":"shownWithDualNote"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownNoConsentAge"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shown"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"full","demographicsEditable":true,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"shownWithDualNote"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"FULL","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"readOnly","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"VIEW_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"accessLimited","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":true,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"readOnlyWithNotice","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"inactive","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"none","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"no-consent-age","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"unresolvable","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-below","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":true,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"none","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"no-consent-age","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"unresolvable","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-below","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}},{"ageBand":"18-19","parentAccessLevel":"HISTORY_ONLY","hasAccessLevel":false,"accountActive":false,"stateRule":"rule-at-dual","expected":{"childDetailVariant":"legacyAgeRestricted","demographicsEditable":false,"schedulingCtasVisible":false,"cancelRescheduleVisible":false,"dashboardCardVariant":"normal","consentBanner":"hidden"}}];
+
+  const FAM_DEFAULTS = { ageBand: '12-17', parentAccessLevel: 'FULL', hasAccessLevel: 'yes', accountActive: 'yes', stateRule: 'none', schedWindow: 'open' };
+  let FAM = Object.assign({}, FAM_DEFAULTS);
+
+  function famLookup() {
+    return FAMILY_MATRIX.find(c =>
+      c.ageBand === FAM.ageBand &&
+      c.parentAccessLevel === FAM.parentAccessLevel &&
+      c.hasAccessLevel === (FAM.hasAccessLevel === 'yes') &&
+      c.accountActive === (FAM.accountActive === 'yes') &&
+      c.stateRule === FAM.stateRule);
+  }
+  function show(id, on) { const el = document.getElementById(id); if (el) el.classList.toggle('hidden', !on); }
+
+  function applyFam() {
+    const row = famLookup();
+    if (!row) return;
+    const e = row.expected;
+    const active = FAM.accountActive === 'yes';
+
+    // Dashboard
+    show('dash-schedule-link', e.schedulingCtasVisible);
+    show('dash-upcoming', e.schedulingCtasVisible);
+    show('dash-viewonly-note', !e.schedulingCtasVisible && active && e.childDetailVariant !== 'legacyAgeRestricted');
+    show('dash-inactive', e.dashboardCardVariant === 'inactive');
+    show('dash-access-limited', e.dashboardCardVariant === 'accessLimited');
+    show('dash-f006-note', e.dashboardCardVariant === 'accessLimited');
+
+    // Child detail
+    const v = e.childDetailVariant;
+    document.getElementById('child-variant-chip').textContent = v;
+    show('child-agerestricted', v === 'legacyAgeRestricted');
+    show('child-content', v !== 'legacyAgeRestricted');
+    show('child-demographics', v === 'full');
+    show('child-access-limited', v === 'readOnlyWithNotice');
+    show('child-visit-actions', e.cancelRescheduleVisible);
+
+    // Consent banner
+    const b = e.consentBanner;
+    show('consent-banner', b !== 'hidden');
+    show('consent-dual-note', b === 'shownWithDualNote');
+    document.getElementById('consent-age-note').style.display = (b === 'shownNoConsentAge') ? 'none' : '';
+
+    // Schedule screen
+    const winBlocked = FAM.schedWindow === 'ended';
+    show('sched-blocked', winBlocked);
+    show('sched-content', !winBlocked);
+    show('sched-endson', FAM.schedWindow === 'ends-soon');
+    show('sched-clamp-note', FAM.schedWindow === 'ends-soon');
+    // F-003 is specifically about access-level gating; inactive accounts are a different (surveyed-separately) path.
+    show('sched-f003', !winBlocked && active && !e.schedulingCtasVisible && v !== 'legacyAgeRestricted');
+    if (e.schedulingCtasVisible) { show('sched-specversion', false); show('sched-wizard', !winBlocked); }
+    renderDays();
+
+    // Readout
+    const box = document.getElementById('fam-spec-readout');
+    const yn = x => x ? '<span class="text-tc-sage-700 font-semibold">yes</span>' : '<span class="text-muted-foreground font-semibold">no</span>';
+    box.innerHTML =
+      '<div class="text-[10px] uppercase tracking-wide font-bold text-tc-orange-900 mb-1">Spec says (parent access)</div>' +
+      '<div class="text-[11px] leading-relaxed">Detail: <strong>' + e.childDetailVariant + '</strong> · Card: <strong>' + e.dashboardCardVariant + '</strong> · Banner: <strong>' + e.consentBanner + '</strong></div>' +
+      '<div class="text-[11px]">Schedule ' + yn(e.schedulingCtasVisible) + ' · Cancel/reschedule ' + yn(e.cancelRescheduleVisible) + ' · Edit info ' + yn(e.demographicsEditable) + '</div>';
+
+    updateFamSummary();
+    syncFamControls();
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function renderDays() {
+    const grid = document.getElementById('sched-days');
+    if (!grid) return;
+    const clamp = FAM.schedWindow === 'ends-soon';
+    let html = '';
+    for (let d = 1; d <= 30; d++) {
+      const disabled = clamp && d > 26; // days past the access end date
+      html += '<button ' + (disabled ? 'disabled' : '') + ' class="py-1.5 rounded ' +
+        (disabled ? 'text-muted-foreground/40 cursor-not-allowed' : 'hover:bg-primary/10') + '">' + d + '</button>';
+    }
+    grid.innerHTML = html;
+  }
+
+  function toggleSpecVersion() {
+    const spec = document.getElementById('sched-specversion');
+    const wiz = document.getElementById('sched-wizard');
+    const showing = !spec.classList.contains('hidden');
+    spec.classList.toggle('hidden', showing);
+    wiz.classList.toggle('hidden', !showing);
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function setFam(key, value) { FAM[key] = value; saveFam(); applyFam(); }
+  function saveFam() { try { localStorage.setItem('familyDemoState', JSON.stringify(FAM)); } catch (e) {} }
+  function loadFam() {
+    try { const s = JSON.parse(localStorage.getItem('familyDemoState')); if (s && typeof s === 'object') Object.assign(FAM, s); } catch (e) {}
+    applyFam();
+  }
+  function resetFam() { FAM = Object.assign({}, FAM_DEFAULTS); saveFam(); applyFam(); }
+  function syncFamControls() {
+    const map = { 'fam-ageband': 'ageBand', 'fam-level': 'parentAccessLevel', 'fam-proxy': 'hasAccessLevel', 'fam-active': 'accountActive', 'fam-staterule': 'stateRule', 'fam-schedwindow': 'schedWindow' };
+    for (const [id, key] of Object.entries(map)) { const el = document.getElementById(id); if (el) el.value = FAM[key]; }
+  }
+  function updateFamSummary() {
+    const s = document.getElementById('demo-toolbar-summary');
+    if (s) s.textContent = '· ' + FAM.parentAccessLevel + (FAM.hasAccessLevel === 'legacy' ? ' (legacy)' : '') + ' · ' + FAM.ageBand + (FAM.accountActive === 'no' ? ' · inactive' : '');
+  }
+  function toggleDemoToolbar() {
+    const panel = document.getElementById('demo-toolbar-panel');
+    const trigger = document.getElementById('demo-toolbar-trigger');
+    if (!panel || !trigger) return;
+    const willOpen = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !willOpen);
+    trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadFam();
+    if (window.lucide) lucide.createIcons();
+  });
+</script>
+</body>
+</html>
