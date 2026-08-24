@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Portal (current main) — Wireframe</title>
+
+<!-- Adelle Sans (Helix primary font) via Adobe Fonts; Inter fallback -->
+<link rel="stylesheet" href="https://use.typekit.net/ayf2bms.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+<!-- Tailwind CDN with Helix token configuration -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          border: 'hsl(var(--border) / <alpha-value>)',
+          input: 'hsl(var(--input) / <alpha-value>)',
+          'input-bg': 'hsl(var(--input-bg) / <alpha-value>)',
+          ring: 'hsl(var(--ring) / <alpha-value>)',
+          background: 'hsl(var(--background) / <alpha-value>)',
+          foreground: 'hsl(var(--foreground) / <alpha-value>)',
+          primary: {
+            DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+            foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
+          },
+          secondary: {
+            DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
+            foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
+          },
+          destructive: {
+            DEFAULT: 'hsl(var(--destructive) / <alpha-value>)',
+            foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)',
+          },
+          muted: {
+            DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
+            foreground: 'hsl(var(--muted-foreground) / <alpha-value>)',
+          },
+          accent: {
+            DEFAULT: 'hsl(var(--accent) / <alpha-value>)',
+            foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
+            border: 'hsl(var(--accent-border) / <alpha-value>)',
+          },
+          card: {
+            DEFAULT: 'hsl(var(--card) / <alpha-value>)',
+            foreground: 'hsl(var(--card-foreground) / <alpha-value>)',
+          },
+          sidebar: {
+            DEFAULT: 'hsl(var(--sidebar) / <alpha-value>)',
+            foreground: 'hsl(var(--sidebar-foreground) / <alpha-value>)',
+            border: 'hsl(var(--sidebar-border) / <alpha-value>)',
+            accent: 'hsl(var(--sidebar-accent) / <alpha-value>)',
+            'accent-foreground': 'hsl(var(--sidebar-accent-foreground) / <alpha-value>)',
+          },
+          /* Helix primitive palettes (per ux.internal.timelycare.com/helix tokens/colors) */
+          'tc-navy': {
+            50: '#F2F7FD', 100: '#E4EEFA', 200: '#C2DCF5', 300: '#8CC0ED', 400: '#4FA0E1',
+            500: '#2884CF', 600: '#1A67AF', 700: '#16538E', 800: '#164776', 900: '#16385B', 950: '#102741',
+          },
+          'tc-sky': {
+            50: '#EEFBFD', 100: '#D5EFF5', 200: '#B0E6F1', 300: '#7AD3E6', 400: '#2DADCC',
+            500: '#209ABA', 600: '#1E7C9C', 700: '#1F647F', 800: '#215369', 900: '#204659', 950: '#102D3C',
+          },
+          'tc-berry': {
+            50: '#FFF1F3', 100: '#FEE5E8', 200: '#FDCED6', 300: '#FBA6B4', 400: '#F8748C',
+            500: '#F04367', 600: '#DD2151', 700: '#C01A49', 800: '#8A163E', 900: '#691130', 950: '#4B061C',
+          },
+          'tc-orange': {
+            50: '#FFF9EC', 100: '#FFF2D3', 200: '#FFE2A5', 300: '#FFCC66', 400: '#FFAB32',
+            500: '#FF910A', 600: '#F57600', 700: '#CC5902', 800: '#A1450B', 900: '#823A0C', 950: '#461B04',
+          },
+          'tc-sage': {
+            50: '#F6F8F5', 100: '#EAF1E7', 200: '#D4E2D0', 300: '#B1CBAA', 400: '#86AB7D',
+            500: '#5B7F52', 600: '#4F7247', 700: '#415B3A', 800: '#354A31', 900: '#2D3D2A', 950: '#152013',
+          },
+          'tc-gray': {
+            50: '#F9F9FA', 100: '#F4F4F5', 200: '#E5E6E6', 300: '#D3D4D4', 400: '#A3A3A3',
+            500: '#646565', 600: '#525353', 700: '#404040', 800: '#262727', 900: '#191A1A', 950: '#000000',
+          },
+          'tc-cream': {
+            50: '#FCF5ED', 100: '#F9EBDB', 200: '#F2D5B6', 300: '#E9B788', 400: '#E09257',
+            500: '#D97536', 600: '#CA5F2C', 700: '#A84926', 800: '#873B25', 900: '#6D3321', 950: '#3A1810',
+          },
+          'tc-light-sand': {
+            50: '#F9F6F3', 100: '#F0EBE4', 200: '#E6DDD3', 300: '#CCB9A5', 400: '#B69981',
+            500: '#A78168', 600: '#9A705C', 700: '#815C4D', 800: '#694C43', 900: '#564038', 950: '#2D201D',
+          },
+          /* Alongside brand approximation (used only within #student-demo for 1:1 fidelity) */
+          'al-bg':         '#F5EAD3',
+          'al-bg-light':   '#FBF5EB',
+          'al-card':       '#FFFFFF',
+          'al-text':       '#1B2545',
+          'al-text-muted': '#6B6256',
+          'al-orange':     '#FF6B35',
+          'al-orange-bg':  '#FFE3D6',
+          'al-border':     '#E5DCC8',
+          'al-blue':       '#2D9CDB',
+          'al-green':      '#7DC58A',
+          'al-pink':       '#FFC1C8',
+          'al-purple':     '#D4BCFF',
+          'al-yellow':     '#FFE08A',
+          /* Self-Care mode (educator) variant: mint sidebar + purple CTAs */
+          'al-sc-sidebar': '#C0E0CA',
+          'al-sc-purple':  '#9B7BE0',
+          'al-sc-purple-light': '#E2D7F5',
+        },
+        borderRadius: {
+          lg: 'var(--radius)',
+          md: 'calc(var(--radius) - 2px)',
+          sm: 'calc(var(--radius) - 4px)',
+        },
+        fontFamily: {
+          sans: ['adelle-sans', 'Inter', 'system-ui', 'sans-serif'],
+          mono: ['adelle-mono', 'JetBrains Mono', 'monospace'],
+        },
+        boxShadow: {
+          sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+          DEFAULT: '0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10)',
+          md: '0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10)',
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  /* Helix canonical tokens — light theme (per ux.internal.timelycare.com/helix) */
+  :root {
+    --background: 30 27% 96%;          /* #F9F6F3 light-sand 50 */
+    --foreground: 0 0% 0%;             /* #000000 */
+    --card: 0 0% 100%;                 /* #FFFFFF */
+    --card-foreground: 0 0% 0%;        /* #000000 */
+    --primary: 210 73% 32%;            /* #16538E tc-navy 700 */
+    --primary-foreground: 240 5% 98%;  /* #F9F9FA */
+    --secondary: 240 5% 96%;           /* #F4F4F5 */
+    --secondary-foreground: 0 0% 10%;  /* #191A1A */
+    --muted: 33 25% 92%;               /* #F0EBE4 light-sand 100 */
+    --muted-foreground: 180 1% 40%;    /* #646565 */
+    --accent: 214 78% 94%;             /* #E4EEFA tc-navy 100 */
+    --accent-foreground: 210 73% 32%;  /* #16538E tc-navy 700 */
+    --accent-border: 210 75% 86%;      /* #C2DCF5 tc-navy 200 */
+    --border: 180 1% 83%;              /* #D3D4D4 tc-gray 300 */
+    --input: 180 1% 83%;               /* #D3D4D4 */
+    --input-bg: 0 0% 100%;             /* #FFFFFF */
+    --ring: 0 0% 64%;                  /* #A3A3A3 tc-gray 400 */
+    --destructive: 0 73% 51%;          /* #DC2626 red 600 */
+    --destructive-foreground: 0 86% 97%; /* #FEF2F2 */
+    --sidebar: 0 0% 100%;              /* #FFFFFF */
+    --sidebar-foreground: 0 0% 0%;     /* #000000 */
+    --sidebar-border: 180 1% 83%;      /* #D3D4D4 */
+    --sidebar-accent: 214 78% 94%;     /* #E4EEFA */
+    --sidebar-accent-foreground: 210 73% 32%; /* #16538E */
+    --radius: 10px;
+  }
+  body {
+    font-family: 'adelle-sans', 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono {
+    font-family: 'adelle-mono', 'JetBrains Mono', monospace;
+  }
+  .page { display: none; }
+  .page.active { display: block; }
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [role="tab"]:focus-visible,
+  [role="radio"]:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  button { cursor: pointer; }
+  /* Sidebar nav link (Helix sidebar pattern) */
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: hsl(var(--muted-foreground));
+    transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+    text-align: left;
+  }
+  .nav-link:hover {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
+  }
+  .nav-link.is-active {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+  /* Settings sidebar links (within the Settings page) */
+  .settings-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(var(--sidebar-foreground));
+    transition: background-color 150ms ease-in-out;
+    cursor: pointer;
+  }
+  .settings-sidebar-link:hover {
+    background-color: hsl(var(--muted));
+  }
+  .settings-sidebar-link.is-active {
+    background-color: hsl(var(--sidebar-accent));
+    color: hsl(var(--sidebar-accent-foreground));
+    font-weight: 600;
+  }
+  /* Account menu dropdown items */
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .dropdown-item:hover {
+    background-color: hsl(var(--muted));
+  }
+  /* Self-Care standalone mode — hides school portal chrome (top bar + sidebar) when opened in new tab */
+  body.is-self-care #topbar,
+  body.is-self-care #main-sidebar { display: none; }
+
+  /* ============ DEMO STATE GATES ============ */
+  /* These attributes are written to <body> by applyDemoState() and drive visibility.
+     They're CSS-only so a developer can grep them out at handoff time. */
+
+  /* Roster source = Clever (default) → hide non-Clever-only controls (e.g., Create invite, per-row Send Invite, manual roster controls) */
+  body[data-roster="clever"] .roster-non-clever { display: none !important; }
+  /* Roster source = Manual → hide Clever-sourced UI cues */
+  body[data-roster="manual"] .roster-clever-only { display: none !important; }
+
+  /* Product entitlement = which product(s) the org has (Both / TimelyCare only / Alongside only).
+     .alongside-only = present only when the org has Alongside; .tc-only = present only when it has TimelyCare. */
+  body[data-product="tc"] .alongside-only { display: none !important; }
+  body[data-product="alongside"] .tc-only { display: none !important; }
+  /* Insurance is a TimelyCare concept — no insurance UI for Alongside-only orgs */
+  body[data-product="alongside"] .insurance-only { display: none !important; }
+  /* Bespoke TimelyCare-only Home dashboard — shown only when the org is TC-only */
+  .tc-home { display: none; }
+  body[data-product="tc"] .tc-home { display: block; }
+
+  /* Insurance model = Free → no insurance UI anywhere */
+  body[data-insurance="free"] .insurance-only { display: none !important; }
+  /* Insurance model = Hybrid → insurance UI is present, possibly optional */
+
+  /* Persona gates — each persona hides what they shouldn't see */
+  /* District Admin/Staff see all; persona-scoped classes only apply to the others */
+  body[data-persona="school-administrator"] .district-only,
+  body[data-persona="clinical-staff"] .district-only,
+  body[data-persona="school-staff"] .district-only { display: none !important; }
+
+  /* Inverse of .district-only — single-school personas get a "My School" entry; district personas don't */
+  body[data-persona="district-administrator"] .school-scoped-only,
+  body[data-persona="district-staff"] .school-scoped-only { display: none !important; }
+
+  body[data-persona="school-staff"] .admin-only,
+  body[data-persona="clinical-staff"] .admin-only { display: none !important; }
+
+  body[data-persona="school-staff"] .phi-only { display: none !important; }
+
+  /* Screener results gating — per Elsa: teachers see only who completed, not the data */
+  body[data-persona="school-staff"] .screener-data { display: none !important; }
+  /* Inverse: the simplified "completed/not" indicator only shows for teachers */
+  .screener-completion-only { display: none; }
+  body[data-persona="school-staff"] .screener-completion-only { display: table-cell; }
+
+  /* Inbox alert severity highlight — per Elsa: severe alerts can't get lost when combined with other items */
+  .alert-row-high {
+    background-color: hsl(var(--destructive) / 0.04);
+    box-shadow: inset 4px 0 0 0 hsl(var(--destructive));
+  }
+  .alert-row-high:hover {
+    background-color: hsl(var(--destructive) / 0.08);
+  }
+  .alert-row-high.alert-row-selected {
+    background-color: hsl(var(--destructive) / 0.12);
+  }
+
+  body[data-persona="district-staff"] .user-mgmt-only,
+  body[data-persona="clinical-staff"] .user-mgmt-only,
+  body[data-persona="school-staff"] .user-mgmt-only { display: none !important; }
+
+  /* Demo toolbar styling */
+  #demo-toolbar { font-feature-settings: "tnum"; }
+  #demo-toolbar select { font-feature-settings: "tnum"; }
+
+  /* Self-Care sidebar nav active state (mint sidebar → navy pill with cream text) */
+  .sc-nav-link.is-active {
+    background-color: #1B2545; /* al-text */
+    color: #F5EAD3; /* al-bg */
+  }
+  .sc-nav-link.is-active:hover {
+    background-color: #1B2545;
+  }
+
+  /* My Reports — drag-and-drop + click-to-swap reordering of pinned widgets */
+  .swap-handle { cursor: grab; }
+  .report-pinned-card.dragging { opacity: .4; }
+  .report-pinned-card.swap-source { outline: 2px solid hsl(var(--primary)); outline-offset: 2px; }
+  .swap-overlay, .swap-source-banner { display: none; }
+  #my-reports-grid.swap-mode .report-pinned-card:not(.swap-source) { cursor: pointer; }
+  #my-reports-grid.swap-mode .report-pinned-card:not(.swap-source) .swap-overlay { display: flex; }
+  #my-reports-grid.swap-mode .report-pinned-card.swap-source .swap-source-banner { display: inline-flex; }
+</style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+
+<!-- ===== Demo toolbar (roster/invite dimensions — mirrors CURRENT main) ===== -->
+<div id="demo-toolbar" class="fixed bottom-4 right-4 z-50">
+  <button id="demo-toolbar-trigger" type="button" onclick="toggleDemoToolbar()" class="inline-flex items-center gap-2 h-10 px-3 rounded-full border-2 border-dashed border-tc-orange-400 bg-card text-tc-orange-900 text-xs font-bold uppercase tracking-wide shadow-lg hover:bg-tc-orange-50 transition-colors" aria-haspopup="dialog" aria-expanded="false" aria-controls="demo-toolbar-panel">
+    <i data-lucide="settings-2" class="size-4"></i>
+    <span>Demo</span>
+    <span id="demo-toolbar-summary" class="hidden md:inline text-[10px] font-normal normal-case tracking-normal text-tc-orange-700"></span>
+  </button>
+  <div id="demo-toolbar-panel" class="hidden absolute bottom-12 right-0 w-80 rounded-lg border-2 border-dashed border-tc-orange-400 bg-card shadow-xl p-4" role="dialog" aria-labelledby="demo-toolbar-heading">
+    <div class="flex items-center justify-between mb-3">
+      <h3 id="demo-toolbar-heading" class="text-xs font-bold uppercase tracking-wide text-tc-orange-900 inline-flex items-center gap-1.5">
+        <i data-lucide="settings-2" class="size-3.5"></i> School Portal demo (current main)
+      </h3>
+      <button type="button" onclick="toggleDemoToolbar()" class="size-6 inline-flex items-center justify-center rounded hover:bg-muted transition-colors" aria-label="Close demo controls">
+        <i data-lucide="x" class="size-3.5"></i>
+      </button>
+    </div>
+    <p class="text-[11px] text-muted-foreground mb-3 leading-snug">This surface mirrors what is on <strong>main today</strong>. Flip the dimensions to see what each staffer sees.</p>
+    <div class="space-y-3">
+      <div>
+        <label for="sch-plan" class="block text-xs font-semibold text-foreground mb-1">Product plan (contract)</label>
+        <select id="sch-plan" onchange="setSch('productPlan', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="COMBINED" selected>TimelyCare + Alongside</option>
+          <option value="TC_ONLY">TimelyCare only</option>
+          <option value="ALONGSIDE_ONLY">Alongside only</option>
+        </select>
+      </div>
+      <div>
+        <label for="sch-role" class="block text-xs font-semibold text-foreground mb-1">Role</label>
+        <select id="sch-role" onchange="setSch('schoolUserRole', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="DISTRICT_ADMIN">District Admin</option>
+          <option value="SCHOOL_ADMIN" selected>School Admin</option>
+          <option value="SCHOOL_FACILITATOR">School Facilitator</option>
+          <option value="DISTRICT_STAFF">District Staff</option>
+          <option value="TIMELY_ADMIN">Timely Admin (internal)</option>
+        </select>
+      </div>
+      <div>
+        <label for="sch-perms" class="block text-xs font-semibold text-foreground mb-1">TC permissions</label>
+        <select id="sch-perms" onchange="setSch('smRevoked', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="no" selected>Role defaults</option>
+          <option value="yes">Student management revoked</option>
+        </select>
+      </div>
+      <div>
+        <label for="sch-alaccess" class="block text-xs font-semibold text-foreground mb-1">Alongside roster access</label>
+        <select id="sch-alaccess" onchange="setSch('canDownloadRoster', this.value)" class="w-full h-8 px-2 rounded border border-input bg-card text-sm">
+          <option value="yes" selected>Yes (org contact)</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div id="sch-spec-readout" class="rounded border border-tc-orange-200 bg-tc-orange-50/50 px-2 py-1.5"></div>
+      <a href="family.html" class="block text-center text-xs font-semibold text-primary hover:underline pt-1">Family Portal surface →</a>
+      <a href="index.html" class="block text-center text-[11px] text-muted-foreground hover:underline">Merged-portal design (future concept, reference)</a>
+    </div>
+    <div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+      <button type="button" onclick="resetSch()" class="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors">Reset</button>
+      <span class="text-[10px] text-muted-foreground">Persisted to localStorage</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== App shell: sidebar + content (current school portal layout) ===== -->
+<div class="flex min-h-screen">
+  <aside class="w-56 shrink-0 border-r border-border bg-card hidden md:flex flex-col">
+    <div class="h-14 px-4 flex items-center gap-2 border-b border-border">
+      <span class="size-8 rounded-md border border-border flex items-center justify-center"><i data-lucide="graduation-cap" class="size-5"></i></span>
+      <span class="font-bold tracking-tight">School Portal</span>
+    </div>
+    <nav class="p-2 space-y-0.5 text-sm font-semibold">
+      <a class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-muted" href="#"><i data-lucide="layout-dashboard" class="size-4"></i> Home</a>
+      <a id="nav-students" class="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary" href="#"><i data-lucide="users" class="size-4"></i> Students</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-muted" href="#"><i data-lucide="calendar" class="size-4"></i> Schedule</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-muted" href="#"><i data-lucide="bar-chart-3" class="size-4"></i> Reports</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 px-8 py-8 max-w-5xl">
+    <!-- Redirected state: what a staffer experiences when the /students guard bounces them (PermissionGuard redirect="/home") -->
+    <div id="sch-redirected" class="hidden rounded-lg border border-border bg-card p-8 text-center space-y-2 max-w-xl mx-auto mt-16">
+      <i data-lucide="corner-up-left" class="size-8 mx-auto text-muted-foreground"></i>
+      <h2 class="font-bold">Redirected to Home</h2>
+      <p class="text-sm text-muted-foreground">This combination can't reach the Students page — the sidebar tab is hidden, and typing the URL bounces to Home (same gate, so they can never drift apart).</p>
+    </div>
+
+    <div id="sch-page">
+      <div class="flex items-start justify-between gap-4 mb-1">
+        <div>
+          <h1 class="text-2xl font-extrabold">Students</h1>
+          <p class="text-sm text-muted-foreground">View and manage enrolled students across your schools</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-bulk" type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted"><i data-lucide="upload" class="size-4"></i> Bulk Upload</button>
+          <button id="btn-add" type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90"><i data-lucide="plus" class="size-4"></i> Add Student</button>
+          <button id="btn-download" type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-card text-sm font-semibold hover:bg-muted"><i data-lucide="download" class="size-4"></i> Download Roster</button>
+        </div>
+      </div>
+
+      <!-- F-001 was-here note: shows on the cell that used to be the bug -->
+      <div id="sch-f001-fixed" class="hidden mt-3 rounded border border-dashed border-tc-sage-400 bg-tc-sage-50/60 px-3 py-2 text-[12px] text-tc-sage-900">
+        <strong>This cell was Finding F-001.</strong> Until 2026-08-24, main showed Add Student + Bulk Upload here even though this staffer's Student management permission was revoked. Fixed in PR #1045 — what you see now (no buttons) is both the spec and current main.
+      </div>
+
+      <div class="mt-5 bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-muted"><tr class="border-b border-border">
+            <th scope="col" class="text-left pl-6 py-3 font-bold">Name</th>
+            <th scope="col" class="text-left py-3 font-bold">Grade</th>
+            <th scope="col" class="text-left py-3 font-bold">Status</th>
+            <th scope="col" class="text-left py-3 font-bold pr-6">Last care</th>
+          </tr></thead>
+          <tbody class="divide-y divide-border">
+            <tr><td class="pl-6 py-3">Sky Chen</td><td>9</td><td><span class="text-xs rounded-full bg-tc-sage-100 text-tc-sage-900 px-2 py-0.5 font-semibold">Active</span></td><td class="pr-6">2 days ago</td></tr>
+            <tr><td class="pl-6 py-3">Ray Okafor</td><td>11</td><td><span class="text-xs rounded-full bg-tc-sage-100 text-tc-sage-900 px-2 py-0.5 font-semibold">Active</span></td><td class="pr-6">1 week ago</td></tr>
+            <tr><td class="pl-6 py-3">Sam Diaz</td><td>10</td><td><span class="text-xs rounded-full bg-muted text-muted-foreground px-2 py-0.5 font-semibold">Referred</span></td><td class="pr-6">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Deactivated / Archived sections — gated on hasTimelycare && student_management on main -->
+      <details id="sch-deactivated" class="mt-4 bg-card border border-border rounded-lg shadow-sm px-6 py-3">
+        <summary class="text-sm font-bold cursor-pointer select-none">Deactivated students</summary>
+        <p class="text-sm text-muted-foreground py-3">No deactivated students.</p>
+      </details>
+      <details id="sch-archived" class="mt-2 bg-card border border-border rounded-lg shadow-sm px-6 py-3">
+        <summary class="text-sm font-bold cursor-pointer select-none">Archived students</summary>
+        <p class="text-sm text-muted-foreground py-3">No archived students.</p>
+      </details>
+
+      <p class="mt-6 text-[11px] text-muted-foreground">Wireframe of the Students page as it behaves on <strong>main today</strong> · synthetic data only · gates driven by @k12/permutation-matrix</p>
+    </div>
+  </main>
+</div>
+
+<script>
+  const SCHOOL_MATRIX = [{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"TC_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"ALONGSIDE_ONLY","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"SCHOOL_FACILITATOR","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"DISTRICT_STAFF","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":true,"studentManagementRevoked":true,"expected":{"studentsTabVisible":true,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":true}},{"productPlan":"COMBINED","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":false,"expected":{"studentsTabVisible":true,"addStudentVisible":true,"bulkUploadVisible":true,"downloadRosterVisible":false}},{"productPlan":"COMBINED","schoolUserRole":"TIMELY_ADMIN","canDownloadRoster":false,"studentManagementRevoked":true,"expected":{"studentsTabVisible":false,"addStudentVisible":false,"bulkUploadVisible":false,"downloadRosterVisible":false}}];
+
+  const SCH_DEFAULTS = { productPlan: 'COMBINED', schoolUserRole: 'SCHOOL_ADMIN', smRevoked: 'no', canDownloadRoster: 'yes' };
+  let SCH = Object.assign({}, SCH_DEFAULTS);
+
+  function schLookup() {
+    return SCHOOL_MATRIX.find(c =>
+      c.productPlan === SCH.productPlan &&
+      c.schoolUserRole === SCH.schoolUserRole &&
+      c.canDownloadRoster === (SCH.canDownloadRoster === 'yes') &&
+      c.studentManagementRevoked === (SCH.smRevoked === 'yes'));
+  }
+  function show(id, on) { const el = document.getElementById(id); if (el) el.classList.toggle('hidden', !on); }
+
+  function applySch() {
+    const row = schLookup();
+    if (!row) return;
+    const e = row.expected;
+
+    // Since PR #1045, main matches the matrix on every roster/invite cell —
+    // so this surface renders the expected values directly.
+    show('nav-students', e.studentsTabVisible);
+    show('sch-page', e.studentsTabVisible);
+    show('sch-redirected', !e.studentsTabVisible);
+    show('btn-add', e.addStudentVisible);
+    show('btn-bulk', e.bulkUploadVisible);
+    show('btn-download', e.downloadRosterVisible);
+    show('sch-deactivated', e.addStudentVisible); // same tcGate on main
+    show('sch-archived', e.addStudentVisible);
+    // The formerly-buggy cell: TC in plan, permission revoked, page reachable via Alongside
+    show('sch-f001-fixed', e.studentsTabVisible && !e.addStudentVisible && SCH.productPlan !== 'ALONGSIDE_ONLY' && SCH.smRevoked === 'yes');
+
+    const box = document.getElementById('sch-spec-readout');
+    const yn = x => x ? '<span class="text-tc-sage-700 font-semibold">shown</span>' : '<span class="text-muted-foreground font-semibold">hidden</span>';
+    box.innerHTML =
+      '<div class="text-[10px] uppercase tracking-wide font-bold text-tc-orange-900 mb-1">Spec says (roster/invite) — main matches</div>' +
+      '<div class="text-[11px]">Students tab ' + yn(e.studentsTabVisible) + ' · Add ' + yn(e.addStudentVisible) +
+      ' · Bulk ' + yn(e.bulkUploadVisible) + ' · Download ' + yn(e.downloadRosterVisible) + '</div>';
+
+    const s = document.getElementById('demo-toolbar-summary');
+    if (s) s.textContent = '· ' + SCH.productPlan + ' · ' + SCH.schoolUserRole + (SCH.smRevoked === 'yes' ? ' · SM revoked' : '');
+    syncSchControls();
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function setSch(key, value) { SCH[key] = value; saveSch(); applySch(); }
+  function saveSch() { try { localStorage.setItem('schoolDemoState', JSON.stringify(SCH)); } catch (e) {} }
+  function loadSch() {
+    try { const s = JSON.parse(localStorage.getItem('schoolDemoState')); if (s && typeof s === 'object') Object.assign(SCH, s); } catch (e) {}
+    applySch();
+  }
+  function resetSch() { SCH = Object.assign({}, SCH_DEFAULTS); saveSch(); applySch(); }
+  function syncSchControls() {
+    const map = { 'sch-plan': 'productPlan', 'sch-role': 'schoolUserRole', 'sch-perms': 'smRevoked', 'sch-alaccess': 'canDownloadRoster' };
+    for (const [id, key] of Object.entries(map)) { const el = document.getElementById(id); if (el) el.value = SCH[key]; }
+  }
+  function toggleDemoToolbar() {
+    const panel = document.getElementById('demo-toolbar-panel');
+    const trigger = document.getElementById('demo-toolbar-trigger');
+    if (!panel || !trigger) return;
+    const willOpen = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !willOpen);
+    trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadSch();
+    if (window.lucide) lucide.createIcons();
+  });
+</script>
+</body>
+</html>
